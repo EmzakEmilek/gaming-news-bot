@@ -289,10 +289,50 @@ def produce(story: str, articles: list[dict], cfg: dict) -> dict | None:
         if not issues:
             if minor:
                 log.info("Drobnosti (nebránia publikovaniu): %s", minor)
+            _polish_cta(post, cfg)
             return post
         log.info("Kontrola (%s) našla problémy (pokus %d): %s", stage, attempt + 1, issues)
         feedback = issues + minor
     return None
+
+
+# ── 5. výzva na poslednej snímke (samostatne, s najvyššou hĺbkou uvažovania) ──
+def _polish_cta(post: dict, cfg: dict) -> None:
+    """Prepíše cta a poslednú vetu captionu. Beží raz, až keď post prešiel kontrolami.
+    Ak výsledok nesplní pravidlá, ostane pôvodná výzva od pisateľa."""
+    shown = {k: post.get(k) for k in ("headline", "slides", "caption", "cta")}
+    system = f"""Si copywriter slovenskej Instagram stránky o hrách {cfg["brand"]["handle"]}. Píšeš výzvu na poslednú
+snímku carouselu a poslednú vetu captionu. Cieľ je čo najviac zdieľaní a komentárov.
+- type "share" (predvolené, zdieľanie je najsilnejšia interakcia): zaujímavá, užitočná alebo zábavná správa,
+  ktorú človek pošle kamošovi. Napr. "Pošli zľavy kamošovi, nech tiež vie",
+  "Pošli to parťákovi, s ktorým to budeš hrať".
+- type "comment": kontroverzná alebo diskutabilná správa, kde ľudia budú mať názor. Napr.
+  "Čo si myslíš? Daj vedieť do komentu", "Kúpiš si to za túto cenu? Napíš do komentu".
+- title: max 45 znakov, konkrétne k tejto správe, úderné, prirodzená hovorová slovenčina, tykanie.
+  Nevyzývaj na uloženie ani na sledovanie stránky. Žiadne anglické slová okrem názvov hier.
+- caption_end: posledná veta captionu, tá istá výzva inými slovami (max 150 znakov).
+- Nepridávaj žiadne nové fakty, ktoré nie sú v poste. Žiadne pomlčky a žiadne typické AI frázy:
+{AI_TELLS}"""
+    user = f"""Post:
+{json.dumps(shown, ensure_ascii=False)}
+
+Vráť: {{"type": "share"|"comment", "title": "...", "caption_end": "..."}}"""
+    try:
+        new = ask_json(cfg["model"]["writer"], system, user, effort=cfg.get("effort", {}).get("cta"))
+    except Exception as e:  # noqa: BLE001 – výzva nie je kritická, ostane pôvodná
+        log.warning("Výzvu sa nepodarilo vylepšiť: %s", e)
+        return
+    title, end = (new.get("title") or "").strip(), (new.get("caption_end") or "").strip()
+    if new.get("type") not in CTA_ICONS or not title or len(title) > 60 or not end or len(end) > 200:
+        log.warning("Vylepšená výzva nesplnila pravidlá, ostáva pôvodná: %s", new)
+        return
+    paragraphs = post["caption"].rstrip().split("\n\n")
+    if len(paragraphs) > 1 and len(paragraphs[-1]) <= 250:  # posledný odsek je výzva od pisateľa
+        paragraphs = paragraphs[:-1]
+    post["caption"] = "\n\n".join(paragraphs + [end])
+    post["cta"] = {"type": new["type"], "title": title}
+    _autofix(post)
+    log.info("Výzva: [%s] %s | %s", new["type"], title, end)
 
 
 def make_post(items: list[dict], recent: list[str], cfg: dict) -> dict | None:

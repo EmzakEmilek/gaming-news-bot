@@ -16,9 +16,10 @@ model:
   writer: "claude-sonnet-5"   # výber správ, copy, komentáre
   checker: "claude-sonnet-5"  # nezávislá kontrola faktov pred publikovaním
 
-effort:                       # hĺbka uvažovania Claude: low / medium / high (vyššie = dôkladnejšie, ale drahšie)
+effort:                       # hĺbka uvažovania Claude: low / medium / high / xhigh (vyššie = dôkladnejšie, ale drahšie)
   select: medium              # výber tém
-  write: high                 # písanie postu
+  write: medium               # písanie postu
+  cta: xhigh                  # výzva na poslednej snímke (samostatný krok, raz na post)
   review: medium              # čitateľská kontrola
   factcheck: high             # kontrola faktov
   comments: low               # odpovede na komentáre
