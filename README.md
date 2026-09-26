@@ -102,6 +102,8 @@ Kľúče sa lokálne čítajú z `.env` (je v `.gitignore`), na GitHube zo secre
 
 Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces → API keys), kľúč bez workspace API odmietne.
 
+Ďalšie plánované fázy (napr. **Zľava dňa**) sú v [ROADMAP.md](ROADMAP.md).
+
 ## Ovládanie
 
 - **Vypnúť všetko:** `enabled: false` v `config.yaml`.
