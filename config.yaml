@@ -1,0 +1,84 @@
+# ─────────────────────────────────────────────────────────────
+#  Konfigurácia bota. Všetko, čo budeš chcieť meniť, je tu.
+# ─────────────────────────────────────────────────────────────
+
+enabled: true            # vypínač: false = bot nič nepostne ani neodpovie
+
+brand:
+  name: "EMZO DAILY"     # meno na vizuáloch
+  handle: "@emzo.daily"  # IG handle na vizuáloch a v CTA
+  accent: "#C6FF00"      # hlavná farba (neon lime)
+  accent_2: "#7C5CFF"    # doplnková farba (fialová)
+  background: "#0B0B10"
+
+model:
+  writer: "claude-sonnet-5"   # výber správ, copy, komentáre
+  checker: "claude-sonnet-5"  # nezávislá kontrola faktov pred publikovaním
+
+posting:
+  lookback_hours: 20          # z akého obdobia vyberá správy
+  min_trusted_sources: 2      # koľko nezávislých portálov musí správu potvrdiť...
+  official_is_enough: true    # ...alebo stačí 1 oficiálny zdroj (PS Blog, Xbox Wire, Steam, vydavateľ)
+  allow_rumors: false         # leaky a fámy sa nepostujú
+  carousel_max_slides: 5      # vrátane titulky
+  max_hashtags: 8
+  ai_label: false             # Meta štítok "AI info" (is_ai_generated)
+  article_images: all         # all = obrázok z článku z hociktorého zdroja (s "Foto: zdroj")
+                              # official = len z oficiálnych zdrojov, none = len typografia
+  avoid_topics:               # tieto témy bot vždy preskočí
+    - úmrtia, tragédie, násilie a streľby (aj keď súvisia s hrami)
+    - politika a vojny
+    - obvinenia z trestných činov, obťažovania alebo súdne spory o konkrétnych ľuďoch
+    - NSFW a sexuálny obsah
+    - hazard, kasína, krypto a NFT promo
+    - nepotvrdené leaky, fámy a "insider" tvrdenia
+    - sponzorované články a zľavové "deals" články
+
+comments:
+  enabled: true
+  max_age_days: 7             # na komentáre pod postami staršími ako X dní už nereaguje
+  max_replies_per_run: 25
+  hide_toxic: true            # urážky, spam, podvodné linky skryje
+
+tone: |
+  Píš po slovensky, spisovne ale uvoľnene, tykaj. Ako kamoš, ktorý sleduje herný svet
+  a vie o čom hovorí. Bežné herné anglicizmy sú OK (trailer, DLC, patch, remaster,
+  early access, release), ale žiadny "cringe" slang. Krátke vety. Žiadne preháňanie
+  ("revolučné", "šokujúce", "nebudeš veriť"). Maximálne 1-2 emoji v celom texte.
+  Nepíš ako AI: žiadne "V dnešnom rýchlo sa meniacom svete", žiadne "Poďme sa na to pozrieť",
+  žiadne zhrňujúce frázy na konci.
+
+# ─────────────────────────────────────────────────────────────
+#  Zdroje. tier: official = oficiálny zdroj (stačí sám),
+#          trusted = seriózny portál (treba 2 nezávislé)
+#  group = weby toho istého vydavateľa; pri overovaní sa rátajú ako 1 zdroj.
+#  Obrázky z článkov riadi posting.article_images (oficiálne zdroje majú prednosť).
+#  Overenie, ktoré feedy fungujú: python -m bot.check feeds
+# ─────────────────────────────────────────────────────────────
+feeds:
+  - { name: "PlayStation Blog", url: "https://blog.playstation.com/feed/",           tier: official }
+  - { name: "Xbox Wire",        url: "https://news.xbox.com/en-us/feed/",            tier: official }
+  - { name: "Steam",            url: "https://store.steampowered.com/feeds/news.xml", tier: official }
+  - { name: "IGN",              url: "https://feeds.feedburner.com/ign/games-all",   tier: trusted }
+  - { name: "GameSpot",         url: "https://www.gamespot.com/feeds/mashup/",       tier: trusted }
+  - { name: "Eurogamer",        url: "https://www.eurogamer.net/feed",               tier: trusted }
+  - { name: "PC Gamer",         url: "https://www.pcgamer.com/rss/",                 tier: trusted }
+  - { name: "VGC",              url: "https://www.videogameschronicle.com/feed/",    tier: trusted }
+  - { name: "Gematsu",          url: "https://www.gematsu.com/feed",                 tier: trusted }
+  - { name: "Rock Paper Shotgun", url: "https://www.rockpapershotgun.com/feed",      tier: trusted }
+  - { name: "Polygon",          url: "https://www.polygon.com/rss/index.xml",        tier: trusted }
+  - { name: "Kotaku",           url: "https://kotaku.com/rss",                       tier: trusted }
+  - { name: "GamesIndustry.biz", url: "https://www.gamesindustry.biz/feed",          tier: trusted }
+  - { name: "Push Square",      url: "https://www.pushsquare.com/feeds/latest",      tier: trusted }
+  - { name: "Nintendo Life",    url: "https://www.nintendolife.com/feeds/latest",    tier: trusted }
+  - { name: "Pure Xbox",        url: "https://www.purexbox.com/feeds/latest",        tier: trusted }
+  # slovenské a české weby
+  - { name: "Sector.sk",        url: "https://www.sector.sk/rss/rss.aspx",           tier: trusted }
+  - { name: "Gamesite.sk",      url: "https://gamesite.zoznam.sk/feed/",             tier: trusted }
+  - { name: "Games.cz",         url: "https://games.tiscali.cz/rss2.xml",            tier: trusted }
+  - { name: "Bonusweb",         url: "https://servis.idnes.cz/rss.aspx?c=bonusweb",  tier: trusted }
+  - { name: "Doupě.cz",         url: "https://doupe.zive.cz/rss/",                   tier: trusted }
+  - { name: "Hrej.cz",          url: "https://hrej.cz/rss/all",                      tier: trusted, group: "hrej-zing" }
+  - { name: "Zing.cz",          url: "https://zing.cz/rss/all",                      tier: trusted, group: "hrej-zing" }
+  - { name: "Gamepress.cz",     url: "https://gamepress.cz/feed/",                   tier: trusted }
+  - { name: "Indian-TV",        url: "https://indian-tv.cz/atom.xml",                tier: trusted }

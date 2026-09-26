@@ -1,0 +1,67 @@
+name: Post
+
+on:
+  # DOČASNE VYPNUTÉ, kým nie je schválený prvý ostrý post (potom odkomentovať).
+  # schedule:
+  #   # UTC čas. Leto (CEST): 11:30 a 18:30, zima (CET): 10:30 a 17:30.
+  #   - cron: "30 9 * * *"
+  #   - cron: "30 16 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Len testovací beh (nič nepublikuje)"
+        type: boolean
+        default: true
+      force:
+        description: "Postni aj keď už v tomto slote bol post"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bot
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m playwright install --with-deps chromium
+      - run: |
+          git config user.name "gaming-news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Run
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PAGES_BASE_URL: ${{ vars.PAGES_BASE_URL }}
+        run: |
+          ARGS=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          python -m bot.post $ARGS
+      - name: Save state
+        if: always()
+        run: ./scripts/commit_state.sh post
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: post-${{ github.run_id }}
+          path: out/
+          retention-days: 14
+          if-no-files-found: ignore

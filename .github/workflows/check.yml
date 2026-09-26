@@ -1,0 +1,38 @@
+name: Check setup
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write   # test GitHub Pages zapisuje do vetvy gh-pages
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - run: |
+          git config user.name "gaming-news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: RSS feedy
+        run: python -m bot.check feeds
+      - name: Instagram účet
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+        run: python -m bot.check ig
+      - name: Claude API
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m bot.check claude
+      - name: GitHub Pages
+        env:
+          PAGES_BASE_URL: ${{ vars.PAGES_BASE_URL }}
+        run: python -m bot.check pages
