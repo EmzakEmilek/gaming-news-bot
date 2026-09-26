@@ -58,17 +58,19 @@ class Instagram:
         extra = {"is_ai_generated": "true"} if ai_label else {}
         if len(image_urls) == 1:
             cid = self._container(image_url=image_urls[0], caption=caption, **extra)
-        else:
-            children = []
-            for url in image_urls[:10]:
-                child = self._container(image_url=url, is_carousel_item="true")
+        else:  # najprv založiť všetky snímky, potom počkať na všetky naraz
+            children = [self._container(image_url=url, is_carousel_item="true") for url in image_urls[:10]]
+            for child in children:
                 self._wait_ready(child)
-                children.append(child)
             cid = self._container(media_type="CAROUSEL", children=",".join(children), caption=caption, **extra)
         self._wait_ready(cid)
         media_id = self._req("POST", f"{self.user_id}/media_publish", creation_id=cid)["id"]
-        info = self._req("GET", media_id, fields="id,permalink,timestamp")
-        log.info("Publikované: %s", info.get("permalink"))
+        try:  # post už je vonku – chyba pri zisťovaní odkazu nesmie zhodiť beh (stav by sa neuložil)
+            info = self._req("GET", media_id, fields="id,permalink,timestamp")
+        except IGError as e:
+            log.warning("Post %s je publikovaný, ale odkaz sa nepodarilo zistiť: %s", media_id, e)
+            info = {"id": media_id}
+        log.info("Publikované: %s", info.get("permalink") or media_id)
         return info
 
     def publishing_quota(self) -> dict:

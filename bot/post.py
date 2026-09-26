@@ -11,9 +11,11 @@ import json
 import re
 import shutil
 
+from datetime import datetime, timedelta
+
 from .collect import collect
-from .common import OUT_DIR, load_config, load_state, log, notify, now_local, save_state
-from .editor import make_post
+from .common import OUT_DIR, load_config, load_state, log, notify, now_local, now_utc, save_state
+from .editor import BudgetExceeded, make_post
 from .llm import report_cost, run_cost
 
 
@@ -53,18 +55,30 @@ def main() -> None:
         log.info("Slot %s %s už je postnutý, končím.", today, slot)
         return
 
-    recent = [p["story"] for p in posted[-40:]]
+    # témy, ktoré v posledných 48 h neprešli kontrolami – nevyberať ich znova (už sme za ne zaplatili)
+    failed_state = [f for f in load_state("failed", [])
+                    if now_utc() - datetime.fromisoformat(f["at"]) < timedelta(hours=48)]
+    recent = [p["story"] for p in posted[-40:]] + [f["story"] for f in failed_state]
     used_links = {link for p in posted[-300:] for link in p.get("links", [])}
+    used_links |= {link for f in failed_state for link in f["links"]}
 
-    post = None
-    for mult in (1, 2):
-        items = collect(cfg["feeds"], cfg["posting"]["lookback_hours"] * mult, used_links)
-        post = make_post(items, recent, cfg)
-        if post:
-            break
-        log.info("Nič vhodné, rozširujem časové okno.")
+    post, failed, reason = None, [], "žiadna správa neprešla overením"
+    try:
+        for mult in (1, 2):
+            items = collect(cfg["feeds"], cfg["posting"]["lookback_hours"] * mult, used_links)
+            post = make_post(items, recent, cfg, failed)
+            if post:
+                break
+            recent += [f["story"] for f in failed]  # v širšom okne už neskúšať to, čo práve neprešlo
+            used_links |= {link for f in failed for link in f["links"]}
+            log.info("Nič vhodné, rozširujem časové okno.")
+    except BudgetExceeded as e:
+        reason = f"prekročený rozpočet behu: {e}"
+    if not args.dry_run and failed:
+        stamp = now_utc().isoformat()
+        save_state("failed", failed_state + [{**f, "at": stamp} for f in failed])
     if not post:
-        msg = f"⚠️ {cfg['brand']['name']}: slot {slot} {today} vynechaný – žiadna správa neprešla overením."
+        msg = f"⚠️ {cfg['brand']['name']}: slot {slot} {today} vynechaný – {reason}."
         log.warning(msg)
         notify(msg)
         return
@@ -93,6 +107,7 @@ def main() -> None:
     urls = upload(files, run_id)
     info = ig.publish(urls, caption, ai_label=cfg["posting"].get("ai_label", False))
 
+    # stav hneď po publikovaní: ak by neskôr niečo zlyhalo, ďalší slot tú istú správu nezopakuje
     posted.append({
         "date": today, "slot": slot, "story": post["story"], "headline": post["headline"],
         "links": post["links"], "sources": post["sources"], "format": post["format"],

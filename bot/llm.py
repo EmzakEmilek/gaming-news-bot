@@ -62,21 +62,36 @@ def report_cost(kind: str) -> float:
     return usd
 
 
-def ask_json(model: str, system: str, user: str, cached: str | None = None, effort: str | None = None,
-             max_tokens: int = MIN_MAX_TOKENS):
-    """cached: začiatok user správy, ktorý sa v behu opakuje (zdroje) – ide do prompt cache.
-    effort: hĺbka uvažovania ("low" / "medium" / "high"), None = predvolené (high)."""
+def schema(**props) -> dict:
+    """JSON schéma objektu pre structured outputs (všetky polia povinné, nič navyše)."""
+    return {"type": "object", "properties": props, "required": list(props), "additionalProperties": False}
+
+
+STR = {"type": "string"}
+STR_LIST = {"type": "array", "items": STR}
+
+
+def ask_json(model: str, system: str, user: str, fmt: dict | None = None, cached: str | None = None,
+             effort: str | None = None, max_tokens: int = MIN_MAX_TOKENS):
+    """fmt: JSON schéma odpovede (structured outputs – API garantuje platný JSON).
+    cached: začiatok user správy, ktorý sa v behu opakuje (zdroje) – ide do prompt cache.
+    effort: hĺbka uvažovania ("low" / "medium" / "high" / "xhigh"), None = predvolené (high)."""
     content = user
     if cached:
         content = [{"type": "text", "text": cached, "cache_control": {"type": "ephemeral"}},
                    {"type": "text", "text": user}]
-    extra = {"output_config": {"effort": effort}} if effort else {}
+    output_config = {}
+    if effort:
+        output_config["effort"] = effort
+    if fmt:
+        output_config["format"] = {"type": "json_schema", "schema": fmt}
+    extra = {"output_config": output_config} if output_config else {}
     last_err = None
     for attempt in range(3):
         resp = client().messages.create(
             model=model,
             max_tokens=max(max_tokens, MIN_MAX_TOKENS),
-            system=system + "\n\nOdpovedz VÝHRADNE platným JSON objektom, bez ďalšieho textu.",
+            system=system + ("" if fmt else "\n\nOdpovedz VÝHRADNE platným JSON objektom, bez ďalšieho textu."),
             messages=[{"role": "user", "content": content}],
             **extra,
         )

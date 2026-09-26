@@ -13,7 +13,7 @@ import requests
 from .common import ROOT, log
 
 BRANCH = "gh-pages"
-KEEP_RUNS = 20  # IG si obrázok skopíruje pri publikovaní, staré netreba držať
+TMP_BRANCH = "pages-upload"
 
 
 def _git(*args: str, cwd: Path) -> str:
@@ -37,43 +37,25 @@ def pages_base_url() -> str:
 
 
 def upload(files: list[Path], run_id: str) -> list[str]:
+    """Vetva gh-pages má vždy jediný commit len s aktuálnymi obrázkami (force push).
+    Instagram si obrázky pri publikovaní skopíruje, staré netreba – a história tak nerastie."""
     tmp = Path(tempfile.mkdtemp(prefix="pages-"))
+    wt = tmp / "wt"
     try:
         subprocess.run(["git", "worktree", "prune"], cwd=ROOT, capture_output=True)
-        remote_has_branch = bool(_git("ls-remote", "--heads", "origin", BRANCH, cwd=ROOT))
-        subprocess.run(["git", "branch", "-D", BRANCH], cwd=ROOT, capture_output=True)
-        if remote_has_branch:
-            _git("fetch", "origin", f"{BRANCH}:{BRANCH}", "--force", cwd=ROOT)
-            _git("worktree", "add", str(tmp / "wt"), BRANCH, cwd=ROOT)
-        else:
-            _git("worktree", "add", "--orphan", "-b", BRANCH, str(tmp / "wt"), cwd=ROOT)
-        wt = tmp / "wt"
+        subprocess.run(["git", "branch", "-D", TMP_BRANCH], cwd=ROOT, capture_output=True)
+        _git("worktree", "add", "--orphan", "-b", TMP_BRANCH, str(wt), cwd=ROOT)
         (wt / ".nojekyll").touch()
-        media = wt / "media"
-        media.mkdir(exist_ok=True)
-
-        # upratanie starých behov
-        runs = sorted([d for d in media.iterdir() if d.is_dir()], key=lambda d: d.name)
-        for old in runs[:-KEEP_RUNS]:
-            shutil.rmtree(old)
-
-        target = media / run_id
-        target.mkdir(exist_ok=True)
+        target = wt / "media" / run_id
+        target.mkdir(parents=True)
         for f in files:
             shutil.copy2(f, target / f.name)
-
         _git("add", "-A", cwd=wt)
         _git("commit", "-m", f"media {run_id}", cwd=wt)
-        for attempt in range(3):
-            try:
-                _git("push", "origin", BRANCH, cwd=wt)
-                break
-            except RuntimeError:
-                if attempt == 2:
-                    raise
-                _git("pull", "--rebase", "origin", BRANCH, cwd=wt)
+        _git("push", "--force", "origin", f"{TMP_BRANCH}:{BRANCH}", cwd=wt)
     finally:
-        subprocess.run(["git", "worktree", "remove", "--force", str(tmp / "wt")], cwd=ROOT, capture_output=True)
+        subprocess.run(["git", "worktree", "remove", "--force", str(wt)], cwd=ROOT, capture_output=True)
+        subprocess.run(["git", "branch", "-D", TMP_BRANCH], cwd=ROOT, capture_output=True)
         shutil.rmtree(tmp, ignore_errors=True)
 
     base = pages_base_url()

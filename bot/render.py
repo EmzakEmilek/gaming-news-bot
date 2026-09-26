@@ -132,7 +132,7 @@ def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[P
             page.wait_for_selector("body[data-ready='1']", timeout=15000)
             png = page.screenshot(clip={"x": 0, "y": 0, "width": W, "height": H})
             jpg = out_dir / f"slide_{n}.jpg"
-            Image.open(io.BytesIO(png)).convert("RGB").save(jpg, "JPEG", quality=92, optimize=True)
+            Image.open(io.BytesIO(png)).convert("RGB").save(jpg, "JPEG", quality=88, optimize=True)  # IG aj tak rekomprimuje
             files.append(jpg)
         browser.close()
     log.info("Vyrenderovaných %d snímok do %s", len(files), out_dir)

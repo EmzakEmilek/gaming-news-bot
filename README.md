@@ -110,6 +110,8 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 - **Farby, meno a IG handle:** sekcia `brand` v `config.yaml`.
 - **Nový zdroj:** pridaj riadok do `feeds` (`tier: official` len pre oficiálne blogy vydavateľov a platforiem). Weby jedného vydavateľa označ rovnakou `group`, pri overovaní sa potom rátajú ako jeden zdroj.
 - **Čo bot postol a prečo:** `state/posted.json` + log každého behu v záložke Actions.
+- **Strop na jeden beh:** `posting.max_cost_per_run` (predvolene $0.60). Keď ho beh dosiahne, slot sa vynechá.
+  Témy, ktoré neprešli kontrolami, si bot pamätá 48 h (`state/failed.json`) a znova za ne neplatí.
 - **Koľko to stojí:** `state/costs.json` (mesačný súčet za posty a komentáre, odhad podľa `api_prices` v `config.yaml`), cena každého postu je aj v `state/posted.json`. Presné čísla sú v Anthropic Console → Usage (workspace bota).
 
 ## Poistky zabudované v kóde

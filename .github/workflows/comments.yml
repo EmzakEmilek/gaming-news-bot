@@ -24,13 +24,11 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: pip
-      - run: pip install anthropic requests PyYAML
+      - run: pip install "anthropic>=1.8,<2" requests PyYAML
       - run: |
           git config user.name "gaming-news-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

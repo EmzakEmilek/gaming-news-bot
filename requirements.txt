@@ -1,4 +1,4 @@
-anthropic>=0.60
+anthropic>=1.8,<2
 feedparser>=6.0
 trafilatura>=2.0
 requests>=2.31
