@@ -58,6 +58,12 @@ def main() -> None:
     # témy, ktoré v posledných 48 h neprešli kontrolami – nevyberať ich znova (už sme za ne zaplatili)
     failed_state = [f for f in load_state("failed", [])
                     if now_utc() - datetime.fromisoformat(f["at"]) < timedelta(hours=48)]
+    gap = cfg["posting"].get("min_hours_between_posts", 0)
+    last_at = max((datetime.fromisoformat(p["at"]) for p in posted if p.get("at")), default=None)
+    if not args.dry_run and not args.force and gap and last_at and now_utc() - last_at < timedelta(hours=gap):
+        log.info("Posledný post bol pred menej ako %s h, tento slot vynechávam.", gap)
+        return
+
     recent = [p["story"] for p in posted[-40:]] + [f["story"] for f in failed_state]
     used_links = {link for p in posted[-300:] for link in p.get("links", [])}
     used_links |= {link for f in failed_state for link in f["links"]}
@@ -109,7 +115,7 @@ def main() -> None:
 
     # stav hneď po publikovaní: ak by neskôr niečo zlyhalo, ďalší slot tú istú správu nezopakuje
     posted.append({
-        "date": today, "slot": slot, "story": post["story"], "headline": post["headline"],
+        "date": today, "slot": slot, "at": now_utc().isoformat(), "story": post["story"], "headline": post["headline"],
         "links": post["links"], "sources": post["sources"], "format": post["format"],
         "media_id": info["id"], "permalink": info.get("permalink"), "cost_usd": post["cost_usd"],
     })

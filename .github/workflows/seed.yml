@@ -1,0 +1,53 @@
+name: Seed
+
+# Jednorazové naplnenie profilu pripravenými postami zo seed/: jeden post za hodinu.
+# Keď je fronta prázdna, workflow sa sám vypne.
+on:
+  schedule:
+    - cron: "5 * * * *"   # každú hodinu
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write   # vypnutie workflowu po vyprázdnení fronty
+
+concurrency:
+  group: bot
+  cancel-in-progress: false
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests PyYAML
+      - run: |
+          git config user.name "gaming-news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Publish next
+        id: run
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PAGES_BASE_URL: ${{ vars.PAGES_BASE_URL }}
+        run: |
+          set +e
+          python -m bot.seed
+          code=$?
+          if [ $code -eq 3 ]; then echo "empty=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          exit $code
+      - name: Save state
+        if: always()
+        run: ./scripts/commit_state.sh seed
+      - name: Disable when done
+        if: steps.run.outputs.empty == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow disable seed.yml --repo "$GITHUB_REPOSITORY"

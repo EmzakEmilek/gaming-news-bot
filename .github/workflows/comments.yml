@@ -1,9 +1,8 @@
 name: Comments
 
 on:
-  # DOČASNE VYPNUTÉ, kým nie je schválený prvý ostrý post (potom odkomentovať).
-  # schedule:
-  #   - cron: "17 * * * *"   # každú hodinu
+  schedule:
+    - cron: "17 * * * *"   # každú hodinu
   workflow_dispatch:
     inputs:
       dry_run:

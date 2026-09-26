@@ -1,11 +1,10 @@
 name: Post
 
 on:
-  # DOČASNE VYPNUTÉ, kým nie je schválený prvý ostrý post (potom odkomentovať).
-  # schedule:
-  #   # UTC čas. Leto (CEST): 11:30 a 18:30, zima (CET): 10:30 a 17:30.
-  #   - cron: "30 9 * * *"
-  #   - cron: "30 16 * * *"
+  schedule:
+    # UTC čas. Leto (CEST): 11:30 a 18:30, zima (CET): 10:30 a 17:30.
+    - cron: "30 9 * * *"
+    - cron: "30 16 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
