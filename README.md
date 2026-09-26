@@ -71,7 +71,7 @@ Ak žiadna správa neprejde overením, slot sa **vynechá** (a príde ti notifik
 `IG_USER_ID` netreba, bot si ho zistí z tokenu.
 
 ### 5. Test
-1. **Actions → Check setup → Run workflow.** Musí prejsť Instagram aj Claude. Pri feedoch uvidíš `OK`/`XX`, nefunkčné vyhoď alebo oprav v `config.yaml`.
+1. **Actions → Check setup → Run workflow.** Musí prejsť Instagram, Claude aj GitHub Pages (testovací obrázok musí byť verejne dostupný). Pri feedoch uvidíš `OK`/`XX`, nefunkčné vyhoď alebo oprav v `config.yaml`.
 2. **Actions → Post → Run workflow** (nechaj zaškrtnuté *dry_run*). Po dobehnutí si stiahni artifact `post-…` a skontroluj obrázky a `post.json` (caption, zdroje, dôvod overenia).
 3. Zopakuj pár krát, kým ti sedí štýl. Tón a pravidlá meníš v `config.yaml`, dizajn v `templates/slide.html`.
 4. **Actions → Comments → Run workflow** (*dry_run*): v logu uvidíš, čo by na ktorý komentár spravil.
@@ -79,13 +79,34 @@ Ak žiadna správa neprejde overením, slot sa **vynechá** (a príde ti notifik
 ### 6. Ostrý štart
 Stačí nič nerobiť. Plánované behy idú automaticky naostro. Ak chceš prvý post hneď: *Post → Run workflow* a odškrtni *dry_run*.
 
+## Lokálne testovanie (Windows)
+
+```powershell
+py -3.11 -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -m playwright install chromium
+copy .env.example .env      # doplň ANTHROPIC_API_KEY a IG_ACCESS_TOKEN
+```
+
+Kľúče sa lokálne čítajú z `.env` (je v `.gitignore`), na GitHube zo secrets.
+
+```powershell
+.venv\Scripts\python -m bot.check feeds     # RSS feedy
+.venv\Scripts\python -m bot.check ig        # Instagram účet a limit publikovania
+.venv\Scripts\python -m bot.check claude    # modely z config.yaml a test volania
+.venv\Scripts\python -m bot.post --dry-run  # celý post bez publikovania, výstup v out/
+.venv\Scripts\python -m bot.comments --dry-run
+```
+
+Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces → API keys), kľúč bez workspace API odmietne.
+
 ## Ovládanie
 
 - **Vypnúť všetko:** `enabled: false` v `config.yaml`.
 - **Vypnúť len komentáre:** `comments.enabled: false`.
 - **Iné časy:** `cron` v `.github/workflows/post.yml` (čas je v UTC).
 - **Farby, meno a IG handle:** sekcia `brand` v `config.yaml`.
-- **Nový zdroj:** pridaj riadok do `feeds` (`tier: official` len pre oficiálne blogy vydavateľov a platforiem).
+- **Nový zdroj:** pridaj riadok do `feeds` (`tier: official` len pre oficiálne blogy vydavateľov a platforiem). Weby jedného vydavateľa označ rovnakou `group`, pri overovaní sa potom rátajú ako jeden zdroj.
 - **Čo bot postol a prečo:** `state/posted.json` + log každého behu v záložke Actions.
 
 ## Poistky zabudované v kóde
