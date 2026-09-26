@@ -31,7 +31,12 @@ def _extract_json(text: str):
     start = min([i for i in (text.find("{"), text.find("[")) if i != -1], default=-1)
     if start == -1:
         raise ValueError("V odpovedi nie je JSON")
-    obj, _ = json.JSONDecoder(strict=False).raw_decode(text[start:])
+    try:
+        obj, _ = json.JSONDecoder(strict=False).raw_decode(text[start:])
+    except json.JSONDecodeError:  # model občas pošle neplatný escape (napr. \'), zdvojíme osamotené lomítka
+        fixed = re.sub(r"\\(.)", lambda m: m.group(0) if m.group(1) in '"\\/bfnrtu'
+                       else "'" if m.group(1) == "'" else "\\\\" + m.group(1), text[start:], flags=re.S)
+        obj, _ = json.JSONDecoder(strict=False).raw_decode(fixed)
     return obj
 
 

@@ -83,16 +83,27 @@ PRAVIDLÁ FAKTOV (najdôležitejšie):
 - Používaj IBA informácie, ktoré sú výslovne v dodaných článkoch. Nič nedopĺňaj z vlastnej pamäti.
 - Dátumy, ceny, platformy, čísla a mená prepíš presne. Ak si nie si istý, radšej to vynechaj.
 - Ak zdroje uvádzajú niečo ako neisté ("vraj", "podľa insiderov"), buď to vynechaj, alebo to jasne označ.
-- Názvy hier, firiem a produktov nechaj v origináli (neprekladaj).
+  Neistotu vyjadri raz a jednoducho ("mal by vyjsť v decembri"), nie "očakávaný pravdepodobne".
+- Žiadne vlastné hodnotenia a superlatívy ("najväčšie oznámenie za roky", "konečne", "obrovský"),
+  ak to zdroj neuvádza ako fakt. Nekomentuj a nehodnoť firmy ani ľudí ("Problém je, že..."),
+  názor nechaj na čitateľov v otázke na konci.
+- Citácie a výrazy v úvodzovkách píš so slovenskými úvodzovkami „takto“.
+- Názvy hier, firiem a produktov nechaj v origináli (neprekladaj). Všetko ostatné, aj titulky snímok,
+  píš po slovensky (nie "Ice caves update", ale "Update s ľadovými jaskyňami").
+
+OSLOVENIE: čitateľovi vždy tykaj v jednotnom čísle ("priprav si", "čakal si", "čo na to povieš?"),
+nikdy nepoužívaj množné "vy" ("pripravte si", "čakali ste").
 
 FORMÁT:
 - "single" pre jednoduchú správu (jedna hlavná informácia), "carousel" keď je viac podstatných detailov.
 - headline: max 60 znakov, úderný, vecný, bez clickbaitu. Nekonči bodkou.
 - subline: max 110 znakov, doplní headline o najdôležitejší detail.
-- slides (iba carousel): 2 až {p["carousel_max_slides"] - 1} snímky, každá title max 32 znakov a body max 220 znakov.
+- slides (iba carousel): 2 až {p["carousel_max_slides"] - 2} snímky, každá title max 32 znakov a body max 220 znakov.
+  Každá snímka prináša novú informáciu, neopakuj to, čo už je v headline a subline.
 - caption: 2 až 4 krátke odseky, spolu max 900 znakov. Prvá veta je hook. Na konci jedna otázka pre komentáre.
   Nepíš do captionu zdroje ani hashtagy, doplní ich systém.
-- hashtags: {p["max_hashtags"]} relevantných hashtagov (mix slovenských a anglických, názov hry, platforma).
+- hashtags: {p["max_hashtags"]} relevantných hashtagov: názov hry, platforma a aspoň 2 slovenské
+  (napr. #hry #hernenovinky #gamingslovensko #novinkyzhier), zvyšok anglické.
 - category: jedna z {CATEGORIES}."""
     user = f"""Téma: {story}
 
@@ -137,8 +148,8 @@ def _validate_shape(post: dict, cfg: dict) -> list[str]:
         issues.append("subline má viac ako 110 znakov")
     if post.get("format") == "carousel":
         slides = post.get("slides") or []
-        if not 2 <= len(slides) <= cfg["posting"]["carousel_max_slides"] - 1:
-            issues.append("carousel musí mať 2 až %d snímky" % (cfg["posting"]["carousel_max_slides"] - 1))
+        if not 2 <= len(slides) <= cfg["posting"]["carousel_max_slides"] - 2:  # + titulka a záverečná snímka
+            issues.append("carousel musí mať 2 až %d snímky" % (cfg["posting"]["carousel_max_slides"] - 2))
         for s in slides:
             if len(s.get("body", "")) > 260 or len(s.get("title", "")) > 40:
                 issues.append(f"snímka '{s.get('title')}' je príliš dlhá")

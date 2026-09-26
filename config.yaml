@@ -20,7 +20,7 @@ posting:
   min_trusted_sources: 2      # koľko nezávislých portálov musí správu potvrdiť...
   official_is_enough: true    # ...alebo stačí 1 oficiálny zdroj (PS Blog, Xbox Wire, Steam, vydavateľ)
   allow_rumors: false         # leaky a fámy sa nepostujú
-  carousel_max_slides: 5      # vrátane titulky
+  carousel_max_slides: 5      # vrátane titulky a záverečnej snímky
   max_hashtags: 8
   ai_label: false             # Meta štítok "AI info" (is_ai_generated)
   article_images: all         # all = obrázok z článku z hociktorého zdroja (s "Foto: zdroj")

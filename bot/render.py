@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import io
+import re
 from pathlib import Path
 
 import requests
@@ -12,6 +13,14 @@ from playwright.sync_api import sync_playwright
 from .common import TEMPLATES_DIR, log
 
 W, H = 1080, 1350
+
+
+def _typo(text: str | None) -> str | None:
+    """Slovenská typografia: jednopísmenové predložky a spojky ani jednotky za číslom nenechávať na konci riadku."""
+    if not text:
+        return text
+    text = re.sub(r"(?<![^\s(])([aAiIkKoOsSuUvVzZ]) ", "\\1\u00a0", text)
+    return re.sub(r"(\d) (?=[^\s\d]{1,4}(?:[\s.,!?)]|$))", "\\1\u00a0", text)
 
 
 def _download_image(cands: list, dest: Path) -> tuple[str | None, str | None]:
@@ -42,15 +51,15 @@ def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[P
     post["photo_credit"] = photo_credit
     carousel = post["format"] == "carousel"
     slides_ctx = [{
-        "kind": "cover", "image": image, "category": post["category"], "headline": post["headline"],
-        "subline": post.get("subline"), "sources": ", ".join(post["sources"]), "photo_credit": photo_credit, "carousel": carousel,
+        "kind": "cover", "image": image, "category": post["category"], "headline": _typo(post["headline"]),
+        "subline": _typo(post.get("subline")), "sources": ", ".join(post["sources"]), "photo_credit": photo_credit, "carousel": carousel,
         "ghost": post["category"].split()[0], "fit_max_height": 500 if image else 560,
     }]
     if carousel:
         body_slides = post["slides"]
         total = len(body_slides) + 2
         for i, s in enumerate(body_slides, start=2):
-            slides_ctx.append({"kind": "text", "title": s["title"], "body": s["body"],
+            slides_ctx.append({"kind": "text", "title": _typo(s["title"]), "body": _typo(s["body"]),
                                "index": i, "total": total, "fit_max_height": 300})
         slides_ctx.append({"kind": "outro", "index": total, "total": total, "fit_max_height": 0})
 
