@@ -5,10 +5,11 @@ import json
 import re
 
 from .collect import fetch_article
-from .common import log
+from .common import log, now_local
 from .llm import ask_json
 
 CATEGORIES = ["OZNÁMENIE", "TRAILER", "RELEASE", "UPDATE", "DLC", "BIZNIS", "HARDVÉR", "ESPORT", "ZDARMA", "DÁTUM VYDANIA"]
+ARTICLE_CHARS = 3500  # koľko znakov z každého článku ide modelu (písanie aj fact-check)
 CTA_ICONS = {"share": "send", "comment": "message-circle"}  # ikonka na záverečnej snímke (templates/icons)
 
 # Vzorce, podľa ktorých ľudia spoznajú text od AI (podľa skillu humanizer / Wikipedia "Signs of AI writing").
@@ -24,12 +25,19 @@ AI_TELLS = """- kontrast "nie je to len X, ale Y", "nejde o X, ide o Y", "X, nie
 
 
 # ── 1. výber témy ────────────────────────────────────────────
+def _today() -> str:
+    """Dnešný dátum do promptov, aby model nepovažoval udalosti z tohto roka za budúcnosť."""
+    d = now_local()
+    return f"Dnes je {d.day}. {d.month}. {d.year}. Udalosti do tohto dňa sa už stali."
+
+
 def _choose_candidates(items: list[dict], recent: list[str], cfg: dict) -> list[dict]:
     listing = [
-        {k: it[k] for k in ("id", "source", "tier", "title", "summary", "published")}
+        {**{k: it[k] for k in ("id", "source", "tier", "title", "published")}, "summary": it["summary"][:200]}
         for it in items[:250]  # 25 feedov za 20 h dá v pracovný deň aj 200+ článkov
     ]
-    system = f"""Si šéfredaktor slovenskej Instagram stránky o videohrách. Z dnešných článkov vyberáš
+    system = f"""{_today()}
+Si šéfredaktor slovenskej Instagram stránky o videohrách. Z dnešných článkov vyberáš
 témy, ktoré zaujímajú bežného slovenského hráča (PC, PlayStation, Xbox, Nintendo, veľké mobilné hry).
 
 Dobré témy: oznámenia nových hier, dátumy vydania, veľké trailery, významné updaty a DLC, hry zadarmo,
@@ -57,7 +65,7 @@ Vráť najviac 6 najlepších kandidátov zoradených od najlepšieho:
   "forbidden_topic": true/false,
   "already_covered": true/false
 }}]}}"""
-    data = ask_json(cfg["model"]["writer"], system, user)
+    data = ask_json(cfg["model"]["writer"], system, user, effort=cfg.get("effort", {}).get("select"))
     return data.get("candidates", [])
 
 
@@ -83,13 +91,15 @@ def _passes_verification(cand: dict, by_id: dict, cfg: dict) -> tuple[bool, str]
 
 
 # ── 2. písanie ───────────────────────────────────────────────
-def _write(story: str, articles: list[dict], cfg: dict, feedback: list[str] | None = None) -> dict:
+def _write(story: str, articles: list[dict], cfg: dict, feedback: list[str] | None = None,
+           previous: dict | None = None) -> dict:
     p = cfg["posting"]
     src = [
-        {"id": a["id"], "source": a["source"], "title": a["title"], "text": a["text"][:5000]}
+        {"id": a["id"], "source": a["source"], "title": a["title"], "text": a["text"][:ARTICLE_CHARS]}
         for a in articles
     ]
-    system = f"""Píšeš carousel posty pre slovenskú Instagram stránku o videohrách {cfg["brand"]["handle"]}.
+    system = f"""{_today()}
+Píšeš carousel posty pre slovenskú Instagram stránku o videohrách {cfg["brand"]["handle"]}.
 
 TÓN:
 {cfg["tone"]}
@@ -145,21 +155,31 @@ CAPTION A OSTATNÉ:
   ako cta. Nepíš do captionu zdroje ani hashtagy, doplní ich systém.
 - hashtags: {p["max_hashtags"]} relevantných hashtagov: názov hry, platforma a aspoň 2 slovenské
   (napr. #hry #hernenovinky #gamingslovensko #novinkyzhier), zvyšok anglické.
-- category: jedna z {CATEGORIES}."""
-    user = f"""Téma: {story}
+- category: jedna z {CATEGORIES}.
+
+PRED ODOVZDANÍM si post prečítaj ako človek, ktorý o téme nič nevie, a over:
+- z nadpisu je jasné, o čo ide, a má hook; prvá snímka dáva kontext,
+- nadpis, snímky a caption si neprotirečia a každý fakt je v zdrojoch,
+- žiadny titulok snímky nie je vata, žiadna veta nie je z vyššie uvedených AI vzorcov,
+- posledná veta captionu je tá istá výzva ako cta."""
+    sources = f"""Téma: {story}
 
 Zdrojové články:
 {json.dumps(src, ensure_ascii=False)}
 """
-    if feedback:
-        user += ("\nPredchádzajúca verzia mala tieto chyby, oprav ich. Ak oprava žiada fakt, ktorý v zdrojoch nie je,"
-                 " nedopĺňaj ho, radšej mätúcu časť preformuluj alebo vynechaj:\n- " + "\n- ".join(feedback))
+    user = ""
+    if feedback and previous:  # opravuj predošlú verziu, nepíš odznova (inak vznikajú nové chyby)
+        shown = {k: previous.get(k) for k in ("category", "headline", "slides", "cta", "caption", "hashtags")}
+        user += ("\nTvoja predošlá verzia:\n" + json.dumps(shown, ensure_ascii=False)
+                 + "\n\nOprav v nej LEN tieto problémy, všetko ostatné nechaj bez zmeny. Ak oprava žiada fakt,"
+                 " ktorý v zdrojoch nie je, nedopĺňaj ho, radšej mätúcu časť preformuluj alebo vynechaj:\n- "
+                 + "\n- ".join(feedback))
     user += """
 Vráť:
 {"category": "...", "headline": "...", "slides": [{"title": "...", "body": "..."}],
  "cta": {"type": "share"|"comment", "title": "..."}, "caption": "...", "hashtags": ["#..."],
  "facts_used": ["každý konkrétny fakt z postu + id článku, z ktorého pochádza"]}"""
-    post = ask_json(cfg["model"]["writer"], system, user)
+    post = ask_json(cfg["model"]["writer"], system, user, cached=sources, effort=cfg.get("effort", {}).get("write"))
     post["format"] = "carousel"
     return post
 
@@ -167,7 +187,8 @@ Vráť:
 # ── 3. čitateľská kontrola (bez zdrojov, lacná) ─────────────
 def _review(post: dict, cfg: dict, previous: list[str] | None = None) -> dict:
     shown = {k: post.get(k) for k in ("headline", "slides", "cta", "caption")}
-    system = f"""Si šéfredaktor slovenskej Instagram stránky o hrách. Čítaš hotový carousel tak, ako ho uvidí
+    system = f"""{_today()}
+Si šéfredaktor slovenskej Instagram stránky o hrách. Čítaš hotový carousel tak, ako ho uvidí
 bežný slovenský hráč, ktorý o téme doteraz nič nevedel. Zdroje nemáš, fakty kontroluje niekto iný.
 Rozhoduješ, či post môže ísť von. Do "blocking" daj len vážne problémy, kvôli ktorým by nemal ísť von:
 1. Z nadpisu titulnej snímky nie je jasné, o akú hru alebo firmu ide a čo sa stalo, alebo nadpis nemá hook.
@@ -189,27 +210,29 @@ Každý problém napíš konkrétne aj s návrhom opravy."""
         user += ("\nPredošlá verzia mala tieto problémy: " + json.dumps(previous, ensure_ascii=False)
                  + "\nOver, či sú opravené. Nový problém daj do blocking, len ak je naozaj vážny.\n")
     user += '\nVráť: {"blocking": ["..."], "minor": ["..."]}'
-    return ask_json(cfg["model"]["checker"], system, user)
+    return ask_json(cfg["model"]["checker"], system, user, effort=cfg.get("effort", {}).get("review"))
 
 
 # ── 4. kontrola faktov ──────────────────────────────────────────────
 def _check(post: dict, articles: list[dict], cfg: dict) -> dict:
-    src = [{"id": a["id"], "source": a["source"], "text": a["text"][:5000]} for a in articles]
+    src = [{"id": a["id"], "source": a["source"], "text": a["text"][:ARTICLE_CHARS]} for a in articles]
     shown = {k: post.get(k) for k in ("headline", "slides", "cta", "caption", "hashtags")}
-    system = """Si prísny fact-checker. Porovnávaš hotový Instagram post so zdrojovými článkami.
+    system = f"""{_today()}
+Si prísny fact-checker. Porovnávaš hotový Instagram post so zdrojovými článkami.
 Post schváľ iba vtedy, ak KAŽDÉ faktické tvrdenie (dátum, cena, platforma, číslo, meno, citát, udalosť)
 je podložené zdrojmi. Kontroluj aj: zavádzajúci headline, fámu podanú ako fakt, zlú slovenčinu
 (gramatika, diakritika, anglické frázy doslovne preložené), urážlivý alebo necitlivý obsah.
 Headline smie byť úderný a postaviť fakty do kontrastu (napr. prepúšťanie vs. spokojný šéf), ak je každá
 jeho časť pravdivá a podložená. Výzva na poslednej snímke (cta) nie je faktické tvrdenie."""
-    user = f"""Zdroje:
+    sources = f"""Zdroje:
 {json.dumps(src, ensure_ascii=False)}
-
-Post:
+"""
+    user = f"""Post:
 {json.dumps(shown, ensure_ascii=False)}
 
 Vráť: {{"ok": true/false, "issues": ["konkrétny problém a ako ho opraviť"]}}"""
-    return ask_json(cfg["model"]["checker"], system, user)
+    return ask_json(cfg["model"]["checker"], system, user, cached=sources,
+                    effort=cfg.get("effort", {}).get("factcheck"))
 
 
 def _autofix(post: dict) -> None:
@@ -251,9 +274,9 @@ def _validate_shape(post: dict, cfg: dict) -> list[str]:
 
 def produce(story: str, articles: list[dict], cfg: dict) -> dict | None:
     """Napíše post a nechá ho prejsť kontrolou tvaru, čitateľa a faktov. Pri chybách max. 3 pokusy."""
-    feedback, reader_issues = None, None
+    feedback, reader_issues, post = None, None, None
     for attempt in range(3):
-        post = _write(story, articles, cfg, feedback)
+        post = _write(story, articles, cfg, feedback, post)
         stage, issues = "tvar", _validate_shape(post, cfg)
         minor = []
         if not issues:

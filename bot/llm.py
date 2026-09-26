@@ -14,7 +14,7 @@ from .common import env, load_config, log, record_cost
 MIN_MAX_TOKENS = 16000
 
 _client: anthropic.Anthropic | None = None
-USAGE: dict[str, dict[str, int]] = {}  # spotreba tokenov v tomto behu: model -> {"in": ..., "out": ...}
+USAGE: dict[str, dict[str, int]] = {}  # spotreba tokenov v tomto behu: model -> {"in", "out", "cache_write", "cache_read"}
 
 
 def client() -> anthropic.Anthropic:
@@ -42,12 +42,14 @@ def _extract_json(text: str):
 
 
 def run_cost() -> float:
-    """Odhad ceny všetkých volaní v tomto behu v USD podľa api_prices v config.yaml."""
+    """Odhad ceny všetkých volaní v tomto behu v USD podľa api_prices v config.yaml.
+    Zápis do cache stojí 1,25x cenu vstupu, čítanie z cache 0,1x."""
     prices = load_config().get("api_prices", {})
     total = 0.0
     for model, used in USAGE.items():
         price_in, price_out = prices.get(model, (0, 0))
-        total += used["in"] / 1e6 * price_in + used["out"] / 1e6 * price_out
+        tokens_in = used["in"] + 1.25 * used["cache_write"] + 0.1 * used["cache_read"]
+        total += tokens_in / 1e6 * price_in + used["out"] / 1e6 * price_out
     return total
 
 
@@ -60,20 +62,34 @@ def report_cost(kind: str) -> float:
     return usd
 
 
-def ask_json(model: str, system: str, user: str, max_tokens: int = MIN_MAX_TOKENS):
+def ask_json(model: str, system: str, user: str, cached: str | None = None, effort: str | None = None,
+             max_tokens: int = MIN_MAX_TOKENS):
+    """cached: začiatok user správy, ktorý sa v behu opakuje (zdroje) – ide do prompt cache.
+    effort: hĺbka uvažovania ("low" / "medium" / "high"), None = predvolené (high)."""
+    content = user
+    if cached:
+        content = [{"type": "text", "text": cached, "cache_control": {"type": "ephemeral"}},
+                   {"type": "text", "text": user}]
+    extra = {"output_config": {"effort": effort}} if effort else {}
     last_err = None
     for attempt in range(3):
         resp = client().messages.create(
             model=model,
             max_tokens=max(max_tokens, MIN_MAX_TOKENS),
             system=system + "\n\nOdpovedz VÝHRADNE platným JSON objektom, bez ďalšieho textu.",
-            messages=[{"role": "user", "content": user}],
+            messages=[{"role": "user", "content": content}],
+            **extra,
         )
-        log.info("Claude %s: %d in / %d out tokenov (%s)", model, resp.usage.input_tokens,
-                 resp.usage.output_tokens, resp.stop_reason)
-        used = USAGE.setdefault(model, {"in": 0, "out": 0})
-        used["in"] += resp.usage.input_tokens
-        used["out"] += resp.usage.output_tokens  # obsahuje aj tokeny thinkingu
+        u = resp.usage
+        cache_write, cache_read = u.cache_creation_input_tokens or 0, u.cache_read_input_tokens or 0
+        log.info("Claude %s%s: %d in (+%d cache zápis, %d z cache) / %d out tokenov (%s)", model,
+                 f" [{effort}]" if effort else "", u.input_tokens, cache_write, cache_read, u.output_tokens,
+                 resp.stop_reason)
+        used = USAGE.setdefault(model, {"in": 0, "out": 0, "cache_write": 0, "cache_read": 0})
+        used["in"] += u.input_tokens
+        used["out"] += u.output_tokens  # obsahuje aj tokeny thinkingu
+        used["cache_write"] += cache_write
+        used["cache_read"] += cache_read
         if resp.stop_reason == "refusal":
             raise RuntimeError(f"Model odmietol požiadavku ({resp.stop_details})")
         text = "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")

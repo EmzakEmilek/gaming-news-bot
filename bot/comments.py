@@ -54,7 +54,8 @@ Komentáre:
 {json.dumps(listing, ensure_ascii=False)}
 
 Vráť: {{"actions": [{{"id": "...", "action": "reply"|"hide"|"ignore", "reply": "text odpovede alebo null"}}]}}"""
-    return ask_json(cfg["model"]["writer"], _policy(cfg), user, max_tokens=3000).get("actions", [])
+    return ask_json(cfg["model"]["writer"], _policy(cfg), user,
+                    effort=cfg.get("effort", {}).get("comments")).get("actions", [])
 
 
 def main() -> None:

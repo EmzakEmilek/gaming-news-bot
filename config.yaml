@@ -16,6 +16,13 @@ model:
   writer: "claude-sonnet-5"   # výber správ, copy, komentáre
   checker: "claude-sonnet-5"  # nezávislá kontrola faktov pred publikovaním
 
+effort:                       # hĺbka uvažovania Claude: low / medium / high (vyššie = dôkladnejšie, ale drahšie)
+  select: medium              # výber tém
+  write: high                 # písanie postu
+  review: medium              # čitateľská kontrola
+  factcheck: high             # kontrola faktov
+  comments: low               # odpovede na komentáre
+
 api_prices:                   # USD za 1M tokenov [vstup, výstup], len na odhad nákladov v logoch a state/costs.json
   claude-sonnet-5: [2.0, 10.0]
 
