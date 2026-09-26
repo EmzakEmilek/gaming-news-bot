@@ -18,7 +18,8 @@ model:
 
 effort:                       # hĺbka uvažovania Claude: low / medium / high / xhigh (vyššie = dôkladnejšie, ale drahšie)
   select: medium              # výber tém
-  write: medium               # písanie postu
+  write: medium               # písanie postu (prvá verzia)
+  write_fix: high             # oprava po výhradách kontroly
   cta: xhigh                  # výzva na poslednej snímke (samostatný krok, raz na post)
   review: medium              # čitateľská kontrola
   factcheck: high             # kontrola faktov
@@ -31,7 +32,9 @@ posting:
   lookback_hours: 20          # z akého obdobia vyberá správy
   min_trusted_sources: 2      # koľko nezávislých portálov musí správu potvrdiť...
   official_is_enough: true    # ...alebo stačí 1 oficiálny zdroj (PS Blog, Xbox Wire, Steam, vydavateľ)
-  allow_rumors: false         # leaky a fámy sa nepostujú
+  allow_rumors: false         # leaky, insideri a fámy sa nepostujú
+  allow_reputable_reports: true  # správy z vlastného zisťovania renomovaných médií (Bloomberg, The Verge...)
+                              # sú OK, post ich vždy pripíše médiu ("podľa Bloombergu")
   carousel_max_slides: 6      # vrátane titulky a záverečnej snímky (max. 4 obsahové)
   max_hashtags: 8
   ai_label: false             # Meta štítok "AI info" (is_ai_generated)

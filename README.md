@@ -114,7 +114,7 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 
 ## Poistky zabudované v kóde
 
-- Fámy, leaky a zakázané témy sa nepostujú (`avoid_topics`).
+- Fámy, leaky a zakázané témy sa nepostujú (`avoid_topics`). Správy z vlastného zisťovania renomovaných médií (Bloomberg, The Verge…) sú povolené (`allow_reputable_reports`), post ich vždy pripíše médiu.
 - Overenie zdrojov robí kód, nie AI: 1 oficiálny zdroj alebo ≥ 2 rôzne portály.
 - Copy sa píše len z plného textu článkov. Pred publikovaním ho kontroluje čitateľská kontrola (zrozumiteľnosť, prirodzená slovenčina, žiadne typické AI frázy) a samostatný fact-check.
 - Obrázok na titulke je z článku (oficiálne zdroje majú prednosť) a na vizuáli aj v captione je uvedené „Foto: zdroj“. Prepínaš to v `posting.article_images` (`all` / `official` / `none`). Keď obrázok nie je k dispozícii, ide typografický vizuál.

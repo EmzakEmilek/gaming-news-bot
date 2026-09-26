@@ -63,6 +63,8 @@ def fetch_feed(feed: dict) -> list[dict]:
             "group": feed.get("group") or feed["name"],
             "title": title,
             "summary": _clean(e.get("summary", ""), 400),
+            # plný text z feedu (content alebo dlhé summary) – záloha, keď web sťahovanie článku zablokuje
+            "rss_text": _clean(max(((e.get("content") or [{}])[0].get("value", ""), e.get("summary", "")), key=len), 7000),
             "link": link,
             "published": (_published(e) or now_utc()).isoformat(),
             "image": _entry_image(e),
@@ -102,4 +104,7 @@ def fetch_article(item: dict) -> dict:
             og_image = html.unescape(m.group(1))
     except Exception as e:  # noqa: BLE001
         log.warning("Článok %s sa nepodarilo stiahnuť: %s", item["link"], e)
-    return {**item, "text": (text or item["summary"])[:7000], "image": og_image or item.get("image")}
+    rss_text = item.get("rss_text") or item.get("summary", "")
+    if len(text) < len(rss_text):  # stránka zablokovaná alebo z nej trafilatura vytiahla menej ako feed
+        text = rss_text
+    return {**item, "text": text[:7000], "image": og_image or item.get("image")}
