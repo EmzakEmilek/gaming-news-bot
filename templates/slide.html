@@ -15,8 +15,9 @@
     --bg: {{ brand.background }};
     --accent: {{ brand.accent }};
     --accent2: {{ brand.accent_2 }};
-    --fg: #F4F4F6;
-    --muted: #A2A2B0;
+    --accent3: {{ brand.accent_3 or brand.accent_2 }};
+    --fg: #F6F4F1;
+    --muted: #B3ADA6;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1080px; height: 1350px; background: var(--bg); color: var(--fg); overflow: hidden; }
@@ -24,60 +25,66 @@
 
   .frame { position: relative; width: 1080px; height: 1350px; overflow: hidden; }
 
-  /* pozadia */
-  /* fotka len v hornej časti: 16:9 obrázky z článkov sa tak orežú len mierne */
-  .photo { position: absolute; left: 0; right: 0; top: 0; height: 900px; background-size: cover; background-position: center; }
-  .photo::after { content: ""; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(11,11,16,.7) 0%, rgba(11,11,16,0) 20%, rgba(11,11,16,0) 45%, rgba(11,11,16,.85) 80%, var(--bg) 100%); }
-  .pattern { position: absolute; inset: 0;
+  /* pozadie: výsek zo spoločného gradientu celého carouselu, na hranách nadväzuje na susedné snímky */
+  .flow { position: absolute; inset: 0; background-color: var(--bg); background-image: {{ flow }};
+    background-size: {{ flow_w }}px 1350px; background-position: -{{ flow_x }}px 0; background-repeat: no-repeat; }
+  .grain { position: absolute; inset: 0;
     background:
-      radial-gradient(900px 700px at 100% 0%, color-mix(in srgb, var(--accent2) 45%, transparent), transparent 70%),
-      radial-gradient(700px 600px at 0% 100%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
-      repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 60px),
-      repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 60px),
-      var(--bg); }
+      repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 60px); }
+
+  /* fotka v hornej časti, dole sa rozplynie do gradientu */
+  .photo { position: absolute; left: 0; right: 0; top: 0; height: 920px; background-size: cover; background-position: center;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 50%, transparent 100%); }
+  .photo::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 45%, rgba(0,0,0,.55) 80%); }
   .ghost { position: absolute; right: 40px; top: 130px; font-family: "Anton"; font-size: 300px; line-height: 1;
     color: transparent; -webkit-text-stroke: 3px rgba(255,255,255,.07); text-transform: uppercase; text-align: right; white-space: nowrap; }
 
   /* horná lišta */
   .top { position: absolute; top: 56px; left: 64px; right: 64px; display: flex; justify-content: space-between; align-items: center; z-index: 3; }
   .logo { display: flex; align-items: center; gap: 14px; font-family: "Anton"; font-size: 38px; letter-spacing: 2px;
-    background: rgba(0,0,0,.45); padding: 6px 20px 6px 16px; border-radius: 999px; }
-  .logo i { width: 22px; height: 22px; background: var(--accent); display: inline-block; transform: rotate(45deg); }
-  .date { font-weight: 700; font-size: 26px; color: var(--fg); background: rgba(0,0,0,.45); padding: 10px 18px; border-radius: 999px; }
+    background: rgba(0,0,0,.5); padding: 6px 20px 6px 16px; border-radius: 999px; }
+  .logo i { width: 22px; height: 22px; background: linear-gradient(135deg, var(--accent), var(--accent2) 60%, var(--accent3));
+    display: inline-block; transform: rotate(45deg); }
+  .date { font-weight: 700; font-size: 26px; color: var(--fg); background: rgba(0,0,0,.5); padding: 10px 18px; border-radius: 999px; }
 
   /* titulka */
   .cover-body { position: absolute; left: 64px; right: 64px; bottom: 150px; z-index: 3; }
-  .tag { display: inline-block; background: var(--accent); color: #0B0B10; font-weight: 800; font-size: 26px;
+  .tag { display: inline-block; background: var(--accent); color: #0A0A0A; font-weight: 800; font-size: 26px;
     letter-spacing: 3px; padding: 12px 22px; margin-bottom: 30px; }
-  .headline { font-family: "Anton"; text-transform: uppercase; line-height: 1.24; font-size: 118px; letter-spacing: .5px; }
-  .subline { margin-top: 30px; font-size: 38px; line-height: 1.3; font-weight: 500; color: #E2E2E8; max-width: 940px; }
+  .headline { font-family: "Anton"; text-transform: uppercase; line-height: 1.24; font-size: 118px; letter-spacing: .5px;
+    text-shadow: 0 4px 30px rgba(0,0,0,.45); }
+  .subline { margin-top: 30px; font-size: 38px; line-height: 1.3; font-weight: 500; color: #EDE8E2; max-width: 940px; }
 
   .bottom { position: absolute; left: 64px; right: 64px; bottom: 56px; display: flex; justify-content: space-between;
     align-items: center; font-size: 24px; color: var(--muted); z-index: 3; }
   .swipe { color: var(--accent); font-weight: 800; font-size: 28px; letter-spacing: 1px; }
 
   /* textová snímka */
-  .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: var(--accent); }
-  .text-body { position: absolute; left: 96px; right: 88px; top: 250px; bottom: 170px; display: flex; flex-direction: column; justify-content: center; }
+  .text-body { position: absolute; left: 88px; right: 88px; top: 250px; bottom: 170px; display: flex; flex-direction: column; justify-content: center; z-index: 3; }
   .idx { font-family: "Anton"; color: var(--accent); font-size: 44px; letter-spacing: 2px; margin-bottom: 28px; }
   .s-title { font-family: "Anton"; text-transform: uppercase; font-size: 92px; line-height: 1.24; margin-bottom: 40px; }
-  .s-body { font-size: 48px; line-height: 1.42; font-weight: 400; color: #E6E6EC; }
+  .s-body { font-size: 48px; line-height: 1.42; font-weight: 400; color: #EFEAE4; }
 
-  /* outro */
-  .outro { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 90px; z-index: 3; }
-  .outro .big { font-family: "Anton"; font-size: 150px; line-height: 1.24; text-transform: uppercase; }
-  .outro .big span { color: var(--accent); }
-  .outro p { margin-top: 44px; font-size: 42px; line-height: 1.35; color: #E2E2E8; max-width: 860px; }
-  .outro .row { margin-top: 70px; display: flex; gap: 20px; }
-  .outro .row div { border: 3px solid var(--accent); color: var(--accent); font-weight: 800; font-size: 28px; padding: 16px 26px; letter-spacing: 1px; }
+  /* záverečná snímka */
+  .outro { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 88px; z-index: 3; }
+  .outro .big { font-family: "Anton"; font-size: 140px; line-height: 1.24; text-transform: uppercase; }
+  .outro .big span { background: linear-gradient(90deg, var(--accent), var(--accent2) 55%, var(--accent3));
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .outro p { margin-top: 44px; font-size: 44px; line-height: 1.38; color: #EFEAE4; max-width: 880px; }
+  .outro .row { margin-top: 70px; display: flex; gap: 20px; flex-wrap: wrap; }
+  .outro .row div { font-weight: 800; font-size: 28px; padding: 18px 28px; letter-spacing: 1px; }
+  .outro .row .main { background: var(--accent); color: #0A0A0A; }
+  .outro .row .follow { border: 3px solid var(--fg); color: var(--fg); }
 </style>
 </head>
 <body>
 <div class="frame">
+  <div class="flow"></div><div class="grain"></div>
 {% if kind == "cover" %}
   {% if image %}<div class="photo" style="background-image:url('{{ image }}')"></div>
-  {% else %}<div class="pattern"></div><div class="ghost">{{ ghost }}</div>{% endif %}
+  {% else %}<div class="ghost">{{ ghost }}</div>{% endif %}
   <div class="top"><div class="logo"><i></i>{{ brand.name }}</div><div class="date">{{ date }}</div></div>
   <div class="cover-body">
     <div class="tag">{{ category }}</div>
@@ -87,23 +94,20 @@
   <div class="bottom"><div>Zdroj: {{ sources }}{% if photo_credit %} · Foto: {{ photo_credit }}{% endif %}</div>{% if carousel %}<div class="swipe">SWIPNI →</div>{% else %}<div>{{ brand.handle }}</div>{% endif %}</div>
 
 {% elif kind == "text" %}
-  <div class="pattern" style="opacity:.55"></div>
-  <div class="bar"></div>
-  <div class="top" style="left:96px"><div class="logo"><i></i>{{ brand.name }}</div><div class="date">{{ index }}/{{ total }}</div></div>
+  <div class="top"><div class="logo"><i></i>{{ brand.name }}</div><div class="date">{{ index }}/{{ total }}</div></div>
   <div class="text-body" id="box">
     <div class="idx">{{ "%02d" % index }}</div>
     <div class="s-title" id="fit">{{ title }}</div>
     <div class="s-body">{{ body }}</div>
   </div>
-  <div class="bottom" style="left:96px"><div>{{ brand.handle }}</div>{% if index < total %}<div class="swipe">→</div>{% endif %}</div>
+  <div class="bottom"><div>{{ brand.handle }}</div>{% if index < total %}<div class="swipe">→</div>{% endif %}</div>
 
 {% else %}
-  <div class="pattern"></div>
   <div class="top"><div class="logo"><i></i>{{ brand.name }}</div><div class="date">{{ index }}/{{ total }}</div></div>
   <div class="outro">
-    <div class="big">Nechceš nič<br><span>zmeškať?</span></div>
-    <p>Každý deň to najdôležitejšie zo sveta hier. Krátko a po slovensky.</p>
-    <div class="row"><div>SLEDUJ {{ brand.handle }}</div><div>ULOŽ SI POST</div></div>
+    <div class="big">{% if cta_main %}{{ cta_main }}<br>{% endif %}<span>{{ cta_hl }}</span></div>
+    {% if cta_text %}<p>{{ cta_text }}</p>{% endif %}
+    <div class="row"><div class="main">{{ cta_button }}</div><div class="follow">SLEDUJ {{ brand.handle }}</div></div>
   </div>
 {% endif %}
 </div>
@@ -121,6 +125,11 @@
       const body = box.querySelector(".s-body");
       let s = parseFloat(getComputedStyle(body).fontSize);
       while (box.scrollHeight > box.clientHeight && s > 28) { s -= 2; body.style.fontSize = s + "px"; }
+    }
+    const big = document.querySelector(".outro .big");
+    if (big) {  // záverečná výzva nesmie pretiecť
+      let s = parseFloat(getComputedStyle(big).fontSize);
+      while ((big.scrollHeight > 520 || big.scrollWidth > big.clientWidth) && s > 60) { s -= 6; big.style.fontSize = s + "px"; }
     }
     document.body.dataset.ready = "1";
   });

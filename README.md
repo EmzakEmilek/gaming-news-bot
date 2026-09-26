@@ -122,7 +122,7 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 
 ## Dobré vedieť
 
-- **Transparentnosť:** do bia daj niečo ako *„Správy a odpovede spracúva AI“*. Je to férové voči ľuďom a bot na otázku „si bot?“ aj tak odpovie pravdivo.
+- **Otázky „si bot?“:** bot o sebe nič nehovorí a nikdy netvrdí, že je človek. Na otázky, kto stránku spravuje, neodpovedá, nechá ich na teba.
 - **GitHub vypína plánované behy** v repozitároch bez aktivity 60 dní. Bot po každom behu commitne stav, takže by sa to nemalo stať. Ak sa to predsa stane, príde ti e-mail a stačí workflow znova zapnúť.
 - **Cron na GitHube** môže meškať 5 až 30 minút. Na herné správy to nevadí.
 - **Náklady:** GitHub Actions a Pages sú pre verejný repozitár zadarmo. Platíš len Claude API. Na jeden post pripadne zhruba 4 až 8 volaní, na komentáre sa volá len vtedy, keď pribudnú nové.

@@ -7,6 +7,7 @@ from .collect import fetch_article
 from .common import log
 from .llm import ask_json
 
+CTA_BUTTONS = {"save": "ULOŽ SI POST", "share": "POŠLI KAMOŠOVI", "comment": "NAPÍŠ NÁZOR"}
 CATEGORIES = ["OZNÁMENIE", "TRAILER", "RELEASE", "UPDATE", "DLC", "BIZNIS", "HARDVÉR", "ESPORT", "ZDARMA", "DÁTUM VYDANIA"]
 
 
@@ -96,15 +97,27 @@ nikdy nepoužívaj množné "vy" ("pripravte si", "čakali ste").
 
 FORMÁT:
 - "single" pre jednoduchú správu (jedna hlavná informácia), "carousel" keď je viac podstatných detailov.
-- headline: max 60 znakov, úderný, vecný, bez clickbaitu. Nekonči bodkou.
+- headline: max 60 znakov. Ak to téma a dĺžka dovolia, daj doň hook: konkrétne číslo, kontrast, prekvapivý
+  detail alebo otvorenú otázku, ktorá ťa donúti swipnuť. Hook musí byť pravdivý a podložený zdrojmi,
+  žiadny clickbait, ktorý post nevysvetlí. Nekonči bodkou.
 - subline: max 110 znakov, doplní headline o najdôležitejší detail.
 - slides (iba carousel): 2 až {p["carousel_max_slides"] - 2} snímky, každá title max 32 znakov a body max 220 znakov.
   Každá snímka prináša novú informáciu, neopakuj to, čo už je v headline a subline.
-- caption: 2 až 4 krátke odseky, spolu max 900 znakov. Prvá veta je hook. Na konci jedna otázka pre komentáre.
+- caption: 2 až 4 krátke odseky, spolu max 900 znakov. Prvá veta je hook. Posledná veta je tá istá výzva
+  ako cta.type: pri "comment" otázka do komentárov, pri "save" pripomenutie uložiť si post,
+  pri "share" výzva poslať to kamošovi.
   Nepíš do captionu zdroje ani hashtagy, doplní ich systém.
 - hashtags: {p["max_hashtags"]} relevantných hashtagov: názov hry, platforma a aspoň 2 slovenské
   (napr. #hry #hernenovinky #gamingslovensko #novinkyzhier), zvyšok anglické.
-- category: jedna z {CATEGORIES}."""
+- category: jedna z {CATEGORIES}.
+- cta: výzva na poslednej snímke carouselu, vždy konkrétna k téme (nie všeobecné "sleduj nás").
+  type: "save" pre informatívnu správu, ku ktorej sa oplatí vrátiť (dátumy, ceny, požiadavky, zoznamy),
+        "share" pre zaujímavú alebo zábavnú správu, ktorú človek pošle kamošovi,
+        "comment" pre kontroverznú alebo diskutabilnú správu, kde ľudia budú mať názor.
+  title: max 26 znakov, úderná výzva po slovensky bez anglických slov (okrem názvov hier),
+  napr. "Ulož si dátumy", "Pošli to parťákovi", "Ktorý tím vyhrá?".
+  text: max 110 znakov, prečo to spraviť, s odkazom na obsah postu.
+- Nikde nespomínaj AI, bota, automatizáciu ani to, ako post vznikol."""
     user = f"""Téma: {story}
 
 Zdrojové články:
@@ -116,6 +129,7 @@ Zdrojové články:
 Vráť:
 {"format": "single"|"carousel", "category": "...", "headline": "...", "subline": "...",
  "slides": [{"title": "...", "body": "..."}], "caption": "...", "hashtags": ["#..."],
+ "cta": {"type": "save"|"share"|"comment", "title": "...", "text": "..."},
  "facts_used": ["každý konkrétny fakt z postu + id článku, z ktorého pochádza"]}"""
     return ask_json(cfg["model"]["writer"], system, user, max_tokens=3000)
 
@@ -123,7 +137,7 @@ Vráť:
 # ── 3. kontrola ──────────────────────────────────────────────
 def _check(post: dict, articles: list[dict], cfg: dict) -> dict:
     src = [{"id": a["id"], "source": a["source"], "text": a["text"][:5000]} for a in articles]
-    shown = {k: post.get(k) for k in ("headline", "subline", "slides", "caption", "hashtags")}
+    shown = {k: post.get(k) for k in ("headline", "subline", "slides", "cta", "caption", "hashtags")}
     system = """Si prísny fact-checker. Porovnávaš hotový Instagram post so zdrojovými článkami.
 Post schváľ iba vtedy, ak KAŽDÉ faktické tvrdenie (dátum, cena, platforma, číslo, meno, citát, udalosť)
 je podložené zdrojmi. Kontroluj aj: zavádzajúci headline, fámu podanú ako fakt, zlú slovenčinu
@@ -155,6 +169,12 @@ def _validate_shape(post: dict, cfg: dict) -> list[str]:
                 issues.append(f"snímka '{s.get('title')}' je príliš dlhá")
     if not post.get("caption") or len(post["caption"]) > 1200:
         issues.append("caption chýba alebo je dlhší ako 900 znakov")
+    cta = post.get("cta") or {}
+    if post.get("format") == "carousel":
+        if cta.get("type") not in CTA_BUTTONS:
+            issues.append('cta.type musí byť "save", "share" alebo "comment"')
+        if not cta.get("title") or len(cta["title"]) > 32 or len(cta.get("text") or "") > 140:
+            issues.append("cta chýba alebo je príliš dlhá (title max 26, text max 110 znakov)")
     if post.get("category") not in CATEGORIES:
         post["category"] = "NOVINKA"
     return issues

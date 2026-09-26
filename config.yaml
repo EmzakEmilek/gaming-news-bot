@@ -7,9 +7,10 @@ enabled: true            # vypínač: false = bot nič nepostne ani neodpovie
 brand:
   name: "EMZO DAILY"     # meno na vizuáloch
   handle: "@emzo.daily"  # IG handle na vizuáloch a v CTA
-  accent: "#C6FF00"      # hlavná farba (neon lime)
-  accent_2: "#7C5CFF"    # doplnková farba (fialová)
-  background: "#0B0B10"
+  accent: "#FFC300"      # hlavná farba (žltá)
+  accent_2: "#FF6B00"    # doplnková farba (oranžová)
+  accent_3: "#E3170A"    # doplnková farba (červená)
+  background: "#0A0A0A"  # čierna
 
 model:
   writer: "claude-sonnet-5"   # výber správ, copy, komentáre

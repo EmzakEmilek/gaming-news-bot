@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import io
+import random
 import re
 from pathlib import Path
 
@@ -11,6 +12,7 @@ from PIL import Image
 from playwright.sync_api import sync_playwright
 
 from .common import TEMPLATES_DIR, log
+from .editor import CTA_BUTTONS
 
 W, H = 1080, 1350
 
@@ -21,6 +23,30 @@ def _typo(text: str | None) -> str | None:
         return text
     text = re.sub(r"(?<![^\s(])([aAiIkKoOsSuUvVzZ]) ", "\\1\u00a0", text)
     return re.sub(r"(\d) (?=[^\s\d]{1,4}(?:[\s.,!?)]|$))", "\\1\u00a0", text)
+
+
+def _rgba(hex_color: str, alpha: float) -> str:
+    h = hex_color.lstrip("#")
+    return f"rgba({int(h[0:2], 16)},{int(h[2:4], 16)},{int(h[4:6], 16)},{alpha})"
+
+
+def _flow(slides: int, brand: dict, seed: str) -> str:
+    """Jeden gradient cez celý carousel (šírka = počet snímok x 1080 px). Každá snímka ukazuje svoj výsek,
+    takže farebné škvrny na hranách pokračujú na ďalšej snímke a každá snímka vyzerá trochu inak."""
+    rnd = random.Random(seed)
+    colors = [brand["accent"], brand["accent_2"], brand.get("accent_3", brand["accent_2"])]
+    layers = []
+    for k in range(slides + 1):  # škvrna na každom prechode medzi snímkami (a na krajoch)
+        c = colors[(k + rnd.randint(0, 2)) % 3]
+        layers.append(f"radial-gradient({rnd.randint(560, 760)}px {rnd.randint(480, 680)}px at "
+                      f"{k * W + rnd.randint(-90, 90)}px {rnd.randint(250, H - 150)}px, "
+                      f"{_rgba(c, 0.36 if c == colors[0] else 0.58)}, transparent 70%)")
+    for k in range(slides):  # menšia škvrna pri hornom alebo dolnom okraji snímky
+        c = colors[rnd.randint(0, 2)]
+        y = rnd.choice([rnd.randint(-120, 120), rnd.randint(H - 120, H + 120)])
+        layers.append(f"radial-gradient(460px 380px at {k * W + rnd.randint(260, 820)}px {y}px, "
+                      f"{_rgba(c, 0.4)}, transparent 70%)")
+    return ", ".join(layers)
 
 
 def _download_image(cands: list, dest: Path) -> tuple[str | None, str | None]:
@@ -61,7 +87,13 @@ def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[P
         for i, s in enumerate(body_slides, start=2):
             slides_ctx.append({"kind": "text", "title": _typo(s["title"]), "body": _typo(s["body"]),
                                "index": i, "total": total, "fit_max_height": 300})
-        slides_ctx.append({"kind": "outro", "index": total, "total": total, "fit_max_height": 0})
+        cta = post.get("cta") or {}
+        words = _typo(cta.get("title") or "Ulož si to").rsplit(" ", 1)
+        slides_ctx.append({"kind": "outro", "index": total, "total": total, "fit_max_height": 0,
+                           "cta_main": words[0] if len(words) > 1 else "", "cta_hl": words[-1],
+                           "cta_text": _typo(cta.get("text")),
+                           "cta_button": CTA_BUTTONS.get(cta.get("type"), CTA_BUTTONS["save"])})
+    flow = _flow(len(slides_ctx), brand, post["headline"])
 
     files = []
     with sync_playwright() as p:
@@ -69,7 +101,9 @@ def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[P
         page = browser.new_page(viewport={"width": W, "height": H}, device_scale_factor=1)
         for n, ctx in enumerate(slides_ctx, start=1):
             html_path = out_dir / f"slide_{n}.html"
-            html_path.write_text(tpl.render(brand=brand, base=base, date=date_label, **ctx), encoding="utf-8")
+            html = tpl.render(brand=brand, base=base, date=date_label, flow=flow, flow_w=len(slides_ctx) * W,
+                              flow_x=(n - 1) * W, **ctx)
+            html_path.write_text(html, encoding="utf-8")
             page.goto(html_path.resolve().as_uri())
             page.wait_for_selector("body[data-ready='1']", timeout=15000)
             png = page.screenshot(clip={"x": 0, "y": 0, "width": W, "height": H})
