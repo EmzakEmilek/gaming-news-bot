@@ -280,6 +280,8 @@ Do "blocking" daj IBA tieto štyri druhy vážnych problémov:
 4. Zlá slovenčina (doslovný preklad, kalk, zlý pád), vykanie alebo zjavná AI fráza z týchto vzorcov
    (nesklonený cudzí názov firmy alebo hry je v poriadku, ak veta inak znie prirodzene):
 {AI_TELLS}
+AI kontrast "X, nie Y" je blocking len vtedy, keď je hlavnou pointou nadpisu alebo sa v poste opakuje;
+jednu takú vetu v texte daj do "minor". Pravopisné drobnosti (predtým / pred tým) tiež do "minor".
 Všetko ostatné daj do "minor": titulok snímky nesedí presne, chýba predstavenie mena alebo pojmu (ak text aj tak
 dáva zmysel), slabší hook, formát čísel, iná formulácia, štýl. Výzvu na konci neposudzuj, doladí ju editor.
 Nežiadaj doplnenie nových faktov (post smie obsahovať len to, čo je v zdrojoch). Ak chýba kontext,
@@ -323,6 +325,7 @@ def _autofix(post: dict) -> None:
     def fix(t: str) -> str:
         t = re.sub(r"\s*—\s*|\s+–\s+", ", ", t)                                    # pomlčky medzi vetami
         t = re.sub(r"(\d)%", "\\1 %", t)                                            # 15% -> 15 %
+        t = re.sub(r"(?<![\w„])['\"“]([^'\"“”\n]{1,80}?)['\"”](?!\w)", "„\\1“", t)  # 'slovo' -> „slovo“
         return re.sub(r"(\d)-(tisíc|milión\w*|miliard\w*)", "\\1 \\2", t)           # 88-tisíc -> 88 tisíc
     for key in ("headline", "caption"):
         if post.get(key):
