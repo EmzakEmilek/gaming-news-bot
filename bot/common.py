@@ -72,6 +72,20 @@ def save_state(name: str, data) -> None:
     tmp.replace(path)
 
 
+def record_cost(kind: str, usd: float) -> None:
+    """Mesačný súčet nákladov na Claude API v state/costs.json. Len na GitHube, kde sa stav commituje;
+    lokálne testy vidíš v Anthropic Console (Usage)."""
+    if not os.environ.get("GITHUB_ACTIONS"):
+        return
+    costs = load_state("costs", {})
+    month = costs.setdefault(now_local().strftime("%Y-%m"), {})
+    item = month.setdefault(kind, {"runs": 0, "usd": 0.0})
+    item["runs"] += 1
+    item["usd"] = round(item["usd"] + usd, 4)
+    month["total_usd"] = round(sum(v["usd"] for v in month.values() if isinstance(v, dict)), 4)
+    save_state("costs", costs)
+
+
 def notify(message: str) -> None:
     """Voliteľná notifikácia na Discord/Telegram. Nikdy nezhodí beh."""
     discord = os.environ.get("DISCORD_WEBHOOK_URL")

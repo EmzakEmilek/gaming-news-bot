@@ -8,13 +8,15 @@ from pathlib import Path
 
 import requests
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from markupsafe import Markup
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
 from .common import TEMPLATES_DIR, log
-from .editor import CTA_BUTTONS
+from .editor import CTA_ICONS
 
 W, H = 1080, 1350
+MAX_SOURCES_ON_SLIDE = 3  # v captione sú vždy všetky
 
 
 def _typo(text: str | None) -> str | None:
@@ -23,6 +25,24 @@ def _typo(text: str | None) -> str | None:
         return text
     text = re.sub(r"(?<![^\s(])([aAiIkKoOsSuUvVzZ]) ", "\\1\u00a0", text)
     return re.sub(r"(\d) (?=[^\s\d]{1,4}(?:[\s.,!?)]|$))", "\\1\u00a0", text)
+
+
+def _icon(name: str | None) -> Markup:
+    """Inline SVG ikona zo sady Lucide (templates/icons), farbu preberá z CSS. Používa sa len na záverečnej snímke."""
+    path = TEMPLATES_DIR / "icons" / f"{name}.svg"
+    if not name or not path.exists():
+        return Markup("")
+    svg = re.sub(r"<!--.*?-->", "", path.read_text(encoding="utf-8"), flags=re.S).strip()
+    return Markup(svg)
+
+
+def _split_cta(title: str) -> tuple[str, str]:
+    """Výzvu rozdelí na bielu časť a farebne zvýraznenú: za prvou vetou/čiarkou, inak posledné 2 slová."""
+    m = re.match(r"(.+?[?!,:.])\s+(.+)", title)
+    if m:
+        return m.group(1), m.group(2)
+    words = title.split()
+    return " ".join(words[:-2]), " ".join(words[-2:])
 
 
 def _rgba(hex_color: str, alpha: float) -> str:
@@ -76,10 +96,15 @@ def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[P
     image, photo_credit = _download_image(post.get("image_candidates", []), out_dir / "source.jpg")
     post["photo_credit"] = photo_credit
     carousel = post["format"] == "carousel"
+    sources = post["sources"]
+    sources_label = ", ".join(sources[:MAX_SOURCES_ON_SLIDE])
+    if len(sources) > MAX_SOURCES_ON_SLIDE:
+        sources_label += f" +{len(sources) - MAX_SOURCES_ON_SLIDE}"
     slides_ctx = [{
         "kind": "cover", "image": image, "category": post["category"], "headline": _typo(post["headline"]),
-        "subline": _typo(post.get("subline")), "sources": ", ".join(post["sources"]), "photo_credit": photo_credit, "carousel": carousel,
-        "ghost": post["category"].split()[0], "fit_max_height": 500 if image else 560,
+        "sources": sources_label,
+        "photo_credit": photo_credit, "carousel": carousel, "ghost": post["category"].split()[0],
+        "fit_max_height": 620 if image else 720,
     }]
     if carousel:
         body_slides = post["slides"]
@@ -88,11 +113,10 @@ def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[P
             slides_ctx.append({"kind": "text", "title": _typo(s["title"]), "body": _typo(s["body"]),
                                "index": i, "total": total, "fit_max_height": 300})
         cta = post.get("cta") or {}
-        words = _typo(cta.get("title") or "Ulož si to").rsplit(" ", 1)
+        cta_main, cta_hl = _split_cta(_typo(cta.get("title") or "Pošli to kamošovi"))
         slides_ctx.append({"kind": "outro", "index": total, "total": total, "fit_max_height": 0,
-                           "cta_main": words[0] if len(words) > 1 else "", "cta_hl": words[-1],
-                           "cta_text": _typo(cta.get("text")),
-                           "cta_button": CTA_BUTTONS.get(cta.get("type"), CTA_BUTTONS["save"])})
+                           "cta_main": cta_main, "cta_hl": cta_hl,
+                           "cta_icon": _icon(CTA_ICONS.get(cta.get("type"), "send"))})
     flow = _flow(len(slides_ctx), brand, post["headline"])
 
     files = []

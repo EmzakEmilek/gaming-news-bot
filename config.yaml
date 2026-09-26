@@ -16,6 +16,9 @@ model:
   writer: "claude-sonnet-5"   # výber správ, copy, komentáre
   checker: "claude-sonnet-5"  # nezávislá kontrola faktov pred publikovaním
 
+api_prices:                   # USD za 1M tokenov [vstup, výstup], len na odhad nákladov v logoch a state/costs.json
+  claude-sonnet-5: [2.0, 10.0]
+
 posting:
   lookback_hours: 20          # z akého obdobia vyberá správy
   min_trusted_sources: 2      # koľko nezávislých portálov musí správu potvrdiť...
@@ -29,7 +32,8 @@ posting:
   avoid_topics:               # tieto témy bot vždy preskočí
     - úmrtia, tragédie, násilie a streľby (aj keď súvisia s hrami)
     - politika a vojny
-    - obvinenia z trestných činov, obťažovania alebo súdne spory o konkrétnych ľuďoch
+    - obvinenia z trestných činov alebo obťažovania a prebiehajúce súdne spory o konkrétnych ľuďoch
+      (spor firmy s jednotlivcom, v ktorom už padol rozsudok, je OK)
     - NSFW a sexuálny obsah
     - hazard, kasína, krypto a NFT promo
     - nepotvrdené leaky, fámy a "insider" tvrdenia

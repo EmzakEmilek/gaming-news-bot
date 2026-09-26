@@ -1,14 +1,26 @@
-"""Redakcia: výber témy, overenie zdrojov, napísanie postu a nezávislá kontrola faktov."""
+"""Redakcia: výber témy, overenie zdrojov, napísanie postu, čitateľská kontrola a kontrola faktov."""
 from __future__ import annotations
 
 import json
+import re
 
 from .collect import fetch_article
 from .common import log
 from .llm import ask_json
 
-CTA_BUTTONS = {"save": "ULOŽ SI POST", "share": "POŠLI KAMOŠOVI", "comment": "NAPÍŠ NÁZOR"}
 CATEGORIES = ["OZNÁMENIE", "TRAILER", "RELEASE", "UPDATE", "DLC", "BIZNIS", "HARDVÉR", "ESPORT", "ZDARMA", "DÁTUM VYDANIA"]
+CTA_ICONS = {"share": "send", "comment": "message-circle"}  # ikonka na záverečnej snímke (templates/icons)
+
+# Vzorce, podľa ktorých ľudia spoznajú text od AI (podľa skillu humanizer / Wikipedia "Signs of AI writing").
+AI_TELLS = """- kontrast "nie je to len X, ale Y", "nejde o X, ide o Y", "X, nie Y" (povedz rovno, čo platí)
+- dramatické jednovetné závery a fragmenty ("A to nie je všetko.", "Presne tak.", "Zmena je tu.")
+- úvody, ktoré ohlasujú namiesto toho, aby povedali ("Poďme sa pozrieť", "Tu je, čo vieme", "Úprimne?")
+- vymenúvanie po troch len pre rytmus
+- pomlčky (– alebo —) ako spojka viet; použi čiarku, bodku alebo dvojbodku
+- nafúknutý význam ("míľnik", "zásadný moment", "píše históriu", "mení pravidlá hry", "budúcnosť vyzerá svetlo")
+- reklamné slová ("úchvatný", "ohromujúci", "nabitý novinkami", "bohatý obsah")
+- "slúži ako", "predstavuje" namiesto obyčajného "je"; "podľa dostupných informácií"
+- vata a všeobecné titulky ("Ešte jedna novinka", "Čo ďalej", "Detaily", "Zhrnutie", "Zaujímavosť")"""
 
 
 # ── 1. výber témy ────────────────────────────────────────────
@@ -23,6 +35,8 @@ témy, ktoré zaujímajú bežného slovenského hráča (PC, PlayStation, Xbox,
 Dobré témy: oznámenia nových hier, dátumy vydania, veľké trailery, významné updaty a DLC, hry zadarmo,
 nový hardvér, veľké biznis správy (akvizície, zatvorenie štúdia), výsledky veľkých turnajov.
 Slabé témy: recenzie, návody, zoznamy "top 10", názorové články, zľavové články, malé indie hry bez presahu.
+Uprednostni správy, na ktoré ľudia reagujú alebo ich pošlú kamošovi: hry zadarmo a veľké zľavy známych hier,
+veľké oznámenia, kontroverzné rozhodnutia firiem (prepúšťanie, zdražovanie, zrušené hry, zmeny, ktoré hráčov nahnevajú).
 
 Nikdy nevyberaj tieto témy: {"; ".join(cfg["posting"]["avoid_topics"])}.
 
@@ -43,7 +57,7 @@ Vráť najviac 6 najlepších kandidátov zoradených od najlepšieho:
   "forbidden_topic": true/false,
   "already_covered": true/false
 }}]}}"""
-    data = ask_json(cfg["model"]["writer"], system, user, max_tokens=3000)
+    data = ask_json(cfg["model"]["writer"], system, user)
     return data.get("candidates", [])
 
 
@@ -75,73 +89,119 @@ def _write(story: str, articles: list[dict], cfg: dict, feedback: list[str] | No
         {"id": a["id"], "source": a["source"], "title": a["title"], "text": a["text"][:5000]}
         for a in articles
     ]
-    system = f"""Píšeš posty pre slovenskú Instagram stránku o videohrách {cfg["brand"]["handle"]}.
+    system = f"""Píšeš carousel posty pre slovenskú Instagram stránku o videohrách {cfg["brand"]["handle"]}.
 
 TÓN:
 {cfg["tone"]}
 
-PRAVIDLÁ FAKTOV (najdôležitejšie):
+FAKTY (najdôležitejšie):
 - Používaj IBA informácie, ktoré sú výslovne v dodaných článkoch. Nič nedopĺňaj z vlastnej pamäti.
 - Dátumy, ceny, platformy, čísla a mená prepíš presne. Ak si nie si istý, radšej to vynechaj.
 - Ak zdroje uvádzajú niečo ako neisté ("vraj", "podľa insiderov"), buď to vynechaj, alebo to jasne označ.
-  Neistotu vyjadri raz a jednoducho ("mal by vyjsť v decembri"), nie "očakávaný pravdepodobne".
-- Žiadne vlastné hodnotenia a superlatívy ("najväčšie oznámenie za roky", "konečne", "obrovský"),
-  ak to zdroj neuvádza ako fakt. Nekomentuj a nehodnoť firmy ani ľudí ("Problém je, že..."),
-  názor nechaj na čitateľov v otázke na konci.
-- Citácie a výrazy v úvodzovkách píš so slovenskými úvodzovkami „takto“.
-- Názvy hier, firiem a produktov nechaj v origináli (neprekladaj). Všetko ostatné, aj titulky snímok,
-  píš po slovensky (nie "Ice caves update", ale "Update s ľadovými jaskyňami").
+  Neistotu vyjadri raz a jednoducho ("mal by vyjsť v decembri").
+- Súkromných ľudí (nie verejne známe osoby) neuvádzaj menom.
+- Žiadne vlastné superlatívy ani hodnotenia firiem a ľudí. Kontroverziu ukáž cez fakty postavené vedľa seba,
+  názor nechaj na čitateľov.
 
-OSLOVENIE: čitateľovi vždy tykaj v jednotnom čísle ("priprav si", "čakal si", "čo na to povieš?"),
-nikdy nepoužívaj množné "vy" ("pripravte si", "čakali ste").
+JAZYK:
+- Prirodzená slovenčina, ako keď kamoš-hráč prerozpráva správu. Prekladaj význam, nie slová: anglické idiómy
+  a firemné frázy neprekladaj doslovne ("great to see" nie je "je skvelé vidieť", ale "teší ma";
+  "streamlining" podľa kontextu "škrty" alebo "zoštíhlenie firmy"). Citát prerozprávaj, ak by doslovný preklad
+  znel neprirodzene.
+- Čitateľovi tykaj v jednotnom čísle ("priprav si", "čo na to povieš?"), nikdy nie "vy".
+- Názvy hier, firiem a produktov nechaj v origináli, všetko ostatné po slovensky.
+- Čísla po slovensky: 88 000 alebo 88 tisíc (nie 88-tisíc), 4,5 milióna, 15 %. Úvodzovky „takto“.
+- Každá veta musí čitateľovi pridať niečo nové. Nepoužívaj vzorce, podľa ktorých ľudia spoznajú text od AI:
+{AI_TELLS}
+- Nikde nespomínaj AI, bota, automatizáciu ani to, ako post vznikol.
 
-FORMÁT:
-- "single" pre jednoduchú správu (jedna hlavná informácia), "carousel" keď je viac podstatných detailov.
-- headline: max 60 znakov. Ak to téma a dĺžka dovolia, daj doň hook: konkrétne číslo, kontrast, prekvapivý
-  detail alebo otvorenú otázku, ktorá ťa donúti swipnuť. Hook musí byť pravdivý a podložený zdrojmi,
-  žiadny clickbait, ktorý post nevysvetlí. Nekonči bodkou.
-- subline: max 110 znakov, doplní headline o najdôležitejší detail.
-- slides (iba carousel): 2 až {p["carousel_max_slides"] - 2} snímky, každá title max 32 znakov a body max 220 znakov.
-  Každá snímka prináša novú informáciu, neopakuj to, čo už je v headline a subline.
+TITULNÁ SNÍMKA (je na nej len nadpis, nič iné):
+- headline: max 70 znakov. Sám musí povedať, o akú hru alebo firmu ide a čo sa stalo (pri update napíš,
+  že ide o update; pri menej známej hre krátko, čo to je). Zároveň musí mať hook, aby človek swipol:
+  - kontroverzná správa (prepúšťanie, škrty, súdy, zdražovanie, zrušené hry): vyhroť kontrast, ktorý je
+    vo faktoch, napr. "Xbox vo veľkom prepúšťa, šéf Microsoftu je spokojný",
+  - dobrá správa (zadarmo, zľavy, nová hra): konkrétny prínos alebo číslo, napr. "Prvá Castlevania je zadarmo
+    a séria má zľavy až 80 %",
+  - informácia: najzaujímavejší konkrétny detail.
+  Hook musí byť pravdivý a podložený zdrojmi, žiadny clickbait. Nekonči bodkou.
+
+OBSAHOVÉ SNÍMKY:
+- slides: 2 až {p["carousel_max_slides"] - 2} snímky. Prvá snímka dá kontext pre niekoho, kto o téme nič nevie:
+  čo je to za hru alebo vec a čo presne sa stalo. Ďalšie pridávajú detaily. Nič neopakuj.
+- title: max 32 znakov, konkrétne zhrnie obsah snímky ("Ľadové jaskyne v decembri", "Zadarmo do 24. októbra").
+- body: max 220 znakov. Ak spomenieš pojem, ktorý nie každý pozná (Gamerscore, NG+, extraction), vysvetli ho
+  pár slovami alebo ho vynechaj.
+
+POSLEDNÁ SNÍMKA (cta, je na nej len jeden nadpis):
+- type "share" (predvolené, zdieľanie je najsilnejšia interakcia): zaujímavá, užitočná alebo zábavná správa,
+  ktorú človek pošle kamošovi. Napr. "Pošli zľavy kamošovi, nech tiež vie",
+  "Pošli to parťákovi, s ktorým to budeš hrať".
+- type "comment": kontroverzná alebo diskutabilná správa. Napr. "Čo si myslíš? Daj vedieť do komentu",
+  "Kúpiš si to za túto cenu? Napíš do komentu".
+- title: max 45 znakov, napojený na obsah postu. Nevyzývaj na uloženie ani na sledovanie stránky.
+
+CAPTION A OSTATNÉ:
 - caption: 2 až 4 krátke odseky, spolu max 900 znakov. Prvá veta je hook. Posledná veta je tá istá výzva
-  ako cta.type: pri "comment" otázka do komentárov, pri "save" pripomenutie uložiť si post,
-  pri "share" výzva poslať to kamošovi.
-  Nepíš do captionu zdroje ani hashtagy, doplní ich systém.
+  ako cta. Nepíš do captionu zdroje ani hashtagy, doplní ich systém.
 - hashtags: {p["max_hashtags"]} relevantných hashtagov: názov hry, platforma a aspoň 2 slovenské
   (napr. #hry #hernenovinky #gamingslovensko #novinkyzhier), zvyšok anglické.
-- category: jedna z {CATEGORIES}.
-- cta: výzva na poslednej snímke carouselu, vždy konkrétna k téme (nie všeobecné "sleduj nás").
-  type: "save" pre informatívnu správu, ku ktorej sa oplatí vrátiť (dátumy, ceny, požiadavky, zoznamy),
-        "share" pre zaujímavú alebo zábavnú správu, ktorú človek pošle kamošovi,
-        "comment" pre kontroverznú alebo diskutabilnú správu, kde ľudia budú mať názor.
-  title: max 26 znakov, úderná výzva po slovensky bez anglických slov (okrem názvov hier),
-  napr. "Ulož si dátumy", "Pošli to parťákovi", "Ktorý tím vyhrá?".
-  text: max 110 znakov, prečo to spraviť, s odkazom na obsah postu.
-- Nikde nespomínaj AI, bota, automatizáciu ani to, ako post vznikol."""
+- category: jedna z {CATEGORIES}."""
     user = f"""Téma: {story}
 
 Zdrojové články:
 {json.dumps(src, ensure_ascii=False)}
 """
     if feedback:
-        user += "\nPredchádzajúca verzia mala tieto chyby, oprav ich:\n- " + "\n- ".join(feedback)
+        user += ("\nPredchádzajúca verzia mala tieto chyby, oprav ich. Ak oprava žiada fakt, ktorý v zdrojoch nie je,"
+                 " nedopĺňaj ho, radšej mätúcu časť preformuluj alebo vynechaj:\n- " + "\n- ".join(feedback))
     user += """
 Vráť:
-{"format": "single"|"carousel", "category": "...", "headline": "...", "subline": "...",
- "slides": [{"title": "...", "body": "..."}], "caption": "...", "hashtags": ["#..."],
- "cta": {"type": "save"|"share"|"comment", "title": "...", "text": "..."},
+{"category": "...", "headline": "...", "slides": [{"title": "...", "body": "..."}],
+ "cta": {"type": "share"|"comment", "title": "..."}, "caption": "...", "hashtags": ["#..."],
  "facts_used": ["každý konkrétny fakt z postu + id článku, z ktorého pochádza"]}"""
-    return ask_json(cfg["model"]["writer"], system, user, max_tokens=3000)
+    post = ask_json(cfg["model"]["writer"], system, user)
+    post["format"] = "carousel"
+    return post
 
 
-# ── 3. kontrola ──────────────────────────────────────────────
+# ── 3. čitateľská kontrola (bez zdrojov, lacná) ─────────────
+def _review(post: dict, cfg: dict, previous: list[str] | None = None) -> dict:
+    shown = {k: post.get(k) for k in ("headline", "slides", "cta", "caption")}
+    system = f"""Si šéfredaktor slovenskej Instagram stránky o hrách. Čítaš hotový carousel tak, ako ho uvidí
+bežný slovenský hráč, ktorý o téme doteraz nič nevedel. Zdroje nemáš, fakty kontroluje niekto iný.
+Rozhoduješ, či post môže ísť von. Do "blocking" daj len vážne problémy, kvôli ktorým by nemal ísť von:
+1. Z nadpisu titulnej snímky nie je jasné, o akú hru alebo firmu ide a čo sa stalo, alebo nadpis nemá hook.
+2. Čitateľ nepochopí, o čo ide: kľúčový pojem bez vysvetlenia, neznáma hra bez predstavenia, tvrdenie,
+   ktoré nadväzuje na niečo, čo post nepovedal, alebo si dve časti postu protirečia.
+3. Prvá obsahová snímka nedáva kontext, titulok snímky nesedí s jej obsahom alebo je to vata.
+4. Zlá slovenčina: doslovný preklad z angličtiny, kalk, zlý pád, vykanie.
+5. Zjavné AI frázy. Vzorce:
+{AI_TELLS}
+6. Výzva na poslednej snímke nesedí s obsahom alebo caption nekončí rovnakou výzvou.
+Všetko ostatné (formát čísel, voliteľné doplnenie detailu, iná formulácia, štýlová preferencia) daj do "minor".
+Nežiadaj doplnenie nových faktov (post smie obsahovať len to, čo je v zdrojoch). Ak chýba kontext,
+navrhni preformulovať alebo vynechať časť, ktorá mätie.
+Každý problém napíš konkrétne aj s návrhom opravy."""
+    user = f"""Post:
+{json.dumps(shown, ensure_ascii=False)}
+"""
+    if previous:
+        user += ("\nPredošlá verzia mala tieto problémy: " + json.dumps(previous, ensure_ascii=False)
+                 + "\nOver, či sú opravené. Nový problém daj do blocking, len ak je naozaj vážny.\n")
+    user += '\nVráť: {"blocking": ["..."], "minor": ["..."]}'
+    return ask_json(cfg["model"]["checker"], system, user)
+
+
+# ── 4. kontrola faktov ──────────────────────────────────────────────
 def _check(post: dict, articles: list[dict], cfg: dict) -> dict:
     src = [{"id": a["id"], "source": a["source"], "text": a["text"][:5000]} for a in articles]
-    shown = {k: post.get(k) for k in ("headline", "subline", "slides", "cta", "caption", "hashtags")}
+    shown = {k: post.get(k) for k in ("headline", "slides", "cta", "caption", "hashtags")}
     system = """Si prísny fact-checker. Porovnávaš hotový Instagram post so zdrojovými článkami.
 Post schváľ iba vtedy, ak KAŽDÉ faktické tvrdenie (dátum, cena, platforma, číslo, meno, citát, udalosť)
 je podložené zdrojmi. Kontroluj aj: zavádzajúci headline, fámu podanú ako fakt, zlú slovenčinu
-(gramatika, diakritika, anglické frázy doslovne preložené), urážlivý alebo necitlivý obsah."""
+(gramatika, diakritika, anglické frázy doslovne preložené), urážlivý alebo necitlivý obsah.
+Headline smie byť úderný a postaviť fakty do kontrastu (napr. prepúšťanie vs. spokojný šéf), ak je každá
+jeho časť pravdivá a podložená. Výzva na poslednej snímke (cta) nie je faktické tvrdenie."""
     user = f"""Zdroje:
 {json.dumps(src, ensure_ascii=False)}
 
@@ -149,35 +209,67 @@ Post:
 {json.dumps(shown, ensure_ascii=False)}
 
 Vráť: {{"ok": true/false, "issues": ["konkrétny problém a ako ho opraviť"]}}"""
-    return ask_json(cfg["model"]["checker"], system, user, max_tokens=1500)
+    return ask_json(cfg["model"]["checker"], system, user)
+
+
+def _autofix(post: dict) -> None:
+    """Drobnosti, ktoré netreba riešiť drahým prepisom: pomlčky medzi vetami, medzera pred %."""
+    def fix(t: str) -> str:
+        t = re.sub(r"\s*—\s*|\s+–\s+", ", ", t)
+        return re.sub(r"(\d)%", "\\1 %", t)
+    for key in ("headline", "caption"):
+        if post.get(key):
+            post[key] = fix(post[key])
+    for sl in post.get("slides") or []:
+        sl["title"], sl["body"] = fix(sl.get("title", "")), fix(sl.get("body", ""))
+    if post.get("cta", {}).get("title"):
+        post["cta"]["title"] = fix(post["cta"]["title"])
 
 
 def _validate_shape(post: dict, cfg: dict) -> list[str]:
+    _autofix(post)
     issues = []
-    if post.get("format") not in ("single", "carousel"):
-        issues.append("format musí byť single alebo carousel")
-    if not post.get("headline") or len(post["headline"]) > 70:
-        issues.append("headline chýba alebo má viac ako 60 znakov")
-    if len(post.get("subline") or "") > 130:
-        issues.append("subline má viac ako 110 znakov")
-    if post.get("format") == "carousel":
-        slides = post.get("slides") or []
-        if not 2 <= len(slides) <= cfg["posting"]["carousel_max_slides"] - 2:  # + titulka a záverečná snímka
-            issues.append("carousel musí mať 2 až %d snímky" % (cfg["posting"]["carousel_max_slides"] - 2))
-        for s in slides:
-            if len(s.get("body", "")) > 260 or len(s.get("title", "")) > 40:
-                issues.append(f"snímka '{s.get('title')}' je príliš dlhá")
+    if not post.get("headline") or len(post["headline"]) > 85:
+        issues.append("headline chýba alebo má viac ako 70 znakov")
+    slides = post.get("slides") or []
+    if not 2 <= len(slides) <= cfg["posting"]["carousel_max_slides"] - 2:  # + titulka a záverečná snímka
+        issues.append("carousel musí mať 2 až %d snímky" % (cfg["posting"]["carousel_max_slides"] - 2))
+    for sl in slides:  # šablóna text zmenší, limity sú s rezervou
+        if len(sl.get("body", "")) > 280 or len(sl.get("title", "")) > 44:
+            issues.append(f"snímka '{sl.get('title')}' je príliš dlhá")
+    cta = post.get("cta") or {}
+    if cta.get("type") not in CTA_ICONS:
+        issues.append('cta.type musí byť "share" alebo "comment"')
+    if not cta.get("title") or len(cta["title"]) > 60:
+        issues.append("cta chýba alebo má viac ako 45 znakov")
     if not post.get("caption") or len(post["caption"]) > 1200:
         issues.append("caption chýba alebo je dlhší ako 900 znakov")
-    cta = post.get("cta") or {}
-    if post.get("format") == "carousel":
-        if cta.get("type") not in CTA_BUTTONS:
-            issues.append('cta.type musí byť "save", "share" alebo "comment"')
-        if not cta.get("title") or len(cta["title"]) > 32 or len(cta.get("text") or "") > 140:
-            issues.append("cta chýba alebo je príliš dlhá (title max 26, text max 110 znakov)")
     if post.get("category") not in CATEGORIES:
         post["category"] = "NOVINKA"
     return issues
+
+
+def produce(story: str, articles: list[dict], cfg: dict) -> dict | None:
+    """Napíše post a nechá ho prejsť kontrolou tvaru, čitateľa a faktov. Pri chybách max. 3 pokusy."""
+    feedback, reader_issues = None, None
+    for attempt in range(3):
+        post = _write(story, articles, cfg, feedback)
+        stage, issues = "tvar", _validate_shape(post, cfg)
+        minor = []
+        if not issues:
+            stage, verdict = "čitateľ", _review(post, cfg, reader_issues)
+            issues, minor = verdict.get("blocking") or [], verdict.get("minor") or []
+            reader_issues = issues or reader_issues
+        if not issues:
+            stage, verdict = "fakty", _check(post, articles, cfg)
+            issues = [] if verdict.get("ok") else (verdict.get("issues") or ["fact-check neschválil"])
+        if not issues:
+            if minor:
+                log.info("Drobnosti (nebránia publikovaniu): %s", minor)
+            return post
+        log.info("Kontrola (%s) našla problémy (pokus %d): %s", stage, attempt + 1, issues)
+        feedback = issues + minor
+    return None
 
 
 def make_post(items: list[dict], recent: list[str], cfg: dict) -> dict | None:
@@ -199,24 +291,20 @@ def make_post(items: list[dict], recent: list[str], cfg: dict) -> dict | None:
         if tried > 3:
             break
         articles = [fetch_article(by_id[i]) for i in cand["item_ids"] if i in by_id][:5]
-        feedback = None
-        for attempt in range(2):
-            post = _write(cand["story"], articles, cfg, feedback)
-            issues = _validate_shape(post, cfg)
-            if not issues:
-                verdict = _check(post, articles, cfg)
-                issues = [] if verdict.get("ok") else (verdict.get("issues") or ["checker neschválil"])
-            if not issues:
-                post["sources"] = sorted({a["source"] for a in articles})
-                post["links"] = [a["link"] for a in articles]
-                post["story"] = cand["story"]
-                post["verification"] = reason
-                post["image_candidates"] = _image_candidates(articles, cfg)
-                return post
-            log.info("Kontrola našla problémy (pokus %d): %s", attempt + 1, issues)
-            feedback = issues
+        post = produce(cand["story"], articles, cfg)
+        if post:
+            return finalize(post, cand["story"], articles, reason, cfg)
         log.info("Téma '%s' neprešla kontrolou, skúšam ďalšiu.", cand["story"])
     return None
+
+
+def finalize(post: dict, story: str, articles: list[dict], reason: str, cfg: dict) -> dict:
+    post["sources"] = sorted({a["source"] for a in articles})
+    post["links"] = [a["link"] for a in articles]
+    post["story"] = story
+    post["verification"] = reason
+    post["image_candidates"] = _image_candidates(articles, cfg)
+    return post
 
 
 def _image_candidates(articles: list[dict], cfg: dict) -> list[dict]:

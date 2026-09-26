@@ -13,7 +13,7 @@ from datetime import datetime, timedelta
 
 from .common import load_config, load_state, log, notify, now_utc, save_state
 from .instagram import Instagram
-from .llm import ask_json
+from .llm import ask_json, report_cost
 
 URL_RE = re.compile(r"(https?://|www\.|\.com\b|\.sk\b|\.cz\b)", re.I)
 
@@ -141,3 +141,5 @@ if __name__ == "__main__":
     except Exception as e:
         notify(f"❌ Bot zlyhal pri komentároch: {e}")
         raise
+    finally:
+        report_cost("comments")

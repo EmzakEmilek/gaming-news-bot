@@ -16,7 +16,9 @@ Overenie zdrojov (kód, nie AI)
    ▼
 Napísanie postu (Claude)          ← len z plného textu zdrojových článkov
    ▼
-Fact-check (druhé volanie Claude) ← neprejde = prepísať, 2× neprejde = ďalšia téma
+Čitateľská kontrola (Claude)      ← dáva to zmysel niekomu, kto tému nepozná? znie to prirodzene?
+   ▼
+Fact-check (ďalšie volanie Claude) ← neprejde = prepísať, 3× neprejde = ďalšia téma
    ▼
 Render HTML → JPEG 1080×1350      ← bot/render.py + templates/slide.html
    ▼
@@ -108,12 +110,13 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 - **Farby, meno a IG handle:** sekcia `brand` v `config.yaml`.
 - **Nový zdroj:** pridaj riadok do `feeds` (`tier: official` len pre oficiálne blogy vydavateľov a platforiem). Weby jedného vydavateľa označ rovnakou `group`, pri overovaní sa potom rátajú ako jeden zdroj.
 - **Čo bot postol a prečo:** `state/posted.json` + log každého behu v záložke Actions.
+- **Koľko to stojí:** `state/costs.json` (mesačný súčet za posty a komentáre, odhad podľa `api_prices` v `config.yaml`), cena každého postu je aj v `state/posted.json`. Presné čísla sú v Anthropic Console → Usage (workspace bota).
 
 ## Poistky zabudované v kóde
 
 - Fámy, leaky a zakázané témy sa nepostujú (`avoid_topics`).
 - Overenie zdrojov robí kód, nie AI: 1 oficiálny zdroj alebo ≥ 2 rôzne portály.
-- Copy sa píše len z plného textu článkov a pred publikovaním ho kontroluje samostatný fact-check.
+- Copy sa píše len z plného textu článkov. Pred publikovaním ho kontroluje čitateľská kontrola (zrozumiteľnosť, prirodzená slovenčina, žiadne typické AI frázy) a samostatný fact-check.
 - Obrázok na titulke je z článku (oficiálne zdroje majú prednosť) a na vizuáli aj v captione je uvedené „Foto: zdroj“. Prepínaš to v `posting.article_images` (`all` / `official` / `none`). Keď obrázok nie je k dispozícii, ide typografický vizuál.
 - Každý slot sa postne najviac raz, ani pri opakovanom behu nevznikne duplicita.
 - Odpovede na komentáre nesmú obsahovať odkazy, majú max. 180 znakov a na jeden beh ich je najviac 25.
@@ -125,4 +128,5 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 - **Otázky „si bot?“:** bot o sebe nič nehovorí a nikdy netvrdí, že je človek. Na otázky, kto stránku spravuje, neodpovedá, nechá ich na teba.
 - **GitHub vypína plánované behy** v repozitároch bez aktivity 60 dní. Bot po každom behu commitne stav, takže by sa to nemalo stať. Ak sa to predsa stane, príde ti e-mail a stačí workflow znova zapnúť.
 - **Cron na GitHube** môže meškať 5 až 30 minút. Na herné správy to nevadí.
-- **Náklady:** GitHub Actions a Pages sú pre verejný repozitár zadarmo. Platíš len Claude API. Na jeden post pripadne zhruba 4 až 8 volaní, na komentáre sa volá len vtedy, keď pribudnú nové.
+- **Náklady:** GitHub Actions a Pages sú pre verejný repozitár zadarmo. Platíš len Claude API. Na jeden post pripadne zhruba 4 až 10 volaní, na komentáre sa volá len vtedy, keď pribudnú nové. Priebežný súčet je v `state/costs.json`.
+- **Ikonky:** sada [Lucide](https://lucide.dev) (licencia ISC) v `templates/icons/`.

@@ -14,6 +14,7 @@ import shutil
 from .collect import collect
 from .common import OUT_DIR, load_config, load_state, log, notify, now_local, save_state
 from .editor import make_post
+from .llm import report_cost, run_cost
 
 
 def build_caption(post: dict, cfg: dict) -> str:
@@ -77,6 +78,7 @@ def main() -> None:
     date_label = f"{now.day}. {now.month}. {now.year}"
     files = render_post(post, cfg, out_dir, date_label)
     caption = build_caption(post, cfg)
+    post["cost_usd"] = round(run_cost(), 4)
     (out_dir / "post.json").write_text(json.dumps({**post, "final_caption": caption}, ensure_ascii=False, indent=2),
                                        encoding="utf-8")
 
@@ -94,10 +96,10 @@ def main() -> None:
     posted.append({
         "date": today, "slot": slot, "story": post["story"], "headline": post["headline"],
         "links": post["links"], "sources": post["sources"], "format": post["format"],
-        "media_id": info["id"], "permalink": info.get("permalink"),
+        "media_id": info["id"], "permalink": info.get("permalink"), "cost_usd": post["cost_usd"],
     })
     save_state("posted", posted[-500:])
-    notify(f"✅ {cfg['brand']['name']} postol: {post['headline']}\n{info.get('permalink', '')}")
+    notify(f"✅ {cfg['brand']['name']} postol: {post['headline']} (~${post['cost_usd']:.2f})\n{info.get('permalink', '')}")
 
 
 if __name__ == "__main__":
@@ -106,3 +108,5 @@ if __name__ == "__main__":
     except Exception as e:
         notify(f"❌ Bot zlyhal pri postovaní: {e}")
         raise
+    finally:
+        report_cost("post")
