@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 
@@ -33,6 +34,16 @@ def build_caption(post: dict, cfg: dict) -> str:
     return caption[:2200]
 
 
+def _in_slot_window(now, cfg: dict) -> bool:
+    """Záložný plánovač GitHubu vie meškať aj hodiny – postovať smie len blízko plánovaného času slotu."""
+    window = timedelta(minutes=cfg["posting"].get("schedule_window_minutes", 75))
+    for hhmm in cfg["posting"].get("slot_times", []):
+        h, m = map(int, hhmm.split(":"))
+        if abs(now - now.replace(hour=h, minute=m, second=0, microsecond=0)) <= window:
+            return True
+    return False
+
+
 def slot_name(hour: int) -> str:
     return "rano" if hour < 15 else "vecer"
 
@@ -50,6 +61,9 @@ def main() -> None:
 
     now = now_local()
     today, slot = now.date().isoformat(), slot_name(now.hour)
+    if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and not args.force and not _in_slot_window(now, cfg):
+        log.info("Plánovaný beh GitHubu mimo okna slotu (oneskorený), nič nerobím.")
+        return
     posted: list[dict] = load_state("posted", [])
     if not args.dry_run and not args.force and any(p["date"] == today and p["slot"] == slot for p in posted):
         log.info("Slot %s %s už je postnutý, končím.", today, slot)
