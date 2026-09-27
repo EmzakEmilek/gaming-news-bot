@@ -109,5 +109,26 @@
     "media_id": "18014460074748480",
     "permalink": "https://www.instagram.com/p/DdxxAQTgMtK/",
     "cost_usd": 0
+  },
+  {
+    "date": "2026-09-27",
+    "slot": "seed-06",
+    "at": "2026-09-27T05:36:20.682162+00:00",
+    "story": "Nintendo vyhralo súdny spor s bývalým moderátorom Redditu za pirátstvo Switch hier a získa 4,5 milióna dolárov",
+    "headline": "Nintendo vysúdilo 4,5 milióna dolárov od moderátora Redditu",
+    "links": [
+      "https://www.sector.sk/novinka/332439/nintendo-vyhralo-spor-s-moderatorom-redditu-za-piratstvo-dostane-4-5-miliona-dolarov.htm",
+      "https://indian-tv.cz/clanek/the-rogue-prince-of-persia-uz-neobdrzi-zadny-novy-obsah-5ehy5s",
+      "https://www.gamespot.com/articles/switch-pirate-ignored-nintendos-lawsuit-now-he-owes-4-5-million/"
+    ],
+    "sources": [
+      "GameSpot",
+      "Indian-TV",
+      "Sector.sk"
+    ],
+    "format": "carousel",
+    "media_id": "17939674722362080",
+    "permalink": "https://www.instagram.com/p/Ddx34aKjlSa/",
+    "cost_usd": 0
   }
 ]
