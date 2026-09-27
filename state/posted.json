@@ -86,5 +86,28 @@
     "media_id": "18117895270988358",
     "permalink": "https://www.instagram.com/p/DdxqJxVHE7k/",
     "cost_usd": 0
+  },
+  {
+    "date": "2026-09-27",
+    "slot": "seed-05",
+    "at": "2026-09-27T04:36:26.609478+00:00",
+    "story": "Minecraft Live priniesol veľké novinky vrátane prvej novej dimenzie The Sift za 15 rokov a decembrového update s ľadovými jaskyňami",
+    "headline": "Minecraft po 15 rokoch dostane novú dimenziu The Sift v roku 2027",
+    "links": [
+      "https://news.xbox.com/en-us/2026/09/26/minecraft-new-dimension-sift-dungeons-2/",
+      "https://news.xbox.com/en-us/2026/09/26/minecraft-dungeons-ii-the-sift-new-mechanics-better-exploration-and-more-official-xbox-podcast/",
+      "https://www.gamespot.com/articles/minecraft-is-getting-its-first-new-dimension-in-over-15-years/",
+      "https://www.polygon.com/minecraft-live-news-recap-sift-dimension/",
+      "https://www.gamespot.com/articles/the-next-minecraft-update-adds-ice-caves-a-new-mob-and-more/"
+    ],
+    "sources": [
+      "GameSpot",
+      "Polygon",
+      "Xbox Wire"
+    ],
+    "format": "carousel",
+    "media_id": "18014460074748480",
+    "permalink": "https://www.instagram.com/p/DdxxAQTgMtK/",
+    "cost_usd": 0
   }
 ]
