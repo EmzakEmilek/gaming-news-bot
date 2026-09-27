@@ -67,5 +67,24 @@
     "media_id": "17901794520666017",
     "permalink": "https://www.instagram.com/p/DdxjR3pkcWs/",
     "cost_usd": 0
+  },
+  {
+    "date": "2026-09-27",
+    "slot": "seed-04",
+    "at": "2026-09-27T03:36:35.372933+00:00",
+    "story": "Herné štúdio Build A Rocket Boy (tvorcovia MindsEye) vstúpilo do insolvencie po ďalšom kole prepúšťania",
+    "headline": "Tvorcovia MindsEye vinia sabotérov, štúdio končí v insolvencii",
+    "links": [
+      "https://www.eurogamer.net/mindseye-build-a-rocket-boy-administration-insolvency",
+      "https://www.gamesindustry.biz/build-a-rocket-boy-has-appointed-administrators"
+    ],
+    "sources": [
+      "Eurogamer",
+      "GamesIndustry.biz"
+    ],
+    "format": "carousel",
+    "media_id": "18117895270988358",
+    "permalink": "https://www.instagram.com/p/DdxqJxVHE7k/",
+    "cost_usd": 0
   }
 ]
