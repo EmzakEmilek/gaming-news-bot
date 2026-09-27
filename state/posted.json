@@ -174,5 +174,30 @@
     "media_id": "17977858475915383",
     "permalink": "https://www.instagram.com/p/DdyFlpwFTxD/",
     "cost_usd": 0
+  },
+  {
+    "date": "2026-09-27",
+    "slot": "seed-09",
+    "at": "2026-09-27T08:42:41.712115+00:00",
+    "story": "Microsoft CEO Satya Nadella obhajuje prepúšťanie a zatváranie štúdií v rámci reštrukturalizácie Xboxu",
+    "headline": "Xbox škrtá štúdiá aj ľudí, šéf Microsoftu je s tým spokojný",
+    "links": [
+      "https://www.gamespot.com/articles/microsoft-ceo-attempts-to-kill-remaining-xbox-goodwill/",
+      "https://kotaku.com/microsoft-ceo-on-recent-xbox-layoffs-theres-some-amount-of-streamlining-asha-is-doing-which-is-great-to-see-2000737217",
+      "https://www.videogameschronicle.com/news/microsoft-ceo-says-streamlining-of-xbox-business-is-great-to-see/",
+      "https://www.pcgamer.com/gaming-industry/microsoft-ceo-says-xboxs-streamlining-process-is-great-to-see-following-its-most-recent-round-of-layoffs/",
+      "https://www.purexbox.com/news/2026/09/microsoft-ceo-discusses-his-goals-for-the-future-of-xbox-feels-fantastic-about-the-ip-portfolio"
+    ],
+    "sources": [
+      "GameSpot",
+      "Kotaku",
+      "PC Gamer",
+      "Pure Xbox",
+      "VGC"
+    ],
+    "format": "carousel",
+    "media_id": "18430086121177153",
+    "permalink": "https://www.instagram.com/p/DdyNMFum-7q/",
+    "cost_usd": 0
   }
 ]
