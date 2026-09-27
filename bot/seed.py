@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import shutil
+from datetime import datetime, timedelta
 
 from .common import ROOT, load_state, log, notify, now_local, now_utc, save_state
 
@@ -19,6 +20,12 @@ def main() -> bool:
     if not queue:
         log.info("Fronta seed/ je prázdna.")
         return False
+    posted = load_state("posted", [])
+    last_at = max((datetime.fromisoformat(p["at"]) for p in posted if p.get("at")), default=None)
+    if last_at and now_utc() - last_at < timedelta(minutes=45):  # dva spúšťače v tej istej hodine = 1 post
+        log.info("Posledný post bol pred menej ako 45 min, tento beh vynechávam.")
+        return True
+
     from .hosting import upload
     from .instagram import Instagram
 
@@ -29,7 +36,6 @@ def main() -> bool:
     run_id = f"{now.date().isoformat()}-seed-{d.name}"
     info = Instagram().publish(upload(files, run_id), meta["final_caption"])
 
-    posted = load_state("posted", [])
     posted.append({
         "date": now.date().isoformat(), "slot": f"seed-{d.name}", "at": now_utc().isoformat(),
         "story": meta["story"], "headline": meta["headline"], "links": meta["links"],
