@@ -86,7 +86,7 @@ class Instagram:
                          fields="id,caption,timestamp,permalink,comments_count", limit=limit).get("data", [])
 
     def comments(self, media_id: str) -> list[dict]:
-        out, params = [], {"fields": "id,text,username,timestamp,hidden,replies{id,username,text}", "limit": 50}
+        out, params = [], {"fields": "id,text,username,from,timestamp,hidden,replies{id,username,from,text}", "limit": 50}
         path = f"{media_id}/comments"
         data = self._req("GET", path, **params)
         out.extend(data.get("data", []))

@@ -89,6 +89,10 @@ def main() -> None:
     budget = ccfg.get("max_replies_per_run", 25)
     stats = {"reply": 0, "hide": 0, "ignore": 0}
 
+    def is_own(x: dict) -> bool:  # podľa ID účtu aj mena – API meno niekedy nevráti
+        author = x.get("from") or {}
+        return str(author.get("id")) == str(ig.user_id) or             (x.get("username") or author.get("username") or "").lower() == me
+
     groups, by_id = [], {}
     for media in ig.recent_media():
         ts = datetime.strptime(media["timestamp"], "%Y-%m-%dT%H:%M:%S%z")
@@ -98,11 +102,11 @@ def main() -> None:
         for c in ig.comments(media["id"]):
             if c["id"] in handled or c.get("hidden"):
                 continue
-            if (c.get("username") or "").lower() == me:
+            if is_own(c):
                 handled.add(c["id"])
                 continue
             replies = (c.get("replies") or {}).get("data", [])
-            if any((r.get("username") or "").lower() == me for r in replies):
+            if any(is_own(r) for r in replies):
                 handled.add(c["id"])
                 continue
             if _trivial(c.get("text", "")):  # emoji, označenie kamaráta – netreba Claude
