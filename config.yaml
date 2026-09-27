@@ -30,7 +30,7 @@ api_prices:                   # USD za 1M tokenov [vstup, výstup], len na odhad
 
 posting:
   lookback_hours: 20          # z akého obdobia vyberá správy
-  min_hours_between_posts: 3  # rozostup medzi postami (chráni pred dvoma postami tesne za sebou)
+  min_hours_between_posts: 0.5  # rozostup medzi postami (chráni pred dvoma postami tesne za sebou)
   max_cost_per_run: 0.60      # USD – keď beh minie viac, slot sa vynechá (ochrana pred zbytočnými výdavkami)
   min_trusted_sources: 2      # koľko nezávislých portálov musí správu potvrdiť...
   official_is_enough: true    # ...alebo stačí 1 oficiálny zdroj (PS Blog, Xbox Wire, Steam, vydavateľ)
