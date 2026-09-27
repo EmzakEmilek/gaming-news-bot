@@ -134,8 +134,9 @@ def main() -> None:
                 if act == "hide" and not ccfg.get("hide_toxic", True):
                     act = "ignore"
 
-                log.info("[%s] @%s: %s%s", act.upper(), by_id[cid].get("username"),
-                         by_id[cid].get("text", "")[:80], f"  ->  {text}" if act == "reply" else "")
+                # bez používateľských mien – logy verejného repozitára sú verejné
+                log.info("[%s] %s%s", act.upper(), by_id[cid].get("text", "")[:60],
+                         f"  ->  {text}" if act == "reply" else "")
                 if not args.dry_run:
                     try:
                         if act == "reply":

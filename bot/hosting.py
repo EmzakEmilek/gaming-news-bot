@@ -46,6 +46,8 @@ def upload(files: list[Path], run_id: str) -> list[str]:
         subprocess.run(["git", "branch", "-D", TMP_BRANCH], cwd=ROOT, capture_output=True)
         _git("worktree", "add", "--orphan", "-b", TMP_BRANCH, str(wt), cwd=ROOT)
         (wt / ".nojekyll").touch()
+        for page in (ROOT / "site").glob("*.html"):  # statické stránky (zásady ochrany súkromia) – vždy znova
+            shutil.copy2(page, wt / page.name)
         target = wt / "media" / run_id
         target.mkdir(parents=True)
         for f in files:
