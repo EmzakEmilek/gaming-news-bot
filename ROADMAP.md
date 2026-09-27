@@ -1,5 +1,14 @@
 # Plán rozvoja
 
+## Zásady pre všetky fázy
+
+- **Rozpočet:** nové formáty nahrádzajú bežný news post v danom slote, nepridávajú sa navyše.
+  Počet postov a náklady ostávajú približne na dnešnej úrovni (~13 $ mesačne za Claude API).
+- **Kód pred AI:** všetko, čo sa dá vyčítať z dát (dátumy, ceny, skóre, platformy), dopĺňa kód.
+  Claude píše len text a nikdy nedopĺňa fakty z pamäti.
+- **Overenie zdrojov platí pre všetko:** 1 oficiálny zdroj alebo ≥ 2 nezávislé portály.
+- **Každý formát má vlastný vypínač** v `config.yaml` a vlastný strop nákladov na beh.
+
 ## Fáza 0 – AI bot s hernými správami (beží)
 
 2 posty denne (carousel), komentáre, obnova tokenu. Popis v [README](README.md).
@@ -36,8 +45,22 @@ a buduje návyk pozrieť sa na profil každý deň.
 5. **Publikovanie** – rovnaký hosting (GitHub Pages) a Instagram API ako správy, vlastný workflow
    s jedným časom denne; pravidlo rozostupu medzi postami platí aj tu.
 
-### Otvorené otázky
+## Fáza 1 – Attention magnets (ďalšia na rade)
 
-- Čas postu (napr. 14:00 medzi dvoma správami).
-- Affiliate odkazy – ak áno, post musí byť označený ako reklama / affiliate.
-- Prístup k dátam PlayStation a Xbox Store (bez oficiálneho API) a k feedom SK e-shopov.
+Cieľ: prilákať sledovateľov. Bez nových platených služieb.
+
+### Show recap
+
+Súhrn veľkej herne show (Nintendo Direct, State of Play, Xbox Showcase, Summer Game Fest,
+Gamescom ONL, The Game Awards…) čo najskôr po jej skončení.
+
+1. **Kalendár show** v `config.yaml` (názov, dátum, čas konca). Ručne, ročne ide o 15–20 show.
+   Keď bot v správach zachytí ohlásenie novej show, pošle notifikáciu s návrhom na doplnenie.
+2. **Workflow každých 15 min**, ktorý hneď skončí, ak práve nie je okno 2–3 h po konci show.
+3. **Zber:** oficiálny recap (PS Blog, Xbox Wire…) a súhrnné články portálov z existujúcich feedov.
+4. **Overenie** každého oznámenia zvlášť, podľa rovnakých pravidiel ako bežné správy.
+5. **Post:** carousel až 10 snímok, titulka + 1 oznámenie na snímku s oficiálnym obrázkom.
+   Fact-check ako pri bežnom poste.
+6. Recap nahrádza najbližší bežný slot (ten sa vynechá).
+
+Reálne 30–90 min po skončení show (overovanie + meškanie cronu). Odhad ~0,50–0,80 $ za recap.
