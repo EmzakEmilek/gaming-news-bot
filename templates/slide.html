@@ -88,7 +88,7 @@
     <div class="tag">{{ category }}</div>
     <div class="headline" id="fit">{{ headline }}</div>
   </div>
-  <div class="bottom"><div>Zdroj: {{ sources }}{% if photo_credit %} · Foto: {{ photo_credit }}{% endif %}</div>{% if carousel %}<div class="swipe">SWIPNI →</div>{% else %}<div>{{ brand.handle }}</div>{% endif %}</div>
+  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% endif %}</div>{% if carousel %}<div class="swipe">SWIPNI →</div>{% else %}<div>{{ brand.handle }}</div>{% endif %}</div>
 
 {% elif kind == "text" %}
   <div class="top"><div class="logo"><img src="logo.png" alt="">{{ brand.name }}</div><div class="date">{{ index }}/{{ total }}</div></div>

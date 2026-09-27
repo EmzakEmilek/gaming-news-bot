@@ -16,7 +16,6 @@ from .common import TEMPLATES_DIR, log
 from .editor import CTA_ICONS
 
 W, H = 1080, 1350
-MAX_SOURCES_ON_SLIDE = 3  # v captione sú vždy všetky
 
 
 def _typo(text: str | None) -> str | None:
@@ -96,13 +95,8 @@ def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[P
     image, photo_credit = _download_image(post.get("image_candidates", []), out_dir / "source.jpg")
     post["photo_credit"] = photo_credit
     carousel = post["format"] == "carousel"
-    sources = post["sources"]
-    sources_label = ", ".join(sources[:MAX_SOURCES_ON_SLIDE])
-    if len(sources) > MAX_SOURCES_ON_SLIDE:
-        sources_label += f" +{len(sources) - MAX_SOURCES_ON_SLIDE}"
     slides_ctx = [{
         "kind": "cover", "image": image, "category": post["category"], "headline": _typo(post["headline"]),
-        "sources": sources_label,
         "photo_credit": photo_credit, "carousel": carousel, "ghost": post["category"].split()[0],
         "fit_max_height": 620 if image else 720,
     }]
