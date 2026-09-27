@@ -151,5 +151,28 @@
     "media_id": "18107094440522330",
     "permalink": "https://www.instagram.com/p/Ddx-ywyETxV/",
     "cost_usd": 0
+  },
+  {
+    "date": "2026-09-27",
+    "slot": "seed-08",
+    "at": "2026-09-27T07:36:18.823210+00:00",
+    "story": "Konami oslavuje 40. výročie Castlevanie rozdávaním pôvodnej hry zadarmo na mobiloch a veľkými zľavami",
+    "headline": "Konami rozdáva prvú Castlevaniu zadarmo, séria má zľavy až 80 %",
+    "links": [
+      "https://www.eurogamer.net/castlevania-40th-anniversary-free-original-game-belmonts-curse",
+      "https://www.sector.sk/novinka/332421/castlevania-oslavuje-40-rokov-zlavami-prva-hra-je-teraz-na-mobiloch-zadarmo.htm",
+      "https://www.videogameschronicle.com/news/konami-is-celebrating-the-40th-anniversary-of-castlevania-with-a-big-retro-sale-and-a-free-game/",
+      "https://hrej.cz/article/castlevania-zdarma-android-ios"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Hrej.cz",
+      "Sector.sk",
+      "VGC"
+    ],
+    "format": "carousel",
+    "media_id": "17977858475915383",
+    "permalink": "https://www.instagram.com/p/DdyFlpwFTxD/",
+    "cost_usd": 0
   }
 ]
