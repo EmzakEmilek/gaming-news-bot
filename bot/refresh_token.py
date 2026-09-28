@@ -16,10 +16,15 @@ def main() -> None:
     ig = Instagram()
     data = ig.refresh_token()
     new_token, days = data["access_token"], int(data.get("expires_in", 0)) // 86400
-    subprocess.run(
-        ["gh", "secret", "set", "IG_ACCESS_TOKEN", "--repo", env("GITHUB_REPOSITORY"), "--body", new_token],
-        check=True, env={**os.environ, "GH_TOKEN": env("GH_PAT")}, capture_output=True,
+    if os.environ.get("GITHUB_ACTIONS"):  # nový token nie je secret – bez masky by ho GitHub vypísal do verejného logu
+        print(f"::add-mask::{new_token}", flush=True)
+    # token ide cez stdin, nie ako argument: argumenty sa objavia v chybovej hláške (a tá v logu aj v notifikácii)
+    r = subprocess.run(
+        ["gh", "secret", "set", "IG_ACCESS_TOKEN", "--repo", env("GITHUB_REPOSITORY")],
+        input=new_token, text=True, env={**os.environ, "GH_TOKEN": env("GH_PAT")}, capture_output=True,
     )
+    if r.returncode != 0:
+        raise RuntimeError(f"uloženie do secretu zlyhalo (skontroluj GH_PAT): {r.stderr.strip()}")
     log.info("Token obnovený, platí ďalších %d dní.", days)
 
 
