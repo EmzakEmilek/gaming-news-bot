@@ -11,7 +11,7 @@ import json
 import re
 from datetime import datetime, timedelta
 
-from .common import load_config, load_state, log, notify, now_utc, save_state
+from .common import load_config, load_state, log, notify, notify_long, now_utc, save_state
 from .instagram import Instagram
 from .llm import STR, ask_json, report_cost, schema
 
@@ -173,21 +173,14 @@ def main() -> None:
 
 
 def notify_report(report: dict[str, list[str]]) -> None:
-    """Na Discord/Telegram pošle, čo bot s komentármi urobil. Správy delí, aby neprekročili limit Discordu."""
+    """Na Discord/Telegram pošle, čo bot s komentármi urobil."""
     titles = {"owner": "🙋 Čaká na tvoju odpoveď", "reply": "💬 Bot odpovedal", "hide": "🛡️ Bot skryl"}
     lines = []
     for key, title in titles.items():
         if report[key]:
             lines += [f"**{title} ({len(report[key])}):**"] + report[key] + [""]
-    chunk = ""
-    for line in lines:
-        if len(chunk) + len(line) > 1800:
-            notify(chunk)
-            chunk = ""
-        chunk += line + "\n"
-    if chunk.strip():
-        notify(chunk)
-
+    if lines:
+        notify_long("\n".join(lines))
 
 if __name__ == "__main__":
     try:

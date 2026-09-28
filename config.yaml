@@ -44,6 +44,7 @@ posting:
   carousel_max_slides: 6      # vrátane titulky a záverečnej snímky (max. 4 obsahové)
   max_hashtags: 8
   ai_label: false             # Meta štítok "AI info" (is_ai_generated)
+  story: true                 # po každom poste aj Story s titulkou (viac ukázaní sledovateľom v prvej hodine)
   article_images: all         # all = obrázok z článku z hociktorého zdroja (s "Foto: zdroj")
                               # official = len z oficiálnych zdrojov, none = len typografia
   avoid_topics:               # tieto témy bot vždy preskočí

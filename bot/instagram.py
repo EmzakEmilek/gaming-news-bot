@@ -41,7 +41,14 @@ class Instagram:
 
     # ── publikovanie ─────────────────────────────────────────
     def _container(self, **params) -> str:
-        return self._req("POST", f"{self.user_id}/media", **params)["id"]
+        try:
+            return self._req("POST", f"{self.user_id}/media", **params)["id"]
+        except IGError as e:
+            if "alt_text" not in params:
+                raise
+            log.warning("Kontajner s alt textom zlyhal (%s), skúšam bez neho.", e)
+            params.pop("alt_text")
+            return self._req("POST", f"{self.user_id}/media", **params)["id"]
 
     def _wait_ready(self, container_id: str, timeout: int = 300) -> None:
         deadline = time.time() + timeout
@@ -54,12 +61,15 @@ class Instagram:
             time.sleep(10)
         raise IGError(f"Kontajner {container_id} nie je pripravený ani po {timeout}s")
 
-    def publish(self, image_urls: list[str], caption: str, ai_label: bool = False) -> dict:
+    def publish(self, image_urls: list[str], caption: str, ai_label: bool = False,
+                alt_texts: list[str] | None = None) -> dict:
         extra = {"is_ai_generated": "true"} if ai_label else {}
+        alts = [{"alt_text": a} if a else {} for a in (alt_texts or [])] + [{}] * len(image_urls)
         if len(image_urls) == 1:
-            cid = self._container(image_url=image_urls[0], caption=caption, **extra)
+            cid = self._container(image_url=image_urls[0], caption=caption, **alts[0], **extra)
         else:  # najprv založiť všetky snímky, potom počkať na všetky naraz
-            children = [self._container(image_url=url, is_carousel_item="true") for url in image_urls[:10]]
+            children = [self._container(image_url=url, is_carousel_item="true", **alts[i])
+                        for i, url in enumerate(image_urls[:10])]
             for child in children:
                 self._wait_ready(child)
             cid = self._container(media_type="CAROUSEL", children=",".join(children), caption=caption, **extra)
@@ -72,6 +82,14 @@ class Instagram:
             info = {"id": media_id}
         log.info("Publikované: %s", info.get("permalink") or media_id)
         return info
+
+    def publish_story(self, image_url: str) -> str:
+        """Story s obrázkom (bez textu, odkazu a alt textu – API ich pri Stories nepodporuje)."""
+        cid = self._container(image_url=image_url, media_type="STORIES")
+        self._wait_ready(cid)
+        media_id = self._req("POST", f"{self.user_id}/media_publish", creation_id=cid)["id"]
+        log.info("Story publikovaný: %s", media_id)
+        return media_id
 
     def publishing_quota(self) -> dict:
         data = self._req("GET", f"{self.user_id}/content_publishing_limit", fields="quota_usage,config")
@@ -108,6 +126,13 @@ class Instagram:
     # ── štatistiky (oprávnenie instagram_business_manage_insights) ──
     def followers_count(self) -> int | None:
         return self._req("GET", "me", fields="followers_count").get("followers_count")
+
+    def online_followers(self) -> dict[int, int]:
+        """Koľko sledovateľov je online v jednotlivých hodinách (posledný deň, ktorý Instagram ponúka).
+        Instagram to ukazuje až od 100 sledovateľov, inak vyhodí IGError alebo vráti prázdne dáta."""
+        data = self._req("GET", f"{self.user_id}/insights", metric="online_followers", period="lifetime")
+        values = [v.get("value") for v in (data.get("data") or [{}])[0].get("values", []) if v.get("value")]
+        return {int(h): n for h, n in values[-1].items()} if values else {}
 
     def media_insights(self, media_id: str, metrics: list[str]) -> dict[str, int]:
         """Metriky postu. Keď API odmietne celú dávku (niektorá metrika pre daný typ neexistuje),

@@ -80,6 +80,25 @@ def copy_only(count: int, recent: list[str], used_links: set[str], cfg: dict, ru
         rumors_left -= post.get("rumor", False)
 
 
+def alt_texts(post: dict) -> list[str]:
+    """Alt text ku každej snímke = text, ktorý je na nej (pre nevidiacich a vyhľadávanie na Instagrame)."""
+    cover = f"{post['category']}: {post['headline']}"
+    if post.get("photo_credit"):
+        cover += f". Fotka: {post['photo_credit']}"
+    alts = [cover] + [f"{sl['title']}. {sl['body']}" for sl in post.get("slides") or []]
+    if post.get("cta"):
+        alts.append(post["cta"]["title"])
+    return [a[:1000] for a in alts]
+
+
+def github_output(key: str, value: str) -> None:
+    """Hodnota pre ďalší krok workflowu (napr. či sa publikovalo – spustí rýchle komentáre)."""
+    path = os.environ.get("GITHUB_OUTPUT")
+    if path:
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(f"{key}={value}\n")
+
+
 def slot_name(hour: int) -> str:
     return "rano" if hour < 15 else "vecer"
 
@@ -149,6 +168,10 @@ def main() -> None:
         msg = f"⚠️ {cfg['brand']['name']}: slot {slot} {today} vynechaný – {reason}."
         log.warning(msg)
         notify(msg)
+        if not args.dry_run:  # do týždenného prehľadu
+            skipped = load_state("skipped", []) + [{"date": today, "slot": slot, "at": now_utc().isoformat(),
+                                                    "reason": reason}]
+            save_state("skipped", skipped[-100:])
         return
 
     run_id = f"{today}-{slot}"
@@ -156,9 +179,10 @@ def main() -> None:
         run_id += now.strftime("-dry-%H%M%S")
     out_dir = OUT_DIR / run_id
     shutil.rmtree(out_dir, ignore_errors=True)  # žiadne staré snímky z predošlého behu
-    from .render import render_post  # import až tu, Playwright je ťažký
+    from .render import render_post, render_story  # import až tu, Playwright je ťažký
     date_label = f"{now.day}. {now.month}. {now.year}"
     files = render_post(post, cfg, out_dir, date_label)
+    story = render_story(files[0], out_dir / "story.jpg") if cfg["posting"].get("story", True) else None
     caption = build_caption(post, cfg)
     post["cost_usd"] = round(run_cost(), 4)
     (out_dir / "post.json").write_text(json.dumps({**post, "final_caption": caption}, ensure_ascii=False, indent=2),
@@ -172,17 +196,28 @@ def main() -> None:
     from .instagram import Instagram
 
     ig = Instagram()
-    urls = upload(files, f"{run_id}-{now:%H%M%S}")  # nová URL pri každom behu, inak by CDN Pages mohla vrátiť staré snímky
-    info = ig.publish(urls, caption, ai_label=cfg["posting"].get("ai_label", False))
+    # nová URL pri každom behu, inak by CDN Pages mohla vrátiť staré snímky
+    urls = upload(files + ([story] if story else []), f"{run_id}-{now:%H%M%S}")
+    story_url = urls.pop() if story else None
+    info = ig.publish(urls, caption, ai_label=cfg["posting"].get("ai_label", False), alt_texts=alt_texts(post))
+    github_output("published", "true")
+    story_id = None
+    if story_url:  # post už je vonku – zlyhanie Story ho nesmie zhodiť
+        try:
+            story_id = ig.publish_story(story_url)
+        except Exception as e:  # noqa: BLE001
+            log.warning("Story sa nepodarilo zverejniť: %s", e)
+            notify(f"⚠️ Post je vonku, ale Story sa nepodarilo zverejniť: {e}")
 
     # stav hneď po publikovaní: ak by neskôr niečo zlyhalo, ďalší slot tú istú správu nezopakuje
     posted.append({
         "date": today, "slot": slot, "at": now_utc().isoformat(), "story": post["story"], "headline": post["headline"],
         "links": post["links"], "sources": post["sources"], "format": post["format"], "category": post["category"], "rumor": post.get("rumor", False),
-        "media_id": info["id"], "permalink": info.get("permalink"), "cost_usd": post["cost_usd"],
+        "media_id": info["id"], "permalink": info.get("permalink"), "cost_usd": post["cost_usd"], "story_id": story_id,
     })
     save_state("posted", posted[-500:])
-    notify(f"✅ {cfg['brand']['name']} postol: {post['headline']} (~${post['cost_usd']:.2f})\n{info.get('permalink', '')}")
+    notify(f"✅ {cfg['brand']['name']} postol: {post['headline']} (~${post['cost_usd']:.2f})"
+           f"{' + Story' if story_id else ''}\n{info.get('permalink', '')}")
 
 
 if __name__ == "__main__":
