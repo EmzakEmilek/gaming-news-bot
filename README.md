@@ -9,7 +9,7 @@ RSS feedy (16 portálov)          ← bot/collect.py
    │  čerstvé články, bez už použitých
    ▼
 Výber témy (Claude)               ← bot/editor.py
-   │  zlúči rovnaké správy z rôznych webov, vyradí fámy a zakázané témy
+   │  zlúči rovnaké správy z rôznych webov, vyradí zakázané témy, označí fámy
    ▼
 Overenie zdrojov (kód, nie AI)
    │  1 oficiálny zdroj ALEBO ≥ 2 nezávislé portály, inak ďalší kandidát
@@ -121,7 +121,7 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 
 ## Poistky zabudované v kóde
 
-- Fámy, leaky a zakázané témy sa nepostujú (`avoid_topics`). Správy z vlastného zisťovania renomovaných médií (Bloomberg, The Verge…) sú povolené (`allow_reputable_reports`), post ich vždy pripíše médiu.
+- Zakázané témy sa nepostujú (`avoid_topics`). Fámy a leaky áno, ak o nich píšu aspoň 2 nezávislé portály: titulka dostane štítok **RUMOR**, post menuje pôvodný zdroj fámy a denne ide najviac `rumors_per_day` (predvolene 1). Vypína ich `allow_rumors: false`. Správy z vlastného zisťovania renomovaných médií (Bloomberg, The Verge…) sú povolené (`allow_reputable_reports`), post ich vždy pripíše médiu.
 - Overenie zdrojov robí kód, nie AI: 1 oficiálny zdroj alebo ≥ 2 rôzne portály.
 - Copy sa píše len z plného textu článkov. Pred publikovaním ho kontroluje čitateľská kontrola (zrozumiteľnosť, prirodzená slovenčina, žiadne typické AI frázy) a samostatný fact-check.
 - Obrázok na titulke je z článku (oficiálne zdroje majú prednosť) a na vizuáli aj v captione je uvedené „Foto: zdroj“. Prepínaš to v `posting.article_images` (`all` / `official` / `none`). Keď obrázok nie je k dispozícii, ide typografický vizuál.

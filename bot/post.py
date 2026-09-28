@@ -56,14 +56,15 @@ def copy_text(post: dict, cfg: dict) -> str:
     return "\n".join(lines)
 
 
-def copy_only(count: int, recent: list[str], used_links: set[str], cfg: dict) -> None:
+def copy_only(count: int, recent: list[str], used_links: set[str], cfg: dict, rumors_left: int) -> None:
     """Testovací režim: napíše `count` postov na rôzne témy, bez grafiky a publikovania, texty vypíše do logu."""
     items = collect(cfg["feeds"], cfg["posting"]["lookback_hours"], used_links)
     performance = performance_hint()
     OUT_DIR.mkdir(exist_ok=True)
     for n in range(1, count + 1):
         try:
-            post = make_post([it for it in items if it["link"] not in used_links], recent, cfg, [], performance)
+            post = make_post([it for it in items if it["link"] not in used_links], recent, cfg, [], performance,
+                             rumors_left > 0)
         except BudgetExceeded as e:
             log.warning("Test zastavený, prekročený rozpočet behu: %s", e)
             return
@@ -74,6 +75,7 @@ def copy_only(count: int, recent: list[str], used_links: set[str], cfg: dict) ->
         (OUT_DIR / f"copy-{n}.json").write_text(json.dumps(post, ensure_ascii=False, indent=2), encoding="utf-8")
         recent.append(post["story"])
         used_links |= set(post["links"])
+        rumors_left -= post.get("rumor", False)
 
 
 def slot_name(hour: int) -> str:
@@ -118,8 +120,11 @@ def main() -> None:
     used_links = {link for p in posted[-300:] for link in p.get("links", [])}
     used_links |= {link for f in failed_state for link in f["links"]}
 
+    # fámy (štítok RUMOR) najviac posting.rumors_per_day denne, nech profil nestratí dôveryhodnosť
+    rumors_left = cfg["posting"].get("rumors_per_day", 1) - sum(1 for p in posted if p["date"] == today and p.get("rumor"))
+
     if args.copy_only:
-        copy_only(max(1, args.count), recent, used_links, cfg)
+        copy_only(max(1, args.count), recent, used_links, cfg, rumors_left)
         return
 
     post, failed, reason = None, [], "žiadna správa neprešla overením"
@@ -127,7 +132,7 @@ def main() -> None:
     try:
         for mult in (1, 2):
             items = collect(cfg["feeds"], cfg["posting"]["lookback_hours"] * mult, used_links)
-            post = make_post(items, recent, cfg, failed, performance)
+            post = make_post(items, recent, cfg, failed, performance, rumors_left > 0)
             if post:
                 break
             recent += [f["story"] for f in failed]  # v širšom okne už neskúšať to, čo práve neprešlo
@@ -171,7 +176,7 @@ def main() -> None:
     # stav hneď po publikovaní: ak by neskôr niečo zlyhalo, ďalší slot tú istú správu nezopakuje
     posted.append({
         "date": today, "slot": slot, "at": now_utc().isoformat(), "story": post["story"], "headline": post["headline"],
-        "links": post["links"], "sources": post["sources"], "format": post["format"], "category": post["category"],
+        "links": post["links"], "sources": post["sources"], "format": post["format"], "category": post["category"], "rumor": post.get("rumor", False),
         "media_id": info["id"], "permalink": info.get("permalink"), "cost_usd": post["cost_usd"],
     })
     save_state("posted", posted[-500:])

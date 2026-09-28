@@ -54,6 +54,15 @@ CTA_FMT = schema(type={"type": "string", "enum": list(CTA_ICONS)}, title=STR, ca
 SAME_FMT = schema(same=STR_LIST)
 
 
+RUMORS_OK = ("Dobrou témou sú aj fámy a leaky o hrách, o ktorých píše viac portálov (označ ich is_rumor)."
+             " Fámy o konkrétnych ľuďoch nevyberaj.\n")
+RUMOR_NOTE = """
+POZOR: táto správa je nepotvrdená fáma a titulka dostane štítok RUMOR. Nadpis nesmie znieť ako potvrdený fakt.
+V prvej snímke aj v captione pomenuj pôvodný zdroj fámy (leaker, insider, datamining), nie portál, ktorý o nej
+píše, a tvrdenia podávaj ako tvrdenia tohto zdroja ("podľa insidera X má hra vyjsť ...").
+"""
+
+
 class BudgetExceeded(RuntimeError):
     """Beh minul povolený rozpočet (posting.max_cost_per_run)."""
 
@@ -95,7 +104,7 @@ nový hardvér, veľké biznis správy (akvizície, zatvorenie štúdia), výsle
 Slabé témy: recenzie jednej hry, návody, zoznamy "top 10", názorové články, malé indie hry bez presahu.
 Uprednostni správy, na ktoré ľudia reagujú alebo ich pošlú kamošovi: hry zadarmo a veľké zľavy známych hier,
 veľké oznámenia, kontroverzné rozhodnutia firiem (prepúšťanie, zdražovanie, zrušené hry, zmeny, ktoré hráčov nahnevajú).
-
+{RUMORS_OK if cfg["posting"].get("allow_rumors") else ""}
 Nikdy nevyberaj tieto témy: {"; ".join(cfg["posting"]["avoid_topics"])}.
 
 Články dostaneš ako [id, zdroj, vek, nadpis, príznak]. Zdroj s * je oficiálny (vydavateľ, platforma).
@@ -151,7 +160,7 @@ Ktoré z týchto článkov hovoria o TEJ ISTEJ udalosti (nie len o tej istej hre
         log.info("Doplnené zdroje k '%s': %s", cand["story"], [by_id[i]["source"] for i in added])
 
 
-def _passes_verification(cand: dict, by_id: dict, cfg: dict) -> tuple[bool, str]:
+def _passes_verification(cand: dict, by_id: dict, cfg: dict, rumors_left: bool = True) -> tuple[bool, str]:
     p = cfg["posting"]
     if cand.get("forbidden_topic"):
         return False, "zakázaná téma"
@@ -159,6 +168,8 @@ def _passes_verification(cand: dict, by_id: dict, cfg: dict) -> tuple[bool, str]
         return False, "už sme o tom postli"
     if cand.get("is_rumor") and not p.get("allow_rumors"):
         return False, "fáma/leak"
+    if cand.get("is_rumor") and not rumors_left:
+        return False, "dnešný limit fám je vyčerpaný"
     if cand.get("is_report") and not p.get("allow_reputable_reports", True):
         return False, "nepotvrdená reportáž média"
     arts = [by_id[i] for i in cand.get("item_ids", []) if i in by_id]
@@ -167,6 +178,10 @@ def _passes_verification(cand: dict, by_id: dict, cfg: dict) -> tuple[bool, str]
     sources = {a["source"] for a in arts}
     publishers = {a.get("group") or a["source"] for a in arts}  # weby jedného vydavateľa = 1 zdroj
     official = any(a["tier"] == "official" for a in arts)
+    if cand.get("is_rumor"):  # fáma: oficiálny zdroj ju nepotvrdil, musí o nej písať viac portálov
+        if len(publishers) >= p.get("min_trusted_sources", 2):
+            return True, f"fáma z {len(publishers)} nezávislých portálov ({', '.join(sorted(sources))})"
+        return False, f"fáma len z {len(publishers)} portálu ({', '.join(sorted(sources))})"
     if official and p.get("official_is_enough", True):
         return True, f"oficiálny zdroj ({', '.join(sorted(sources))})"
     if len(publishers) >= p.get("min_trusted_sources", 2):
@@ -176,7 +191,7 @@ def _passes_verification(cand: dict, by_id: dict, cfg: dict) -> tuple[bool, str]
 
 # ── 2. písanie ───────────────────────────────────────────────
 def _write(story: str, articles: list[dict], cfg: dict, feedback: list[str] | None = None,
-           previous: dict | None = None, last: bool = False) -> dict:
+           previous: dict | None = None, last: bool = False, rumor: bool = False) -> dict:
     p = cfg["posting"]
     src = [
         {"id": a["id"], "source": a["source"], "title": a["title"], "text": a["text"][:ARTICLE_CHARS]}
@@ -197,7 +212,9 @@ FAKTY
 
 ČITATEĽ
 Píšeš pre bežného slovenského hráča, ktorý o téme nič nevie a post si môže pozrieť aj o mesiac.
-- Vyber len to, čo ho zaujíma. Čísla len podstatné, najviac 3 na snímku.
+- Vyber len to, čo ho zaujíma. Čísla, ktoré potrebuje (hodnotenia, ceny, dátumy), sú v poriadku, vynechaj tie,
+  ktoré ho nezaujímajú (časy v iných krajinách, účtovné položky). Cenu hry, edície, DLC alebo zľavy uveď vždy,
+  keď ju zdroje majú.
 - Menej známu osobu, postavu alebo pojem pri prvej zmienke uveď pár slovami ("hlavný hrdina Dylan").
 - Čas vždy konkrétne: dátum slovom ("1. októbra"), hodinu v slovenskom čase, nikdy "zajtra" ani "tento týždeň".
   Časy slovies podľa dnešného dátumu (čo nevyšlo, "vyjde").
@@ -231,7 +248,7 @@ JAZYK
 Pred odovzdaním si post prečítaj ako človek, ktorý o téme nič nevie: je jasné, o čo ide, nič si neprotirečí,
 každý fakt je zo zdrojov a text znie ako od človeka."""
     sources = f"""Téma: {story}
-
+{RUMOR_NOTE if rumor else ""}
 Zdrojové články:
 {json.dumps(src, ensure_ascii=False)}
 """
@@ -274,7 +291,8 @@ ktorý o téme nič nevie. Zdroje nemáš, fakty kontroluje niekto iný.
   1. nadpis nehovorí jasne, o akú hru alebo firmu ide a čo sa stalo, alebo spája viac správ,
   2. časti postu si protirečia alebo titulok snímky nesedí s jej textom,
   3. tvrdenie je nezrozumiteľné alebo nelogické.
-"minor" – všetko ostatné (štýl, slabší hook, iná formulácia). Výzvu na konci neposudzuj.
+"minor" – len štýl a formulácie, ktoré žiadne pravidlo neporušujú (slabší hook, iná formulácia).
+  Čo patrí do fixes alebo blocking, nikdy nedávaj do minor. Výzvu na konci neposudzuj.
 Nežiadaj nové fakty. Ak chýba kontext, navrhni preformulovať alebo vynechať. Každý problém opíš konkrétne."""
     user = f"""Post:
 {json.dumps(shown, ensure_ascii=False)}
@@ -304,7 +322,7 @@ def _apply_fixes(post: dict, fixes: list[dict]) -> list[str]:
 
 
 # ── 4. kontrola faktov ───────────────────────────────────────
-def _check(post: dict, articles: list[dict], cfg: dict) -> dict:
+def _check(post: dict, articles: list[dict], cfg: dict, rumor: bool = False) -> dict:
     src = [{"id": a["id"], "source": a["source"], "text": a["text"][:ARTICLE_CHARS]} for a in articles]
     shown = {k: post.get(k) for k in ("headline", "slides", "caption", "hashtags")}
     system = f"""{_today()}
@@ -318,6 +336,9 @@ Si prísny fact-checker. Porovnávaš hotový Instagram post so zdrojmi, sloven�
 Úderný nadpis s kontrastom je v poriadku, ak je každá jeho časť pravdivá. Správa pripísaná médiu je v poriadku,
 ak ju zdroje uvádzajú.
 "minor": nepresnosť, ktorá nemení význam."""
+    if rumor:
+        system += ("\nTento post je fáma so štítkom RUMOR. Neoveruješ, či je fáma pravdivá, ale či ju post správne"
+                   " pripisuje pôvodnému zdroju zo zdrojových článkov a nikde ju nepodáva ako potvrdený fakt.")
     sources = f"""Zdroje:
 {json.dumps(src, ensure_ascii=False)}
 """
@@ -377,12 +398,12 @@ def _validate_shape(post: dict, cfg: dict) -> list[str]:
     return issues
 
 
-def produce(story: str, articles: list[dict], cfg: dict) -> dict | None:
+def produce(story: str, articles: list[dict], cfg: dict, rumor: bool = False) -> dict | None:
     """Napíše post a nechá ho prejsť kontrolou tvaru, čitateľa a faktov. Pri chybách max. 3 pokusy."""
     feedback, reader_issues, post = None, None, None
     for attempt in range(3):
         _check_budget(cfg)
-        post = _write(story, articles, cfg, feedback, post, last=attempt == 2)
+        post = _write(story, articles, cfg, feedback, post, last=attempt == 2, rumor=rumor)
         stage, issues, minor = "tvar", _validate_shape(post, cfg), []
         if not issues:
             stage, verdict = "čitateľ", _review(post, cfg, reader_issues)
@@ -392,7 +413,7 @@ def produce(story: str, articles: list[dict], cfg: dict) -> dict | None:
             if not issues:  # opravy mohli predĺžiť text
                 stage, issues = "tvar", _validate_shape(post, cfg)
         if not issues:
-            stage, verdict = "fakty", _check(post, articles, cfg)
+            stage, verdict = "fakty", _check(post, articles, cfg, rumor)
             issues, minor = verdict.get("blocking") or [], minor + (verdict.get("minor") or [])
         if not issues:
             if minor:
@@ -441,7 +462,7 @@ snímku carouselu a posledný odsek captionu. Cieľ: čo najviac zdieľaní a ko
 
 
 def make_post(items: list[dict], recent: list[str], cfg: dict, failed: list[dict] | None = None,
-              performance: str = "") -> dict | None:
+              performance: str = "", rumors_left: bool = True) -> dict | None:
     """Vráti hotový, overený post alebo None, ak nie je nič dosť dobré a overené.
     Témy, ktoré neprešli kontrolami, pridá do `failed` (story + links), aby sa za ne neplatilo znova."""
     if not items:
@@ -454,10 +475,10 @@ def make_post(items: list[dict], recent: list[str], cfg: dict, failed: list[dict
 
     tried = 0
     for cand in candidates:
-        ok, reason = _passes_verification(cand, by_id, cfg)
-        if not ok and reason.startswith("len 1"):  # skús nájsť ďalšie weby, ktoré o tom písali
+        ok, reason = _passes_verification(cand, by_id, cfg, rumors_left)
+        if not ok and ("len 1" in reason or "len z 1" in reason):  # skús nájsť ďalšie weby, ktoré o tom písali
             _find_more_sources(cand, items, by_id, cfg)
-            ok, reason = _passes_verification(cand, by_id, cfg)
+            ok, reason = _passes_verification(cand, by_id, cfg, rumors_left)
         log.info("[%s] %s -> %s", "OK" if ok else "SKIP", cand.get("story"), reason)
         if not ok:
             continue
@@ -467,20 +488,24 @@ def make_post(items: list[dict], recent: list[str], cfg: dict, failed: list[dict
         chosen = [by_id[i] for i in cand["item_ids"] if i in by_id][:5]
         with ThreadPoolExecutor(max_workers=5) as pool:  # články sťahujeme naraz
             articles = list(pool.map(fetch_article, chosen))
-        post = produce(cand["story"], articles, cfg)
+        rumor = bool(cand.get("is_rumor"))
+        post = produce(cand["story"], articles, cfg, rumor)
         if post:
-            return finalize(post, cand["story"], articles, reason, cfg)
+            return finalize(post, cand["story"], articles, reason, cfg, rumor)
         log.info("Téma '%s' neprešla kontrolou, skúšam ďalšiu.", cand["story"])
         if failed is not None:
             failed.append({"story": cand["story"], "links": [a["link"] for a in articles]})
     return None
 
 
-def finalize(post: dict, story: str, articles: list[dict], reason: str, cfg: dict) -> dict:
+def finalize(post: dict, story: str, articles: list[dict], reason: str, cfg: dict, rumor: bool = False) -> dict:
     post["sources"] = sorted({a["source"] for a in articles})
     post["links"] = [a["link"] for a in articles]
     post["story"] = story
     post["verification"] = reason
+    post["rumor"] = rumor
+    if rumor:
+        post["category"] = "RUMOR"  # štítok na titulke, aby bolo hneď vidieť, že ide o nepotvrdenú správu
     post["image_candidates"] = _image_candidates(articles, cfg)
     return post
 
