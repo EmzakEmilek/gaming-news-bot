@@ -36,6 +36,7 @@ Ak žiadna správa neprejde overením, slot sa **vynechá** (a príde ti notifik
 | `Refresh IG token` | každý pondelok | predĺži token o 60 dní a uloží ho do secretu |
 | `Insights` | každé ráno | zbiera štatistiky postov, v pondelok pošle týždenný prehľad na Discord (dosah, sledovatelia, časy postov, náklady, vynechané sloty) |
 | `Check setup` | ručne | overí feedy, Instagram token a Claude API |
+| `Tests` | pri každej zmene kódu | automatické testy (bez Claude a Instagramu, zadarmo) |
 
 ## Spustenie (cca 45 minút, jednorazovo)
 
@@ -100,6 +101,7 @@ Kľúče sa lokálne čítajú z `.env` (je v `.gitignore`), na GitHube zo secre
 .venv\Scripts\python -m bot.check claude    # modely z config.yaml a test volania
 .venv\Scripts\python -m bot.post --dry-run  # celý post bez publikovania, výstup v out/
 .venv\Scripts\python -m bot.comments --dry-run
+.venv\Scripts\python -m pip install pytest; .venv\Scripts\python -m pytest tests   # testy, nič nestoja
 ```
 
 Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces → API keys), kľúč bez workspace API odmietne.
@@ -127,6 +129,7 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 - Každá snímka má alt text (text zo snímky) pre nevidiacich a vyhľadávanie na Instagrame. Story sa dá vypnúť cez `posting.story: false`.
 - Obrázok na titulke je z článku (oficiálne zdroje majú prednosť, potom najvyššie rozlíšenie) a na vizuáli aj v captione je uvedené „Foto: zdroj“. Prepínaš to v `posting.article_images` (`all` / `official` / `none`). Keď obrázok nie je k dispozícii, ide typografický vizuál.
 - Každý slot sa postne najviac raz, ani pri opakovanom behu nevznikne duplicita.
+- Ak je post napísaný, ale zverejnenie zlyhá (výpadok Instagramu alebo GitHub Pages), odloží sa do `state/pending.json` a ďalší beh v tom istom slote ho len zverejní, bez nového písania a platenia za Claude.
 - Odpovede na komentáre nesmú obsahovať odkazy, majú max. 180 znakov a na jeden beh ich je najviac 25.
 - Bot nikdy nereaguje sám na seba a na komentár, pod ktorým už odpovedal.
 - Po každom behu komentárov, v ktorom sa niečo udialo, príde na Discord prehľad: na čo bot odpovedal (aj s odpoveďou), čo skryl a čo **čaká na tvoju odpoveď** (otázky „si bot?“, „kto to spravuje?“, ponuky spolupráce, sťažnosti).
