@@ -99,6 +99,68 @@ def github_output(key: str, value: str) -> None:
             f.write(f"{key}={value}\n")
 
 
+def publish_post(post: dict, cfg: dict, now, today: str, slot: str, posted: list[dict], dry_run: bool) -> None:
+    """Vyrenderuje, nahrá a zverejní hotový post. Keď zlyhá, post sa odloží do state/pending.json
+    a ďalší beh (záloha o 10 min, ručné spustenie) ho len zverejní, bez nového písania a platenia za Claude."""
+    try:
+        _publish(post, cfg, now, today, slot, posted, dry_run)
+    except Exception as e:
+        if not dry_run and not post.get("_published"):  # zverejnený post sa nikdy neodkladá (duplicita)
+            save_state("pending", {"date": today, "slot": slot, "at": now_utc().isoformat(), "post": post})
+            notify(f"⚠️ Post „{post['headline']}“ je napísaný, ale zverejnenie zlyhalo ({e}). "
+                   "Odložil som ho, ďalší beh v tomto slote ho skúsi zverejniť znova bez nového písania.")
+        raise
+
+
+def _publish(post: dict, cfg: dict, now, today: str, slot: str, posted: list[dict], dry_run: bool) -> None:
+    post.setdefault("cost_usd", round(run_cost(), 4))  # pri opakovaní ostáva cena z pôvodného behu
+    run_id = f"{today}-{slot}"
+    if dry_run:  # každý testovací beh do vlastného priečinka
+        run_id += now.strftime("-dry-%H%M%S")
+    out_dir = OUT_DIR / run_id
+    shutil.rmtree(out_dir, ignore_errors=True)  # žiadne staré snímky z predošlého behu
+    from .render import render_post, render_story  # import až tu, Playwright je ťažký
+    date_label = f"{now.day}. {now.month}. {now.year}"
+    files = render_post(post, cfg, out_dir, date_label)
+    story = render_story(files[0], out_dir / "story.jpg") if cfg["posting"].get("story", True) else None
+    caption = build_caption(post, cfg)
+    (out_dir / "post.json").write_text(json.dumps({**post, "final_caption": caption}, ensure_ascii=False, indent=2),
+                                       encoding="utf-8")
+
+    if dry_run:
+        log.info("DRY RUN – nepublikujem. Výstup: %s\n\n%s", out_dir, caption)
+        return
+
+    from .hosting import upload
+    from .instagram import Instagram
+
+    ig = Instagram()
+    # nová URL pri každom behu, inak by CDN Pages mohla vrátiť staré snímky
+    urls = upload(files + ([story] if story else []), f"{run_id}-{now:%H%M%S}")
+    story_url = urls.pop() if story else None
+    info = ig.publish(urls, caption, ai_label=cfg["posting"].get("ai_label", False), alt_texts=alt_texts(post))
+    post["_published"] = True
+    save_state("pending", None)
+    github_output("published", "true")
+    story_id = None
+    if story_url:  # post už je vonku – zlyhanie Story ho nesmie zhodiť
+        try:
+            story_id = ig.publish_story(story_url)
+        except Exception as e:  # noqa: BLE001
+            log.warning("Story sa nepodarilo zverejniť: %s", e)
+            notify(f"⚠️ Post je vonku, ale Story sa nepodarilo zverejniť: {e}")
+
+    # stav hneď po publikovaní: ak by neskôr niečo zlyhalo, ďalší slot tú istú správu nezopakuje
+    posted.append({
+        "date": today, "slot": slot, "at": now_utc().isoformat(), "story": post["story"], "headline": post["headline"],
+        "links": post["links"], "sources": post["sources"], "format": post["format"], "category": post["category"], "rumor": post.get("rumor", False),
+        "media_id": info["id"], "permalink": info.get("permalink"), "cost_usd": post["cost_usd"], "story_id": story_id,
+    })
+    save_state("posted", posted[-500:])
+    notify(f"✅ {cfg['brand']['name']} postol: {post['headline']} (~${post['cost_usd']:.2f})"
+           f"{' + Story' if story_id else ''}\n{info.get('permalink', '')}")
+
+
 def slot_name(hour: int) -> str:
     return "rano" if hour < 15 else "vecer"
 
@@ -127,6 +189,16 @@ def main() -> None:
     if not args.dry_run and not args.force and any(p["date"] == today and p["slot"] == slot for p in posted):
         log.info("Slot %s %s už je postnutý, končím.", today, slot)
         return
+
+    pending = None if args.dry_run else load_state("pending", None)
+    if pending:
+        if pending["date"] == today and pending["slot"] == slot:
+            log.info("Zverejňujem odložený post z %s: %s", pending["at"], pending["post"]["headline"])
+            publish_post(pending["post"], cfg, now, today, slot, posted, False)
+            return
+        save_state("pending", None)  # správa zo starého slotu už nie je čerstvá
+        notify(f"⚠️ Odložený post „{pending['post']['headline']}“ z {pending['date']} {pending['slot']} "
+               "sa nepodarilo zverejniť a prepadol.")
 
     # témy, ktoré v posledných 48 h neprešli kontrolami – nevyberať ich znova (už sme za ne zaplatili)
     failed_state = [f for f in load_state("failed", [])
@@ -174,51 +246,7 @@ def main() -> None:
             save_state("skipped", skipped[-100:])
         return
 
-    run_id = f"{today}-{slot}"
-    if args.dry_run:  # každý testovací beh do vlastného priečinka
-        run_id += now.strftime("-dry-%H%M%S")
-    out_dir = OUT_DIR / run_id
-    shutil.rmtree(out_dir, ignore_errors=True)  # žiadne staré snímky z predošlého behu
-    from .render import render_post, render_story  # import až tu, Playwright je ťažký
-    date_label = f"{now.day}. {now.month}. {now.year}"
-    files = render_post(post, cfg, out_dir, date_label)
-    story = render_story(files[0], out_dir / "story.jpg") if cfg["posting"].get("story", True) else None
-    caption = build_caption(post, cfg)
-    post["cost_usd"] = round(run_cost(), 4)
-    (out_dir / "post.json").write_text(json.dumps({**post, "final_caption": caption}, ensure_ascii=False, indent=2),
-                                       encoding="utf-8")
-
-    if args.dry_run:
-        log.info("DRY RUN – nepublikujem. Výstup: %s\n\n%s", out_dir, caption)
-        return
-
-    from .hosting import upload
-    from .instagram import Instagram
-
-    ig = Instagram()
-    # nová URL pri každom behu, inak by CDN Pages mohla vrátiť staré snímky
-    urls = upload(files + ([story] if story else []), f"{run_id}-{now:%H%M%S}")
-    story_url = urls.pop() if story else None
-    info = ig.publish(urls, caption, ai_label=cfg["posting"].get("ai_label", False), alt_texts=alt_texts(post))
-    github_output("published", "true")
-    story_id = None
-    if story_url:  # post už je vonku – zlyhanie Story ho nesmie zhodiť
-        try:
-            story_id = ig.publish_story(story_url)
-        except Exception as e:  # noqa: BLE001
-            log.warning("Story sa nepodarilo zverejniť: %s", e)
-            notify(f"⚠️ Post je vonku, ale Story sa nepodarilo zverejniť: {e}")
-
-    # stav hneď po publikovaní: ak by neskôr niečo zlyhalo, ďalší slot tú istú správu nezopakuje
-    posted.append({
-        "date": today, "slot": slot, "at": now_utc().isoformat(), "story": post["story"], "headline": post["headline"],
-        "links": post["links"], "sources": post["sources"], "format": post["format"], "category": post["category"], "rumor": post.get("rumor", False),
-        "media_id": info["id"], "permalink": info.get("permalink"), "cost_usd": post["cost_usd"], "story_id": story_id,
-    })
-    save_state("posted", posted[-500:])
-    notify(f"✅ {cfg['brand']['name']} postol: {post['headline']} (~${post['cost_usd']:.2f})"
-           f"{' + Story' if story_id else ''}\n{info.get('permalink', '')}")
-
+    publish_post(post, cfg, now, today, slot, posted, args.dry_run)
 
 if __name__ == "__main__":
     try:

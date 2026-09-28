@@ -15,7 +15,7 @@ from zoneinfo import ZoneInfo
 
 from .common import TZ, load_config, load_state, log, notify, notify_long, now_local, now_utc, save_state
 
-METRICS = ["reach", "views", "likes", "comments", "shares", "saved"]
+METRICS = ["reach", "views", "likes", "comments", "shares", "saved", "profile_visits", "follows"]
 REFRESH_DAYS = 14   # starší post už čísla takmer nemení, nepýtame sa na ne znova
 HINT_DAYS = 30      # z akého obdobia sa počíta signál pre výber tém
 MIN_AGE_H = 48      # čerstvý post ešte nemá dozbierané čísla
@@ -24,11 +24,12 @@ META_TZ = ZoneInfo("America/Los_Angeles")
 
 
 def score(m: dict) -> float:
-    """Interakcie na jedného osloveného. Zdieľanie a uloženie vážia viac (najsilnejšie signály pre dosah)."""
+    """Interakcie na jedného osloveného. Nový sledovateľ váži najviac, potom zdieľanie a uloženie."""
     reach = m.get("reach") or 0
     if not reach:
         return 0.0
-    return (3 * m.get("shares", 0) + 2 * m.get("saved", 0) + 2 * m.get("comments", 0) + m.get("likes", 0)) / reach
+    return (5 * m.get("follows", 0) + 3 * m.get("shares", 0) + 2 * m.get("saved", 0) + 2 * m.get("comments", 0)
+            + m.get("likes", 0)) / reach
 
 
 def collect(ig) -> tuple[dict, str | None]:
@@ -87,7 +88,7 @@ def performance_hint() -> str:
     fmt = lambda ms: "; ".join(f'"{m["headline"]}"' + (f' ({m["category"]})' if m.get("category") else "")  # noqa: E731
                                for m in ms)
     return (f"\nAko u našich sledovateľov fungovali posty za posledných {HINT_DAYS} dní (zdieľania, uloženia a komentáre"
-            " na osloveného človeka). Je to len jemný signál: dôležitosť a čerstvosť správy majú prednosť,"
+            " a noví sledovatelia na osloveného človeka). Je to len jemný signál: dôležitosť a čerstvosť správy majú prednosť,"
             " slabú správu nevyberaj len preto, že je z obľúbenej kategórie.\n"
             f"- najlepšie: {fmt(rows[:3])}\n- najslabšie: {fmt(rows[-3:])}\n")
 
@@ -169,17 +170,23 @@ def report(state: dict, cfg: dict) -> str:
     total = lambda k: sum(m["metrics"].get(k, 0) for m in week)  # noqa: E731
     lines.append(f"Posty: {len(week)} | oslovení spolu {total('reach')} | zdieľania {total('shares')}"
                  f" | uloženia {total('saved')} | komentáre {total('comments')} | lajky {total('likes')}")
+    lines.append(f"Z postov: návštevy profilu {total('profile_visits')} | noví sledovatelia {total('follows')}")
     week.sort(key=lambda m: score(m["metrics"]), reverse=True)
 
     def row(m: dict) -> str:
         x = m["metrics"]
         return (f"• {m['headline']} – oslovení {x.get('reach', 0)}, zdieľania {x.get('shares', 0)},"
-                f" uloženia {x.get('saved', 0)}, lajky {x.get('likes', 0)} <{m.get('permalink') or ''}>")
+                f" uloženia {x.get('saved', 0)}, lajky {x.get('likes', 0)}, sledovatelia +{x.get('follows', 0)}"
+                f" <{m.get('permalink') or ''}>")
     lines.append("\n**Najlepšie:**")
     lines += [row(m) for m in week[:3]]
     if len(week) > 3:
         lines.append("\n**Najslabšie:**")
         lines += [row(m) for m in week[-2:]]
+    followers = sorted((m for m in week if m["metrics"].get("follows")), key=lambda m: m["metrics"]["follows"], reverse=True)
+    if followers:
+        lines.append("\n**Najviac nových sledovateľov:** " + "; ".join(
+            f"{m['headline']} (+{m['metrics']['follows']})" for m in followers[:3]))
     return "\n".join(lines + _timing(state, cfg) + _costs_and_skips())
 
 

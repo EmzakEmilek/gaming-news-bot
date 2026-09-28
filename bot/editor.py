@@ -12,6 +12,7 @@ from .common import log, now_local, now_utc
 from .llm import STR, STR_LIST, ask_json, run_cost, schema
 
 CATEGORIES = ["OZNÁMENIE", "TRAILER", "RELEASE", "UPDATE", "DLC", "BIZNIS", "HARDVÉR", "ESPORT", "ZDARMA", "DÁTUM VYDANIA"]
+CAPTION_HOOK = 125  # Instagram vo feede ukáže len začiatok captionu, zvyšok skryje pod "… viac"
 ARTICLE_CHARS = 3500  # koľko znakov z každého článku ide modelu (písanie aj fact-check)
 CTA_ICONS = {"share": "send", "comment": "message-circle"}  # ikonka na záverečnej snímke (templates/icons)
 DEFAULT_CTA = {"type": "share", "title": "Pošli to kamošovi, nech tiež vie"}
@@ -239,7 +240,8 @@ JAZYK
   title (max 32 znakov): konkrétna informácia z textu snímky, nie všeobecné označenie, netvrdí viac ako text.
   body (max 220 znakov): celé vety.
 - caption (2 až 4 krátke odseky, max 900 znakov): zo snímok a bez rozporu s nimi. Prvá veta je konkrétny hook,
-  posledný odsek krátka výzva (poslať kamošovi alebo názor do komentu). Bez zdrojov a hashtagov, doplní ich systém.
+  posledný odsek krátka výzva (poslať kamošovi alebo názor do komentu). Prvá veta má najviac 125 znakov,
+  Instagram vo feede ukáže len začiatok captionu. Bez zdrojov a hashtagov, doplní ich systém.
 - cta: návrh výzvy na poslednú snímku (type "share" alebo "comment", title), doladí ju editor.
 - hashtags: {p["max_hashtags"]} relevantných: hra, platforma, aspoň 2 slovenské (#hry, #hernenovinky), zvyšok anglické.
 - category: jedna z {CATEGORIES}.
@@ -385,6 +387,11 @@ def _validate_shape(post: dict, cfg: dict) -> list[str]:
         post["cta"] = dict(DEFAULT_CTA)  # výzvu aj tak doladí editor, kvôli nej sa neprepisuje
     if not post.get("caption") or len(post["caption"]) > 1200:
         issues.append("caption chýba alebo je dlhší ako 900 znakov")
+    else:
+        first = re.split(r"(?<=[.!?])\s|\n", post["caption"].strip(), maxsplit=1)[0]
+        if len(first) > CAPTION_HOOK:
+            issues.append(f"prvá veta captionu má {len(first)} znakov, Instagram vo feede ukáže len ~{CAPTION_HOOK}:"
+                          " skráť ju, aby sa hook zmestil celý")
     if post.get("category") not in CATEGORIES:
         post["category"] = "NOVINKA"
     texts = [post.get("headline") or "", post.get("caption") or ""]
