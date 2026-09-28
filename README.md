@@ -31,10 +31,10 @@ Ak žiadna správa neprejde overením, slot sa **vynechá** (a príde ti notifik
 
 | Workflow | Kedy | Čo robí |
 |---|---|---|
-| `Post` | 11:30 a 18:30 (spúšťa cron-job.org, GitHub je záloha) | vyberie, napíše, vyrenderuje a publikuje post |
+| `Post` | 11:30 a 18:30 (spúšťa cron-job.org, GitHub je záloha) | vyberie, napíše, vyrenderuje a publikuje post aj Story, potom 2 h kontroluje komentáre každých 15 min |
 | `Comments` | každú hodinu | odpovie na otázky a reakcie, skryje spam a toxické komentáre |
 | `Refresh IG token` | každý pondelok | predĺži token o 60 dní a uloží ho do secretu |
-| `Insights` | každé ráno | zbiera štatistiky postov, v pondelok pošle týždenný prehľad na Discord |
+| `Insights` | každé ráno | zbiera štatistiky postov, v pondelok pošle týždenný prehľad na Discord (dosah, sledovatelia, časy postov, náklady, vynechané sloty) |
 | `Check setup` | ručne | overí feedy, Instagram token a Claude API |
 
 ## Spustenie (cca 45 minút, jednorazovo)
@@ -124,7 +124,8 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 - Zakázané témy sa nepostujú (`avoid_topics`). Fámy a leaky áno, ak o nich píšu aspoň 2 nezávislé portály: titulka dostane štítok **RUMOR**, post menuje pôvodný zdroj fámy a denne ide najviac `rumors_per_day` (predvolene 1). Vypína ich `allow_rumors: false`. Správy z vlastného zisťovania renomovaných médií (Bloomberg, The Verge…) sú povolené (`allow_reputable_reports`), post ich vždy pripíše médiu.
 - Overenie zdrojov robí kód, nie AI: 1 oficiálny zdroj alebo ≥ 2 rôzne portály.
 - Copy sa píše len z plného textu článkov. Pred publikovaním ho kontroluje čitateľská kontrola (zrozumiteľnosť, prirodzená slovenčina, žiadne typické AI frázy) a samostatný fact-check.
-- Obrázok na titulke je z článku (oficiálne zdroje majú prednosť) a na vizuáli aj v captione je uvedené „Foto: zdroj“. Prepínaš to v `posting.article_images` (`all` / `official` / `none`). Keď obrázok nie je k dispozícii, ide typografický vizuál.
+- Každá snímka má alt text (text zo snímky) pre nevidiacich a vyhľadávanie na Instagrame. Story sa dá vypnúť cez `posting.story: false`.
+- Obrázok na titulke je z článku (oficiálne zdroje majú prednosť, potom najvyššie rozlíšenie) a na vizuáli aj v captione je uvedené „Foto: zdroj“. Prepínaš to v `posting.article_images` (`all` / `official` / `none`). Keď obrázok nie je k dispozícii, ide typografický vizuál.
 - Každý slot sa postne najviac raz, ani pri opakovanom behu nevznikne duplicita.
 - Odpovede na komentáre nesmú obsahovať odkazy, majú max. 180 znakov a na jeden beh ich je najviac 25.
 - Bot nikdy nereaguje sám na seba a na komentár, pod ktorým už odpovedal.

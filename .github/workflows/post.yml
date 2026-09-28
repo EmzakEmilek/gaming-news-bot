@@ -37,6 +37,8 @@ concurrency:
 
 jobs:
   post:
+    outputs:
+      published: ${{ steps.run.outputs.published }}
     runs-on: ubuntu-24.04  # pevná verzia: prechod ubuntu-latest na novú verziu nesmie rozbiť Playwright
     timeout-minutes: 30
     steps:
@@ -56,6 +58,7 @@ jobs:
           git config user.name "gaming-news-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Run
+        id: run
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
@@ -80,3 +83,36 @@ jobs:
           path: out/
           retention-days: 14
           if-no-files-found: ignore
+
+  # Prvé 2 hodiny po poste sú pre dosah najdôležitejšie: komentáre každých 15 minút namiesto raz za hodinu.
+  # Beží len po skutočnom zverejnení. Kým beží, drží skupinu "bot", hodinové behy komentárov počkajú.
+  fast-comments:
+    needs: post
+    if: needs.post.outputs.published == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 140
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main   # najnovší stav vrátane práve uloženého postu
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - run: pip install "anthropic>=1.8,<2" "requests>=2.31,<3" "PyYAML>=6.0,<7"
+      - run: |
+          git config user.name "gaming-news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Komentáre každých 15 minút (2 hodiny)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          for i in 1 2 3 4 5 6 7 8; do
+            sleep 900
+            python -m bot.comments || echo "Beh komentárov $i zlyhal, pokračujem."
+            ./scripts/commit_state.sh comments || echo "Uloženie stavu zlyhalo, pokračujem."
+          done

@@ -520,5 +520,5 @@ def _image_candidates(articles: list[dict], cfg: dict) -> list[dict]:
             continue
         if policy == "official" and a.get("tier") != "official":
             continue
-        out.append({"url": a["image"], "source": a["source"]})
+        out.append({"url": a["image"], "source": a["source"], "official": a.get("tier") == "official"})
     return out

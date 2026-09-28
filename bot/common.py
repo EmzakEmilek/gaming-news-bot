@@ -102,3 +102,15 @@ def notify(message: str) -> None:
             )
     except Exception as e:  # noqa: BLE001
         log.warning("Notifikácia zlyhala: %s", e)
+
+
+def notify_long(text: str, limit: int = 1800) -> None:
+    """Dlhšiu správu pošle po častiach (Discord má limit 2000 znakov), delí po riadkoch."""
+    chunk = ""
+    for line in text.splitlines():
+        if chunk and len(chunk) + len(line) + 1 > limit:
+            notify(chunk)
+            chunk = ""
+        chunk += line + "\n"
+    if chunk.strip():
+        notify(chunk)

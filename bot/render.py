@@ -9,7 +9,9 @@ from pathlib import Path
 import requests
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from markupsafe import Markup
-from PIL import Image
+from concurrent.futures import ThreadPoolExecutor
+
+from PIL import Image, ImageEnhance, ImageFilter
 from playwright.sync_api import sync_playwright
 
 from .common import TEMPLATES_DIR, log
@@ -69,21 +71,43 @@ def _flow(slides: int, brand: dict, seed: str) -> str:
     return ", ".join(layers)
 
 
+def _fetch_image(url: str) -> Image.Image | None:
+    try:
+        r = requests.get(url, timeout=25, headers={"User-Agent": "Mozilla/5.0"})
+        r.raise_for_status()
+        return Image.open(io.BytesIO(r.content)).convert("RGB")
+    except Exception as e:  # noqa: BLE001
+        log.warning("Obrázok %s sa nepodarilo použiť: %s", url, e)
+        return None
+
+
 def _download_image(cands: list, dest: Path) -> tuple[str | None, str | None]:
-    """Vráti (file URI, meno zdroja fotky) prvého použiteľného obrázka."""
-    for c in cands:
-        url, src = (c["url"], c.get("source")) if isinstance(c, dict) else (c, None)
-        try:
-            r = requests.get(url, timeout=25, headers={"User-Agent": "Mozilla/5.0"})
-            r.raise_for_status()
-            img = Image.open(io.BytesIO(r.content)).convert("RGB")
-            if img.width < 800:
-                continue
-            img.save(dest, "JPEG", quality=92)
-            return dest.resolve().as_uri(), src
-        except Exception as e:  # noqa: BLE001
-            log.warning("Obrázok %s sa nepodarilo použiť: %s", url, e)
-    return None, None
+    """Stiahne všetky kandidátske obrázky naraz a vyberie najlepší: aspoň 800 px na šírku,
+    prednosť má oficiálny zdroj, potom najväčšie rozlíšenie. Vráti (file URI, meno zdroja fotky)."""
+    cands = [c if isinstance(c, dict) else {"url": c} for c in cands][:6]
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        images = list(pool.map(lambda c: _fetch_image(c["url"]), cands))
+    usable = [(c, img) for c, img in zip(cands, images) if img and img.width >= 800]
+    if not usable:
+        return None, None
+    c, img = max(usable, key=lambda ci: (bool(ci[0].get("official")), ci[1].width * ci[1].height))
+    img.save(dest, "JPEG", quality=92)
+    log.info("Fotka: %s (%dx%d)", c.get("source"), img.width, img.height)
+    return dest.resolve().as_uri(), c.get("source")
+
+
+def render_story(cover: Path, dest: Path) -> Path:
+    """Story 1080x1920 z titulky postu: titulka v strede na rozmazanom a stmavenom pozadí z nej samej."""
+    img = Image.open(cover).convert("RGB")
+    scale = max(1080 / img.width, 1920 / img.height)
+    bg = img.resize((round(img.width * scale), round(img.height * scale)))
+    left, top = (bg.width - 1080) // 2, (bg.height - 1920) // 2
+    bg = bg.crop((left, top, left + 1080, top + 1920)).filter(ImageFilter.GaussianBlur(40))
+    bg = ImageEnhance.Brightness(bg).enhance(0.45)
+    front = img.resize((1080, round(img.height * 1080 / img.width)))
+    bg.paste(front, (0, (1920 - front.height) // 2))
+    bg.save(dest, "JPEG", quality=90)
+    return dest
 
 
 def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[Path]:
