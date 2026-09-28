@@ -36,7 +36,9 @@ posting:
   max_cost_per_run: 0.60      # USD – keď beh minie viac, slot sa vynechá (ochrana pred zbytočnými výdavkami)
   min_trusted_sources: 2      # koľko nezávislých portálov musí správu potvrdiť...
   official_is_enough: true    # ...alebo stačí 1 oficiálny zdroj (PS Blog, Xbox Wire, Steam, vydavateľ)
-  allow_rumors: false         # leaky, insideri a fámy sa nepostujú
+  allow_rumors: true          # leaky a fámy sa smú postovať, ak o nich píše aspoň min_trusted_sources portálov;
+                              # titulka dostane štítok RUMOR a post vždy menuje pôvodný zdroj fámy
+  rumors_per_day: 1           # najviac toľko fám denne (dôveryhodnosť profilu)
   allow_reputable_reports: true  # správy z vlastného zisťovania renomovaných médií (Bloomberg, The Verge...)
                               # sú OK, post ich vždy pripíše médiu ("podľa Bloombergu")
   carousel_max_slides: 6      # vrátane titulky a záverečnej snímky (max. 4 obsahové)
@@ -51,7 +53,6 @@ posting:
       (spor firmy s jednotlivcom, v ktorom už padol rozsudok, je OK)
     - NSFW a sexuálny obsah
     - hazard, kasína, krypto a NFT promo
-    - nepotvrdené leaky, fámy a "insider" tvrdenia
     - sponzorované články a zľavové "deals" články
 
 comments:
