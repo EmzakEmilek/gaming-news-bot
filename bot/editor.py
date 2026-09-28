@@ -33,7 +33,7 @@ AI_TELLS = """- kontrast "nie je to len X, ale Y", "nejde o X, ide o Y", "X, nie
 - nafúknutý význam ("míľnik", "zásadný moment", "píše históriu", "mení pravidlá hry", "budúcnosť vyzerá svetlo")
 - reklamné slová ("úchvatný", "ohromujúci", "nabitý novinkami", "bohatý obsah")
 - "slúži ako", "predstavuje" namiesto obyčajného "je"; "podľa dostupných informácií"
-- vata a všeobecné titulky ("Ešte jedna novinka", "Čo ďalej", "Detaily", "Zhrnutie", "Zaujímavosť")"""
+- vata a všeobecné titulky ("O čo ide", "Ešte jedna novinka", "Čo ďalej", "Detaily", "Zhrnutie", "Zaujímavosť")"""
 
 # schémy odpovedí (structured outputs)
 CANDIDATES_FMT = schema(candidates={"type": "array", "items": schema(
@@ -45,6 +45,7 @@ POST_FMT = schema(
     cta=schema(type={"type": "string", "enum": list(CTA_ICONS)}, title=STR),
     caption=STR, hashtags=STR_LIST)
 VERDICT_FMT = schema(blocking=STR_LIST, minor=STR_LIST)
+REVIEW_FMT = schema(blocking=STR_LIST, fixes={"type": "array", "items": schema(find=STR, replace=STR)}, minor=STR_LIST)
 CTA_FMT = schema(type={"type": "string", "enum": list(CTA_ICONS)}, title=STR, caption_end=STR)
 SAME_FMT = schema(same=STR_LIST)
 
@@ -70,7 +71,7 @@ def _check_budget(cfg: dict) -> None:
 
 
 # ── 1. výber témy ────────────────────────────────────────────
-def _choose_candidates(items: list[dict], recent: list[str], cfg: dict) -> list[dict]:
+def _choose_candidates(items: list[dict], recent: list[str], cfg: dict, performance: str = "") -> list[dict]:
     now = now_utc()
     listing = []  # úsporný zoznam: [id, zdroj, vek v hodinách, nadpis, "?" ak môže ísť o nepotvrdenú správu]
     for it in items:
@@ -106,7 +107,7 @@ zistenia konkrétneho média. is_report = true: správu vlastným zisťovaním p
     user = f"""Nedávno sme už postli alebo sa to nepodarilo spracovať (neopakuj tieto témy ani ich pokračovanie
 bez novej zásadnej informácie; posledné 3 posty nech nie sú o tej istej sérii udalostí):
 {json.dumps(recent, ensure_ascii=False)}
-
+{performance}
 Dnešné články:
 {json.dumps(listing, ensure_ascii=False, separators=(",", ":"))}
 
@@ -201,6 +202,8 @@ JAZYK:
   "streamlining" podľa kontextu "škrty" alebo "zoštíhlenie firmy"). Citát prerozprávaj, ak by doslovný preklad
   znel neprirodzene.
 - Čitateľovi tykaj v jednotnom čísle ("priprav si", "čo na to povieš?"), nikdy nie "vy".
+- Časť zdrojov je po česky: neprenášaj z nich české slová ani tvary ("vypadá", "z dálky", "hodně", "zatím",
+  "chystá se"), vždy napíš slovenský ekvivalent ("vyzerá", "z diaľky", "veľa", "zatiaľ", "chystá sa").
 - Názvy hier, firiem a produktov nechaj v origináli, všetko ostatné po slovensky. Ak by nesklonný cudzí názov
   znel vo vete zle, preformuluj vetu ("spadá pod štúdio Bethesda Game Studios", nie "zodpovedá sa Bethesda").
 - Čísla po slovensky: 88 000 alebo 88 tisíc (nie 88-tisíc), 4,5 milióna, 15 %. Úvodzovky „takto“.
@@ -273,14 +276,19 @@ def _review(post: dict, cfg: dict, previous: list[str] | None = None) -> dict:
     system = f"""{_today()}
 Si šéfredaktor slovenskej Instagram stránky o hrách. Čítaš hotový carousel tak, ako ho uvidí
 bežný slovenský hráč, ktorý o téme doteraz nič nevedel. Zdroje nemáš, fakty kontroluje niekto iný.
-Do "blocking" daj IBA tieto štyri druhy vážnych problémov:
+Vážne problémy rozdeľ takto:
+"fixes" – chyby, ktoré sa dajú opraviť prepísaním pár slov, najviac jednej vety: zlá slovenčina (zlý pád,
+  zhoda podmetu s prísudkom, čechizmus, doslovný preklad, kalk), vykanie, preklep alebo zjavná AI fráza
+  z týchto vzorcov (nesklonený cudzí názov firmy alebo hry je v poriadku, ak veta inak znie prirodzene):
+{AI_TELLS}
+  Každá oprava: find = presný úsek z postu skopírovaný doslova (celé slová, len toľko, aby bol jednoznačný),
+  replace = opravené znenie toho istého úseku. Opravu robí kód, nič iné sa v poste nezmení,
+  preto replace musí sedieť do vety a nesmie pridať nový fakt.
+"blocking" – IBA problémy, ktoré malá oprava nevyrieši a post treba prepísať:
 1. Z nadpisu titulnej snímky nie je jasné, o akú hru alebo firmu ide a čo sa stalo.
 2. Dve časti postu si protirečia (nadpis, snímky, caption).
 3. Tvrdenie je nezrozumiteľné alebo mätúce, čitateľ nepochopí, čo znamená.
-4. Zlá slovenčina (doslovný preklad, kalk, zlý pád), vykanie alebo zjavná AI fráza z týchto vzorcov
-   (nesklonený cudzí názov firmy alebo hry je v poriadku, ak veta inak znie prirodzene):
-{AI_TELLS}
-AI kontrast "X, nie Y" je blocking len vtedy, keď je hlavnou pointou nadpisu alebo sa v poste opakuje;
+AI kontrast "X, nie Y" oprav cez fixes len vtedy, keď je hlavnou pointou nadpisu alebo sa v poste opakuje;
 jednu takú vetu v texte daj do "minor". Pravopisné drobnosti (predtým / pred tým) tiež do "minor".
 Všetko ostatné daj do "minor": titulok snímky nesedí presne, chýba predstavenie mena alebo pojmu (ak text aj tak
 dáva zmysel), slabší hook, formát čísel, iná formulácia, štýl. Výzvu na konci neposudzuj, doladí ju editor.
@@ -292,7 +300,25 @@ navrhni preformulovať alebo vynechať časť, ktorá mätie. Každý problém n
     if previous:
         user += ("\nPredošlá verzia mala tieto problémy: " + json.dumps(previous, ensure_ascii=False)
                  + "\nOver, či sú opravené. Nový problém daj do blocking, len ak je naozaj vážny.\n")
-    return ask_json(cfg["model"]["checker"], system, user, fmt=VERDICT_FMT, effort=_effort(cfg, "review"))
+    return ask_json(cfg["model"]["checker"], system, user, fmt=REVIEW_FMT, effort=_effort(cfg, "review"))
+
+
+def _apply_fixes(post: dict, fixes: list[dict]) -> list[str]:
+    """Drobné jazykové opravy od čitateľskej kontroly (nájdi → nahraď) urobí kód, bez drahého prepisu.
+    Vráti opravy, ktorých text sa v poste nenašiel – tie idú pisateľovi ako bežná výhrada."""
+    fields = [(post, "headline"), (post, "caption"), (post.get("cta") or {}, "title")]
+    fields += [(sl, k) for sl in post.get("slides") or [] for k in ("title", "body")]
+    missed = []
+    for fx in fixes:
+        find, replace = fx.get("find") or "", fx.get("replace") or ""
+        hit = next(((obj, k) for obj, k in fields if find and find in (obj.get(k) or "")), None)
+        if not hit:
+            missed.append(f"Oprav „{find}“ na „{replace}“.")
+            continue
+        obj, k = hit
+        obj[k] = obj[k].replace(find, replace, 1)
+        log.info("Oprava: „%s“ -> „%s“", find, replace)
+    return missed
 
 
 # ── 4. kontrola faktov ───────────────────────────────────────
@@ -371,8 +397,11 @@ def produce(story: str, articles: list[dict], cfg: dict) -> dict | None:
         stage, issues, minor = "tvar", _validate_shape(post, cfg), []
         if not issues:
             stage, verdict = "čitateľ", _review(post, cfg, reader_issues)
-            issues, minor = verdict.get("blocking") or [], verdict.get("minor") or []
+            issues = (verdict.get("blocking") or []) + _apply_fixes(post, verdict.get("fixes") or [])
+            minor = verdict.get("minor") or []
             reader_issues = issues or reader_issues
+            if not issues:  # opravy mohli predĺžiť text
+                stage, issues = "tvar", _validate_shape(post, cfg)
         if not issues:
             stage, verdict = "fakty", _check(post, articles, cfg)
             issues, minor = verdict.get("blocking") or [], minor + (verdict.get("minor") or [])
@@ -424,7 +453,8 @@ snímku carouselu a posledný odsek captionu. Cieľ je čo najviac zdieľaní a 
     log.info("Výzva: [%s] %s | %s", new["type"], title, end)
 
 
-def make_post(items: list[dict], recent: list[str], cfg: dict, failed: list[dict] | None = None) -> dict | None:
+def make_post(items: list[dict], recent: list[str], cfg: dict, failed: list[dict] | None = None,
+              performance: str = "") -> dict | None:
     """Vráti hotový, overený post alebo None, ak nie je nič dosť dobré a overené.
     Témy, ktoré neprešli kontrolami, pridá do `failed` (story + links), aby sa za ne neplatilo znova."""
     if not items:
@@ -432,7 +462,7 @@ def make_post(items: list[dict], recent: list[str], cfg: dict, failed: list[dict
         return None
     _check_budget(cfg)
     by_id = {it["id"]: it for it in items}
-    candidates = _choose_candidates(items, recent, cfg)
+    candidates = _choose_candidates(items, recent, cfg, performance)
     log.info("Kandidáti: %s", [c.get("story") for c in candidates])
 
     tried = 0

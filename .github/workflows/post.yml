@@ -1,10 +1,14 @@
 name: Post
 
 on:
+  # Hlavný spúšťač je cron-job.org (11:30 a 18:30 slovenského času, workflow_dispatch).
+  # Toto je len záloha: GitHub beží v UTC, preto 2 časy na slot (leto aj zima). Postovať smie len
+  # do schedule_window_minutes PO čase slotu, beh pred slotom (v zime o hodinu skôr) nič neurobí.
   schedule:
-    # UTC čas. Leto (CEST): 11:30 a 18:30, zima (CET): 10:30 a 17:30.
-    - cron: "30 9 * * *"
-    - cron: "30 16 * * *"
+    - cron: "40 9 * * *"    # leto 11:40 | zima 10:40 (pred slotom, nič nerobí)
+    - cron: "40 10 * * *"   # leto 12:40 | zima 11:40
+    - cron: "40 16 * * *"   # leto 18:40 | zima 17:40 (pred slotom, nič nerobí)
+    - cron: "40 17 * * *"   # leto 19:40 | zima 18:40
   workflow_dispatch:
     inputs:
       dry_run:
@@ -25,17 +29,17 @@ concurrency:
 
 jobs:
   post:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pevná verzia: prechod ubuntu-latest na novú verziu nesmie rozbiť Playwright
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
           cache: pip
       - run: pip install -r requirements.txt
       - name: Cache Playwright
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
@@ -60,7 +64,7 @@ jobs:
       - name: Save state
         if: always()
         run: ./scripts/commit_state.sh post
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: post-${{ github.run_id }}

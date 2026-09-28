@@ -31,9 +31,10 @@ Ak žiadna správa neprejde overením, slot sa **vynechá** (a príde ti notifik
 
 | Workflow | Kedy | Čo robí |
 |---|---|---|
-| `Post` | 11:30 a 18:30 (v zime 10:30 a 17:30) | vyberie, napíše, vyrenderuje a publikuje post |
+| `Post` | 11:30 a 18:30 (spúšťa cron-job.org, GitHub je záloha) | vyberie, napíše, vyrenderuje a publikuje post |
 | `Comments` | každú hodinu | odpovie na otázky a reakcie, skryje spam a toxické komentáre |
 | `Refresh IG token` | každý pondelok | predĺži token o 60 dní a uloží ho do secretu |
+| `Insights` | každé ráno | zbiera štatistiky postov, v pondelok pošle týždenný prehľad na Discord |
 | `Check setup` | ručne | overí feedy, Instagram token a Claude API |
 
 ## Spustenie (cca 45 minút, jednorazovo)
@@ -47,7 +48,8 @@ Ak žiadna správa neprejde overením, slot sa **vynechá** (a príde ti notifik
 2. Use case: **Manage messaging & content on Instagram**. Typ: Business.
 3. V appke otvor **Instagram → API setup with Instagram login**.
 4. **Generate access tokens → Add account** → prihlás sa účtom stránky a povoľ všetky oprávnenia
-   (`instagram_business_basic`, `instagram_business_content_publish`, `instagram_business_manage_comments`).
+   (`instagram_business_basic`, `instagram_business_content_publish`, `instagram_business_manage_comments`,
+   `instagram_business_manage_insights`). Bez posledného nefungujú len štatistiky, zvyšok beží.
 5. Skopíruj vygenerovaný token. Platí 60 dní, ďalej ho predlžuje bot sám.
 6. App nechaj v režime **Development**. Pre tvoj vlastný účet to stačí, App Review netreba.
 
@@ -67,7 +69,7 @@ Ak žiadna správa neprejde overením, slot sa **vynechá** (a príde ti notifik
 | `ANTHROPIC_API_KEY` | kľúč z bodu 3 |
 | `IG_ACCESS_TOKEN` | token z bodu 2 |
 | `GH_PAT` | [Fine-grained token](https://github.com/settings/personal-access-tokens/new): len tento repozitár, oprávnenie **Secrets: Read and write**, platnosť max. |
-| `DISCORD_WEBHOOK_URL` *(voliteľné)* | notifikácie o postoch a chybách |
+| `DISCORD_WEBHOOK_URL` *(voliteľné)* | notifikácie o postoch, vynechaných slotoch, chybách a týždenný prehľad. Discord: nastavenia kanála → Integrácie → Webhooky → Nový webhook → Kopírovať URL webhooku |
 | `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` *(voliteľné)* | to isté cez Telegram |
 
 `IG_USER_ID` netreba, bot si ho zistí z tokenu.
@@ -108,7 +110,8 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 
 - **Vypnúť všetko:** `enabled: false` v `config.yaml`.
 - **Vypnúť len komentáre:** `comments.enabled: false`.
-- **Iné časy:** `cron` v `.github/workflows/post.yml` (čas je v UTC).
+- **Iné časy:** `posting.slot_times` v `config.yaml` a časy v cron-job.org. Záložný `cron` v `.github/workflows/post.yml`
+  (UTC, 2 riadky na slot kvôli letnému a zimnému času) nastav 10 min po slote.
 - **Farby, meno a IG handle:** sekcia `brand` v `config.yaml`.
 - **Nový zdroj:** pridaj riadok do `feeds` (`tier: official` len pre oficiálne blogy vydavateľov a platforiem). Weby jedného vydavateľa označ rovnakou `group`, pri overovaní sa potom rátajú ako jeden zdroj.
 - **Čo bot postol a prečo:** `state/posted.json` + log každého behu v záložke Actions.

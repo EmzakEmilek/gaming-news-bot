@@ -105,6 +105,28 @@ class Instagram:
     def hide(self, comment_id: str) -> None:
         self._req("POST", comment_id, hide="true")
 
+    # ── štatistiky (oprávnenie instagram_business_manage_insights) ──
+    def followers_count(self) -> int | None:
+        return self._req("GET", "me", fields="followers_count").get("followers_count")
+
+    def media_insights(self, media_id: str, metrics: list[str]) -> dict[str, int]:
+        """Metriky postu. Keď API odmietne celú dávku (niektorá metrika pre daný typ neexistuje),
+        skúsi metriky po jednej a nedostupné vynechá. Chýbajúce oprávnenie vyhodí IGError."""
+        def parse(data: dict) -> dict[str, int]:
+            return {m["name"]: (m.get("values") or [{}])[0].get("value", 0) for m in data.get("data", [])}
+        try:
+            return parse(self._req("GET", f"{media_id}/insights", metric=",".join(metrics)))
+        except IGError:
+            out = {}
+            for m in metrics:
+                try:
+                    out.update(parse(self._req("GET", f"{media_id}/insights", metric=m)))
+                except IGError:
+                    continue
+            if not out:
+                raise
+            return out
+
     # ── token ────────────────────────────────────────────────
     def refresh_token(self) -> dict:
         r = requests.get("https://graph.instagram.com/refresh_access_token",

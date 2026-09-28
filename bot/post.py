@@ -17,6 +17,7 @@ from datetime import datetime, timedelta
 from .collect import collect
 from .common import OUT_DIR, load_config, load_state, log, notify, now_local, now_utc, save_state
 from .editor import BudgetExceeded, make_post
+from .insights import performance_hint
 from .llm import report_cost, run_cost
 
 
@@ -35,11 +36,12 @@ def build_caption(post: dict, cfg: dict) -> str:
 
 
 def _in_slot_window(now, cfg: dict) -> bool:
-    """Záložný plánovač GitHubu vie meškať aj hodiny – postovať smie len blízko plánovaného času slotu."""
+    """Záložný plánovač GitHubu beží v UTC a vie meškať aj hodiny – postovať smie len chvíľu PO čase slotu.
+    Pred slotom nie, inak by v zimnom čase (cron o hodinu skôr) predbehol cron-job.org."""
     window = timedelta(minutes=cfg["posting"].get("schedule_window_minutes", 75))
     for hhmm in cfg["posting"].get("slot_times", []):
         h, m = map(int, hhmm.split(":"))
-        if abs(now - now.replace(hour=h, minute=m, second=0, microsecond=0)) <= window:
+        if timedelta(0) <= now - now.replace(hour=h, minute=m, second=0, microsecond=0) <= window:
             return True
     return False
 
@@ -83,10 +85,11 @@ def main() -> None:
     used_links |= {link for f in failed_state for link in f["links"]}
 
     post, failed, reason = None, [], "žiadna správa neprešla overením"
+    performance = performance_hint()
     try:
         for mult in (1, 2):
             items = collect(cfg["feeds"], cfg["posting"]["lookback_hours"] * mult, used_links)
-            post = make_post(items, recent, cfg, failed)
+            post = make_post(items, recent, cfg, failed, performance)
             if post:
                 break
             recent += [f["story"] for f in failed]  # v širšom okne už neskúšať to, čo práve neprešlo
@@ -124,13 +127,13 @@ def main() -> None:
     from .instagram import Instagram
 
     ig = Instagram()
-    urls = upload(files, run_id)
+    urls = upload(files, f"{run_id}-{now:%H%M%S}")  # nová URL pri každom behu, inak by CDN Pages mohla vrátiť staré snímky
     info = ig.publish(urls, caption, ai_label=cfg["posting"].get("ai_label", False))
 
     # stav hneď po publikovaní: ak by neskôr niečo zlyhalo, ďalší slot tú istú správu nezopakuje
     posted.append({
         "date": today, "slot": slot, "at": now_utc().isoformat(), "story": post["story"], "headline": post["headline"],
-        "links": post["links"], "sources": post["sources"], "format": post["format"],
+        "links": post["links"], "sources": post["sources"], "format": post["format"], "category": post["category"],
         "media_id": info["id"], "permalink": info.get("permalink"), "cost_usd": post["cost_usd"],
     })
     save_state("posted", posted[-500:])

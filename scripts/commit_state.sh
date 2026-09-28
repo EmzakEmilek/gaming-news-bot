@@ -2,7 +2,6 @@
 # Uloží zmeny v state/ späť do repozitára (s opakovaním pri súbehu).
 set -euo pipefail
 git add -A state/
-[ -d seed ] || git ls-files --error-unmatch seed >/dev/null 2>&1 && git add -A seed/ || true
 if git diff --cached --quiet; then echo "Stav bez zmeny."; exit 0; fi
 git commit -m "state: $1 [skip ci]"
 for i in 1 2 3 4 5; do
