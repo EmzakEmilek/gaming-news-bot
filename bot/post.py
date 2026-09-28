@@ -3,6 +3,7 @@
 Použitie:
   python -m bot.post              # ostrý beh
   python -m bot.post --dry-run    # všetko okrem publikovania (výstup v out/)
+  python -m bot.post --copy-only --count 2   # len texty (bez grafiky a publikovania), 2 rôzne témy
 """
 from __future__ import annotations
 
@@ -46,6 +47,35 @@ def _in_slot_window(now, cfg: dict) -> bool:
     return False
 
 
+def copy_text(post: dict, cfg: dict) -> str:
+    """Celý text postu na kontrolu (titulka, snímky, výzva, caption)."""
+    lines = [f"[{post['category']}] {post['headline']}", ""]
+    lines += [f"{n}. {sl['title']}\n   {sl['body']}" for n, sl in enumerate(post["slides"], start=2)]
+    lines += [f"Výzva ({post['cta']['type']}): {post['cta']['title']}", "", "CAPTION:", build_caption(post, cfg),
+              "", f"Overenie: {post['verification']}", f"Odkazy: {', '.join(post['links'])}"]
+    return "\n".join(lines)
+
+
+def copy_only(count: int, recent: list[str], used_links: set[str], cfg: dict) -> None:
+    """Testovací režim: napíše `count` postov na rôzne témy, bez grafiky a publikovania, texty vypíše do logu."""
+    items = collect(cfg["feeds"], cfg["posting"]["lookback_hours"], used_links)
+    performance = performance_hint()
+    OUT_DIR.mkdir(exist_ok=True)
+    for n in range(1, count + 1):
+        try:
+            post = make_post([it for it in items if it["link"] not in used_links], recent, cfg, [], performance)
+        except BudgetExceeded as e:
+            log.warning("Test zastavený, prekročený rozpočet behu: %s", e)
+            return
+        if not post:
+            log.warning("Testovací post %d: žiadna téma neprešla kontrolami.", n)
+            return
+        log.info("\n===== TESTOVACÍ POST %d (~$%.2f doteraz) =====\n%s\n", n, run_cost(), copy_text(post, cfg))
+        (OUT_DIR / f"copy-{n}.json").write_text(json.dumps(post, ensure_ascii=False, indent=2), encoding="utf-8")
+        recent.append(post["story"])
+        used_links |= set(post["links"])
+
+
 def slot_name(hour: int) -> str:
     return "rano" if hour < 15 else "vecer"
 
@@ -54,7 +84,11 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--force", action="store_true", help="postni aj keď už v tomto slote bol post")
+    ap.add_argument("--copy-only", action="store_true", help="len texty, bez grafiky a publikovania")
+    ap.add_argument("--count", type=int, default=1, help="počet testovacích postov pri --copy-only")
     args = ap.parse_args()
+    if args.copy_only:
+        args.dry_run = True
 
     cfg = load_config()
     if not cfg.get("enabled", True):
@@ -83,6 +117,10 @@ def main() -> None:
     recent = [p["story"] for p in posted[-40:]] + [f["story"] for f in failed_state]
     used_links = {link for p in posted[-300:] for link in p.get("links", [])}
     used_links |= {link for f in failed_state for link in f["links"]}
+
+    if args.copy_only:
+        copy_only(max(1, args.count), recent, used_links, cfg)
+        return
 
     post, failed, reason = None, [], "žiadna správa neprešla overením"
     performance = performance_hint()
