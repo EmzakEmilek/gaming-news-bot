@@ -128,6 +128,7 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 - Každý slot sa postne najviac raz, ani pri opakovanom behu nevznikne duplicita.
 - Odpovede na komentáre nesmú obsahovať odkazy, majú max. 180 znakov a na jeden beh ich je najviac 25.
 - Bot nikdy nereaguje sám na seba a na komentár, pod ktorým už odpovedal.
+- Po každom behu komentárov, v ktorom sa niečo udialo, príde na Discord prehľad: na čo bot odpovedal (aj s odpoveďou), čo skryl a čo **čaká na tvoju odpoveď** (otázky „si bot?“, „kto to spravuje?“, ponuky spolupráce, sťažnosti).
 - Keď niečo zlyhá, GitHub ti pošle e-mail. Ak máš Discord alebo Telegram, príde notifikácia aj tam.
 
 ## Dobré vedieť
