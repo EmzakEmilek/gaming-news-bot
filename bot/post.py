@@ -61,6 +61,7 @@ def copy_only(count: int, recent: list[str], used_links: set[str], cfg: dict, ru
     items = collect(cfg["feeds"], cfg["posting"]["lookback_hours"], used_links)
     performance = performance_hint()
     OUT_DIR.mkdir(exist_ok=True)
+    spent = 0.0
     for n in range(1, count + 1):
         try:
             post = make_post([it for it in items if it["link"] not in used_links], recent, cfg, [], performance,
@@ -71,7 +72,8 @@ def copy_only(count: int, recent: list[str], used_links: set[str], cfg: dict, ru
         if not post:
             log.warning("Testovací post %d: žiadna téma neprešla kontrolami.", n)
             return
-        log.info("\n===== TESTOVACÍ POST %d (~$%.2f doteraz) =====\n%s\n", n, run_cost(), copy_text(post, cfg))
+        cost, spent = run_cost() - spent, run_cost()  # cena tohto postu vrátane výberu témy a neúspešných pokusov
+        log.info("\n===== TESTOVACÍ POST %d (cena ~$%.3f) =====\n%s\n", n, cost, copy_text(post, cfg))
         (OUT_DIR / f"copy-{n}.json").write_text(json.dumps(post, ensure_ascii=False, indent=2), encoding="utf-8")
         recent.append(post["story"])
         used_links |= set(post["links"])
