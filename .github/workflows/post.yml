@@ -19,6 +19,14 @@ on:
         description: "Postni aj keď už v tomto slote bol post"
         type: boolean
         default: false
+      copy_only:
+        description: "Len texty na kontrolu (bez grafiky a publikovania)"
+        type: boolean
+        default: false
+      count:
+        description: "Počet testovacích postov pri copy_only"
+        type: number
+        default: 2
 
 permissions:
   contents: write
@@ -60,6 +68,7 @@ jobs:
           ARGS=""
           if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
           if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ "${{ inputs.copy_only }}" = "true" ]; then ARGS="$ARGS --copy-only --count ${{ inputs.count }}"; fi
           python -m bot.post $ARGS
       - name: Save state
         if: always()

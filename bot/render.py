@@ -23,6 +23,7 @@ def _typo(text: str | None) -> str | None:
     if not text:
         return text
     text = re.sub(r"(?<![^\s(])([aAiIkKoOsSuUvVzZ]) ", "\\1\u00a0", text)
+    text = re.sub(r"(?<!\d)(\d{1,2}\.) (?=\w)", "\\1\u00a0", text)  # radová číslovka: "1. októbra", "3. séria"
     return re.sub(r"(\d) (?=[^\s\d]{1,4}(?:[\s.,!?)]|$))", "\\1\u00a0", text)
 
 
