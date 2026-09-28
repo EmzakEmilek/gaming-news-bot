@@ -213,8 +213,7 @@ FAKTY
 ČITATEĽ
 Píšeš pre bežného slovenského hráča, ktorý o téme nič nevie a post si môže pozrieť aj o mesiac.
 - Vyber len to, čo ho zaujíma. Čísla, ktoré potrebuje (hodnotenia, ceny, dátumy), sú v poriadku, vynechaj tie,
-  ktoré ho nezaujímajú (časy v iných krajinách, účtovné položky). Cenu hry, edície, DLC alebo zľavy uveď vždy,
-  keď ju zdroje majú.
+  ktoré ho nezaujímajú (časy v iných krajinách, účtovné položky).
 - Menej známu osobu, postavu alebo pojem pri prvej zmienke uveď pár slovami ("hlavný hrdina Dylan").
 - Čas vždy konkrétne: dátum slovom ("1. októbra"), hodinu v slovenskom čase, nikdy "zajtra" ani "tento týždeň".
   Časy slovies podľa dnešného dátumu (čo nevyšlo, "vyjde").
