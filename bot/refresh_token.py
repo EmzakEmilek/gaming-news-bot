@@ -26,6 +26,7 @@ def main() -> None:
     if r.returncode != 0:
         raise RuntimeError(f"uloženie do secretu zlyhalo (skontroluj GH_PAT): {r.stderr.strip()}")
     log.info("Token obnovený, platí ďalších %d dní.", days)
+    notify(f"🔑 Instagram token obnovený, platí ďalších {days} dní.")
 
 
 if __name__ == "__main__":

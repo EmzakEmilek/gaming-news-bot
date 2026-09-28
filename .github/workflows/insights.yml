@@ -1,12 +1,13 @@
-name: Comments
+name: Insights
 
+# Denne zbiera štatistiky postov (state/insights.json), v pondelok pošle týždenný prehľad na Discord/Telegram.
 on:
   schedule:
-    - cron: "17 * * * *"   # každú hodinu
+    - cron: "52 5 * * *"   # UTC, ráno pred prvým postom
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "Len vypíš, čo by urobil"
+      report:
+        description: "Poslať aj týždenný prehľad"
         type: boolean
         default: true
 
@@ -18,29 +19,31 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  comments:
+  insights:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
-          cache: pip
-      - run: pip install "anthropic>=1.8,<2" requests PyYAML
+      - run: pip install requests PyYAML
       - run: |
           git config user.name "gaming-news-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Run
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_USER_ID: ${{ secrets.IG_USER_ID }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          if [ "${{ inputs.dry_run }}" = "true" ]; then python -m bot.comments --dry-run; else python -m bot.comments; fi
+          ARGS=""
+          if [ "${{ inputs.report }}" = "true" ] || { [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%u)" = "1" ]; }; then
+            ARGS="--report"
+          fi
+          python -m bot.insights $ARGS
       - name: Save state
         if: always()
-        run: ./scripts/commit_state.sh comments
+        run: ./scripts/commit_state.sh insights

@@ -6,13 +6,17 @@ on:
 permissions:
   contents: write   # test GitHub Pages zapisuje do vetvy gh-pages
 
+concurrency:
+  group: bot        # test GitHub Pages prepisuje gh-pages, nesmie bežať počas postovania
+  cancel-in-progress: false
+
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
       - run: pip install -r requirements.txt
