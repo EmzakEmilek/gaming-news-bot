@@ -285,5 +285,33 @@
     "media_id": "18073706933725613",
     "permalink": "https://www.instagram.com/p/Dd1oEnzFEiw/",
     "cost_usd": 0.1929
+  },
+  {
+    "date": "2026-09-29",
+    "slot": "rano",
+    "at": "2026-09-29T09:36:10.756186+00:00",
+    "story": "Naughty Dog potvrdilo dva nové projekty zo série The Last of Us, no Intergalactic: The Heretic Prophet ukáže naplno až v roku 2027",
+    "headline": "Naughty Dog potvrdilo dva nové projekty zo sveta The Last of Us",
+    "links": [
+      "https://www.eurogamer.net/naughty-dog-confirms-two-more-the-last-of-us-projects-are-in-the-works-wont-show-off-intergalactic-the-heretic-prophet-until-2027",
+      "https://www.sector.sk/novinka/332525/naughty-dog-odhali-intergalactic-v-roku-2027-pracuje-aj-na-novych-the-last-of-us.htm",
+      "https://www.gamespot.com/articles/naughty-dog-is-working-on-two-new-the-last-of-us-projects/",
+      "https://gamesite.zoznam.sk/na-intergalactic-si-pockame-do-roku-2027-pozrite-sa-co-naughty-dog-popritom-chysta-pre-seriu-the-last-of-us/",
+      "https://zing.cz/article/naughty-dog-laka-na-intergalactic-k-predstaveni-dojde-v-roce-2027"
+    ],
+    "sources": [
+      "Eurogamer",
+      "GameSpot",
+      "Gamesite.sk",
+      "Sector.sk",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18114420488035305",
+    "permalink": "https://www.instagram.com/p/Dd3c3qMG30x/",
+    "cost_usd": 0.2186,
+    "story_id": "18128410288771886"
   }
 ]
