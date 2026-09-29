@@ -313,5 +313,27 @@
     "permalink": "https://www.instagram.com/p/Dd3c3qMG30x/",
     "cost_usd": 0.2186,
     "story_id": "18128410288771886"
+  },
+  {
+    "date": "2026-09-29",
+    "slot": "vecer",
+    "at": "2026-09-29T16:35:00.638090+00:00",
+    "story": "Sony sa po desiatkach rokov prvýkrát nezúčastní výstavy CES 2027.",
+    "headline": "Sony po 60 rokoch prvýkrát vynechá CES",
+    "links": [
+      "https://www.sector.sk/novinka/332527/sony-vynecha-ces-2027-po-desatrociach-konci-s-ucastou-na-veltrhu.htm",
+      "https://www.gamesindustry.biz/sony-to-skip-ces-2027-for-first-time-since-expos-inaugural-event-in-1967"
+    ],
+    "sources": [
+      "GamesIndustry.biz",
+      "Sector.sk"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18135178930633017",
+    "permalink": "https://www.instagram.com/p/Dd4MzT5mpGD/",
+    "cost_usd": 0.1131,
+    "story_id": "17948658429295405"
   }
 ]
