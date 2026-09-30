@@ -40,9 +40,9 @@ def body_images(page: str, url: str) -> list[dict]:
         return []
     out = []
     for g in ElementTree.fromstring(xml).iter("graphic"):
-        src = g.get("src") or ""
-        if src.startswith("http") and not SKIP_URL.search(src):
-            out.append({"url": src, "alt": (g.get("alt") or g.get("title") or "").strip()[:160]})
+        src, alt = g.get("src") or "", (g.get("alt") or g.get("title") or "").strip()[:160]
+        if src.startswith("http") and not SKIP_URL.search(f"{src} {alt}"):  # reklamu prezradí aj popis
+            out.append({"url": src, "alt": alt})
     return out[:MAX_PER_ARTICLE]
 
 
