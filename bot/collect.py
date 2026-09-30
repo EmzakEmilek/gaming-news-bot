@@ -91,8 +91,9 @@ def collect(feeds: list[dict], lookback_hours: int, used_links: set[str]) -> lis
 
 
 def fetch_article(item: dict) -> dict:
-    """Doplní plný text článku a og:image."""
-    text, og_image = "", None
+    """Doplní plný text článku, og:image a obrázky z textu článku."""
+    from .photos import body_images
+    text, og_image, images = "", None, []
     try:
         r = requests.get(item["link"], headers=HEADERS, timeout=25)
         r.raise_for_status()
@@ -102,9 +103,10 @@ def fetch_article(item: dict) -> dict:
             re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image', page)
         if m:
             og_image = html.unescape(m.group(1))
+        images = body_images(page, item["link"])
     except Exception as e:  # noqa: BLE001
         log.warning("Článok %s sa nepodarilo stiahnuť: %s", item["link"], e)
     rss_text = item.get("rss_text") or item.get("summary", "")
     if len(text) < len(rss_text):  # stránka zablokovaná alebo z nej trafilatura vytiahla menej ako feed
         text = rss_text
-    return {**item, "text": text[:7000], "image": og_image or item.get("image")}
+    return {**item, "text": text[:7000], "image": og_image or item.get("image"), "images": images}

@@ -14,10 +14,12 @@ from concurrent.futures import ThreadPoolExecutor
 from PIL import Image, ImageEnhance, ImageFilter
 from playwright.sync_api import sync_playwright
 
+from . import photos as ph
 from .common import TEMPLATES_DIR, log
 from .editor import CTA_ICONS
 
 W, H = 1080, 1350
+PHOTO_BODY_MAX = 180  # dlhší text sa pod fotku nezmestí, snímka ostane textová
 
 
 def _typo(text: str | None) -> str | None:
@@ -117,7 +119,12 @@ def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[P
     brand = cfg["brand"]
     base = TEMPLATES_DIR.resolve().as_uri() + "/"
 
-    image, photo_credit = _download_image(post.get("image_candidates", []), out_dir / "source.jpg")
+    photos = post.get("photos")
+    if photos is not None:  # vybrané fotky (starší odložený post má len image_candidates)
+        image = ph.save(photos[0], out_dir / "source.jpg") if photos else None
+        photo_credit = photos[0]["source"] if image else None
+    else:
+        image, photo_credit = _download_image(post.get("image_candidates", []), out_dir / "source.jpg")
     post["photo_credit"] = photo_credit
     carousel = post["format"] == "carousel"
     slides_ctx = [{
@@ -129,8 +136,12 @@ def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[P
         body_slides = post["slides"]
         total = len(body_slides) + 2
         for i, s in enumerate(body_slides, start=2):
+            n = s.get("photo") or 0
+            use = photos and 2 <= n <= len(photos) and len(s["body"]) <= PHOTO_BODY_MAX
+            img = ph.save(photos[n - 1], out_dir / f"photo_{i}.jpg") if use else None
             slides_ctx.append({"kind": "text", "title": _typo(s["title"]), "body": _typo(s["body"]),
-                               "index": i, "total": total, "fit_max_height": 300})
+                               "index": i, "total": total, "fit_max_height": 230 if img else 300,
+                               "image": img, "photo_credit": photos[n - 1]["source"] if img else None})
         cta = post.get("cta") or {}
         cta_main, cta_hl = _split_cta(_typo(cta.get("title") or "Pošli to kamošovi"))
         slides_ctx.append({"kind": "outro", "index": total, "total": total, "fit_max_height": 0,
