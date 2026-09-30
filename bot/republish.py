@@ -46,7 +46,7 @@ def main() -> None:
         replace_cta(post, args.cta.strip())
         from .render import render_post  # import až tu, Playwright je ťažký
         credit = post.get("photo_credit")  # obrázky sa nesťahujú znova, mení sa len posledná snímka
-        new = render_post({**post, "image_candidates": []}, cfg, OUT_DIR / "republish", "")
+        new = render_post({**post, "image_candidates": [], "photos": []}, cfg, OUT_DIR / "republish", "")
         post["photo_credit"] = credit
         slides = slides[:-1] + [new[-1]]
     caption = build_caption(post, cfg)

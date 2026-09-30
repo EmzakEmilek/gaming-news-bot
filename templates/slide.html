@@ -65,6 +65,11 @@
   .idx { font-family: "Anton"; color: var(--accent); font-size: 44px; letter-spacing: 2px; margin-bottom: 28px; }
   .s-title { font-family: "Anton"; text-transform: uppercase; font-size: 92px; line-height: 1.24; margin-bottom: 40px; }
   .s-body { font-size: 48px; line-height: 1.42; font-weight: 400; color: #EFEAE4; }
+  /* textová snímka s fotkou: fotka hore, text pod ňou */
+  .slide-photo { height: 720px; -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%); }
+  .text-body.with-photo { top: 610px; justify-content: flex-end; }
+  .with-photo .s-title { font-size: 80px; margin-bottom: 28px; }
+  .with-photo .s-body { font-size: 44px; }
 
   /* záverečná snímka */
   .outro { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 88px; z-index: 3; }
@@ -91,13 +96,14 @@
   <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% endif %}</div>{% if carousel %}<div class="swipe">SWIPNI →</div>{% else %}<div>{{ brand.handle }}</div>{% endif %}</div>
 
 {% elif kind == "text" %}
+  {% if image %}<div class="photo slide-photo" style="background-image:url('{{ image }}')"></div>{% endif %}
   <div class="top"><div class="logo"><img src="logo.png" alt="">{{ brand.name }}</div><div class="date">{{ index }}/{{ total }}</div></div>
-  <div class="text-body" id="box">
-    <div class="idx">{{ "%02d" % index }}</div>
+  <div class="text-body{% if image %} with-photo{% endif %}" id="box">
+    {% if not image %}<div class="idx">{{ "%02d" % index }}</div>{% endif %}
     <div class="s-title" id="fit">{{ title }}</div>
     <div class="s-body">{{ body }}</div>
   </div>
-  <div class="bottom"><div>{{ brand.handle }}</div>{% if index < total %}<div class="swipe">→</div>{% endif %}</div>
+  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% else %}{{ brand.handle }}{% endif %}</div>{% if index < total %}<div class="swipe">→</div>{% endif %}</div>
 
 {% else %}
   <div class="top"><div class="logo"><img src="logo.png" alt="">{{ brand.name }}</div><div class="date">{{ index }}/{{ total }}</div></div>

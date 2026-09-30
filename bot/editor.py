@@ -7,6 +7,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 
+from . import photos as ph
 from .collect import fetch_article
 from .common import log, now_local, now_utc
 from .llm import STR, STR_LIST, ask_json, run_cost, schema
@@ -49,6 +50,8 @@ POST_FMT = schema(
     slides={"type": "array", "items": schema(title=STR, body=STR)},
     cta=schema(type={"type": "string", "enum": list(CTA_ICONS)}, title=STR),
     caption=STR, hashtags=STR_LIST)
+POST_PHOTOS_FMT = {**POST_FMT, "properties": {**POST_FMT["properties"], "slides": {"type": "array", "items": schema(
+    title=STR, body=STR, photo={"type": "integer"})}}}  # pri fotkách k snímkam aj číslo fotky
 VERDICT_FMT = schema(blocking=STR_LIST, minor=STR_LIST)
 REVIEW_FMT = schema(blocking=STR_LIST, fixes={"type": "array", "items": schema(find=STR, replace=STR)}, minor=STR_LIST)
 CTA_FMT = schema(type={"type": "string", "enum": list(CTA_ICONS)}, title=STR, caption_end=STR)
@@ -191,8 +194,22 @@ def _passes_verification(cand: dict, by_id: dict, cfg: dict, rumors_left: bool =
 
 
 # ── 2. písanie ───────────────────────────────────────────────
+def _photos_note(photos: list[dict]) -> str:
+    """Zoznam fotiek pre pisateľa (fotka 1 je na titulke, ostatné môže priradiť k snímkam)."""
+    rows = "\n".join(f"{i}: {ph.label(p)} ({p['source']})" for i, p in enumerate(photos[1:], start=2))
+    return f"""
+FOTKY
+Fotka 1 je na titulke. K obsahovým snímkam môžeš priradiť tieto fotky (číslo: čo na nej je podľa webu, zdroj):
+{rows}
+- Do photo daj číslo fotky, ktorá patrí k tomu, o čom snímka hovorí (záber z hry, o ktorej je post, sa hodí
+  k snímke o hre). Keď žiadna nesedí alebo z popisu nevieš, čo na fotke je, daj 0.
+- Každú fotku použi najviac raz. Snímka s fotkou má body najviac 160 znakov.
+"""
+
+
 def _write(story: str, articles: list[dict], cfg: dict, feedback: list[str] | None = None,
-           previous: dict | None = None, last: bool = False, rumor: bool = False) -> dict:
+           previous: dict | None = None, last: bool = False, rumor: bool = False,
+           photos: list[dict] | None = None) -> dict:
     p = cfg["posting"]
     src = [
         {"id": a["id"], "source": a["source"], "title": a["title"], "text": a["text"][:ARTICLE_CHARS]}
@@ -248,6 +265,10 @@ JAZYK
 
 Pred odovzdaním si post prečítaj ako človek, ktorý o téme nič nevie: je jasné, o čo ide, nič si neprotirečí,
 každý fakt je zo zdrojov a text znie ako od človeka."""
+    with_photos = bool(photos and len(photos) > 1)
+    if with_photos:
+        system += _photos_note(photos)
+    fmt = POST_PHOTOS_FMT if with_photos else POST_FMT
     sources = f"""Téma: {story}
 {RUMOR_NOTE if rumor else ""}
 Zdrojové články:
@@ -256,6 +277,8 @@ Zdrojové články:
     user = ""
     if feedback and previous:  # opravuj predošlú verziu, nepíš odznova (inak vznikajú nové chyby)
         shown = {k: previous.get(k) for k in ("category", "headline", "slides", "cta", "caption", "hashtags")}
+        if not with_photos:
+            shown["slides"] = [{k: v for k, v in s.items() if k != "photo"} for s in previous.get("slides") or []]
         user += ("\nTvoja predošlá verzia:\n" + json.dumps(shown, ensure_ascii=False)
                  + "\n\nOprav v nej LEN tieto problémy, všetko ostatné nechaj bez zmeny. Ak oprava žiada fakt,"
                  " ktorý v zdrojoch nie je, nedopĺňaj ho, radšej mätúcu časť preformuluj alebo vynechaj:\n- "
@@ -266,17 +289,22 @@ Zdrojové články:
     else:
         user += "\nNapíš post."
     if feedback:  # opravy s väčšou hĺbkou uvažovania; môžu ísť dve za sebou, preto zdroje do cache
-        post = ask_json(cfg["model"]["writer"], system, user, fmt=POST_FMT, cached=sources,
+        post = ask_json(cfg["model"]["writer"], system, user, fmt=fmt, cached=sources,
                         effort=_effort(cfg, "write_fix"))
     else:  # prvý pokus má inú hĺbku ako opravy (zmena effortu cache zneplatní), cache by sa len platila
-        post = ask_json(cfg["model"]["writer"], system, sources + user, fmt=POST_FMT, effort=_effort(cfg, "write"))
+        post = ask_json(cfg["model"]["writer"], system, sources + user, fmt=fmt, effort=_effort(cfg, "write"))
     post["format"] = "carousel"
     return post
 
 
+def _text_slides(post: dict) -> list[dict]:
+    """Snímky bez čísla fotky (kontroly posudzujú len text)."""
+    return [{"title": s.get("title", ""), "body": s.get("body", "")} for s in post.get("slides") or []]
+
+
 # ── 3. čitateľská kontrola (bez zdrojov, lacná) ─────────────
 def _review(post: dict, cfg: dict, previous: list[str] | None = None) -> dict:
-    shown = {k: post.get(k) for k in ("headline", "slides", "caption")}
+    shown = {k: post.get(k) for k in ("headline", "caption")} | {"slides": _text_slides(post)}
     system = f"""{_today()}
 Si šéfredaktor slovenskej Instagram stránky o hrách. Čítaš hotový carousel ako bežný slovenský hráč,
 ktorý o téme nič nevie. Zdroje nemáš, fakty kontroluje niekto iný.
@@ -325,7 +353,7 @@ def _apply_fixes(post: dict, fixes: list[dict]) -> list[str]:
 # ── 4. kontrola faktov ───────────────────────────────────────
 def _check(post: dict, articles: list[dict], cfg: dict, rumor: bool = False) -> dict:
     src = [{"id": a["id"], "source": a["source"], "text": a["text"][:ARTICLE_CHARS]} for a in articles]
-    shown = {k: post.get(k) for k in ("headline", "slides", "caption", "hashtags")}
+    shown = {k: post.get(k) for k in ("headline", "caption", "hashtags")} | {"slides": _text_slides(post)}
     system = f"""{_today()}
 Si prísny fact-checker. Porovnávaš hotový Instagram post so zdrojmi, slovenčinu a štýl kontroluje niekto iný.
 {UNTRUSTED}
@@ -404,12 +432,13 @@ def _validate_shape(post: dict, cfg: dict) -> list[str]:
     return issues
 
 
-def produce(story: str, articles: list[dict], cfg: dict, rumor: bool = False) -> dict | None:
+def produce(story: str, articles: list[dict], cfg: dict, rumor: bool = False,
+            photos: list[dict] | None = None) -> dict | None:
     """Napíše post a nechá ho prejsť kontrolou tvaru, čitateľa a faktov. Pri chybách max. 3 pokusy."""
     feedback, reader_issues, post = None, None, None
     for attempt in range(3):
         _check_budget(cfg)
-        post = _write(story, articles, cfg, feedback, post, last=attempt == 2, rumor=rumor)
+        post = _write(story, articles, cfg, feedback, post, last=attempt == 2, rumor=rumor, photos=photos)
         stage, issues, minor = "tvar", _validate_shape(post, cfg), []
         if not issues:
             stage, verdict = "čitateľ", _review(post, cfg, reader_issues)
@@ -435,7 +464,7 @@ def produce(story: str, articles: list[dict], cfg: dict, rumor: bool = False) ->
 def _polish_cta(post: dict, cfg: dict) -> None:
     """Prepíše cta a posledný odsek captionu. Beží raz, až keď post prešiel kontrolami.
     Ak výsledok nesplní pravidlá, ostane pôvodná výzva od pisateľa."""
-    shown = {k: post.get(k) for k in ("headline", "slides", "caption", "cta")}
+    shown = {k: post.get(k) for k in ("headline", "caption", "cta")} | {"slides": _text_slides(post)}
     system = f"""Si copywriter slovenskej Instagram stránky o hrách {cfg["brand"]["handle"]}. Píšeš výzvu na poslednú
 snímku carouselu a posledný odsek captionu. Cieľ: čo najviac zdieľaní a komentárov.
 - type "share" (predvolené): správa, ktorú človek pošle kamošovi (užitočná, zábavná, zadarmo, dôležitý dátum).
@@ -495,16 +524,19 @@ def make_post(items: list[dict], recent: list[str], cfg: dict, failed: list[dict
         with ThreadPoolExecutor(max_workers=5) as pool:  # články sťahujeme naraz
             articles = list(pool.map(fetch_article, chosen))
         rumor = bool(cand.get("is_rumor"))
-        post = produce(cand["story"], articles, cfg, rumor)
+        photos = ph.gather(ph.candidates(articles, cfg["posting"].get("article_images", "all"),
+                                         body=cfg["posting"].get("slide_photos", False)))
+        post = produce(cand["story"], articles, cfg, rumor, photos)
         if post:
-            return finalize(post, cand["story"], articles, reason, cfg, rumor)
+            return finalize(post, cand["story"], articles, reason, cfg, rumor, photos)
         log.info("Téma '%s' neprešla kontrolou, skúšam ďalšiu.", cand["story"])
         if failed is not None:
             failed.append({"story": cand["story"], "links": [a["link"] for a in articles]})
     return None
 
 
-def finalize(post: dict, story: str, articles: list[dict], reason: str, cfg: dict, rumor: bool = False) -> dict:
+def finalize(post: dict, story: str, articles: list[dict], reason: str, cfg: dict, rumor: bool = False,
+             photos: list[dict] | None = None) -> dict:
     post["sources"] = sorted({a["source"] for a in articles})
     post["links"] = [a["link"] for a in articles]
     post["story"] = story
@@ -512,20 +544,6 @@ def finalize(post: dict, story: str, articles: list[dict], reason: str, cfg: dic
     post["rumor"] = rumor
     if rumor:
         post["category"] = "RUMOR"  # štítok na titulke, aby bolo hneď vidieť, že ide o nepotvrdenú správu
-    post["image_candidates"] = _image_candidates(articles, cfg)
+    post["photos"] = photos or []
     return post
 
-
-def _image_candidates(articles: list[dict], cfg: dict) -> list[dict]:
-    """Obrázky z článkov: oficiálne zdroje prvé, podľa posting.article_images."""
-    policy = cfg["posting"].get("article_images", "all")
-    if policy == "none":
-        return []
-    out = []
-    for a in sorted(articles, key=lambda a: a.get("tier") != "official"):
-        if not a.get("image"):
-            continue
-        if policy == "official" and a.get("tier") != "official":
-            continue
-        out.append({"url": a["image"], "source": a["source"], "official": a.get("tier") == "official"})
-    return out

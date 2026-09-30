@@ -1,0 +1,51 @@
+name: Photo test
+
+# Test fotiek na snímkach bez Claude a bez publikovania: k posledným postom stiahne fotky z článkov
+# a vykreslí ukážky. Výsledok uloží do vetvy photo-test (cleanup ju zmaže).
+on:
+  workflow_dispatch:
+    inputs:
+      last:
+        description: "Koľko posledných postov"
+        type: number
+        default: 5
+      cleanup:
+        description: "Len zmazať testovacie vetvy"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: photo-test
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - if: inputs.cleanup
+        run: |
+          for b in photo-test tmp-export-posts; do git push origin --delete "$b" || true; done
+      - if: ${{ !inputs.cleanup }}
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+      - if: ${{ !inputs.cleanup }}
+        run: pip install -r requirements.txt && python -m playwright install --with-deps chromium
+      - if: ${{ !inputs.cleanup }}
+        run: python -m bot.photos test --last ${{ inputs.last }}
+      - if: ${{ !inputs.cleanup }}
+        run: |
+          git config user.name "gaming-news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp -r out/photo-test /tmp/photo-test
+          git checkout --orphan photo-test
+          git rm -rq --cached .
+          git clean -fdxq -e .git
+          cp /tmp/photo-test/*.jpg /tmp/photo-test/summary.json .
+          git add -A && git commit -qm "photo test" && git push -f origin photo-test

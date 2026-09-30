@@ -49,6 +49,8 @@ posting:
                               # false = Story zdieľaš ručne z apky (✈️ → Pridať do príbehu), má preklik na post
   article_images: all         # all = obrázok z článku z hociktorého zdroja (s "Foto: zdroj")
                               # official = len z oficiálnych zdrojov, none = len typografia
+  slide_photos: false         # true = fotky z článkov aj na obsahových snímkach (pisateľ vyberie, ktorá ku ktorej snímke
+                              # sedí, podľa popisu fotky na webe); false = fotka len na titulke
   avoid_topics:               # tieto témy bot vždy preskočí
     - úmrtia, tragédie, násilie a streľby (aj keď súvisia s hrami)
     - politika a vojny
