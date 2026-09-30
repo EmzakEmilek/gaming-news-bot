@@ -43,7 +43,7 @@ def _split_cta(title: str) -> tuple[str, str]:
     m = re.match(r"(.+?[?!,:.])\s+(.+)", title)
     if m:
         return m.group(1), m.group(2)
-    words = title.split()
+    words = title.split(" ")  # len bežné medzery: slová spojené nezlomiteľnou medzerou (predložka + slovo) ostanú spolu
     return " ".join(words[:-2]), " ".join(words[-2:])
 
 
