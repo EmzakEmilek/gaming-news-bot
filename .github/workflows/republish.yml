@@ -1,0 +1,71 @@
+name: Republish
+
+# Znova zverejní post z artefaktu behu "Post" (bez volania Claude), napr. s opravenou výzvou.
+# Starý post na Instagrame zmaže. Bez "publish" len vypíše, čo by zverejnil.
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "ID behu Post, ktorý post vytvoril (z URL behu)"
+        type: string
+        required: true
+      cta:
+        description: "Nová výzva na poslednej snímke a na konci captionu (prázdne = bez zmeny)"
+        type: string
+        default: ""
+      publish:
+        description: "Zmazať starý post a zverejniť (inak len náhľad)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: republish   # nie "bot": rýchle komentáre po poste držia skupinu 2 hodiny
+  cancel-in-progress: false
+
+jobs:
+  republish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Cache Playwright
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+      - run: python -m playwright install --with-deps chromium
+      - run: |
+          git config user.name "gaming-news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - uses: actions/download-artifact@v7
+        with:
+          name: post-${{ inputs.run_id }}
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+          path: artifact/
+      - name: Republish
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PAGES_BASE_URL: ${{ vars.PAGES_BASE_URL }}
+          CTA: ${{ inputs.cta }}
+        run: |
+          ARGS=()
+          if [ -n "$CTA" ]; then ARGS+=(--cta "$CTA"); fi
+          if [ "${{ inputs.publish }}" = "true" ]; then ARGS+=(--publish); fi
+          python -m bot.republish artifact "${ARGS[@]}"
+      - name: Save state
+        if: always()
+        run: ./scripts/commit_state.sh republish
