@@ -26,6 +26,8 @@ class Instagram:
         for attempt in range(4):
             if method == "GET":
                 r = requests.get(f"{API}/{path}", params=params, timeout=30)
+            elif method == "DELETE":
+                r = requests.delete(f"{API}/{path}", params=params, timeout=30)
             else:
                 r = requests.post(f"{API}/{path}", data=params, timeout=60)
             data = r.json() if r.content else {}
@@ -90,6 +92,10 @@ class Instagram:
         media_id = self._req("POST", f"{self.user_id}/media_publish", creation_id=cid)["id"]
         log.info("Story publikovaný: %s", media_id)
         return media_id
+
+    def delete_media(self, media_id: str) -> None:
+        """Zmaže post (carousel celý naraz)."""
+        self._req("DELETE", media_id)
 
     def publishing_quota(self) -> dict:
         data = self._req("GET", f"{self.user_id}/content_publishing_limit", fields="quota_usage,config")
