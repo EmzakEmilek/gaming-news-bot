@@ -8,6 +8,10 @@ def test_typo_keeps_ordinal_with_word():
     assert render._typo("Demo vyjde 1. októbra a 3. séria") == "Demo vyjde 1. októbra a 3. séria"
 
 
+
+def test_cta_split_keeps_preposition_with_word():
+    assert render._split_cta(render._typo("Ako ujdeš polícii v GTA 6?")) == ("Ako ujdeš polícii", "v\u00a0GTA 6?")
+
 def test_best_photo_prefers_official_then_resolution(tmp_path, monkeypatch):
     imgs = {"a": Image.new("RGB", (1200, 675)), "b": Image.new("RGB", (1920, 1080)),
             "c": Image.new("RGB", (700, 400)), "d": Image.new("RGB", (1000, 562))}
