@@ -44,3 +44,10 @@ def test_body_image_repeated_in_another_story_is_skipped(monkeypatch):
     photos.gather([c("ad"), c("shot")])  # prvá správa: banner si zapamätá
     assert "ad" not in [p["url"] for p in photos.gather([c("ad"), c("shot2")])]  # banner webu z predošlej správy
     assert photos.SKIP_URL.search("https://www.sector.sk/img/sutaz-office.jpg")
+
+
+def test_body_images_skip_ads_by_url_or_alt():
+    page = ("<html><body><article><p>" + "Text článku o hre. " * 60 + "</p>"
+            '<img src="https://x.sk/a/12.jpg" alt="sutaz"><img src="https://x.sk/promo-office.jpg" alt="">'
+            '<img src="https://x.sk/gta-6-screen.jpg" alt="Lucia v aute"><p>' + "Ďalší text. " * 60 + "</p></article></body></html>")
+    assert [i["url"] for i in photos.body_images(page, "https://x.sk/clanok")] == ["https://x.sk/gta-6-screen.jpg"]
