@@ -35,3 +35,12 @@ def test_label_uses_alt_or_file_name():
     assert photos.label({"url": "https://x.com/a.jpg", "alt": "Jason na pláži"}) == "Jason na pláži"
     assert photos.label({"url": "https://x.com/img/gta-6-vice_city-beach.jpg", "alt": ""}) == "gta vice city beach"
     assert photos.label({"url": "https://x.com/12345.jpg", "alt": ""}) == "bez popisu"
+
+
+def test_body_image_repeated_in_another_story_is_skipped(monkeypatch):
+    imgs = {"ad": _img(1280, 720, 7), "shot": _img(1920, 1080, 8), "shot2": _img(1920, 1080, 9)}
+    monkeypatch.setattr(photos, "fetch", imgs.get)
+    c = lambda u: {"url": u, "source": "S", "official": False}  # noqa: E731
+    photos.gather([c("ad"), c("shot")])  # prvá správa: banner si zapamätá
+    assert "ad" not in [p["url"] for p in photos.gather([c("ad"), c("shot2")])]  # banner webu z predošlej správy
+    assert photos.SKIP_URL.search("https://www.sector.sk/img/sutaz-office.jpg")

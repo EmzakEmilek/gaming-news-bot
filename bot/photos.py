@@ -17,7 +17,7 @@ from xml.etree import ElementTree
 import requests
 from PIL import Image
 
-from .common import log
+from .common import load_state, log, save_state
 
 MIN_WIDTH = 800
 ASPECT = (1.2, 2.4)       # len fotky na šírku: screenshoty 16:9 a tlačové fotky, nie logá, bannery ani portréty
@@ -25,7 +25,9 @@ MAX_CANDIDATES = 24       # koľko obrázkov najviac sťahovať na jeden post
 MAX_PER_ARTICLE = 6
 MAX_PHOTOS = 6            # titulka + najviac 4 obsahové snímky, jedna navyše pre výber
 SIMILAR = 10              # rozdiel odtlačkov (z 64 bitov), pod ktorým ide o ten istý obrázok
-SKIP_URL = re.compile(r"logo|avatar|author|icon|sprite|banner|placeholder|emoji|badge|\.svg|\.gif", re.I)
+SKIP_URL = re.compile(r"logo|avatar|author|icon|sprite|banner|placeholder|emoji|badge|\.svg|\.gif"
+                      r"|sutaz|soutez|contest|giveaway|promo|advert|sponsor|partner|reklam", re.I)
+SEEN_KEEP = 400           # koľko adries obrázkov z textu si pamätať (reklamy a bannery webu sa opakujú pri rôznych správach)
 
 _cache: dict[str, Image.Image | None] = {}  # v jednom behu sa fotka sťahuje len raz (výber aj vykreslenie)
 
@@ -93,6 +95,10 @@ def label(photo: dict) -> str:
 def gather(cands: list[dict]) -> list[dict]:
     """Stiahne kandidátov naraz, nechá použiteľné fotky bez duplikátov. Prvá je najlepšia na titulku
     (oficiálny zdroj, hlavný obrázok článku, potom najväčšia), ostatné v poradí, v akom sú v článkoch."""
+    seen = load_state("photo_seen", [])
+    body = [c["url"] for c in cands if not c.get("main")]
+    cands = [c for c in cands if c.get("main") or c["url"] not in seen]  # obrázok z textu už bol pri inej správe
+    save_state("photo_seen", (seen + [u for u in body if u not in seen])[-SEEN_KEEP:])
     with ThreadPoolExecutor(max_workers=8) as pool:
         images = list(pool.map(lambda c: fetch(c["url"]), cands))
     usable = []
