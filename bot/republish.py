@@ -1,5 +1,6 @@
 """Znova zverejní už publikovaný post z artefaktu jeho behu, bez volania Claude (napr. po oprave výzvy).
-Starý post na Instagrame zmaže a v state/posted.json ho nahradí novým.
+Starý post na Instagrame zmaže (ak to API dovolí, inak ho zmaže majiteľ a beh ide s --keep-old)
+a v state/posted.json ho nahradí novým.
 
 Použitie:
   python -m bot.republish <priečinok artefaktu> --cta "Nová otázka?"            # len ukáže, čo by zverejnil
@@ -36,6 +37,7 @@ def main() -> None:
     ap.add_argument("folder", type=Path)
     ap.add_argument("--cta", help="nová výzva na poslednej snímke a na konci captionu")
     ap.add_argument("--publish", action="store_true", help="naozaj zmazať starý post a zverejniť")
+    ap.add_argument("--keep-old", action="store_true", help="starý post nemazať (majiteľ ho zmazal alebo archivoval sám)")
     args = ap.parse_args()
     cfg = load_config()
 
@@ -63,8 +65,13 @@ def main() -> None:
 
     ig = Instagram()
     old_id = old["media_id"]
-    ig.delete_media(old_id)
-    log.info("Starý post zmazaný: %s", old.get("permalink"))
+    if not args.keep_old:
+        try:
+            ig.delete_media(old_id)
+        except Exception as e:  # Instagram Login API mazanie nepodporuje (len účty s Facebook Login)
+            raise SystemExit(f"Starý post sa cez API zmazať nedá ({e}). Zmaž ho alebo archivuj v apke"
+                             " a spusti znova s keep_old. Nič som nezverejnil.")
+        log.info("Starý post zmazaný: %s", old.get("permalink"))
     urls = upload(slides, f"republish-{now_local():%Y%m%d-%H%M%S}")
     info = ig.publish(urls, caption, ai_label=cfg["posting"].get("ai_label", False), alt_texts=alt_texts(post))
     old.update({"at": now_utc().isoformat(), "media_id": info["id"], "permalink": info.get("permalink"), "story_id": None})

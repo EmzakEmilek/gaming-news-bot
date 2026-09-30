@@ -17,6 +17,10 @@ on:
         description: "Zmazať starý post a zverejniť (inak len náhľad)"
         type: boolean
         default: false
+      keep_old:
+        description: "Starý post nemazať (zmazal si ho alebo archivoval sám v apke)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -65,6 +69,7 @@ jobs:
           ARGS=()
           if [ -n "$CTA" ]; then ARGS+=(--cta "$CTA"); fi
           if [ "${{ inputs.publish }}" = "true" ]; then ARGS+=(--publish); fi
+          if [ "${{ inputs.keep_old }}" = "true" ]; then ARGS+=(--keep-old); fi
           python -m bot.republish artifact "${ARGS[@]}"
       - name: Save state
         if: always()
