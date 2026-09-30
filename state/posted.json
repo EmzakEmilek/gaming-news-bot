@@ -362,5 +362,33 @@
     "permalink": "https://www.instagram.com/p/Dd6BhPQnH0I/",
     "cost_usd": 0.2124,
     "story_id": null
+  },
+  {
+    "date": "2026-09-30",
+    "slot": "vecer",
+    "at": "2026-09-30T16:33:37.037683+00:00",
+    "story": "Xbox spustil pre všetkých program Disc-to-Digital, ktorý umožňuje zmeniť fyzické kópie hier na digitálne licencie.",
+    "headline": "Xbox Disc-to-Digital je pre všetkých: prevedieš väčšinu fyzických hier",
+    "links": [
+      "https://indian-tv.cz/clanek/xbox-spousti-prevod-fyzickych-kopii-na-digitalni-licenci-mf7gt4",
+      "https://www.gamespot.com/articles/xbox-disc-to-digital-program-is-officially-live-for-everyone/",
+      "https://www.eurogamer.net/xbox-disc-to-digital-convert-ownership-release",
+      "https://www.sector.sk/novinka/332569/xbox-disc-to-digital-je-dostupny-pre-vsetkych-licencia-sa-aktivuje-automaticky.htm",
+      "https://gamepress.cz/xbox-disc-to-digital-upgrade-je-nyni-k-dispozici-vsem/"
+    ],
+    "sources": [
+      "Eurogamer",
+      "GameSpot",
+      "Gamepress.cz",
+      "Indian-TV",
+      "Sector.sk"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18033050087850585",
+    "permalink": "https://www.instagram.com/p/Dd6xd2GFXaS/",
+    "cost_usd": 0.1728,
+    "story_id": null
   }
 ]
