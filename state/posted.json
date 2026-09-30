@@ -335,5 +335,32 @@
     "permalink": "https://www.instagram.com/p/Dd4MzT5mpGD/",
     "cost_usd": 0.1131,
     "story_id": "17948658429295405"
+  },
+  {
+    "date": "2026-09-30",
+    "slot": "rano",
+    "at": "2026-09-30T09:34:40.106962+00:00",
+    "story": "Rockstar odhalil nálož detailov o GTA 6: mapa je dvakrát väčšia než v GTA 5, hurikány a tropické búrky, vyše 170 druhov zvierat, vedľajšie aktivity, polícia a nové screenshoty.",
+    "headline": "GTA 6 vyjde 19. novembra: Game Informer priniesol nové detaily",
+    "links": [
+      "https://www.rockpapershotgun.com/gta-6-will-simulate-hurricanes-rainbows-and-persistent-dynamic-clouds-among-other-efforts-to-make-you-stop-doing-crime-and-become-a-weather-nerd",
+      "https://www.sector.sk/novinka/332562/gta-vi-prezradza-viac-o-jasonovi-a-lucii-aj-o-tom-ako-bude-fungovat-policia.htm",
+      "https://hrej.cz/article/jsme-pod-obrovskym-tlakem-priznavaji-tvurci-gta-6",
+      "https://hrej.cz/article/pohoda-na-plazi-i-prepadeni-podivejte-se-na-nove-snimky-z-gta-6",
+      "https://gamesite.zoznam.sk/masivny-naklad-informacii-o-gta-6-vyvojari-odhalil-hurikany-170-druhov-zvierat-a-vedlajsie-aktivity/"
+    ],
+    "sources": [
+      "Gamesite.sk",
+      "Hrej.cz",
+      "Rock Paper Shotgun",
+      "Sector.sk"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "17918320632444729",
+    "permalink": "https://www.instagram.com/p/Dd6BhPQnH0I/",
+    "cost_usd": 0.2124,
+    "story_id": null
   }
 ]
