@@ -9,7 +9,7 @@ import anthropic
 
 from .common import env, load_config, log, record_cost
 
-# Strop na odpoveď. Claude Sonnet 5 má adaptívne thinking zapnuté a myslenie sa počíta do max_tokens,
+# Strop na odpoveď. Claude Sonnet 5.5 má adaptívne thinking zapnuté a myslenie sa počíta do max_tokens,
 # preto nízky limit môže odrezať JSON. Platí sa len za tokeny, ktoré model reálne vygeneruje.
 MIN_MAX_TOKENS = 16000
 

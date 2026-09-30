@@ -13,8 +13,8 @@ brand:
   background: "#0A0A0A"  # čierna
 
 model:
-  writer: "claude-sonnet-5"   # výber správ, copy, komentáre
-  checker: "claude-sonnet-5"  # nezávislá kontrola faktov pred publikovaním
+  writer: "claude-sonnet-5-5" # výber správ, copy, komentáre
+  checker: "claude-sonnet-5-5" # nezávislá kontrola faktov pred publikovaním
 
 effort:                       # hĺbka uvažovania Claude: low / medium / high / xhigh (vyššie = dôkladnejšie, ale drahšie)
   select: medium              # výber tém
@@ -26,6 +26,7 @@ effort:                       # hĺbka uvažovania Claude: low / medium / high /
   comments: low               # odpovede na komentáre
 
 api_prices:                   # USD za 1M tokenov [vstup, výstup], len na odhad nákladov v logoch a state/costs.json
+  claude-sonnet-5-5: [2.0, 10.0]
   claude-sonnet-5: [2.0, 10.0]
 
 posting:
