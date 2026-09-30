@@ -157,8 +157,9 @@ def _publish(post: dict, cfg: dict, now, today: str, slot: str, posted: list[dic
         "media_id": info["id"], "permalink": info.get("permalink"), "cost_usd": post["cost_usd"], "story_id": story_id,
     })
     save_state("posted", posted[-500:])
+    share = "" if story_id else "\n📲 Zdieľaj do Story: otvor odkaz → ✈️ → Pridať do príbehu"
     notify(f"✅ {cfg['brand']['name']} postol: {post['headline']} (~${post['cost_usd']:.2f})"
-           f"{' + Story' if story_id else ''}\n{info.get('permalink', '')}")
+           f"{' + Story' if story_id else ''}\n{info.get('permalink', '')}{share}")
 
 
 def slot_name(hour: int) -> str:

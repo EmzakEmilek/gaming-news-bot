@@ -126,7 +126,7 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 - Zakázané témy sa nepostujú (`avoid_topics`). Fámy a leaky áno, ak o nich píšu aspoň 2 nezávislé portály: titulka dostane štítok **RUMOR**, post menuje pôvodný zdroj fámy a denne ide najviac `rumors_per_day` (predvolene 1). Vypína ich `allow_rumors: false`. Správy z vlastného zisťovania renomovaných médií (Bloomberg, The Verge…) sú povolené (`allow_reputable_reports`), post ich vždy pripíše médiu.
 - Overenie zdrojov robí kód, nie AI: 1 oficiálny zdroj alebo ≥ 2 rôzne portály.
 - Copy sa píše len z plného textu článkov. Pred publikovaním ho kontroluje čitateľská kontrola (zrozumiteľnosť, prirodzená slovenčina, žiadne typické AI frázy) a samostatný fact-check.
-- Každá snímka má alt text (text zo snímky) pre nevidiacich a vyhľadávanie na Instagrame. Story sa dá vypnúť cez `posting.story: false`.
+- Každá snímka má alt text (text zo snímky) pre nevidiacich a vyhľadávanie na Instagrame. Story zdieľaš ručne z apky, aby mala preklik na post (API ho nedovolí); Discord správa o poste ti to pripomenie. Automatickú Story (len obrázok) zapne `posting.story: true`.
 - Obrázok na titulke je z článku (oficiálne zdroje majú prednosť, potom najvyššie rozlíšenie) a na vizuáli aj v captione je uvedené „Foto: zdroj“. Prepínaš to v `posting.article_images` (`all` / `official` / `none`). Keď obrázok nie je k dispozícii, ide typografický vizuál.
 - Každý slot sa postne najviac raz, ani pri opakovanom behu nevznikne duplicita.
 - Ak je post napísaný, ale zverejnenie zlyhá (výpadok Instagramu alebo GitHub Pages), odloží sa do `state/pending.json` a ďalší beh v tom istom slote ho len zverejní, bez nového písania a platenia za Claude.
