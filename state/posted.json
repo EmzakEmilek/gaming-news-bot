@@ -418,5 +418,33 @@
     "permalink": "https://www.instagram.com/p/Dd8mPMoFvo2/",
     "cost_usd": 0.1619,
     "story_id": null
+  },
+  {
+    "date": "2026-10-01",
+    "slot": "vecer",
+    "at": "2026-10-01T16:41:45.646909+00:00",
+    "story": "Sony prináša AI upscaling (vylepšený PSSR) aj na základnú PS5, začne sa s hrami Wolverine a Ghost of Yotei.",
+    "headline": "Základná PS5 dostane AI upscaling QSSR od Sony",
+    "links": [
+      "https://indian-tv.cz/clanek/sony-prinasi-ai-upscaling-i-na-zakladni-playstation-5-cwtxvu",
+      "https://kotaku.com/base-ps5-is-getting-ai-upscaling-starting-with-wolverine-and-ghost-of-yotei-to-make-the-smallest-details-look-even-crisper-2000738994",
+      "https://www.gematsu.com/2026/10/ps5-ai-upscaler-quick-spectral-super-resolution-announced",
+      "https://www.pushsquare.com/news/2026/10/sony-confirms-refined-version-of-acclaimed-pssr-upscaler-for-base-ps5-with-remarkable-potential",
+      "https://blog.playstation.com/2026/10/01/ai-upscaling-is-coming-to-ps5/"
+    ],
+    "sources": [
+      "Gematsu",
+      "Indian-TV",
+      "Kotaku",
+      "PlayStation Blog",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "UPDATE",
+    "rumor": false,
+    "media_id": "17961625665208197",
+    "permalink": "https://www.instagram.com/p/Dd9XNtBHMQv/",
+    "cost_usd": 0.2203,
+    "story_id": null
   }
 ]
