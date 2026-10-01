@@ -390,5 +390,33 @@
     "permalink": "https://www.instagram.com/p/Dd6xd2GFXaS/",
     "cost_usd": 0.1728,
     "story_id": null
+  },
+  {
+    "date": "2026-10-01",
+    "slot": "rano",
+    "at": "2026-10-01T09:33:57.696132+00:00",
+    "story": "Naughty Dog údajne pracuje na novej hre Uncharted, v ktorej sa vráti Nathan Drake, no nemusí byť hlavnou postavou.",
+    "headline": "Naughty Dog údajne chystá nové Uncharted, Nathan Drake sa v ňom vráti",
+    "links": [
+      "https://www.videogameschronicle.com/news/sources-naughty-dog-is-working-on-uncharted-5/",
+      "https://indian-tv.cz/clanek/dalsi-velkou-hrou-naughty-dog-ma-byt-uncharted-s8afwl",
+      "https://zing.cz/article/naughty-dog-udajne-pripravuje-navrat-serie-uncharted",
+      "https://www.pushsquare.com/news/2026/10/rumour-new-uncharted-game-in-the-works-at-naughty-dog-nathan-drake-not-the-lead-character",
+      "https://www.sector.sk/novinka/332627/naughty-dog-udajne-pracuje-na-novej-hre-uncharted-vratit-sa-ma-aj-nathan-drake.htm"
+    ],
+    "sources": [
+      "Indian-TV",
+      "Push Square",
+      "Sector.sk",
+      "VGC",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18627062608037963",
+    "permalink": "https://www.instagram.com/p/Dd8mPMoFvo2/",
+    "cost_usd": 0.1619,
+    "story_id": null
   }
 ]
