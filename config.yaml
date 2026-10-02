@@ -62,6 +62,8 @@ posting:
 
 comments:
   enabled: true
+  auto_reply: false           # false = bot sám neodpovedá, komentáre ti pošle na Discord aj s návrhom odpovede
+                              # (skrývanie spamu a prehľad bežia ďalej); true = odpovedá sám
   max_age_days: 7             # na komentáre pod postami staršími ako X dní už nereaguje
   max_replies_per_run: 25
   hide_toxic: true            # urážky, spam, podvodné linky skryje

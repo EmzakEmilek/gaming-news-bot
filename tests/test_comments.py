@@ -27,7 +27,17 @@ class FakeIG:
         pass
 
 
+def _cfg(auto_reply):
+    real = cm.load_config
+    def load():
+        cfg = real()
+        cfg["comments"]["auto_reply"] = auto_reply
+        return cfg
+    return load
+
+
 def test_comments_report_to_discord(monkeypatch):
+    monkeypatch.setattr(cm, "load_config", _cfg(True))
     sent = []
     monkeypatch.setattr(cm, "notify_long", sent.append)
     monkeypatch.setattr(cm, "Instagram", FakeIG)
@@ -44,6 +54,22 @@ def test_comments_report_to_discord(monkeypatch):
     sent.clear()
     cm.main()  # nič nové -> žiadna správa
     assert sent == []
+
+
+def test_without_auto_reply_owner_gets_suggestion(monkeypatch):
+    monkeypatch.setattr(cm, "load_config", _cfg(False))
+    sent, replies = [], []
+    monkeypatch.setattr(cm, "notify_long", sent.append)
+    monkeypatch.setattr(cm, "Instagram", FakeIG)
+    monkeypatch.setattr(FakeIG, "reply", lambda self, cid, text: replies.append(cid))
+    monkeypatch.setattr(cm, "_decide", lambda groups, cfg: [
+        {"id": "c1", "action": "reply", "reply": "Na PC zatiaľ dátum nie je."},
+        {"id": "c3", "action": "hide", "reply": ""}])
+    monkeypatch.setattr(sys, "argv", ["comments"])
+    cm.main()
+    assert replies == []
+    assert "Čaká na tvoju odpoveď (1)" in sent[0] and "návrh odpovede: Na PC zatiaľ dátum nie je." in sent[0]
+    assert "Bot odpovedal" not in sent[0] and "Bot skryl (1)" in sent[0]
 
 
 def test_trivial_comments():

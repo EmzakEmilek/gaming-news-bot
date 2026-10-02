@@ -112,6 +112,7 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 
 - **Vypnúť všetko:** `enabled: false` v `config.yaml`.
 - **Vypnúť len komentáre:** `comments.enabled: false`.
+- **Bez automatických odpovedí:** `comments.auto_reply: false` (predvolené). Bot neodpovedá, komentáre ti pošle na Discord aj s návrhom odpovede, spam skrýva ďalej.
 - **Iné časy:** `posting.slot_times` v `config.yaml` a časy v cron-job.org. Záložný `cron` v `.github/workflows/post.yml`
   (UTC, 2 riadky na slot kvôli letnému a zimnému času) nastav 10 min po slote.
 - **Farby, meno a IG handle:** sekcia `brand` v `config.yaml`.
