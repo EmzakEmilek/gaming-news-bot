@@ -472,5 +472,29 @@
     "permalink": "https://www.instagram.com/p/Dd_Z6_GFSlr/",
     "cost_usd": 0.1096,
     "story_id": null
+  },
+  {
+    "date": "2026-10-02",
+    "slot": "vecer",
+    "at": "2026-10-02T16:34:22.581794+00:00",
+    "story": "Halo má podľa správ dostať reboot pod Activision, na ktorom má pracovať Sledgehammer Games; nová hra môže byť príbehom Master Chiefa o jeho začiatkoch.",
+    "headline": "Activision podľa insidera zvažuje reboot Halo o začiatkoch Master Chiefa",
+    "links": [
+      "https://www.polygon.com/halo-reboot-master-chief-origin-story/",
+      "https://www.eurogamer.net/halo-activision-rumours-slegehammer-games-reboot",
+      "https://www.gamespot.com/articles/activision-could-be-giving-halo-something-it-hasnt-had-in-years-a-clean-slate/"
+    ],
+    "sources": [
+      "Eurogamer",
+      "GameSpot",
+      "Polygon"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18122968261924657",
+    "permalink": "https://www.instagram.com/p/Dd_7JL6GpIB/",
+    "cost_usd": 0.1533,
+    "story_id": null
   }
 ]
