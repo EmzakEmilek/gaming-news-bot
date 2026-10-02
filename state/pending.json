@@ -1,1 +1,102 @@
-null
+{
+  "date": "2026-10-02",
+  "slot": "rano",
+  "at": "2026-10-02T09:32:56.659335+00:00",
+  "post": {
+    "category": "OZNÁMENIE",
+    "headline": "Krafton zrušil extraction shooter PUBG: Black Budget necelý rok po oznámení",
+    "slides": [
+      {
+        "title": "Black Budget je zrušený",
+        "body": "Krafton ukončil vývoj extraction shooteru PUBG: Black Budget. Hra bola spin-off série PUBG a prešla closed alpha testami na Steame. Dátum vydania nemala.",
+        "photo": 2
+      },
+      {
+        "title": "Krafton: hra by hráčov nebavila dlhodobo",
+        "body": "Krafton na Steame napísal, že aktuálny smer hry by nedoručil zážitok, ktorý by hráčov bavil dlhodobo. Rozhodnutie nazval ťažkým a poďakoval testerom za spätnú väzbu.",
+        "photo": 0
+      },
+      {
+        "title": "O čom hra mala byť",
+        "body": "Tímy žoldnierov mali v prvoosobnej hre získať tajnú technológiu z opusteného výskumného zariadenia na ostrove uviaznutom v časovej slučke. Cieľom bolo prežiť a uniknúť.",
+        "photo": 3
+      },
+      {
+        "title": "Druhý zrušený spin-off v roku",
+        "body": "V marci Krafton zrušil aj PUBG: Blindspot po dvoch mesiacoch v early access. Na Gamescome v auguste pritom oznámil ďalší spin-off, PUBG: Ded.Net, multiplayer strieľačku s roguelike postupom.",
+        "photo": 4
+      }
+    ],
+    "cta": {
+      "type": "comment",
+      "title": "Mal Krafton hru ešte nechať dozrieť?"
+    },
+    "caption": "Krafton zrušil PUBG: Black Budget, extraction shooter, ktorý Krafton ukázal v novembri 2025.\n\nPodľa firmy by aktuálny smer hry nedoručil zážitok, ktorý by hráčov bavil dlhodobo. Hra prešla closed alpha testami na Steame.\n\nJe to druhý zrušený PUBG spin-off v roku 2026. V marci skončil Blindspot po dvoch mesiacoch v early access.\n\nKrafton zrušil Black Budget po closed alpha testoch. Dal by si hre ešte šancu, alebo bolo správne ju ukončiť? Napíš do komentárov, čo si myslíš.",
+    "hashtags": [
+      "#PUBG",
+      "#BlackBudget",
+      "#Krafton",
+      "#hry",
+      "#hernenovinky",
+      "#extractionshooter",
+      "#gaming",
+      "#Steam"
+    ],
+    "format": "carousel",
+    "sources": [
+      "GamesIndustry.biz",
+      "Gamesite.sk",
+      "Kotaku",
+      "Rock Paper Shotgun"
+    ],
+    "links": [
+      "https://www.rockpapershotgun.com/pubg-extraction-shooter-black-budget-canned-less-than-a-year-from-reveal-after-krafton-decide-it-wont-deliver-an-experience-players-could-enjoy-over-the-long-term",
+      "https://www.gamesindustry.biz/krafton-shuts-down-pubg-spin-off-black-budget-nine-months-after-closed-alpha-test",
+      "https://kotaku.com/pubg-extraction-shooter-canceled-less-than-a-year-after-getting-revealed-2000739106",
+      "https://gamesite.zoznam.sk/next-gen-update-pre-metro-redux-zrusenie-pubg-black-budget-a-odklad-kena-scars-of-kosmora-quest-log-79/"
+    ],
+    "story": "Krafton zrušil PUBG extraction shooter Black Budget necelý rok po oznámení, keďže podľa firmy neponúkal zážitok, ktorý by hráčov bavil dlhodobo.",
+    "verification": "4 nezávislé zdroje (GamesIndustry.biz, Gamesite.sk, Kotaku, Rock Paper Shotgun)",
+    "rumor": false,
+    "photos": [
+      {
+        "url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/10/Gamesitesk-MetroRedux.jpeg",
+        "alt": "",
+        "main": true,
+        "source": "Gamesite.sk",
+        "official": false,
+        "w": 2048,
+        "h": 1152
+      },
+      {
+        "url": "https://assetsio.gnwcdn.com/pubg-black-budget-extraction-shooter-cancelled-01.jpg?width=1200&height=630&fit=crop&enable=upscale&auto=webp",
+        "alt": "",
+        "main": true,
+        "source": "Rock Paper Shotgun",
+        "official": false,
+        "w": 1200,
+        "h": 630
+      },
+      {
+        "url": "https://assetsio.gnwcdn.com/black-budget.jpg?width=1200&height=630&fit=crop&enable=upscale&auto=webp",
+        "alt": "",
+        "main": true,
+        "source": "GamesIndustry.biz",
+        "official": false,
+        "w": 1200,
+        "h": 630
+      },
+      {
+        "url": "https://kotaku.com/app/uploads/2026/10/PUBG-black-market.jpg",
+        "alt": "",
+        "main": true,
+        "source": "Kotaku",
+        "official": false,
+        "w": 1920,
+        "h": 1080
+      }
+    ],
+    "cost_usd": 0.1096,
+    "photo_credit": "Gamesite.sk"
+  }
+}
