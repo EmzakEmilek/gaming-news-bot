@@ -446,5 +446,31 @@
     "permalink": "https://www.instagram.com/p/Dd9XNtBHMQv/",
     "cost_usd": 0.2203,
     "story_id": null
+  },
+  {
+    "date": "2026-10-02",
+    "slot": "rano",
+    "at": "2026-10-02T11:44:05.060276+00:00",
+    "story": "Krafton zrušil PUBG extraction shooter Black Budget necelý rok po oznámení, keďže podľa firmy neponúkal zážitok, ktorý by hráčov bavil dlhodobo.",
+    "headline": "Krafton zrušil extraction shooter PUBG: Black Budget necelý rok po oznámení",
+    "links": [
+      "https://www.rockpapershotgun.com/pubg-extraction-shooter-black-budget-canned-less-than-a-year-from-reveal-after-krafton-decide-it-wont-deliver-an-experience-players-could-enjoy-over-the-long-term",
+      "https://www.gamesindustry.biz/krafton-shuts-down-pubg-spin-off-black-budget-nine-months-after-closed-alpha-test",
+      "https://kotaku.com/pubg-extraction-shooter-canceled-less-than-a-year-after-getting-revealed-2000739106",
+      "https://gamesite.zoznam.sk/next-gen-update-pre-metro-redux-zrusenie-pubg-black-budget-a-odklad-kena-scars-of-kosmora-quest-log-79/"
+    ],
+    "sources": [
+      "GamesIndustry.biz",
+      "Gamesite.sk",
+      "Kotaku",
+      "Rock Paper Shotgun"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18340052980278333",
+    "permalink": "https://www.instagram.com/p/Dd_Z6_GFSlr/",
+    "cost_usd": 0.1096,
+    "story_id": null
   }
 ]
