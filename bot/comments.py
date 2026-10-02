@@ -133,6 +133,9 @@ def main() -> None:
                 if cid not in by_id:
                     continue
                 text = (a.get("reply") or "").strip()
+                suggestion = ""
+                if act == "reply" and not ccfg.get("auto_reply", True):  # odpovedá majiteľ, bot len upozorní
+                    act, suggestion = "owner", text
                 if act == "reply":
                     if budget <= 0:
                         continue  # nechaj na ďalší beh, neoznačuj ako vybavené
@@ -161,6 +164,8 @@ def main() -> None:
                     line = f"• @{c.get('username') or '?'}: „{c.get('text', '')[:150]}“"
                     if act == "reply":
                         line += f"\n  → {text}"
+                    elif suggestion:
+                        line += f"\n  návrh odpovede: {suggestion}"
                     report[act].append(f"{line}\n  <{c['permalink']}>")
         batch, size = ([g], len(g["comments"])) if g is not None else ([], 0)
 
