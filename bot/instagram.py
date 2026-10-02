@@ -63,6 +63,19 @@ class Instagram:
             time.sleep(10)
         raise IGError(f"Kontajner {container_id} nie je pripravený ani po {timeout}s")
 
+    def _publish_container(self, cid: str) -> str:
+        """media_publish. Instagram občas hlási „Media ID is not available“ (code 9007), hoci kontajner je FINISHED:
+        médiá ešte nie sú spracované. Počkáme a skúsime znova."""
+        for attempt in range(5):
+            try:
+                return self._req("POST", f"{self.user_id}/media_publish", creation_id=cid)["id"]
+            except IGError as e:
+                if "code 9007" not in str(e) or attempt == 4:
+                    raise
+                log.warning("Instagram ešte nespracoval médiá, skúšam znova o %d s.", 15 * (attempt + 1))
+                time.sleep(15 * (attempt + 1))
+        raise AssertionError("nedosiahnuteľné")
+
     def publish(self, image_urls: list[str], caption: str, ai_label: bool = False,
                 alt_texts: list[str] | None = None) -> dict:
         extra = {"is_ai_generated": "true"} if ai_label else {}
@@ -76,7 +89,7 @@ class Instagram:
                 self._wait_ready(child)
             cid = self._container(media_type="CAROUSEL", children=",".join(children), caption=caption, **extra)
         self._wait_ready(cid)
-        media_id = self._req("POST", f"{self.user_id}/media_publish", creation_id=cid)["id"]
+        media_id = self._publish_container(cid)
         try:  # post už je vonku – chyba pri zisťovaní odkazu nesmie zhodiť beh (stav by sa neuložil)
             info = self._req("GET", media_id, fields="id,permalink,timestamp")
         except IGError as e:
@@ -89,7 +102,7 @@ class Instagram:
         """Story s obrázkom (bez textu, odkazu a alt textu – API ich pri Stories nepodporuje)."""
         cid = self._container(image_url=image_url, media_type="STORIES")
         self._wait_ready(cid)
-        media_id = self._req("POST", f"{self.user_id}/media_publish", creation_id=cid)["id"]
+        media_id = self._publish_container(cid)
         log.info("Story publikovaný: %s", media_id)
         return media_id
 

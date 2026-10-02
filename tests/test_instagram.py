@@ -62,3 +62,37 @@ def test_media_insights_without_permission_raises():
 def test_online_followers():
     fake = lambda *a, **k: {"data": [{"values": [{"value": {"0": 3, "10": 9}}]}]}  # noqa: E731
     assert _ig(fake).online_followers() == {0: 3, 10: 9}
+
+
+def test_publish_retries_when_media_not_ready(monkeypatch):
+    import bot.instagram as igmod
+    monkeypatch.setattr(igmod.time, "sleep", lambda s: None)
+    tries = []
+
+    def fake(method, path, **p):
+        if path.endswith("media_publish"):
+            tries.append(1)
+            if len(tries) < 3:
+                raise IGError("POST 1/media_publish: Media ID is not available (code 9007)")
+            return {"id": "M"}
+        if p.get("fields") == "status_code":
+            return {"status_code": "FINISHED"}
+        if path == "1/media":
+            return {"id": "c"}
+        return {"id": "M", "permalink": "P"}
+    assert _ig(fake).publish(["u1"], "cap")["permalink"] == "P"
+    assert len(tries) == 3
+
+
+def test_publish_does_not_retry_other_errors(monkeypatch):
+    import bot.instagram as igmod
+    monkeypatch.setattr(igmod.time, "sleep", lambda s: None)
+
+    def fake(method, path, **p):
+        if path.endswith("media_publish"):
+            raise IGError("POST 1/media_publish: Invalid parameter (code 100)")
+        if p.get("fields") == "status_code":
+            return {"status_code": "FINISHED"}
+        return {"id": "c"}
+    with pytest.raises(IGError):
+        _ig(fake).publish(["u1"], "cap")
