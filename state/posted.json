@@ -522,5 +522,27 @@
     "permalink": "https://www.instagram.com/p/DeBvyTPG3Hg/",
     "cost_usd": 0.1497,
     "story_id": null
+  },
+  {
+    "date": "2026-10-03",
+    "slot": "vecer",
+    "at": "2026-10-03T16:33:42.309972+00:00",
+    "story": "Arc Raiders bude niekoľko dní zadarmo na hranie a príde k tomu veľký update.",
+    "headline": "Arc Raiders si dočasne zahráš zadarmo na Steame, PS5 aj Xboxe",
+    "links": [
+      "https://www.polygon.com/arc-raiders-free-to-play-weekend-october-2026/",
+      "https://hrej.cz/article/arc-raiders-zdarma-rijen-2026"
+    ],
+    "sources": [
+      "Hrej.cz",
+      "Polygon"
+    ],
+    "format": "carousel",
+    "category": "ZDARMA",
+    "rumor": false,
+    "media_id": "17904818436569029",
+    "permalink": "https://www.instagram.com/p/DeCf4hZHE_s/",
+    "cost_usd": 0.1731,
+    "story_id": null
   }
 ]
