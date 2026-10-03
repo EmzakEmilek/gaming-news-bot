@@ -496,5 +496,31 @@
     "permalink": "https://www.instagram.com/p/Dd_7JL6GpIB/",
     "cost_usd": 0.1533,
     "story_id": null
+  },
+  {
+    "date": "2026-10-03",
+    "slot": "rano",
+    "at": "2026-10-03T09:33:36.863256+00:00",
+    "story": "System Shock 2: 25th Anniversary Remaster je v októbri zadarmo na Epic Games Store, zostane vám navždy.",
+    "headline": "System Shock 2: 25th Anniversary Remaster je na Epic Games Store zadarmo a zostane ti",
+    "links": [
+      "https://indian-tv.cz/clanek/zdarma-muzete-mit-pc-verzi-system-shocku-2-y5ew9x",
+      "https://www.sector.sk/novinka/332693/system-shock-2-25th-anniversary-remaster-je-teraz-zadarmo-na-epicu.htm",
+      "https://www.videogameschronicle.com/news/epics-october-free-games-include-system-shock-2s-25th-anniversary-remaster/",
+      "https://www.ign.com/articles/system-shock-2-remaster-is-free-to-keep-on-the-epic-games-store-right-now"
+    ],
+    "sources": [
+      "IGN",
+      "Indian-TV",
+      "Sector.sk",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "ZDARMA",
+    "rumor": false,
+    "media_id": "18174044155450911",
+    "permalink": "https://www.instagram.com/p/DeBvyTPG3Hg/",
+    "cost_usd": 0.1497,
+    "story_id": null
   }
 ]
