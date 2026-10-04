@@ -571,5 +571,29 @@
     "permalink": "https://www.instagram.com/p/DeEUkryG0_L/",
     "cost_usd": 0.171,
     "story_id": null
+  },
+  {
+    "date": "2026-10-04",
+    "slot": "vecer",
+    "at": "2026-10-04T16:34:40.464718+00:00",
+    "story": "PlatinumGames naznačuje, že séria Bayonetta bude pokračovať napriek odchodu kľúčových vývojárov.",
+    "headline": "Inaba pre Famitsu chce Bayonettu rozvíjať aj po odchode Kamiyu",
+    "links": [
+      "https://www.eurogamer.net/platinumgames-bayonetta-expand-atsushi-inaba-stellar-blade",
+      "https://www.nintendolife.com/news/2026/10/platinumgames-comments-on-the-future-of-bayonetta",
+      "https://www.videogameschronicle.com/news/platinum-suggests-more-bayonetta-is-coming-despite-exodus-of-lead-developers/"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Nintendo Life",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "17915048697467474",
+    "permalink": "https://www.instagram.com/p/DeFExUnlh7a/",
+    "cost_usd": 0.1978,
+    "story_id": null
   }
 ]
