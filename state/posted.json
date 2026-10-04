@@ -544,5 +544,32 @@
     "permalink": "https://www.instagram.com/p/DeCf4hZHE_s/",
     "cost_usd": 0.1731,
     "story_id": null
+  },
+  {
+    "date": "2026-10-04",
+    "slot": "rano",
+    "at": "2026-10-04T09:33:33.798053+00:00",
+    "story": "RuneScape 4 bol oznámený na RuneFest 2026: ide o plnohodnotné MMO pokračovanie na Unreal Engine, vzniklo z rozšírenia Dragonwilds, pridáva sa aj RuneScape Reignited a animovaný seriál.",
+    "headline": "Jagex ohlásil RS4, nové RuneScape MMO na Unreal Engine",
+    "links": [
+      "https://www.pcgamer.com/games/mmo/runescape-4-announced-at-runefest-full-mmo-sequel-started-as-expansion-to-survival-game-dragonwilds/",
+      "https://www.ign.com/articles/runefest-2026-runescape-4-runescape-reignited-old-school-runescape-jagex",
+      "https://www.gematsu.com/2026/10/new-runescape-mmo-rs4-announced",
+      "https://www.ign.com/articles/runescape-4-mmo-jagex-animation-series-moistcr1tikal",
+      "https://www.polygon.com/runescape-animated-series-announced/"
+    ],
+    "sources": [
+      "Gematsu",
+      "IGN",
+      "PC Gamer",
+      "Polygon"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18115676531467597",
+    "permalink": "https://www.instagram.com/p/DeEUkryG0_L/",
+    "cost_usd": 0.171,
+    "story_id": null
   }
 ]
