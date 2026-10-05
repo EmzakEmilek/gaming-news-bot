@@ -595,5 +595,29 @@
     "permalink": "https://www.instagram.com/p/DeFExUnlh7a/",
     "cost_usd": 0.1978,
     "story_id": null
+  },
+  {
+    "date": "2026-10-05",
+    "slot": "rano",
+    "at": "2026-10-05T09:33:42.543160+00:00",
+    "story": "Call of Duty: Modern Warfare 4 ukázalo v novom traileri svet extrakčného režimu DMZ.",
+    "headline": "DMZ v Modern Warfare 4 má dynamický svet a systém odmien za hráčov",
+    "links": [
+      "https://indian-tv.cz/clanek/call-of-duty-modern-warfare-4-ukazuje-novy-extrakcni-rezim-g4m7ih",
+      "https://gamepress.cz/modern-warfare-4-ukazuje-dmz-ve-velkem-worldbuilder-trailer-potvrzuje-hon-na-zbrane-dynamicky-svet-i-novy-system-odmen/",
+      "https://www.sector.sk/video/105227/call-of-duty-modern-warfare-4-predstavuje-svet-dmz-v-novom-traileri.htm"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Indian-TV",
+      "Sector.sk"
+    ],
+    "format": "carousel",
+    "category": "TRAILER",
+    "rumor": false,
+    "media_id": "18034664705854529",
+    "permalink": "https://www.instagram.com/p/DeG5YnMlZ5y/",
+    "cost_usd": 0.154,
+    "story_id": null
   }
 ]
