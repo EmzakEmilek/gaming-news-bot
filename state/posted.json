@@ -619,5 +619,33 @@
     "permalink": "https://www.instagram.com/p/DeG5YnMlZ5y/",
     "cost_usd": 0.154,
     "story_id": null
+  },
+  {
+    "date": "2026-10-06",
+    "slot": "vecer",
+    "at": "2026-10-06T16:34:51.739131+00:00",
+    "story": "Star Wars: Galactic Racer vyšlo a patrí k najlepšie hodnoteným hrám zo sveta Star Wars za viac ako 20 rokov; členovia Amazon Prime ho môžu hrať zadarmo cez Luna.",
+    "headline": "88 % na Metacritic: Star Wars: Galactic Racer vyšlo, s Prime zadarmo",
+    "links": [
+      "https://kotaku.com/star-wars-galactic-racer-is-out-today-and-amazon-prime-members-can-check-it-out-for-free-2000740982",
+      "https://www.pushsquare.com/news/2026/10/out-today-star-wars-galactic-racer-the-highest-rated-star-wars-game-in-over-20-years",
+      "https://www.videogameschronicle.com/news/star-wars-galactic-racers-single-player-campaign-is-available-to-play-on-amazon-prime-luma-for-free/",
+      "https://www.gamesindustry.biz/star-wars-galactic-racer-launches-on-amazon-luna-as-part-of-prime-subscription",
+      "https://zing.cz/article/nova-star-wars-hra-je-venku-sbira-prekvapive-pozitivni-recenze"
+    ],
+    "sources": [
+      "GamesIndustry.biz",
+      "Kotaku",
+      "Push Square",
+      "VGC",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "RELEASE",
+    "rumor": false,
+    "media_id": "18101431247378654",
+    "permalink": "https://www.instagram.com/p/DeKOYQ6mxs1/",
+    "cost_usd": 0.3018,
+    "story_id": null
   }
 ]
