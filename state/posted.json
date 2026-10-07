@@ -673,5 +673,33 @@
     "permalink": "https://www.instagram.com/p/DeMDHxMFZUu/",
     "cost_usd": 0.3145,
     "story_id": null
+  },
+  {
+    "date": "2026-10-07",
+    "slot": "vecer",
+    "at": "2026-10-07T16:37:56.828260+00:00",
+    "story": "Forza Horizon 6 pre PS5 sa podľa spoľahlivého leakera a viacerých správ oneskorí na rok 2027 (údajne január na disku), hoci Playground predtým tvrdil, že nie.",
+    "headline": "RUMOR: Forza Horizon 6 na PS5 vraj vyjde až 26. januára 2027",
+    "links": [
+      "https://www.gamespot.com/articles/forza-horizon-6-for-ps5-apparently-delayed-to-2027-and-its-getting-a-disc-release/",
+      "https://www.ign.com/articles/forza-horizon-6-ps5-release-date",
+      "https://kotaku.com/forza-horizon-6-playstation-port-delay-microsoft-sony-ps5-2000741869",
+      "https://www.eurogamer.net/forza-horizon-6-release-date-leak-2027",
+      "https://www.videogameschronicle.com/news/forza-horizon-6-isnt-coming-to-ps5-this-year-its-claimed/"
+    ],
+    "sources": [
+      "Eurogamer",
+      "GameSpot",
+      "IGN",
+      "Kotaku",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "RUMOR",
+    "rumor": true,
+    "media_id": "18100032185636260",
+    "permalink": "https://www.instagram.com/p/DeMzhx2G7IS/",
+    "cost_usd": 0.0994,
+    "story_id": null
   }
 ]
