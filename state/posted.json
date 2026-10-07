@@ -647,5 +647,31 @@
     "permalink": "https://www.instagram.com/p/DeKOYQ6mxs1/",
     "cost_usd": 0.3018,
     "story_id": null
+  },
+  {
+    "date": "2026-10-07",
+    "slot": "rano",
+    "at": "2026-10-07T09:35:12.052336+00:00",
+    "story": "Supermassive Games (tvorcovia Until Dawn) prepustilo viac ako 70 zamestnancov, dva mesiace po oznámení plánov na prepúšťanie.",
+    "headline": "Supermassive Games, tvorcovia Until Dawn, prepustili viac ako 70 ľudí",
+    "links": [
+      "https://games.tiscali.cz/novinky/supermassive-games-opousti-pres-70-vyvojaru-tvurci-until-dawn-znovu-propousti-777627",
+      "https://gamepress.cz/supermassive-games-propousti-vice-nez-70-zamestnancu/",
+      "https://indian-tv.cz/clanek/supermassive-games-propousti-dalsich-70-zamestnancu-gddqhu",
+      "https://www.videogameschronicle.com/news/two-months-after-announcing-layoff-plans-supermassive-games-has-laid-off-more-than-70-staff/"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Games.cz",
+      "Indian-TV",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18142815157579254",
+    "permalink": "https://www.instagram.com/p/DeMDHxMFZUu/",
+    "cost_usd": 0.3145,
+    "story_id": null
   }
 ]
