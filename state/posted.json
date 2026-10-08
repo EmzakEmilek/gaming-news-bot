@@ -701,5 +701,33 @@
     "permalink": "https://www.instagram.com/p/DeMzhx2G7IS/",
     "cost_usd": 0.0994,
     "story_id": null
+  },
+  {
+    "date": "2026-10-08",
+    "slot": "rano",
+    "at": "2026-10-08T09:33:58.791524+00:00",
+    "story": "Mafia 2 a Mafia 3 (Definitive Edition) sa podľa úniku ratingu chystajú na PS5 a Xbox Series X/S s 60 FPS vylepšeniami.",
+    "headline": "Mafia 2 a 3 sa možno chystajú na PS5 a Xbox Series, naznačuje rating",
+    "links": [
+      "https://www.ign.com/articles/mafia-2-mafia-3-definitive-edition-leaked",
+      "https://www.purexbox.com/news/2026/10/mafia-2-and-3-definitive-edition-could-be-getting-60fps-upgrades-for-xbox-series-xs-very-soon",
+      "https://hrej.cz/article/mafia-2-a-3-muzou-dostat-verze-pro-ps5-a-xbox-series",
+      "https://zing.cz/article/hry-mafia-2-a-mafia-3-se-maji-dockat-vylepsenych-verzi-pro-aktualni-konzole",
+      "https://indian-tv.cz/clanek/mafia-2-a-mafia-3-se-chystaji-na-ps5-a-xbox-series-x-s-0m6iyk"
+    ],
+    "sources": [
+      "Hrej.cz",
+      "IGN",
+      "Indian-TV",
+      "Pure Xbox",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "RUMOR",
+    "rumor": true,
+    "media_id": "17904308097352288",
+    "permalink": "https://www.instagram.com/p/DeOnzX7nDt3/",
+    "cost_usd": 0.2081,
+    "story_id": null
   }
 ]
