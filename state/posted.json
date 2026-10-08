@@ -729,5 +729,33 @@
     "permalink": "https://www.instagram.com/p/DeOnzX7nDt3/",
     "cost_usd": 0.2081,
     "story_id": null
+  },
+  {
+    "date": "2026-10-08",
+    "slot": "vecer",
+    "at": "2026-10-08T16:34:23.986136+00:00",
+    "story": "Xbox zakladá novú divíziu XP, ktorá má rozšíriť herné značky do filmov, TV, produktov, partnerstiev a zábavných parkov; Minecraft má v nej hlavnú úlohu.",
+    "headline": "Xbox zakladá divíziu XP: jeho herné značky pôjdu aj mimo hier",
+    "links": [
+      "https://www.gematsu.com/2026/10/xbox-announces-xp-division-to-expand-franchises-across-film-tv-products-partnerships-and-live-experiences",
+      "https://www.sector.sk/novinka/332900/xbox-vytvoril-xp-diviziu-zameranu-na-filmy-tv-produkty-a-aj-zabavne-parky.htm",
+      "https://www.gamesindustry.biz/xbox-announces-new-xp-division-to-deliver-transmedia-spinoffs-including-film-tv-and-theme-parks",
+      "https://gamesite.zoznam.sk/microsoft-zaklada-novu-diviziu-xp-premeni-herne-znacky-xboxu-na-filmove-a-licencovane-hity/",
+      "https://www.gamespot.com/articles/xbox-is-going-bigger-on-movies-tv-and-more-with-new-xp-division/"
+    ],
+    "sources": [
+      "GameSpot",
+      "GamesIndustry.biz",
+      "Gamesite.sk",
+      "Gematsu",
+      "Sector.sk"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18373731325213228",
+    "permalink": "https://www.instagram.com/p/DePX6jskR-m/",
+    "cost_usd": 0.1763,
+    "story_id": null
   }
 ]
