@@ -757,5 +757,33 @@
     "permalink": "https://www.instagram.com/p/DePX6jskR-m/",
     "cost_usd": 0.1763,
     "story_id": null
+  },
+  {
+    "date": "2026-10-09",
+    "slot": "rano",
+    "at": "2026-10-09T09:33:38.156469+00:00",
+    "story": "Paramount pripravuje hraný film podľa Cyberpunku 2077, producentom je tvorca filmov Transformers.",
+    "headline": "Paramount chystá hraný film Cyberpunk 2077, produkuje ho tvorca Transformers",
+    "links": [
+      "https://hrej.cz/article/studio-paramount-pripravuje-filmovou-adaptaci-cyberpunku-2077",
+      "https://gamesite.zoznam.sk/night-city-ozije-na-platnach-kin-paramount-chysta-hrany-film-cyberpunk-2077/",
+      "https://gamepress.cz/pracuje-se-na-hranem-filmu-cyberpunk-2077/",
+      "https://www.nintendolife.com/news/2026/10/wake-up-samurai-cyberpunk-2077-is-getting-a-live-action-movie",
+      "https://zing.cz/article/paramount-oficialne-chysta-hrany-film-podle-cyberpunku-2077"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Gamesite.sk",
+      "Hrej.cz",
+      "Nintendo Life",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18123969499918969",
+    "permalink": "https://www.instagram.com/p/DeRMjwRG8dM/",
+    "cost_usd": 0.172,
+    "story_id": null
   }
 ]
