@@ -785,5 +785,29 @@
     "permalink": "https://www.instagram.com/p/DeRMjwRG8dM/",
     "cost_usd": 0.172,
     "story_id": null
+  },
+  {
+    "date": "2026-10-09",
+    "slot": "vecer",
+    "at": "2026-10-09T16:33:32.445128+00:00",
+    "story": "Nintendo of America šéf sa vyjadril k možnosti vydania GTA 6 na Switch 2 a odkázal hráčov na Rockstar.",
+    "headline": "GTA 6 na Switch 2? Šéfka Nintenda odkázala na Rockstar",
+    "links": [
+      "https://www.nintendolife.com/news/2026/10/nintendo-of-americas-president-comments-on-the-possibility-of-gta-6-on-switch-2",
+      "https://www.polygon.com/gta-6-switch2-release-nintendo-boss-comments/",
+      "https://www.gamespot.com/articles/is-gta-6-coming-to-switch-2-ask-rockstar-nintendo-says/"
+    ],
+    "sources": [
+      "GameSpot",
+      "Nintendo Life",
+      "Polygon"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "17968210968178019",
+    "permalink": "https://www.instagram.com/p/DeR8nceFSxw/",
+    "cost_usd": 0.1395,
+    "story_id": null
   }
 ]
