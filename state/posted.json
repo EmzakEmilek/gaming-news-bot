@@ -835,5 +835,31 @@
     "permalink": "https://www.instagram.com/p/DeTxYNOm3KH/",
     "cost_usd": 0.1726,
     "story_id": null
+  },
+  {
+    "date": "2026-10-10",
+    "slot": "vecer",
+    "at": "2026-10-10T16:33:11.731962+00:00",
+    "story": "Sonic Racing: CrossWorlds odhalilo plán na druhý rok: crossovery s Final Fantasy 7, Hello Kitty a retro Sega postavami, hra je navyše trvalo lacnejšia.",
+    "headline": "Sonic Racing: CrossWorlds dostane 3. novembra druhý rok s Godzillou a FF7",
+    "links": [
+      "https://www.videogameschronicle.com/news/sonic-racing-crossworlds-year-2-crossovers-revealed-including-final-fantasy-7-hello-kitty-and-retro-sega/",
+      "https://www.pushsquare.com/news/2026/10/sonic-racing-crossworlds-now-permanently-cheaper-and-its-going-absolutely-bananas-with-dlc-in-year-2",
+      "https://www.nintendolife.com/news/2026/10/sonic-racing-crossworlds-year-two-roadmap-revealed-major-free-updates-new-collabs-and-much-more",
+      "https://www.gematsu.com/2026/10/sonic-racing-crossworlds-year-two-updates-and-dlc-announced"
+    ],
+    "sources": [
+      "Gematsu",
+      "Nintendo Life",
+      "Push Square",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "DLC",
+    "rumor": false,
+    "media_id": "18631183231029930",
+    "permalink": "https://www.instagram.com/p/DeUhXx0lLQo/",
+    "cost_usd": 0.1496,
+    "story_id": null
   }
 ]
