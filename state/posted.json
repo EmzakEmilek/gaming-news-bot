@@ -809,5 +809,31 @@
     "permalink": "https://www.instagram.com/p/DeR8nceFSxw/",
     "cost_usd": 0.1395,
     "story_id": null
+  },
+  {
+    "date": "2026-10-10",
+    "slot": "rano",
+    "at": "2026-10-10T09:33:51.226841+00:00",
+    "story": "Gears of War: E-Day sa podľa odhadov analytikov predalo len približne 230 000 – 320 000 kópií za prvý týždeň napriek výborným recenziám.",
+    "headline": "Neoficiálny odhad: Gears of War: E-Day predalo 230 000 kópií",
+    "links": [
+      "https://www.ign.com/articles/gears-of-war-e-day-estimated-sales-reach-just-230000-in-first-week-analyst-says",
+      "https://kotaku.com/gears-of-war-e-day-estimated-to-have-sold-just-320000-copies-despite-rave-reviews-2000743262",
+      "https://www.gamespot.com/articles/gears-of-war-e-day-hows-it-selling-lets-unpack-things/",
+      "https://www.eurogamer.net/gears-of-war-eday-sales-xbox-game-pass-players"
+    ],
+    "sources": [
+      "Eurogamer",
+      "GameSpot",
+      "IGN",
+      "Kotaku"
+    ],
+    "format": "carousel",
+    "category": "RUMOR",
+    "rumor": true,
+    "media_id": "17896878915412919",
+    "permalink": "https://www.instagram.com/p/DeTxYNOm3KH/",
+    "cost_usd": 0.1726,
+    "story_id": null
   }
 ]
