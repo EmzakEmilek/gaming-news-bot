@@ -883,5 +883,27 @@
     "permalink": "https://www.instagram.com/p/DeWWJBpluRF/",
     "cost_usd": 0.1598,
     "story_id": null
+  },
+  {
+    "date": "2026-10-11",
+    "slot": "vecer",
+    "at": "2026-10-11T16:33:11.460934+00:00",
+    "story": "Forza Horizon 6 vyjde na PS5 v januári aj na fyzickom disku, spolu s ním príde prvé rozšírenie a bezplatné novinky.",
+    "headline": "Forza Horizon 6 vyjde na PS5 26. januára 2027 aj na fyzickom disku",
+    "links": [
+      "https://doupe.zive.cz/forza-horizon-6-se-na-playstation-dostane-v-lednu-spolu-s-tim-vyjde-i-prvni-rozsireni-a-porce-novinek-zdarma",
+      "https://www.pushsquare.com/news/2026/10/forza-horizon-6-will-have-a-physical-ps5-disc-but-theres-a-catch"
+    ],
+    "sources": [
+      "Doupě.cz",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "DÁTUM VYDANIA",
+    "rumor": false,
+    "media_id": "18116050037117019",
+    "permalink": "https://www.instagram.com/p/DeXGKl5lDT8/",
+    "cost_usd": 0.1182,
+    "story_id": null
   }
 ]
