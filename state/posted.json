@@ -861,5 +861,27 @@
     "permalink": "https://www.instagram.com/p/DeUhXx0lLQo/",
     "cost_usd": 0.1496,
     "story_id": null
+  },
+  {
+    "date": "2026-10-11",
+    "slot": "rano",
+    "at": "2026-10-11T09:33:34.887494+00:00",
+    "story": "Predaje Xboxu v USA klesli o tretinu a PlayStationu o štvrtinu, hardvér PlayStation je na najnižšej úrovni od roku 2013, problémom je cena PS5.",
+    "headline": "Predaje Xboxu v USA klesli o tretinu, PlayStationu o štvrtinu",
+    "links": [
+      "https://hrej.cz/article/prodeje-xboxu-v-usa-klesly-o-tretinu-playstationu-o-ctvrtinu",
+      "https://www.pushsquare.com/news/2026/10/playstation-hardware-sales-hit-lowest-point-since-2013-in-us-and-ps5s-price-is-the-problem"
+    ],
+    "sources": [
+      "Hrej.cz",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "HARDVÉR",
+    "rumor": false,
+    "media_id": "18435974335179239",
+    "permalink": "https://www.instagram.com/p/DeWWJBpluRF/",
+    "cost_usd": 0.1598,
+    "story_id": null
   }
 ]
