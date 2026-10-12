@@ -929,5 +929,31 @@
     "permalink": "https://www.instagram.com/p/DeY7LU4nIdq/",
     "cost_usd": 0.1945,
     "story_id": null
+  },
+  {
+    "date": "2026-10-12",
+    "slot": "vecer",
+    "at": "2026-10-12T16:33:54.182489+00:00",
+    "story": "Nvidia podľa správ ukončila výrobu grafických kariet GeForce RTX 5090 a sústredí sa na RTX Pro čipy pre AI datacentrá.",
+    "headline": "Nvidia podľa úniku končí s RTX 5090, firma to zatiaľ nepotvrdila",
+    "links": [
+      "https://www.gamesindustry.biz/nvidia-reportedly-ends-geforce-rtx-5090-graphics-card-production",
+      "https://www.rockpapershotgun.com/nvidia-are-abandoning-their-rtx-5090-graphics-cards-in-order-to-focus-on-ai-dev-friendly-rtx-pro-ones-leaker-claims",
+      "https://www.videogameschronicle.com/news/nvidia-has-reportedly-stopped-producing-rtx-5090-cards-to-focus-on-rtx-pro-gpus-for-ai-data-centers/",
+      "https://www.pcgamer.com/hardware/graphics-cards/the-rtx-4090-launched-four-years-ago-today-and-now-the-rtx-5090-is-rumoured-for-the-chop-i-cant-help-but-look-upon-it-with-a-warm-glow/"
+    ],
+    "sources": [
+      "GamesIndustry.biz",
+      "PC Gamer",
+      "Rock Paper Shotgun",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "HARDVÉR",
+    "rumor": false,
+    "media_id": "17961799755211179",
+    "permalink": "https://www.instagram.com/p/DeZrCd_lQG1/",
+    "cost_usd": 0.1733,
+    "story_id": null
   }
 ]
