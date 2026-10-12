@@ -905,5 +905,29 @@
     "permalink": "https://www.instagram.com/p/DeXGKl5lDT8/",
     "cost_usd": 0.1182,
     "story_id": null
+  },
+  {
+    "date": "2026-10-12",
+    "slot": "rano",
+    "at": "2026-10-12T09:35:42.067271+00:00",
+    "story": "Wing Commander 3 dostane remaster k 30. výročiu s obnovenými FMV scénami z pôvodných pások, oznámil producent EA na Portland Retro Gaming Expo.",
+    "headline": "Wing Commander 3 dostane remaster: obnovia filmové scény s hercami",
+    "links": [
+      "https://www.videogameschronicle.com/news/wing-commander-3-is-getting-a-30th-anniversary-edition-with-remastered-fmvs-from-the-restored-original-tapes/",
+      "https://www.sector.sk/novinka/333034/wing-commander-3-sa-pravdepodobne-docka-remasteru.htm",
+      "https://kotaku.com/ea-producer-announces-wing-commander-3-remaster-at-portland-retro-gaming-expo-2000744166"
+    ],
+    "sources": [
+      "Kotaku",
+      "Sector.sk",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "17958911841080064",
+    "permalink": "https://www.instagram.com/p/DeY7LU4nIdq/",
+    "cost_usd": 0.1945,
+    "story_id": null
   }
 ]
