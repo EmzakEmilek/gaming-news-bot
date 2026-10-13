@@ -955,5 +955,33 @@
     "permalink": "https://www.instagram.com/p/DeZrCd_lQG1/",
     "cost_usd": 0.1733,
     "story_id": null
+  },
+  {
+    "date": "2026-10-13",
+    "slot": "rano",
+    "at": "2026-10-13T09:34:34.168707+00:00",
+    "story": "Epic Games má podľa správ nariadiť vývojárom novej Disney strieľačky s postavami Marvelu a Star Wars vývoj v režime 'AI first' bez ručne písaného kódu a hru oneskoriť.",
+    "headline": "Epic Games údajne zakázal ručne písaný kód v hre s Marvelom a Star Wars",
+    "links": [
+      "https://www.nintendolife.com/news/2026/10/no-more-hand-written-code-epic-reportedly-adopts-ai-first-production-model-on-new-disney-shooter",
+      "https://www.rockpapershotgun.com/no-more-hand-written-code-epic-reportedly-impose-ai-first-model-on-creators-of-new-disney-shooter-with-marvel-and-star-wars-characters",
+      "https://www.gamesindustry.biz/epic-games-delays-disney-game-and-tells-developers-to-go-ai-first",
+      "https://www.videogameschronicle.com/news/epic-games-reportedly-orders-staff-to-implement-ai-first-development/",
+      "https://www.ign.com/articles/epic-reportedly-pushing-devs-to-use-ai-delays-secret-star-wars-and-marvel-crossover-shooter"
+    ],
+    "sources": [
+      "GamesIndustry.biz",
+      "IGN",
+      "Nintendo Life",
+      "Rock Paper Shotgun",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18070634819774896",
+    "permalink": "https://www.instagram.com/p/Debf2AvG5Sv/",
+    "cost_usd": 0.2364,
+    "story_id": null
   }
 ]
