@@ -983,5 +983,33 @@
     "permalink": "https://www.instagram.com/p/Debf2AvG5Sv/",
     "cost_usd": 0.2364,
     "story_id": null
+  },
+  {
+    "date": "2026-10-13",
+    "slot": "vecer",
+    "at": "2026-10-13T16:33:19.354691+00:00",
+    "story": "GTA 6 má podľa správ vyjsť na PC už v prvom kvartáli 2027, teda len pár mesiacov po konzolovom vydaní.",
+    "headline": "GTA 6 má na PC vyjsť do konca marca 2027, tvrdí GamesBeat",
+    "links": [
+      "https://hrej.cz/article/gta-6-ma-udajne-dorazit-na-pc-prekvapive-brzy",
+      "https://www.rockpapershotgun.com/gta-6-pc-release-planned-for-early-2027-report-claims-which-could-mean-were-playing-in-time-for-gta-online-2-vice-city-4-u-or-whatever-they-call-it",
+      "https://indian-tv.cz/clanek/grand-theft-auto-vi-na-pc-mozna-dorazi-prekvapive-brzy-clzyhj",
+      "https://www.pushsquare.com/news/2026/10/rumour-gta-6-will-be-ported-to-pc-in-record-time-following-its-debut-on-ps5",
+      "https://doupe.zive.cz/gta-6-pc-datum-vydani"
+    ],
+    "sources": [
+      "Doupě.cz",
+      "Hrej.cz",
+      "Indian-TV",
+      "Push Square",
+      "Rock Paper Shotgun"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18105589934260990",
+    "permalink": "https://www.instagram.com/p/DecPxGOEbii/",
+    "cost_usd": 0.0966,
+    "story_id": null
   }
 ]
