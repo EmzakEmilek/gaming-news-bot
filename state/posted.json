@@ -1011,5 +1011,27 @@
     "permalink": "https://www.instagram.com/p/DecPxGOEbii/",
     "cost_usd": 0.0966,
     "story_id": null
+  },
+  {
+    "date": "2026-10-14",
+    "slot": "rano",
+    "at": "2026-10-14T09:33:24.641930+00:00",
+    "story": "Ubisoft zatvára štúdio RedLynx (séria Trials) a prepúšťa približne 70 zamestnancov v Ubisoft Singapore.",
+    "headline": "Ubisoft navrhuje zatvoriť RedLynx, štúdio za sériou Trials",
+    "links": [
+      "https://www.videogameschronicle.com/news/ubisoft-is-planning-to-shut-down-trials-studio-redlynx-and-lay-off-70-ubisoft-singapore-staff/",
+      "https://www.gamesindustry.biz/ubisoft-closing-trials-developer-redlynx-and-cutting-jobs-in-singapore-studio"
+    ],
+    "sources": [
+      "GamesIndustry.biz",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "17906902878593534",
+    "permalink": "https://www.instagram.com/p/DeeEhutm_Yc/",
+    "cost_usd": 0.0911,
+    "story_id": null
   }
 ]
