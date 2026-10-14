@@ -1033,5 +1033,29 @@
     "permalink": "https://www.instagram.com/p/DeeEhutm_Yc/",
     "cost_usd": 0.0911,
     "story_id": null
+  },
+  {
+    "date": "2026-10-14",
+    "slot": "vecer",
+    "at": "2026-10-14T16:34:53.914129+00:00",
+    "story": "Microsoft predstavil Xbox Nano Controller, miniatúrny ovládač, ktorý sa zmestí do vrecka.",
+    "headline": "Xbox Nano Controller: najmenší ovládač od Xboxu stojí 49,99 dolára",
+    "links": [
+      "https://www.sector.sk/novinka/333171/microsoft-predstavil-xbox-nano-controller-miniaturny-ovladac-ktory-sa-zmesti-do-vrecka.htm",
+      "https://www.gematsu.com/2026/10/xbox-nano-controller-announced",
+      "https://news.xbox.com/en-us/2026/10/14/xbox-nano-controller/"
+    ],
+    "sources": [
+      "Gematsu",
+      "Sector.sk",
+      "Xbox Wire"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18120985168989140",
+    "permalink": "https://www.instagram.com/p/Dee0vk6m63O/",
+    "cost_usd": 0.3235,
+    "story_id": null
   }
 ]
