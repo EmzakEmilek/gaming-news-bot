@@ -1,1 +1,104 @@
-null
+{
+  "date": "2026-10-15",
+  "slot": "vecer",
+  "at": "2026-10-15T16:44:27.204913+00:00",
+  "post": {
+    "category": "TRAILER",
+    "headline": "Rockstar zverejnil launch trailer ku GTA 6",
+    "slides": [
+      {
+        "title": "90 sekúnd GTA 6 bez avíza",
+        "body": "Rockstar trailer zverejnil 15. októbra. Zábery podľa Rockstaru vznikli priamo v hre na PlayStation 5.",
+        "photo": 0
+      },
+      {
+        "title": "Jason a Lucia v štáte Leonida",
+        "body": "Hlavní hrdinovia Jason a Lucia majú proti sebe všetko. Po zlyhanom jednoduchom obchode uviaznu v kriminálnom sprisahaní naprieč štátom Leonida.",
+        "photo": 4
+      },
+      {
+        "title": "Jason: „Nedávajú pôžičky ľuďom ako ja“",
+        "body": "Jason v traileri vysvetľuje, že mal v armáde problémy a odišiel v zlom. Hovorí, že takým ľuďom nikto nedá pôžičku. V zábere sú aj prestrelky, naháňačky a intímna scéna v sprche.",
+        "photo": 3
+      },
+      {
+        "title": "Singel „Flower in a Hurricane“",
+        "body": "V traileri hrá nový singel dua Justice s hosťami Tame Impala, SZA a King Gizzard & The Lizard Wizard. Bude na soundtracku GTA 6: The Album.",
+        "photo": 2
+      }
+    ],
+    "cta": {
+      "type": "share",
+      "title": "Komu pošleš dátum vydania GTA 6?"
+    },
+    "caption": "Rockstar zverejnil launch trailer ku GTA 6 bez predošlého oznámenia.\n\nTrailer trvá 90 sekúnd a ukazuje príbeh Jasona a Lucie, akciu aj naháňačky. V traileri hrá singel „Flower in a Hurricane“ od dua Justice.\n\nHra vyjde 19. novembra na PS5 a Xbox Series X/S.\n\nPošli to kamošovi, s ktorým si GTA 6 čakáš, a dohodnite sa, či si ju vezmete hneď 19. novembra na PS5 alebo Xbox.",
+    "hashtags": [
+      "#gta6",
+      "#rockstargames",
+      "#ps5",
+      "#xboxseriesx",
+      "#hry",
+      "#hernenovinky",
+      "#gaming",
+      "#trailer"
+    ],
+    "format": "carousel",
+    "sources": [
+      "Eurogamer",
+      "GameSpot",
+      "Kotaku",
+      "PC Gamer",
+      "VGC"
+    ],
+    "links": [
+      "https://www.pcgamer.com/games/grand-theft-auto/grand-theft-auto-6-launch-trailer/",
+      "https://www.eurogamer.net/grand-theft-auto-6-launch-trailer",
+      "https://www.gamespot.com/videos/grand-theft-auto-vi-gta6-official-launch-trailer/",
+      "https://kotaku.com/surprise-heres-a-new-grand-theft-auto-6-trailer-2000746327",
+      "https://www.videogameschronicle.com/news/rockstar-has-revealed-the-official-launch-trailer-for-grand-theft-auto-6/"
+    ],
+    "story": "Rockstar vydal finálny launch trailer ku GTA 6 s akciou, naháňačkami a príbehom Jasona a Lucie, plus nové screenshoty a hudbu od dua Justice.",
+    "verification": "13 nezávislé zdroje (Doupě.cz, Eurogamer, GameSpot, Gamepress.cz, Gamesite.sk, Gematsu, Hrej.cz, IGN, Kotaku, PC Gamer, Push Square, Sector.sk, VGC, Zing.cz)",
+    "rumor": false,
+    "photos": [
+      {
+        "url": "https://www.videogameschronicle.com/files/2026/10/Screenshot-2026-10-15-140320.jpg",
+        "alt": "",
+        "main": true,
+        "source": "VGC",
+        "official": false,
+        "w": 3830,
+        "h": 1883
+      },
+      {
+        "url": "https://cdn.mos.cms.futurecdn.net/4Er25EtnFdb9QU2xZV3et4-2560-80.jpg",
+        "alt": "",
+        "main": true,
+        "source": "PC Gamer",
+        "official": false,
+        "w": 2560,
+        "h": 1440
+      },
+      {
+        "url": "https://assetsio.gnwcdn.com/gta-header_xwcN3Jm.jpg?width=1200&height=630&fit=crop&enable=upscale&auto=webp",
+        "alt": "",
+        "main": true,
+        "source": "Eurogamer",
+        "official": false,
+        "w": 1200,
+        "h": 630
+      },
+      {
+        "url": "https://kotaku.com/app/uploads/2026/09/Lucia_Caminos_07.0.c7un8ro7_p2-1200x675.jpg",
+        "alt": "",
+        "main": true,
+        "source": "Kotaku",
+        "official": false,
+        "w": 1200,
+        "h": 675
+      }
+    ],
+    "cost_usd": 0.3539,
+    "photo_credit": "VGC"
+  }
+}
