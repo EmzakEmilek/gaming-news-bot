@@ -1057,5 +1057,33 @@
     "permalink": "https://www.instagram.com/p/Dee0vk6m63O/",
     "cost_usd": 0.3235,
     "story_id": null
+  },
+  {
+    "date": "2026-10-15",
+    "slot": "rano",
+    "at": "2026-10-15T09:34:23.674682+00:00",
+    "story": "Epic Games predstavil nový launcher vytvorený pomocou AI („vibe coded“), ktorý je podľa firmy rýchlejší než Steam, a pichol si do Steamu; komunita reaguje posmešne.",
+    "headline": "Epic Games tvrdí, že jeho nový launcher z vibe codingu predbehol Steam",
+    "links": [
+      "https://indian-tv.cz/clanek/epic-games-vytvoril-novy-launcher-pomoci-ai-a-rypl-si-do-steamu-0s7n2a",
+      "https://zing.cz/article/epic-games-store-se-dockal-vyrazneho-prepracovani",
+      "https://kotaku.com/epic-dunks-on-steam-with-vibe-coded-storefront-and-gets-roasted-this-launcher-is-so-fucking-vibeslopped-its-funny-2000746031",
+      "https://www.eurogamer.net/epic-throws-shade-steam-vibe-coding-games-launcher-ai",
+      "https://www.sector.sk/novinka/333165/epic-games-predstavil-launcher-vytvoreny-pomocou-ai-podporuje-linux-je-rychlejsi-ako-povodna-verzia-a-aj-ako-steam.htm"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Indian-TV",
+      "Kotaku",
+      "Sector.sk",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "UPDATE",
+    "rumor": false,
+    "media_id": "18439385884181168",
+    "permalink": "https://www.instagram.com/p/DegpanEkQJF/",
+    "cost_usd": 0.2503,
+    "story_id": null
   }
 ]
