@@ -1085,5 +1085,31 @@
     "permalink": "https://www.instagram.com/p/DegpanEkQJF/",
     "cost_usd": 0.2503,
     "story_id": null
+  },
+  {
+    "date": "2026-10-16",
+    "slot": "rano",
+    "at": "2026-10-16T09:34:29.018359+00:00",
+    "story": "Jagex zrušil RuneScape Reignited necelé dva týždne po oznámení kvôli vlne negatívnej spätnej väzby hráčov.",
+    "headline": "Jagex zrušil RuneScape Reignited necelé dva týždne po oznámení",
+    "links": [
+      "https://www.eurogamer.net/runescape-reignited-cancelled-two-weeks-player-feedback",
+      "https://www.rockpapershotgun.com/welp-all-of-you-runescape-folks-who-hate-reignited-have-gotten-your-wish-as-the-controversial-mmo-rejig-has-been-cancelled",
+      "https://www.pcgamer.com/games/mmo/less-than-2-weeks-after-announcing-runescape-reignited-jagex-is-scrapping-the-whole-thing/",
+      "https://www.ign.com/articles/runescape-reignited-cancelled-less-than-two-weeks-after-being-announced"
+    ],
+    "sources": [
+      "Eurogamer",
+      "IGN",
+      "PC Gamer",
+      "Rock Paper Shotgun"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "17967337466973757",
+    "permalink": "https://www.instagram.com/p/DejOOPsm6Mm/",
+    "cost_usd": 0.2152,
+    "story_id": null
   }
 ]
