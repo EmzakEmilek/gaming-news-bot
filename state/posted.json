@@ -1111,5 +1111,30 @@
     "permalink": "https://www.instagram.com/p/DejOOPsm6Mm/",
     "cost_usd": 0.2152,
     "story_id": null
+  },
+  {
+    "date": "2026-10-16",
+    "slot": "vecer",
+    "at": "2026-10-16T16:34:22.751375+00:00",
+    "story": "Battlefield 6 je tento víkend zadarmo na hranie na Steame, k tomu je zadarmo aj survival Stranded Deep.",
+    "headline": "EA ponúka Battlefield 6 zadarmo do 19. októbra so všetkými režimami",
+    "links": [
+      "https://www.polygon.com/battlefield-6-free-to-play-steam-october-2026/",
+      "https://www.sector.sk/novinka/333274/battlefield-6-si-mozete-cez-vikend-zahrat-zadarmo.htm",
+      "https://hrej.cz/article/na-steamu-si-o-vikendu-muzete-zdarma-otestovat-battlefield-6-a-povedeny-survival",
+      "https://www.polygon.com/stranded-deep-free-weekend-steam/"
+    ],
+    "sources": [
+      "Hrej.cz",
+      "Polygon",
+      "Sector.sk"
+    ],
+    "format": "carousel",
+    "category": "ZDARMA",
+    "rumor": false,
+    "media_id": "17989010364079041",
+    "permalink": "https://www.instagram.com/p/Dej-RmbGxs1/",
+    "cost_usd": 0.1608,
+    "story_id": null
   }
 ]
