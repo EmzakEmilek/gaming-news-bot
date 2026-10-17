@@ -1136,5 +1136,27 @@
     "permalink": "https://www.instagram.com/p/Dej-RmbGxs1/",
     "cost_usd": 0.1608,
     "story_id": null
+  },
+  {
+    "date": "2026-10-17",
+    "slot": "rano",
+    "at": "2026-10-17T09:34:59.160378+00:00",
+    "story": "Unikli zábery zo zrušenej hry Assassin's Creed zasadenej v Číne za dynastie Qin.",
+    "headline": "Podľa MP1st unikli zábery zo zrušenej hry Assassin's Creed Destiny",
+    "links": [
+      "https://www.ign.com/articles/assassins-creed-destiny-leak",
+      "https://zing.cz/article/unikly-gameplay-zabery-ze-zruseneho-dilu-serie-assassin-s-creed"
+    ],
+    "sources": [
+      "IGN",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "RUMOR",
+    "rumor": true,
+    "media_id": "18083601011370356",
+    "permalink": "https://www.instagram.com/p/DelzEsLlplz/",
+    "cost_usd": 0.3016,
+    "story_id": null
   }
 ]
