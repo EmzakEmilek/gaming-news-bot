@@ -1158,5 +1158,33 @@
     "permalink": "https://www.instagram.com/p/DelzEsLlplz/",
     "cost_usd": 0.3016,
     "story_id": null
+  },
+  {
+    "date": "2026-10-17",
+    "slot": "vecer",
+    "at": "2026-10-17T16:36:03.583858+00:00",
+    "story": "Steam spúšťa beta verziu Achievement Sets, ktorá rozdelí achievementy hier na sady podľa DLC a sezón, aby nové addony nepokazili 100 % dokončenie.",
+    "headline": "Steam testuje Achievement Sets: DLC achievementy môžu mať vlastnú sadu",
+    "links": [
+      "https://www.eurogamer.net/steam-achievement-sets-beta",
+      "https://zing.cz/article/steam-vylepsuje-system-achievementu-zavadi-achievement-sets",
+      "https://games.tiscali.cz/novinky/lovcum-trofeji-zdar-steam-upravuje-podobu-achievementu-785548",
+      "https://www.videogameschronicle.com/news/steam-is-introducing-achievement-sets-designed-to-improve-the-achievement-earning-experience/",
+      "https://www.rockpapershotgun.com/valve-roll-out-steam-achievement-sets-in-beta-splitting-up-games-perpetually-growing-trophy-masses-into-dlc-and-season-buckets"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Games.cz",
+      "Rock Paper Shotgun",
+      "VGC",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "UPDATE",
+    "rumor": false,
+    "media_id": "17908243167592978",
+    "permalink": "https://www.instagram.com/p/DemjQnZmiV3/",
+    "cost_usd": 0.4347,
+    "story_id": null
   }
 ]
