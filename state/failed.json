@@ -1,16 +1,5 @@
 [
   {
-    "story": "Sega stiahla z predaja remaster Total War: Shogun 2 – Complete Edition kvôli chybám a AI umeniu po vlne kritiky hráčov a vracia pôvodnú hru.",
-    "links": [
-      "https://indian-tv.cz/clanek/totalni-prusvih-total-war-shogun-2-complete-edition-92zb76",
-      "https://www.polygon.com/total-war-shogun-2-complete-edition-removed-steam/",
-      "https://www.pcgamer.com/games/strategy/the-shogun-2-remaster-is-so-bad-sega-is-removing-it-from-sale-and-bringing-back-the-original/",
-      "https://www.ign.com/articles/total-war-shogun-2-remaster-pulled-from-sale",
-      "https://www.rockpapershotgun.com/total-war-shogun-2-complete-edition-has-fallen-short-of-both-your-expectations-and-our-own-standards-sega-say-as-they-pull-it-from-stores-and-restore-the-original"
-    ],
-    "at": "2026-10-15T16:34:05.234414+00:00"
-  },
-  {
     "story": "Shrek 2 dostane remaster: ukázala ho stránka v Microsoft Store a unikla cez Xbox Store, pripravuje ho údajne Aspyr.",
     "links": [
       "https://www.nintendolife.com/news/2026/10/surprise-aspyr-is-remastering-a-shrek-game",
@@ -36,5 +25,13 @@
       "https://gamepress.cz/gta-6-pouziva-levnou-konverzi-sdr-na-hdr/"
     ],
     "at": "2026-10-17T16:34:32.055968+00:00"
+  },
+  {
+    "story": "Cena PS6 môže podľa správ presiahnuť 1000 dolárov, keďže AI datacentrá zdražujú komponenty.",
+    "links": [
+      "https://gamepress.cz/cena-ps6-pravdepodobne-prekroci-1000-dolaru/",
+      "https://www.pushsquare.com/news/2026/10/ps6-price-tag-facing-usd1000plus-nightmare-as-ai-data-centres-send-component-costs-soaring"
+    ],
+    "at": "2026-10-18T09:32:37.003248+00:00"
   }
 ]

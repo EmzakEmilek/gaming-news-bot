@@ -1186,5 +1186,27 @@
     "permalink": "https://www.instagram.com/p/DemjQnZmiV3/",
     "cost_usd": 0.4347,
     "story_id": null
+  },
+  {
+    "date": "2026-10-18",
+    "slot": "rano",
+    "at": "2026-10-18T09:33:58.564518+00:00",
+    "story": "Vývojári Samson, hry podobnej GTA, skrachovali pol roka po vydaní: švédske štúdio Liquid Swords vyhlásilo bankrot.",
+    "headline": "Liquid Swords, štúdio za hrou Samson, vyhlásilo bankrot pol roka po vydaní",
+    "links": [
+      "https://www.rockpapershotgun.com/oh-dear-half-a-year-after-launching-samson-swedish-developer-liquid-swords-have-filed-for-bankruptcy",
+      "https://kotaku.com/samson-developer-and-publisher-liquid-swords-goes-bankrupt-6-months-after-release-2000747049"
+    ],
+    "sources": [
+      "Kotaku",
+      "Rock Paper Shotgun"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18109157768103883",
+    "permalink": "https://www.instagram.com/p/DeoXwJ_Fqam/",
+    "cost_usd": 0.1776,
+    "story_id": null
   }
 ]
