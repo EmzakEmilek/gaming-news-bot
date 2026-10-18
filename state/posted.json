@@ -1208,5 +1208,27 @@
     "permalink": "https://www.instagram.com/p/DeoXwJ_Fqam/",
     "cost_usd": 0.1776,
     "story_id": null
+  },
+  {
+    "date": "2026-10-18",
+    "slot": "vecer",
+    "at": "2026-10-18T16:34:58.267065+00:00",
+    "story": "Fámy hovoria o remastri Vampire: The Masquerade - Bloodlines; leaker tvrdí, že nejde o remake, a spomína ho aj kapela Genitorturers.",
+    "headline": "Fáma: Vampire: The Masquerade - Bloodlines z roku 2004 má dostať remaster",
+    "links": [
+      "https://www.eurogamer.net/vampire-the-masquerade-bloodlines-remaster-rumour",
+      "https://www.pcgamer.com/games/rpg/metal-band-genitorturers-allegedly-claims-a-vampire-the-masquerade-bloodlines-remake-is-coming-getting-a-dozen-crusty-nerds-way-too-worked-up/"
+    ],
+    "sources": [
+      "Eurogamer",
+      "PC Gamer"
+    ],
+    "format": "carousel",
+    "category": "RUMOR",
+    "rumor": true,
+    "media_id": "18114323924026107",
+    "permalink": "https://www.instagram.com/p/DepH7enkVJV/",
+    "cost_usd": 0.2361,
+    "story_id": null
   }
 ]
