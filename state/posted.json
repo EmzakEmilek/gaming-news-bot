@@ -1230,5 +1230,33 @@
     "permalink": "https://www.instagram.com/p/DepH7enkVJV/",
     "cost_usd": 0.2361,
     "story_id": null
+  },
+  {
+    "date": "2026-10-19",
+    "slot": "vecer",
+    "at": "2026-10-19T16:41:35.002738+00:00",
+    "story": "Saros dostalo veľký bezplatný update Zenith: New Game+, boss rush režim a množstvo nastavení obtiažnosti pre nováčikov aj veteránov.",
+    "headline": "Saros dostalo bezplatný update Zenith: New Game+, boss rush a spomalenie hry",
+    "links": [
+      "https://www.gamespot.com/articles/saros-gets-boss-rush-and-tons-of-difficulty-options-with-zenith-update/",
+      "https://www.polygon.com/saros-zenith-update-accessibility-boss-rush-release-date/",
+      "https://www.eurogamer.net/saros-update-zenith-ps5-new-game-plus",
+      "https://indian-tv.cz/clanek/saros-obohatila-aktualizace-zenith-prinasi-spoustu-novinek-lq8a91",
+      "https://www.sector.sk/novinka/333392/saros-dostava-bezplatnu-aktualizaciu-zenith-pridava-new-game-aj-suboje-s-bossmi-na-cas.htm"
+    ],
+    "sources": [
+      "Eurogamer",
+      "GameSpot",
+      "Indian-TV",
+      "Polygon",
+      "Sector.sk"
+    ],
+    "format": "carousel",
+    "category": "UPDATE",
+    "rumor": false,
+    "media_id": "17908104489329843",
+    "permalink": "https://www.instagram.com/p/DertdnFnPWc/",
+    "cost_usd": 0.1052,
+    "story_id": null
   }
 ]
