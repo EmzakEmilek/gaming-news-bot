@@ -1258,5 +1258,33 @@
     "permalink": "https://www.instagram.com/p/DertdnFnPWc/",
     "cost_usd": 0.1052,
     "story_id": null
+  },
+  {
+    "date": "2026-10-20",
+    "slot": "rano",
+    "at": "2026-10-20T09:33:45.535453+00:00",
+    "story": "Star Wars: Battlefront 3 sa údajne môže vrátiť: Disney podľa správ jedná s viacerými štúdiami a o vývoj majú mať záujem DICE aj Bungie.",
+    "headline": "Neoficiálne: o Star Wars Battlefront 3 majú záujem DICE aj Bungie",
+    "links": [
+      "https://www.videogameschronicle.com/news/dice-and-bungie-are-reportedly-both-interested-in-developing-star-wars-battlefront-3/",
+      "https://zing.cz/article/disney-ma-hledat-studio-ktere-vytvori-star-wars-battlefront-3",
+      "https://indian-tv.cz/clanek/star-wars-battlefront-3-se-mozna-vrati-dice-bungie-1rr0r3",
+      "https://gamepress.cz/star-wars-battlefront-3-ma-vznikat-u-dice-a-respawn-entertainment/",
+      "https://gamesite.zoznam.sk/disney-chce-usporiadat-velkolepy-navrat-prebiehaju-rokovania-o-vyvoji-star-wars-battlefront-3/"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Gamesite.sk",
+      "Indian-TV",
+      "VGC",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18096826175660897",
+    "permalink": "https://www.instagram.com/p/DethVZxEbNe/",
+    "cost_usd": 0.177,
+    "story_id": null
   }
 ]
