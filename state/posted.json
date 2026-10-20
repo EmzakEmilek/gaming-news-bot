@@ -1286,5 +1286,33 @@
     "permalink": "https://www.instagram.com/p/DethVZxEbNe/",
     "cost_usd": 0.177,
     "story_id": null
+  },
+  {
+    "date": "2026-10-20",
+    "slot": "vecer",
+    "at": "2026-10-20T16:33:33.287984+00:00",
+    "story": "Cyberpunk 2077 dostane 22. októbra veľký update 2.5, ktorý vychádza spolu s nasadením anime Cyberpunk: Edgerunners 2 na Netflixe.",
+    "headline": "Cyberpunk 2077 dostane 22. októbra update 2.5 s duálnym vedením zbraní",
+    "links": [
+      "https://www.gematsu.com/2026/10/cyberpunk-2077-version-2-5-update-launches-october-22",
+      "https://www.ign.com/articles/cyberpunk-2077-gets-surprise-official-new-update-announcement-from-cd-projekt",
+      "https://www.eurogamer.net/cyberpunk-2077-25-update-free-egerunners-2-release",
+      "https://gamepress.cz/cd-projekt-red-oznamil-vydani-aktualizace-2-5-pro-cyberpunk-2077/",
+      "https://www.sector.sk/novinka/333443/cyberpunk-edgerunners-2-uz-dorazil-na-netflix-cyberpunk-2077-dostane-velky-update-25.htm"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Gamepress.cz",
+      "Gematsu",
+      "IGN",
+      "Sector.sk"
+    ],
+    "format": "carousel",
+    "category": "UPDATE",
+    "rumor": false,
+    "media_id": "17914840569531069",
+    "permalink": "https://www.instagram.com/p/DeuRW_vFsaO/",
+    "cost_usd": 0.1374,
+    "story_id": null
   }
 ]
