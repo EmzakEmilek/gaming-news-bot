@@ -253,6 +253,7 @@ JAZYK
 - Každá veta má sloveso, jasný podmet a jednoznačné zámená a pridáva niečo nové. Každú informáciu povedz
   v celom poste len raz a neopakuj to isté slovo.
 - Čísla po slovensky: 88 000, 4,5 milióna, 15 %. Úvodzovky „takto“.
+- Nepíš tvary s lomítkom alebo zátvorkou (hral(a), hral/a), použi formuláciu bez rodu ("Ktorý diel ti dal najviac zabrať?").
 - Nepoužívaj vzorce typické pre AI:
 {AI_TELLS}
 - Nespomínaj AI ani to, ako post vznikol.
@@ -369,6 +370,8 @@ def _apply_fixes(post: dict, fixes: list[dict]) -> list[str]:
     missed = []
     for fx in fixes:
         find, replace = fx.get("find") or "", fx.get("replace") or ""
+        if find == replace or (RELATIVE_TIME.search(replace) and not RELATIVE_TIME.search(find)):
+            continue  # oprava, ktorá nič nemení alebo vracia relatívny čas
         hit = next(((obj, k) for obj, k in _text_fields(post) if find and find in (obj[k] or "")), None)
         if not hit:
             missed.append(f"Oprav „{find}“ na „{replace}“.")
@@ -380,7 +383,8 @@ def _apply_fixes(post: dict, fixes: list[dict]) -> list[str]:
 
 
 TEXT_KEYS = ("hook", "headline", "caption", "cta_title", "question", "claim", "about", "sub")  # texty aj v konceptoch
-NOT_TEXT_LISTS = ("hashtags", "links", "sources", "item_ids", "ids", "platforms")
+NOT_TEXT_LISTS = ("hashtags", "links", "sources", "item_ids", "ids", "platforms", "photos", "frames", "alts")
+DICT_TEXT_KEYS = ("title", "body", "label", "text")
 
 
 def _text_fields(post: dict) -> list[tuple]:
@@ -389,10 +393,15 @@ def _text_fields(post: dict) -> list[tuple]:
     for obj, k in ((post.get("cta"), "title"), (post.get("verdict"), "text")):
         if isinstance(obj, dict) and isinstance(obj.get(k), str):
             fields.append((obj, k))
-    fields += [(sl, k) for sl in post.get("slides") or [] for k in ("title", "body") if isinstance(sl.get(k), str)]
     for key, val in post.items():
-        if isinstance(val, list) and key not in NOT_TEXT_LISTS:
-            fields += [(val, i) for i in range(len(val)) if isinstance(val[i], str)]
+        if key in NOT_TEXT_LISTS or key in ("cta", "verdict"):
+            continue
+        items = val if isinstance(val, list) else [val] if isinstance(val, dict) else []
+        for i, item in enumerate(items):
+            if isinstance(item, str) and isinstance(val, list):
+                fields.append((val, i))
+            elif isinstance(item, dict):  # snímky, položky zoznamu, férový obrat...
+                fields += [(item, k) for k in DICT_TEXT_KEYS if isinstance(item.get(k), str)]
     return fields
 
 
@@ -449,7 +458,7 @@ def _validate_shape(post: dict, cfg: dict) -> list[str]:
     if not post.get("headline") or len(post["headline"]) > 90:
         issues.append("headline chýba alebo má viac ako 75 znakov")
     hook = (post.get("hook") or "").strip()
-    if not hook or len(hook) > HOOK_CHARS + 6 or len(hook.split()) > HOOK_WORDS + 1:
+    if not hook or len(hook) > HOOK_CHARS + 18 or len(hook.split()) > HOOK_WORDS + 3:  # šablóna písmo zmenší
         issues.append(f"hook chýba alebo je dlhý (najviac {HOOK_WORDS} slov a {HOOK_CHARS} znakov)")
     if post.get("cover_style") == "number":
         if not post.get("number") or len(post["number"]) > NUMBER_CHARS or not re.search(r"\d", post["number"]):

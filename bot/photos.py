@@ -144,7 +144,8 @@ def _test(last: int) -> None:
     root = OUT_DIR / "photo-test"
     shutil.rmtree(root, ignore_errors=True)
     summary = []
-    for n, p in enumerate(load_state("posted", [])[-last:], start=1):
+    news = [p for p in load_state("posted", []) if p.get("concept", "news") == "news"]  # koncepty nemajú fotky z článkov
+    for n, p in enumerate(news[-last:], start=1):
         articles = []
         for link in p["links"]:  # zdroj podľa domény (posted.json má len zoznam mien zdrojov)
             host = urlparse(link).netloc.lower()

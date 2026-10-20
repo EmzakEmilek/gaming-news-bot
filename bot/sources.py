@@ -51,8 +51,10 @@ def _get(url: str, params: dict | None = None, timeout: int = 30) -> requests.Re
 
 def sparql(query: str) -> list[dict]:
     """Riadky výsledku ako {premenná: hodnota}."""
-    data = _get(WIKIDATA, {"query": query, "format": "json"}, timeout=90).json()
-    return [{k: v["value"] for k, v in row.items()} for row in data["results"]["bindings"]]
+    r = _get(WIKIDATA, {"query": query, "format": "json"}, timeout=90)
+    rows = [{k: v["value"] for k, v in row.items()} for row in r.json()["results"]["bindings"]]
+    log.info("Wikidata: %d riadkov (%d kB)", len(rows), len(r.content) // 1024)
+    return rows
 
 
 def parse_games(rows: list[dict]) -> list[dict]:

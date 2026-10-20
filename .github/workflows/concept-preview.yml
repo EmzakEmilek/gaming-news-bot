@@ -42,3 +42,70 @@ jobs:
           path: out/
           retention-days: 3
           if-no-files-found: ignore
+
+  wikidata-debug:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - run: pip install requests PyYAML
+      - run: |
+          python - <<'PY'
+          from bot import sources as s
+          for q in ["SELECT ?game ?sl WHERE { ?game wdt:P31 wd:Q7889; wikibase:sitelinks ?sl. FILTER(?sl >= 60) } LIMIT 3",
+                    "SELECT ?game ?date ?prec WHERE { ?game wdt:P31 wd:Q7889; wikibase:sitelinks ?sl. FILTER(?sl >= 60) ?game p:P577/psv:P577 ?tv. ?tv wikibase:timeValue ?date; wikibase:timePrecision ?prec. } LIMIT 5",
+                    s.GAMES_QUERY % 60]:
+              try:
+                  rows = s.sparql(q)
+                  print(len(rows), rows[:3])
+              except Exception as e:
+                  print("ERR", repr(e)[:500])
+          games = s.famous_games(45)
+          print(len(games), games[:3])
+          PY
+
+  # náhľady všetkých konceptov do preview/ na tejto vetve (pred zapnutím sa zmažú)
+  gallery:
+    needs: preview
+    if: always()
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v7
+        with:
+          path: art
+      - run: pip install Pillow
+      - name: Kontaktné hárky
+        run: |
+          python - <<'PY'
+          import shutil
+          from pathlib import Path
+          from PIL import Image
+          out = Path("preview")
+          shutil.rmtree(out, ignore_errors=True)
+          out.mkdir()
+          for d in sorted(Path("art").glob("preview-*")):
+              for run in sorted(p for p in d.iterdir() if p.is_dir()):
+                  files = sorted(run.glob("slide_*.jpg"), key=lambda f: int(f.stem.split("_")[1]))
+                  if not files:
+                      continue
+                  sheet = Image.new("RGB", (540 * len(files), 675), "white")
+                  for i, f in enumerate(files):
+                      sheet.paste(Image.open(f).resize((540, 675)), (540 * i, 0))
+                  name = d.name.removeprefix("preview-")
+                  sheet.save(out / f"{name}.jpg", quality=82)
+                  for f in run.glob("post.json"):
+                      (out / f"{name}.json").write_bytes(f.read_bytes())
+          print(sorted(p.name for p in out.iterdir()))
+          PY
+      - name: Commit náhľadov
+        run: |
+          git config user.name "gaming-news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add preview
+          git commit -qm "preview: náhľady konceptov [skip ci]" && git push origin HEAD:${{ github.ref_name }} || echo "Bez zmeny"

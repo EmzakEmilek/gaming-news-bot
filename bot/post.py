@@ -264,6 +264,8 @@ def main() -> None:
         if post:
             publish_post(post, cfg, now, today, slot, posted, args.dry_run)
             return
+        if args.concept:  # ručný test konkrétneho konceptu: bez náhradnej správy
+            return
 
     if args.copy_only:
         copy_only(max(1, args.count), recent, used_links, cfg, rumors_left)

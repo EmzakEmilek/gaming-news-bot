@@ -82,7 +82,7 @@ def performance_hint() -> str:
     now = now_utc()
     rows = [m for m in media.values()
             if timedelta(hours=MIN_AGE_H) <= now - datetime.fromisoformat(m["at"]) <= timedelta(days=HINT_DAYS)
-            and (m["metrics"].get("reach") or 0) >= 10]
+            and (m["metrics"].get("reach") or 0) >= 10 and (m.get("concept") or "news") == "news"]
     if len(rows) < 6:  # na menej postov je to len šum
         return ""
     rows.sort(key=lambda m: score(m["metrics"]), reverse=True)

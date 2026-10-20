@@ -9,6 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import date, timedelta
 
 from ..collect import collect, fetch_article
+from ..common import log
 from ..editor import UNTRUSTED, _effort, _today
 from ..llm import STR, STR_LIST, ask_json, schema
 from ..sources import MONTHS, steam_capsule, steam_find, steam_hero
@@ -76,6 +77,9 @@ Z článkov vyber hry, ktoré vychádzajú (vydanie, nie DLC ani update) od {sta
 - blurb (max 110 znakov, po slovensky): čo je to za hru, len podľa článkov. Ak to články neuvádzajú, napíš žáner.
 Hry, pri ktorých si dátumom nie si istý, vynechaj.""", "Články:\n" + json.dumps(src, ensure_ascii=False),
                     fmt=EXTRACT_FMT, effort=_effort(cfg, "select"))
+    log.info("Radar: z %d prehľadov (%s) vytiahnuté hry: %s", len(articles), ", ".join(a["source"] for a in articles),
+             [(g.get("title"), g.get("date"), [by_id[i]["source"] for i in g.get("ids") or [] if i in by_id])
+              for g in found.get("games") or []])
     games = verified(found.get("games") or [], by_id, start, end)
     games = sorted(sorted(games, key=lambda g: -g.get("notable", 0))[:MAX_GAMES], key=lambda g: g["day"])
     if len(games) < 3:

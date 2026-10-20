@@ -13,6 +13,13 @@
 
 2 posty denne (carousel), komentáre, obnova tokenu. Popis v [README](README.md).
 
+## Fáza 0.5 – Koncepty a nové titulky (beží od októbra 2026)
+
+Ranná správa má hook na titulke, zhrnutie a názor EMZO. Večerný slot strieda 7 konceptov s vlastným vizuálom
+(Vychádza tento týždeň, Toto alebo toto, Zľava týždňa zo Steamu, Uhádneš hru?, Nepopulárny názor, Pred X rokmi,
+Týždeň v 5 správach). Popis v [README](README.md#typy-postov). Po 3 až 4 týždňoch podľa štatistík konceptov
+nechať 2 až 3 najlepšie. Zľava týždňa je zatiaľ len Steam, raz týždenne; plná Zľava dňa nižšie ostáva v pláne.
+
 ## Fáza 1 – Zľava dňa (naplánované, zatiaľ neimplementované)
 
 Jeden post denne s najzaujímavejšou zľavou na hru. Formát sa zdieľa (výzva „pošli kamošovi“)

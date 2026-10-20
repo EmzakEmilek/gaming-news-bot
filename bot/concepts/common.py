@@ -26,6 +26,7 @@ JAZYK
 - Prirodzená hovorová slovenčina, tykaj v jednotnom čísle. Prekladaj význam, nie slová, žiadne české tvary.
 - Názvy hier, firiem a produktov nechaj v origináli. Čísla po slovensky (88 000, 15 %), úvodzovky „takto“.
 - Čas vždy konkrétne (dátum slovom: "1. októbra"), nikdy "zajtra" ani "tento týždeň".
+- Nepíš tvary hral(a) ani hral/a, použi formuláciu bez rodu.
 - Nepoužívaj vzorce typické pre AI:
 {AI_TELLS}
 - Nespomínaj AI ani to, ako post vznikol."""
@@ -78,7 +79,7 @@ def first_image(urls: list[str | None]) -> str | None:
 
 def review(copy: dict, cfg: dict, rules: str) -> list[str]:
     """Čitateľská kontrola (bez zdrojov): drobné opravy urobí kód, vráti problémy na prepis."""
-    shown = {k: v for k, v in copy.items() if k not in ("hashtags", "key") and v}
+    shown = {k: v for k, v in copy.items() if k not in ("hashtags", "key") and not k.startswith("_") and v}
     system = f"""{_today()}
 Si šéfredaktor slovenskej Instagram stránky o hrách. Čítaš hotový carousel ako bežný slovenský hráč.
 "fixes" – chyby, ktoré opraví prepísanie pár slov: gramatika, česká alebo doslovne preložená väzba, vykanie,
@@ -90,12 +91,16 @@ Si šéfredaktor slovenskej Instagram stránky o hrách. Čítaš hotový carous
 "minor" – štýl, ktorý žiadne pravidlo neporušuje."""
     verdict = ask_json(cfg["model"]["checker"], system, "Post:\n" + json.dumps(shown, ensure_ascii=False),
                        fmt=REVIEW_FMT, effort=_effort(cfg, "review"))
-    return (verdict.get("blocking") or []) + _apply_fixes(copy, verdict.get("fixes") or [])
+    missed = _apply_fixes(copy, verdict.get("fixes") or [])
+    if missed:  # jazykové drobnosti, ktoré kód nevedel nahradiť: do prepisu áno, kvôli nim koncept nepadne
+        log.info("Koncept: opravy, ktoré sa nenašli v texte: %s", missed)
+        copy.setdefault("_nits", []).extend(missed)
+    return verdict.get("blocking") or []
 
 
 def factcheck(copy: dict, facts, cfg: dict, note: str = "") -> list[str]:
     """Porovná texty postu s dátami alebo článkami, z ktorých vznikol."""
-    shown = {k: v for k, v in copy.items() if k not in ("key",) and v}
+    shown = {k: v for k, v in copy.items() if k != "key" and not k.startswith("_") and v}
     system = f"""{_today()}
 Si prísny fact-checker. Porovnávaš Instagram post so zdrojmi (dáta a články nižšie). {UNTRUSTED}
 "blocking": tvrdenie (dátum, cena, číslo, meno, udalosť), ktoré v zdrojoch nie je alebo im odporuje, formulácia,
@@ -110,7 +115,8 @@ ktorá posúva význam, nadpis, ktorý tvrdí viac ako zdroje. Označený názor
 
 def produce_copy(write, cfg: dict, validate=None, rules: str = "", facts=None, note: str = "",
                  attempts: int = 2) -> dict:
-    """write(feedback, previous) -> texty. Kontrola tvaru (kód), čitateľ a fakty; pri chybách prepis."""
+    """write(feedback, previous) -> texty. Kontrola tvaru (kód), čitateľ a fakty; pri chybách prepis.
+    Jazykové opravy, ktoré kód nevedel nahradiť, idú do prepisu len spolu so skutočným problémom."""
     feedback, copy = None, None
     for attempt in range(attempts):
         check_budget(cfg)
@@ -121,10 +127,11 @@ def produce_copy(write, cfg: dict, validate=None, rules: str = "", facts=None, n
             stage, issues = "čitateľ", review(copy, cfg, rules)
         if not issues and facts is not None:
             stage, issues = "fakty", factcheck(copy, facts, cfg, note)
+        nits = copy.pop("_nits", [])
         if not issues:
             return copy
         log.info("Koncept: kontrola (%s) našla problémy (pokus %d): %s", stage, attempt + 1, issues)
-        feedback = issues
+        feedback = issues + nits
     raise ConceptSkip(f"text neprešiel kontrolami: {feedback}")
 
 
