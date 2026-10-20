@@ -15,7 +15,9 @@ def test_apply_fixes_replaces_and_reports_missing():
 
 
 def _post(**kw):
-    base = {"headline": "Nadpis", "category": "UPDATE", "cta": {"type": "share", "title": "Pošli to"},
+    base = {"hook": "Dve zbrane naraz", "headline": "Nadpis", "category": "UPDATE", "cover_style": "photo", "number": "",
+            "recap": ["Bod jeden", "Bod dva", "Bod tri"], "verdict": {"score": 4, "text": "Konečne."},
+            "cta": {"type": "share", "title": "Pošli to"},
             "caption": "Krátky hook.\n\nDruhý odsek.\n\nPošli to kamošovi.", "hashtags": ["#hry"],
             "slides": [{"title": "T1", "body": "Demo vyjde 1. októbra."}, {"title": "T2", "body": "Hra 15. októbra."}]}
     return {**base, **kw}
@@ -29,6 +31,26 @@ def test_shape_flags_relative_time_and_numeric_dates(cfg):
 
 def test_shape_ignores_version_numbers_and_ordinals(cfg):
     assert editor._validate_shape(_post(caption="Patch 1.10 je vonku.\n\nVyjde 3. októbra.\n\nPošli to."), cfg) == []
+
+
+def test_shape_checks_hook_number_recap_and_verdict(cfg):
+    issues = " ".join(editor._validate_shape(_post(hook="Toto je príliš dlhý hook, ktorý má oveľa viac ako šesť slov",
+                                                   cover_style="number", number="veľa", recap=["a", "b"],
+                                                   verdict={"score": 9, "text": ""}), cfg))
+    assert "hook" in issues and "number" in issues and "recap" in issues and "verdict" in issues
+
+
+def test_shape_normalizes_photo_cover_and_score(cfg):
+    post = _post(number="123", verdict={"score": 9, "text": "Super."})
+    assert editor._validate_shape(post, cfg) == []
+    assert post["number"] == "" and post["verdict"]["score"] == 5
+
+
+def test_apply_fixes_reaches_hook_recap_and_verdict():
+    post = _post(hook="Hra vypadá skvele", recap=["Vyjde zadarmo", "Bod dva", "Bod tri"], verdict={"score": 1, "text": "Fajn vec."})
+    assert editor._apply_fixes(post, [{"find": "vypadá", "replace": "vyzerá"}, {"find": "Vyjde zadarmo", "replace": "Bude zadarmo"},
+                                      {"find": "Fajn vec", "replace": "Dobrá vec"}]) == []
+    assert post["hook"] == "Hra vyzerá skvele" and post["recap"][0] == "Bude zadarmo" and post["verdict"]["text"] == "Dobrá vec."
 
 
 def test_shape_caption_hook_length(cfg):

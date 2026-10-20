@@ -1,0 +1,22 @@
+{# titulka zoznamu (týždeň v správach, vychádza tento týždeň): názov a upútavka na položky #}
+<style>
+  .lc { position: absolute; left: 64px; right: 64px; top: 180px; bottom: 130px; display: flex; flex-direction: column; z-index: 3; }
+  .lc-title { font-family: "Anton"; text-transform: uppercase; font-size: 150px; line-height: 1.04; }
+  .lc-title span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lc-sub { font-size: 36px; font-weight: 600; color: #EFEAE4; margin-top: 18px; }
+  .lc-list { margin-top: auto; display: flex; flex-direction: column; border-top: 3px solid rgba(255,255,255,.18); }
+  .lc-row { display: flex; align-items: center; gap: 28px; padding: 16px 0; border-bottom: 3px solid rgba(255,255,255,.18); }
+  .lc-row b { font-family: "Anton"; font-weight: 400; font-size: 56px; line-height: 1; color: var(--accent); width: 82px; flex-shrink: 0; }
+  .lc-row span { font-size: 34px; font-weight: 700; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lc-row em { margin-left: auto; font-style: normal; font-size: 26px; font-weight: 800; color: #0A0A0A; background: var(--accent); padding: 6px 14px; flex-shrink: 0; }
+</style>
+  {{ topbar(date) }}
+  <div class="lc">
+    <div><div class="tag">{{ category }}</div></div>
+    <div class="lc-title" data-fit="320" data-min="80">{{ title_main }}{% if title_hl %} <span>{{ title_hl }}</span>{% endif %}</div>
+    {% if sub %}<div class="lc-sub">{{ sub }}</div>{% endif %}
+    <div class="lc-list">
+      {% for it in teaser %}<div class="lc-row"><b>{{ "%02d" % loop.index }}</b><span>{{ it.label }}</span>{% if it.chip %}<em>{{ it.chip }}</em>{% endif %}</div>{% endfor %}
+    </div>
+  </div>
+  <div class="bottom"><div>{{ brand.handle }}</div><div class="swipe">SWIPNI →</div></div>

@@ -1,0 +1,19 @@
+{# Nepopulárny názor: celá žltá titulka bez fotky, čierne písmo #}
+<style>
+  .tk-bg { position: absolute; inset: 0; background: var(--accent); z-index: 0; }
+  .tk-bg::after { content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg, rgba(0,0,0,.05) 0 18px, transparent 18px 36px); }
+  .tk { position: absolute; left: 64px; right: 64px; top: 220px; bottom: 150px; display: flex; flex-direction: column; justify-content: center; z-index: 3; color: #0A0A0A; }
+  .tk-claim { font-family: "Anton"; text-transform: uppercase; font-size: 150px; line-height: 1.08; }
+  .tk-about { margin-top: 34px; font-size: 38px; font-weight: 700; line-height: 1.3; }
+  .theme-take .bottom { color: #0A0A0A; }
+  .theme-take .bottom .swipe { color: #0A0A0A; }
+</style>
+  <div class="tk-bg"></div>
+  {{ topbar(date) }}
+  <div class="tk">
+    <div><div class="tag dark">Nepopulárny názor</div></div>
+    <div class="tk-claim" data-fit="640" data-min="64">{{ claim }}</div>
+    {% if about %}<div class="tk-about" data-fit="150" data-min="28">{{ about }}</div>{% endif %}
+  </div>
+  <div class="bottom"><div>{{ brand.handle }}</div><div class="swipe">SWIPNI →</div></div>

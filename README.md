@@ -29,9 +29,34 @@ Instagram API publish             ← bot/instagram.py
 
 Ak žiadna správa neprejde overením, slot sa **vynechá** (a príde ti notifikácia). Radšej žiadny post ako fejk.
 
+### Typy postov
+
+**Ranný slot je vždy správa.** Titulka má veľký hook do 6 slov a pod ním riadok s faktom; keď je jadrom správy
+jedno číslo, titulka ukáže obrie číslo, fáma má výstražnú pásku a počet webov, ktoré o nej píšu. Prvá snímka
+povie, prečo ťa to zaujíma, predposledná zhrnie správu do 3 bodov (na odfotenie a poslanie) s označeným
+**názorom EMZO** a hype metrom. Pravidlá sú prevzaté zo skills `newsjack` (titulky), `ig-carousel`
+a `carousel-frameworks` (stavba carouselu).
+
+**Večerný slot sa strieda podľa dňa** (`concepts.schedule` v `config.yaml`), každý koncept má vlastný vizuál:
+
+| Deň | Koncept | Odkiaľ sú fakty |
+|---|---|---|
+| Po | **Vychádza tento týždeň** | týždenné prehľady vydaní z feedov, každú hru potvrdí oficiálny zdroj alebo 2 portály |
+| Ut | **Toto alebo toto** (hlasovanie 1/2 v komentároch) | bez faktov, len dojmy; obrázky zo Steamu |
+| St | **Zľava týždňa** | Steam (ceny pre SK v €, platnosť zľavy), text z popisu v obchode |
+| Št | **Uhádneš hru?** (výrez zo screenshotu, 3 indície, odpoveď na konci) | Wikidata + Steam, bez Claude |
+| Pi | **Nepopulárny názor** k správe z týždňa (označený názor, férový obrat) | pôvodné články správy |
+| So | **Pred X rokmi** (výročie známej hry) | Wikidata + úvod článku na Wikipédii |
+| Ne | **Týždeň v 5 správach** | vlastné overené posty z týždňa |
+
+Keď koncept nevyjde (málo dát, výpadok zdroja, neprejde kontrolou), slot dostane bežnú správu a príde notifikácia.
+Fakty v konceptoch dopĺňa kód z dát, Claude ich len prerozpráva a všetko s faktmi prechádza čitateľskou kontrolou
+a fact-checkom. Týždenný prehľad na Discorde ukazuje, ktorý koncept má najviac zdieľaní a uložení na osloveného,
+po pár týždňoch nechaj 2 až 3 najlepšie (prepíšeš rozvrh, vynechaný deň = správa).
+
 | Workflow | Kedy | Čo robí |
 |---|---|---|
-| `Post` | 11:30 a 18:30 (spúšťa cron-job.org, GitHub je záloha) | vyberie, napíše, vyrenderuje a publikuje post aj Story, potom 2 h kontroluje komentáre každých 15 min |
+| `Post` | 11:30 a 18:30 (spúšťa cron-job.org, GitHub je záloha) | ráno správa, večer koncept podľa dňa; vyrenderuje a publikuje post, potom 2 h kontroluje komentáre každých 15 min |
 | `Comments` | každú hodinu | odpovie na otázky a reakcie, skryje spam a toxické komentáre |
 | `Refresh IG token` | každý pondelok | predĺži token o 60 dní a uloží ho do secretu |
 | `Insights` | každé ráno | zbiera štatistiky postov, v pondelok pošle týždenný prehľad na Discord (dosah, sledovatelia, časy postov, náklady, vynechané sloty) |
@@ -118,7 +143,9 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 - **Farby, meno a IG handle:** sekcia `brand` v `config.yaml`.
 - **Nový zdroj:** pridaj riadok do `feeds` (`tier: official` len pre oficiálne blogy vydavateľov a platforiem). Weby jedného vydavateľa označ rovnakou `group`, pri overovaní sa potom rátajú ako jeden zdroj.
 - **Čo bot postol a prečo:** `state/posted.json` + log každého behu v záložke Actions.
-- **Strop na jeden beh:** `posting.max_cost_per_run` (predvolene $0.60). Keď ho beh dosiahne, slot sa vynechá.
+- **Koncepty:** `concepts.enabled: false` vypne všetky (večer potom ide správa), jednotlivý koncept vypneš vymazaním jeho dňa
+  v `concepts.schedule`. Test ktoréhokoľvek konceptu: *Actions → Post → Run workflow*, nechaj *dry_run* a do *concept* napíš názov (`radar`, `vs`, `deal`, `quiz`, `take`, `retro`, `digest`).
+- **Strop na jeden beh:** `posting.max_cost_per_run` (predvolene $0.90), koncept má vlastný strop `concepts.max_cost`. Keď ho beh dosiahne, slot sa vynechá.
   Témy, ktoré neprešli kontrolami, si bot pamätá 48 h (`state/failed.json`) a znova za ne neplatí.
 - **Koľko to stojí:** `state/costs.json` (mesačný súčet za posty a komentáre, odhad podľa `api_prices` v `config.yaml`), cena každého postu je aj v `state/posted.json`. Presné čísla sú v Anthropic Console → Usage (workspace bota).
 

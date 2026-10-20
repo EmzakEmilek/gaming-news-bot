@@ -1,0 +1,23 @@
+{# Pred X rokmi: CRT riadky, teplá fotka a vrstvený tieň písma #}
+<style>
+  .retro-photo { position: absolute; left: 0; right: 0; top: 0; height: 900px; background-size: cover; background-position: center;
+    filter: sepia(.35) saturate(1.25) contrast(1.08); -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%); z-index: 1; }
+  .crt { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,.28) 0 2px, transparent 2px 5px),
+                radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55) 100%); }
+  .rc { position: absolute; left: 64px; right: 64px; bottom: 150px; z-index: 3; }
+  .rc-big { font-family: "Anton"; text-transform: uppercase; font-size: 190px; line-height: .98; color: var(--fg);
+    text-shadow: 7px 7px 0 var(--accent2), 14px 14px 0 var(--accent3); }
+  .rc-name { font-family: "Anton"; text-transform: uppercase; font-size: 92px; line-height: 1.08; margin-top: 34px; color: var(--accent); }
+  .rc-date { display: inline-block; margin-top: 22px; font-size: 32px; font-weight: 800; background: var(--fg); color: #0A0A0A; padding: 8px 18px; letter-spacing: 1px; }
+</style>
+  {% if image %}<div class="retro-photo" style="background-image:url('{{ image }}')"></div>{% else %}<div class="ghost">{{ year }}</div>{% endif %}
+  <div class="crt"></div>
+  {{ topbar(date) }}
+  <div class="rc">
+    <div class="tag">Retro</div>
+    <div class="rc-big" data-fit="400" data-min="100">Pred {{ years }}<br>rokmi</div>
+    <div class="rc-name" data-fit="210" data-min="48">{{ name }}</div>
+    <div class="rc-date">{{ release_label }}</div>
+  </div>
+  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% endif %}</div><div class="swipe">SWIPNI →</div></div>

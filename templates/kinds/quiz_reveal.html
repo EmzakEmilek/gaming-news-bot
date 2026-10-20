@@ -1,0 +1,9 @@
+{# odpoveď #}
+  {% if image %}<div class="photo" style="background-image:url('{{ image }}')"></div>{% endif %}
+  {{ pager() }}
+  <div class="cover-body">
+    <div class="tag">Odpoveď</div>
+    <div class="hook" data-fit="420"><span style="background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;">{{ name }}</span></div>
+    <div class="fact" data-fit="170" data-min="30">{{ facts }}</div>
+  </div>
+  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% endif %}</div><div class="swipe">→</div></div>

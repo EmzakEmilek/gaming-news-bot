@@ -7,7 +7,7 @@
   @font-face { font-family: "Anton"; src: url("fonts/anton-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC; }
   @font-face { font-family: "Anton"; src: url("fonts/anton-latin-ext-400-normal.woff2") format("woff2"); unicode-range: U+0100-024F, U+1E00-1EFF; }
   {% for w in [400, 500, 700, 800] %}
-  @font-face { font-family: "Inter"; font-weight: {{ w }}; src: url("fonts/inter-latin-{{ w }}-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2190-21FF; }
+  @font-face { font-family: "Inter"; font-weight: {{ w }}; src: url("fonts/inter-latin-{{ w }}-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+20AC, U+2190-21FF, U+25CF; }
   @font-face { font-family: "Inter"; font-weight: {{ w }}; src: url("fonts/inter-latin-ext-{{ w }}-normal.woff2") format("woff2"); unicode-range: U+0100-024F, U+1E00-1EFF; }
   {% endfor %}
 
@@ -18,6 +18,7 @@
     --accent3: {{ brand.accent_3 or brand.accent_2 }};
     --fg: #F6F4F1;
     --muted: #B3ADA6;
+    --grad: linear-gradient(90deg, var(--accent), var(--accent2) 55%, var(--accent3));
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1080px; height: 1350px; background: var(--bg); color: var(--fg); overflow: hidden; }
@@ -42,27 +43,33 @@
     color: transparent; -webkit-text-stroke: 3px rgba(255,255,255,.07); text-transform: uppercase; text-align: right; white-space: nowrap; }
 
   /* horná lišta */
-  .top { position: absolute; top: 56px; left: 64px; right: 64px; display: flex; justify-content: space-between; align-items: center; z-index: 3; }
-  .logo { display: flex; align-items: center; gap: 16px; font-family: "Anton"; font-size: 38px; letter-spacing: 2px;
+  .top { position: absolute; top: 56px; left: 64px; right: 64px; display: flex; justify-content: space-between; align-items: center; z-index: 5; }
+  .logo { display: flex; align-items: center; gap: 16px; font-family: "Anton"; font-size: 38px; letter-spacing: 2px; color: var(--fg);
     background: rgba(0,0,0,.5); padding: 6px 22px 6px 6px; border-radius: 999px; }
   .logo img { width: 58px; height: 58px; border-radius: 50%; display: block; }
   .date { font-weight: 700; font-size: 26px; color: var(--fg); background: rgba(0,0,0,.5); padding: 10px 18px; border-radius: 999px; }
 
+  .tag { display: inline-block; background: var(--accent); color: #0A0A0A; font-weight: 800; font-size: 26px;
+    letter-spacing: 3px; padding: 12px 22px; margin-bottom: 30px; text-transform: uppercase; }
+  .tag.red { background: var(--accent3); color: #fff; }
+  .tag.dark { background: #0A0A0A; color: var(--accent); }
+
   /* titulka */
   .cover-body { position: absolute; left: 64px; right: 64px; bottom: 150px; z-index: 3; }
-  .tag { display: inline-block; background: var(--accent); color: #0A0A0A; font-weight: 800; font-size: 26px;
-    letter-spacing: 3px; padding: 12px 22px; margin-bottom: 30px; }
   .headline { font-family: "Anton"; text-transform: uppercase; line-height: 1.24; font-size: 118px; letter-spacing: .5px;
     text-shadow: 0 4px 30px rgba(0,0,0,.45); }
+  .hook { font-family: "Anton"; text-transform: uppercase; line-height: 1.12; font-size: 150px; letter-spacing: .5px;
+    text-shadow: 0 4px 30px rgba(0,0,0,.45); }
+  .fact { margin-top: 26px; font-size: 40px; line-height: 1.32; font-weight: 600; color: #EFEAE4; text-shadow: 0 2px 16px rgba(0,0,0,.5); }
 
   .bottom { position: absolute; left: 64px; right: 64px; bottom: 56px; display: flex; justify-content: space-between;
-    align-items: center; gap: 24px; font-size: 24px; color: var(--muted); z-index: 3; }
+    align-items: center; gap: 24px; font-size: 24px; color: var(--muted); z-index: 5; }
   .bottom > div:first-child { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .swipe { flex-shrink: 0; color: var(--accent); font-weight: 800; font-size: 28px; letter-spacing: 1px; }
 
   /* textová snímka */
   .text-body { position: absolute; left: 88px; right: 88px; top: 250px; bottom: 170px; display: flex; flex-direction: column; justify-content: center; z-index: 3; }
-  .idx { font-family: "Anton"; color: var(--accent); font-size: 44px; letter-spacing: 2px; margin-bottom: 28px; }
+  .idx { font-family: "Anton"; color: var(--accent); font-size: 44px; letter-spacing: 2px; margin-bottom: 28px; text-transform: uppercase; }
   .s-title { font-family: "Anton"; text-transform: uppercase; font-size: 92px; line-height: 1.24; margin-bottom: 40px; }
   .s-body { font-size: 48px; line-height: 1.42; font-weight: 400; color: #EFEAE4; }
   /* textová snímka s fotkou: fotka hore, text pod ňou */
@@ -71,6 +78,12 @@
   .with-photo .s-title { font-size: 80px; margin-bottom: 28px; }
   .with-photo .s-body { font-size: 44px; }
 
+  /* body so štvorčekovým číslom (zhrnutie, argumenty) */
+  .points { display: flex; flex-direction: column; gap: 34px; }
+  .point { display: flex; gap: 30px; align-items: flex-start; font-size: 44px; line-height: 1.32; font-weight: 600; }
+  .point .n { flex-shrink: 0; width: 72px; height: 72px; display: grid; place-items: center; background: var(--accent);
+    color: #0A0A0A; font-family: "Anton"; font-size: 44px; margin-top: -2px; }
+
   /* záverečná snímka */
   .outro { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 88px; z-index: 3; }
   .outro .cta-icon { width: 176px; height: 176px; border-radius: 50%; display: grid; place-items: center; color: #0A0A0A;
@@ -78,61 +91,34 @@
     box-shadow: 0 20px 80px rgba(255,107,0,.35); }
   .outro .cta-icon svg { width: 92px; height: 92px; stroke-width: 2; }
   .outro .big { font-family: "Anton"; font-size: 130px; line-height: 1.24; text-transform: uppercase; }
-  .outro .big span { background: linear-gradient(90deg, var(--accent), var(--accent2) 55%, var(--accent3));
-    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .outro .big span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 </style>
 </head>
-<body>
+<body class="theme-{{ theme or 'news' }}">
+{% macro topbar(right) %}<div class="top"><div class="logo"><img src="logo.png" alt="">{{ brand.name }}</div>{% if right %}<div class="date">{{ right }}</div>{% endif %}</div>{% endmacro %}
+{% macro pager() %}{{ topbar("%d/%d" % (index, total)) }}{% endmacro %}
 <div class="frame">
-  <div class="flow"></div><div class="grain"></div>
-{% if kind == "cover" %}
-  {% if image %}<div class="photo" style="background-image:url('{{ image }}')"></div>
-  {% else %}<div class="ghost">{{ ghost }}</div>{% endif %}
-  <div class="top"><div class="logo"><img src="logo.png" alt="">{{ brand.name }}</div><div class="date">{{ date }}</div></div>
-  <div class="cover-body">
-    <div class="tag">{{ category }}</div>
-    <div class="headline" id="fit">{{ headline }}</div>
-  </div>
-  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% endif %}</div>{% if carousel %}<div class="swipe">SWIPNI →</div>{% else %}<div>{{ brand.handle }}</div>{% endif %}</div>
-
-{% elif kind == "text" %}
-  {% if image %}<div class="photo slide-photo" style="background-image:url('{{ image }}')"></div>{% endif %}
-  <div class="top"><div class="logo"><img src="logo.png" alt="">{{ brand.name }}</div><div class="date">{{ index }}/{{ total }}</div></div>
-  <div class="text-body{% if image %} with-photo{% endif %}" id="box">
-    {% if not image %}<div class="idx">{{ "%02d" % index }}</div>{% endif %}
-    <div class="s-title" id="fit">{{ title }}</div>
-    <div class="s-body">{{ body }}</div>
-  </div>
-  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% else %}{{ brand.handle }}{% endif %}</div>{% if index < total %}<div class="swipe">→</div>{% endif %}</div>
-
-{% else %}
-  <div class="top"><div class="logo"><img src="logo.png" alt="">{{ brand.name }}</div><div class="date">{{ index }}/{{ total }}</div></div>
-  <div class="outro">
-    <div class="cta-icon">{{ cta_icon }}</div>
-    <div class="big">{% if cta_main %}{{ cta_main }}<br>{% endif %}<span>{{ cta_hl }}</span></div>
-  </div>
-  <div class="bottom"><div>{{ brand.handle }}</div></div>
-{% endif %}
+  {% if not no_flow %}<div class="flow"></div><div class="grain"></div>{% endif %}
+{% include "kinds/" ~ kind ~ ".html" %}
 </div>
 <script>
-  // zmenší titulok, kým sa nezmestí
+  // zmenší písmo, kým sa text nezmestí: data-fit = max. výška v px (0 = len šírka), data-min = najmenšie písmo
   document.fonts.ready.then(() => {
-    const el = document.getElementById("fit");
-    if (el) {
-      const maxH = {{ fit_max_height }};
+    for (const el of document.querySelectorAll("[data-fit]")) {
+      const maxH = parseFloat(el.dataset.fit), min = parseFloat(el.dataset.min || 40);
       let size = parseFloat(getComputedStyle(el).fontSize);
-      while (el.scrollHeight > maxH && size > 40) { size -= 4; el.style.fontSize = size + "px"; }
+      const over = () => (maxH && el.scrollHeight > maxH) || el.scrollWidth > el.clientWidth + 1;
+      while (over() && size > min) { size -= 4; el.style.fontSize = size + "px"; }
     }
-    const box = document.getElementById("box");
-    if (box) {
-      const body = box.querySelector(".s-body");
+    // text v boxe: zmenšuje sa telo (.s-body / .points), kým box nepreteká
+    for (const box of document.querySelectorAll("[data-box]")) {
+      const body = box.querySelector(".s-body, .points");
+      if (!body) continue;
       let s = parseFloat(getComputedStyle(body).fontSize);
-      while (box.scrollHeight > box.clientHeight && s > 28) { s -= 2; body.style.fontSize = s + "px"; }
-    }
-    const big = document.querySelector(".outro .big");
-    if (big) {  // záverečná výzva nesmie pretiecť
-      let s = parseFloat(getComputedStyle(big).fontSize);
-      while ((big.scrollHeight > 640 || big.scrollWidth > big.clientWidth) && s > 60) { s -= 6; big.style.fontSize = s + "px"; }
+      while (box.scrollHeight > box.clientHeight && s > 28) {
+        s -= 2; body.style.fontSize = s + "px";
+        for (const p of body.querySelectorAll(".point")) p.style.fontSize = s + "px";
+      }
     }
     document.body.dataset.ready = "1";
   });

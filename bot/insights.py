@@ -68,6 +68,7 @@ def collect(ig) -> tuple[dict, str | None]:
             return state, str(e)
         state["media"][p["media_id"]] = {
             "at": p["at"], "headline": p.get("headline"), "category": p.get("category"),
+            "concept": p.get("concept", "news"),
             "permalink": p.get("permalink"), "metrics": metrics, "updated": now.isoformat(),
         }
     save_state("insights", state)
@@ -81,7 +82,7 @@ def performance_hint() -> str:
     now = now_utc()
     rows = [m for m in media.values()
             if timedelta(hours=MIN_AGE_H) <= now - datetime.fromisoformat(m["at"]) <= timedelta(days=HINT_DAYS)
-            and (m["metrics"].get("reach") or 0) >= 10]
+            and (m["metrics"].get("reach") or 0) >= 10 and (m.get("concept") or "news") == "news"]
     if len(rows) < 6:  # na menej postov je to len šum
         return ""
     rows.sort(key=lambda m: score(m["metrics"]), reverse=True)
@@ -138,6 +139,32 @@ def _timing(state: dict, cfg: dict) -> list[str]:
     return lines
 
 
+CONCEPT_NAMES = {"news": "Správy", "radar": "Vychádza tento týždeň", "vs": "Toto alebo toto", "deal": "Zľava týždňa",
+                 "quiz": "Uhádneš hru?", "take": "Nepopulárny názor", "retro": "Pred X rokmi", "digest": "Týždeň v správach"}
+
+
+def by_concept(media: dict, days: int = 28) -> list[str]:
+    """Ako fungujú jednotlivé koncepty: priemerný dosah a zdieľania + uloženia na 100 oslovených (staršie posty
+    bez konceptu sú správy). Po pár týždňoch ukáže, ktoré 2 až 3 koncepty nechať (rada z carousel-frameworks)."""
+    now = now_utc()
+    groups: dict[str, list[dict]] = {}
+    for m in media.values():
+        if timedelta(hours=MIN_AGE_H) <= now - datetime.fromisoformat(m["at"]) <= timedelta(days=days):
+            groups.setdefault(m.get("concept") or "news", []).append(m["metrics"])
+    if len(groups) < 2:
+        return []
+    rows = []
+    for name, ms in groups.items():
+        reach = sum(x.get("reach", 0) for x in ms)
+        spread = sum(x.get("shares", 0) + x.get("saved", 0) for x in ms)
+        rows.append((spread / reach * 100 if reach else 0, name, len(ms), reach // len(ms), sum(x.get("follows", 0) for x in ms)))
+    rows.sort(reverse=True)
+    lines = [f"\n**🧩 Koncepty za {days} dní** (zdieľania + uloženia na 100 oslovených):"]
+    lines += [f"• {CONCEPT_NAMES.get(n, n)}: {r:.1f} | priemerne oslovení {avg} | {cnt} postov | sledovatelia +{f}"
+              for r, n, cnt, avg, f in rows]
+    return lines
+
+
 def _costs_and_skips() -> list[str]:
     """Náklady na Claude a vynechané sloty za posledný týždeň."""
     now = now_utc()
@@ -187,7 +214,7 @@ def report(state: dict, cfg: dict) -> str:
     if followers:
         lines.append("\n**Najviac nových sledovateľov:** " + "; ".join(
             f"{m['headline']} (+{m['metrics']['follows']})" for m in followers[:3]))
-    return "\n".join(lines + _timing(state, cfg) + _costs_and_skips())
+    return "\n".join(lines + by_concept(state["media"]) + _timing(state, cfg) + _costs_and_skips())
 
 
 def main() -> None:

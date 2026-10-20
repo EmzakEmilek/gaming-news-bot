@@ -1,0 +1,8 @@
+  {% if image %}<div class="photo slide-photo" style="background-image:url('{{ image }}')"></div>{% endif %}
+  {{ pager() }}
+  <div class="text-body{% if image %} with-photo{% endif %}" data-box>
+    {% if not image %}<div class="idx">{{ label or "%02d" % index }}</div>{% endif %}
+    <div class="s-title" data-fit="{{ 230 if image else 300 }}">{{ title }}</div>
+    <div class="s-body">{{ body }}</div>
+  </div>
+  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% else %}{{ brand.handle }}{% endif %}</div>{% if index < total %}<div class="swipe">→</div>{% endif %}</div>

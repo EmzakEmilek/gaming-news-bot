@@ -1,0 +1,21 @@
+{# Zľava týždňa: odznak so zľavou, stará a nová cena, platnosť #}
+<style>
+  .dl { position: absolute; left: 64px; right: 64px; bottom: 140px; z-index: 3; }
+  .dl-badge { position: absolute; right: 64px; top: 520px; z-index: 4; transform: rotate(-7deg); background: var(--accent3); color: #fff;
+    font-family: "Anton"; font-size: 170px; line-height: 1; padding: 22px 34px 26px; box-shadow: 0 24px 70px rgba(0,0,0,.55); }
+  .dl-name { font-family: "Anton"; text-transform: uppercase; font-size: 104px; line-height: 1.08; text-shadow: 0 4px 30px rgba(0,0,0,.5); }
+  .dl-prices { display: flex; align-items: baseline; gap: 34px; margin-top: 22px; }
+  .dl-new { font-family: "Anton"; font-size: 150px; line-height: 1; color: var(--accent); }
+  .dl-old { font-size: 52px; font-weight: 700; color: var(--muted); text-decoration: line-through; text-decoration-thickness: 5px; text-decoration-color: var(--accent3); }
+  .dl-until { margin-top: 18px; font-size: 34px; font-weight: 700; color: #EFEAE4; }
+</style>
+  {% if image %}<div class="photo" style="background-image:url('{{ image }}')"></div>{% endif %}
+  <div class="dl-badge">−{{ discount }}&nbsp;%</div>
+  {{ topbar(date) }}
+  <div class="dl">
+    <div class="tag">{{ category }}</div>
+    <div class="dl-name" data-fit="240" data-min="56">{{ name }}</div>
+    <div class="dl-prices"><div class="dl-new">{{ price_new }}</div><div class="dl-old">{{ price_old }}</div></div>
+    <div class="dl-until">{{ until }}</div>
+  </div>
+  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% endif %}</div><div class="swipe">SWIPNI →</div></div>
