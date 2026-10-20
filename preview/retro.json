@@ -1,0 +1,66 @@
+{
+  "concept": "retro",
+  "format": "carousel",
+  "category": "RETRO",
+  "headline": "Pred 20 rokmi vyšla hra Bully",
+  "hook": null,
+  "caption": "Bully vyšiel pred 20 rokmi.\n\nJimmy Hopkins sa dostane na internátnu školu proti svojej vôli. Za jeden školský rok sa snaží vyšplhať v školskej hierarchii a skoncovať so šikanovaním.\n\nHru vydal Rockstar Games a prvýkrát vyšla 17. októbra 2006.\n\nHral si ju? Pošli to kamošovi, s ktorým ste striedali ovládač.",
+  "hashtags": [
+    "#Bully",
+    "#RockstarGames",
+    "#PlayStation4",
+    "#hry",
+    "#retrohry"
+  ],
+  "cta": {
+    "type": "share",
+    "title": "Pošli to kamošovi z Bullworthu"
+  },
+  "frames": [
+    {
+      "kind": "retro_cover",
+      "image_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/12200/library_hero.jpg",
+      "years": 20,
+      "year": 2006,
+      "name": "Bully",
+      "release_label": "17. októbra 2006"
+    },
+    {
+      "kind": "text",
+      "title": "Bully: škola plná problémov",
+      "body": "Bully je akčná adventúra od Rockstar Games. Hráš za Jimmyho Hopkinsa, ktorého zapíšu proti jeho vôli do internátnej školy Bullworth Academy v meste Bullworth v New Englande."
+    },
+    {
+      "kind": "text",
+      "title": "Jeden školský rok v Bullworthe",
+      "body": "Hra sleduje jeden školský rok. Jimmy stúpa v hierarchii školy, snaží sa skoncovať so šikanovaním a zráža sa so spolužiakmi aj s učiteľmi a ďalšími autoritami."
+    },
+    {
+      "kind": "text",
+      "title": "Neskôr aj na Wii a PS4",
+      "body": "Prvýkrát vyšla 17. októbra 2006, teda pred 20 rokmi a 4 dňami. Vyvinul ju Rockstar Vancouver. Neskôr vyšla aj na Windows, Wii, PlayStation 4 a Android."
+    }
+  ],
+  "alts": [
+    "Retro: pred 20 rokmi, 17. októbra 2006, vyšla hra Bully.",
+    "Bully: škola plná problémov. Bully je akčná adventúra od Rockstar Games. Hráš za Jimmyho Hopkinsa, ktorého zapíšu proti jeho vôli do internátnej školy Bullworth Academy v meste Bullworth v New Englande.",
+    "Jeden školský rok v Bullworthe. Hra sleduje jeden školský rok. Jimmy stúpa v hierarchii školy, snaží sa skoncovať so šikanovaním a zráža sa so spolužiakmi aj s učiteľmi a ďalšími autoritami.",
+    "Neskôr aj na Wii a PS4. Prvýkrát vyšla 17. októbra 2006, teda pred 20 rokmi a 4 dňami. Vyvinul ju Rockstar Vancouver. Neskôr vyšla aj na Windows, Wii, PlayStation 4 a Android."
+  ],
+  "story": "Pred 20 rokmi vyšla hra Bully",
+  "key": "retro:Q822849",
+  "sources": [
+    "Wikipédia",
+    "Wikidata",
+    "Steam"
+  ],
+  "links": [
+    "https://en.wikipedia.org/wiki/Bully_(video_game)"
+  ],
+  "verification": "Wikipédia a Wikidata",
+  "rumor": false,
+  "photos": [],
+  "photo_credit": "Steam",
+  "cost_usd": 0.0542,
+  "final_caption": "Bully vyšiel pred 20 rokmi.\n\nJimmy Hopkins sa dostane na internátnu školu proti svojej vôli. Za jeden školský rok sa snaží vyšplhať v školskej hierarchii a skoncovať so šikanovaním.\n\nHru vydal Rockstar Games a prvýkrát vyšla 17. októbra 2006.\n\nHral si ju? Pošli to kamošovi, s ktorým ste striedali ovládač.\n\nZdroj: Wikipédia, Wikidata, Steam | Foto: Steam\n\n#Bully #RockstarGames #PlayStation4 #hry #retrohry"
+}
