@@ -89,18 +89,18 @@ jobs:
           out = Path("preview")
           shutil.rmtree(out, ignore_errors=True)
           out.mkdir()
-          for d in sorted(Path("art").glob("preview-*")):
-              for run in sorted(p for p in d.iterdir() if p.is_dir()):
-                  files = sorted(run.glob("slide_*.jpg"), key=lambda f: int(f.stem.split("_")[1]))
-                  if not files:
-                      continue
-                  sheet = Image.new("RGB", (540 * len(files), 675), "white")
-                  for i, f in enumerate(files):
-                      sheet.paste(Image.open(f).resize((540, 675)), (540 * i, 0))
-                  name = d.name.removeprefix("preview-")
-                  sheet.save(out / f"{name}.jpg", quality=82)
-                  for f in run.glob("post.json"):
-                      (out / f"{name}.json").write_bytes(f.read_bytes())
+          import json
+          for first in sorted(Path("art").rglob("slide_1.jpg")):  # jeden alebo viac artefaktov, štruktúra sa líši
+              run = first.parent
+              files = sorted(run.glob("slide_*.jpg"), key=lambda f: int(f.stem.split("_")[1]))
+              meta = run / "post.json"
+              name = json.loads(meta.read_text()).get("concept", "news") if meta.exists() else run.name
+              sheet = Image.new("RGB", (540 * len(files), 675), "white")
+              for i, f in enumerate(files):
+                  sheet.paste(Image.open(f).resize((540, 675)), (540 * i, 0))
+              sheet.save(out / f"{name}.jpg", quality=82)
+              if meta.exists():
+                  (out / f"{name}.json").write_bytes(meta.read_bytes())
           print(sorted(p.name for p in out.iterdir()))
           PY
       - name: Commit náhľadov
