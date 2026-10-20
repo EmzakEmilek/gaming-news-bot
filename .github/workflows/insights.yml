@@ -15,7 +15,9 @@ permissions:
   contents: write
 
 concurrency:
-  group: bot
+  # nie "bot": post drží skupinu ~2 h (rýchle komentáre) a čakajúci beh by nahradil hodinový Comments,
+  # Insights by sa zrušil. Mení len state/insights.json, súbeh s inými behmi rieši commit_state.sh.
+  group: insights
   cancel-in-progress: false
 
 jobs:

@@ -14,6 +14,8 @@ from .common import ROOT, log
 
 BRANCH = "gh-pages"
 TMP_BRANCH = "pages-upload"
+PAGES_TIMEOUT = 300  # GitHub Pages sa občas nasadzuje aj viac ako 10 min, potom ide záloha cez raw.githubusercontent.com
+RAW_TIMEOUT = 120
 
 
 def _git(*args: str, cwd: Path) -> str:
@@ -54,6 +56,7 @@ def upload(files: list[Path], run_id: str) -> list[str]:
             shutil.copy2(f, target / f.name)
         _git("add", "-A", cwd=wt)
         _git("commit", "-m", f"media {run_id}", cwd=wt)
+        sha = _git("rev-parse", "HEAD", cwd=wt)
         _git("push", "--force", "origin", f"{TMP_BRANCH}:{BRANCH}", cwd=wt)
     finally:
         subprocess.run(["git", "worktree", "remove", "--force", str(wt)], cwd=ROOT, capture_output=True)
@@ -62,12 +65,25 @@ def upload(files: list[Path], run_id: str) -> list[str]:
 
     base = pages_base_url()
     urls = [f"{base}/media/{run_id}/{f.name}" for f in files]
-    _wait_public(urls)
-    return urls
+    pending = _wait_public(urls, PAGES_TIMEOUT)
+    if not pending:
+        log.info("Obrázky sú verejne dostupné (%d)", len(urls))
+        return urls
+
+    # Pages meškajú (15. 10. aj > 10 min a post prepadol). Ten istý commit je hneď po pushi
+    # dostupný cez raw.githubusercontent.com, URL s SHA commitu sa nedá pomýliť so starými snímkami.
+    repo = os.environ.get("GITHUB_REPOSITORY")
+    if repo:
+        raw = [f"https://raw.githubusercontent.com/{repo}/{sha}/media/{run_id}/{f.name}" for f in files]
+        if not _wait_public(raw, RAW_TIMEOUT):
+            log.warning("GitHub Pages ani po %ds nenasadili obrázky, používam raw.githubusercontent.com", PAGES_TIMEOUT)
+            return raw
+    raise RuntimeError(f"Obrázky nie sú verejne dostupné ani po {PAGES_TIMEOUT}s: {pending[:2]}")
 
 
-def _wait_public(urls: list[str], timeout: int = 600) -> None:
-    """GitHub Pages potrebuje chvíľu na nasadenie. Čakáme, kým sú všetky obrázky verejne dostupné."""
+def _wait_public(urls: list[str], timeout: int) -> list[str]:
+    """GitHub Pages potrebuje chvíľu na nasadenie. Čakáme, kým sú všetky obrázky verejne dostupné.
+    Vráti URL, ktoré ani po timeout nie sú dostupné (prázdny zoznam = všetko OK)."""
     deadline = time.time() + timeout
     pending = list(urls)
     while pending and time.time() < deadline:
@@ -83,6 +99,4 @@ def _wait_public(urls: list[str], timeout: int = 600) -> None:
         pending = still
         if pending:
             time.sleep(15)
-    if pending:
-        raise RuntimeError(f"Obrázky nie sú verejne dostupné ani po {timeout}s: {pending[:2]}")
-    log.info("Obrázky sú verejne dostupné (%d)", len(urls))
+    return pending
