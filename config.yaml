@@ -34,7 +34,7 @@ posting:
   slot_times: ["11:30", "18:30"]   # časy postov (Europe/Bratislava), spúšťa ich cron-job.org
   schedule_window_minutes: 75  # záložný plánovač GitHubu smie postovať len do toľkých minút PO čase slotu
   min_hours_between_posts: 3  # rozostup medzi postami (chráni pred dvoma postami tesne za sebou)
-  max_cost_per_run: 0.60      # USD – keď beh minie viac, slot sa vynechá (ochrana pred zbytočnými výdavkami)
+  max_cost_per_run: 0.75      # USD – keď beh minie viac, slot sa vynechá (rezerva na správu, keď koncept nevyjde)
   min_trusted_sources: 2      # koľko nezávislých portálov musí správu potvrdiť...
   official_is_enough: true    # ...alebo stačí 1 oficiálny zdroj (PS Blog, Xbox Wire, Steam, vydavateľ)
   allow_rumors: true          # leaky a fámy sa smú postovať, ak o nich píše aspoň min_trusted_sources portálov;
@@ -42,8 +42,8 @@ posting:
   rumors_per_day: 1           # najviac toľko fám denne (dôveryhodnosť profilu)
   allow_reputable_reports: true  # správy z vlastného zisťovania renomovaných médií (Bloomberg, The Verge...)
                               # sú OK, post ich vždy pripíše médiu ("podľa Bloombergu")
-  carousel_max_slides: 6      # vrátane titulky a záverečnej snímky (max. 4 obsahové)
-  max_hashtags: 8
+  carousel_max_slides: 7      # vrátane titulky, zhrnutia a záverečnej snímky (max. 4 obsahové)
+  max_hashtags: 5             # 3 až 5 cielených hashtagov funguje lepšie ako veľa všeobecných
   ai_label: false             # Meta štítok "AI info" (is_ai_generated)
   story: false                # true = bot po poste pridá aj Story s titulkou (len obrázok, API nedovolí preklik);
                               # false = Story zdieľaš ručne z apky (✈️ → Pridať do príbehu), má preklik na post
@@ -59,6 +59,19 @@ posting:
     - NSFW a sexuálny obsah
     - hazard, kasína, krypto a NFT promo
     - sponzorované články a zľavové "deals" články
+
+concepts:                     # večerný slot podľa dňa: iný typ postu a iný vizuál (ranný slot ostáva správa)
+  enabled: true
+  slot: vecer                 # rano / vecer
+  max_cost: 0.35              # USD na koncept; keď ho prekročí alebo koncept nevyjde, slot dostane bežnú správu
+  schedule:                   # deň -> koncept; vynechaný deň = bežná správa
+    mon: radar                # Vychádza tento týždeň (overené týždenné prehľady vydaní z feedov)
+    tue: vs                   # Toto alebo toto (hlasovanie 1 alebo 2 v komentároch)
+    wed: deal                 # Zľava týždňa (Steam, ceny pre SK)
+    thu: quiz                 # Uhádneš hru? (screenshot, indície, odpoveď na konci; bez Claude)
+    fri: take                 # Nepopulárny názor k správe z týždňa (označený názor, férový obrat)
+    sat: retro                # Pred X rokmi (výročie známej hry, fakty z Wikipédie)
+    sun: digest               # Týždeň v 5 správach (z vlastných overených postov)
 
 comments:
   enabled: true

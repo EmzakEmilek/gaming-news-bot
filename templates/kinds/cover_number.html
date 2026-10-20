@@ -1,0 +1,18 @@
+{# titulka „V číslach“: obrie číslo, pod ním hook a fakt #}
+<style>
+  .num-bg { position: absolute; inset: 0; background-size: cover; background-position: center; filter: blur(8px) brightness(.32) saturate(1.2); transform: scale(1.06); }
+  .num-wrap { position: absolute; left: 64px; right: 64px; top: 200px; bottom: 150px; display: flex; flex-direction: column; justify-content: center; z-index: 3; }
+  .num { font-family: "Anton"; font-size: 380px; line-height: 1; white-space: nowrap; letter-spacing: -2px;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 10px 40px rgba(255,107,0,.35)); }
+  .num-label { font-family: "Anton"; text-transform: uppercase; font-size: 96px; line-height: 1.12; margin-top: 18px; }
+</style>
+  {% if image %}<div class="num-bg" style="background-image:url('{{ image }}')"></div>{% endif %}
+  {{ topbar(date) }}
+  <div class="num-wrap">
+    <div><div class="tag">{{ category }}</div></div>
+    <div class="num" data-fit="0" data-min="120">{{ number }}</div>
+    <div class="num-label" data-fit="250">{{ hook }}</div>
+    <div class="fact" data-fit="170" data-min="30">{{ headline }}</div>
+  </div>
+  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% endif %}</div><div class="swipe">SWIPNI →</div></div>

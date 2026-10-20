@@ -1,0 +1,19 @@
+{# indícia: menej priblížený výrez a jedna indícia #}
+<style>
+  .qz-bg { position: absolute; inset: 0; z-index: 0;
+    background: repeating-linear-gradient(0deg, rgba(255,195,0,.06) 0 2px, transparent 2px 54px),
+                repeating-linear-gradient(90deg, rgba(255,195,0,.06) 0 2px, transparent 2px 54px), #0A0A0A; }
+  .qc-frame { position: absolute; left: 64px; right: 64px; top: 170px; height: 600px; border: 8px solid rgba(255,195,0,.7); border-radius: 26px;
+    background-size: cover; background-position: center; z-index: 2; }
+  .qc { position: absolute; left: 88px; right: 88px; top: 820px; bottom: 150px; display: flex; flex-direction: column; justify-content: center; z-index: 3; }
+  .qc .idx { margin-bottom: 18px; }
+  .qc-text { font-family: "Anton"; text-transform: uppercase; font-size: 96px; line-height: 1.1; }
+</style>
+  <div class="qz-bg"></div>
+  {{ pager() }}
+  <div class="qc-frame" style="background-image:url('{{ image }}')"></div>
+  <div class="qc">
+    <div class="idx">Indícia {{ clue_n }}/{{ clue_total }}</div>
+    <div class="qc-text" data-fit="300" data-min="48">{{ clue }}</div>
+  </div>
+  <div class="bottom"><div>Tip napíš do komentárov</div><div class="swipe">→</div></div>

@@ -1,0 +1,23 @@
+{# titulka fámy: odfarbená fotka, výstražná páska a počet webov, ktoré o fáme píšu #}
+<style>
+  .rumor-photo { filter: grayscale(.75) contrast(1.1); }
+  .tape { position: absolute; left: -80px; right: -80px; height: 92px; display: flex; align-items: center; gap: 40px; white-space: nowrap;
+    font-family: "Anton"; font-size: 52px; letter-spacing: 4px; z-index: 4; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,.5); }
+  .tape.t1 { top: 300px; transform: rotate(-7deg); background: var(--accent3); color: #fff; }
+  .tape.t2 { top: 420px; transform: rotate(4deg); background: var(--accent); color: #0A0A0A; }
+  .meter { display: flex; align-items: center; gap: 18px; margin-top: 30px; font-size: 32px; font-weight: 700; color: #EFEAE4; }
+  .dots { display: flex; gap: 10px; }
+  .dots i { width: 30px; height: 30px; border-radius: 50%; border: 3px solid var(--accent3); display: block; }
+  .dots i.on { background: var(--accent3); }
+</style>
+  {% if image %}<div class="photo rumor-photo" style="background-image:url('{{ image }}')"></div>{% endif %}
+  <div class="tape t1">{% for _ in range(8) %}<span>NEPOTVRDENÉ</span><span>•</span>{% endfor %}</div>
+  <div class="tape t2">{% for _ in range(8) %}<span>FÁMA</span><span>•</span>{% endfor %}</div>
+  {{ topbar(date) }}
+  <div class="cover-body">
+    <div class="tag red">{{ category }}</div>
+    <div class="hook" data-fit="380">{{ hook or headline }}</div>
+    {% if hook %}<div class="fact" data-fit="170" data-min="30">{{ headline }}</div>{% endif %}
+    {% if sources_count %}<div class="meter">Píše o tom <span class="dots">{% for k in range(5) %}<i class="{{ 'on' if k < sources_count }}"></i>{% endfor %}</span> {{ sources_label }}</div>{% endif %}
+  </div>
+  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% endif %}</div><div class="swipe">SWIPNI →</div></div>

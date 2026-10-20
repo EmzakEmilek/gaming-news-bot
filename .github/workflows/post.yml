@@ -27,6 +27,11 @@ on:
         description: "Počet testovacích postov pri copy_only"
         type: number
         default: 2
+      concept:
+        description: "Koncept namiesto rozvrhu (prázdne = podľa dňa)"
+        type: choice
+        default: ""
+        options: ["", "radar", "vs", "deal", "quiz", "take", "retro", "digest"]
 
 permissions:
   contents: write
@@ -72,6 +77,7 @@ jobs:
           if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
           if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
           if [ "${{ inputs.copy_only }}" = "true" ]; then ARGS="$ARGS --copy-only --count ${{ inputs.count }}"; fi
+          if [ -n "${{ inputs.concept }}" ]; then ARGS="$ARGS --concept ${{ inputs.concept }}"; fi
           python -m bot.post $ARGS
       - name: Save state
         if: always()

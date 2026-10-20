@@ -1,0 +1,21 @@
+{# položka zoznamu: veľké poradové číslo, voliteľná fotka, štítky (dátum, platformy) #}
+<style>
+  .li { position: absolute; left: 88px; right: 88px; top: 250px; bottom: 160px; display: flex; flex-direction: column; justify-content: center; z-index: 3; }
+  .li.with-photo { top: 560px; justify-content: flex-end; }
+  .li-n { font-family: "Anton"; font-size: 220px; line-height: .9; color: transparent; -webkit-text-stroke: 4px var(--accent); margin-bottom: 18px; }
+  .with-photo .li-n { position: absolute; top: -170px; left: 0; font-size: 180px; -webkit-text-stroke: 4px var(--accent); text-shadow: 0 6px 30px rgba(0,0,0,.6); }
+  .chips { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+  .chips span { font-size: 28px; font-weight: 800; letter-spacing: 1px; padding: 8px 16px; border: 3px solid var(--accent); color: var(--accent); text-transform: uppercase; }
+  .chips span:first-child { background: var(--accent); color: #0A0A0A; }
+  .li .s-title { font-size: 84px; margin-bottom: 28px; }
+  .li .s-body { font-size: 44px; }
+</style>
+  {% if image %}<div class="photo slide-photo" style="background-image:url('{{ image }}')"></div>{% endif %}
+  {{ pager() }}
+  <div class="li{% if image %} with-photo{% endif %}" data-box>
+    <div class="li-n">{{ "%02d" % n }}</div>
+    {% if chips %}<div class="chips">{% for c in chips %}<span>{{ c }}</span>{% endfor %}</div>{% endif %}
+    <div class="s-title" data-fit="{{ 210 if image else 300 }}">{{ title }}</div>
+    {% if body %}<div class="s-body">{{ body }}</div>{% endif %}
+  </div>
+  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% else %}{{ brand.handle }}{% endif %}</div><div class="swipe">→</div></div>

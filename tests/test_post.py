@@ -57,8 +57,9 @@ def test_published_post_is_never_saved_for_retry(cfg, monkeypatch):
     assert load_state("pending", None) is None
 
 
-def _run_main(monkeypatch, now):
+def _run_main(monkeypatch, now, concept=None):
     monkeypatch.setattr(post_mod, "now_local", lambda: now)
+    monkeypatch.setattr(post_mod.concepts, "scheduled", lambda *a: concept)
     monkeypatch.delenv("GITHUB_EVENT_NAME", raising=False)
     monkeypatch.setattr(sys, "argv", ["post"])
     post_mod.main()
@@ -86,3 +87,30 @@ def test_stale_pending_is_dropped(monkeypatch):
     assert load_state("pending", None) is None
     assert any("prepadol" in m for m in sent)
     assert load_state("skipped", [])[-1]["slot"] == "vecer"
+
+
+def test_concept_post_is_published_instead_of_news(monkeypatch):
+    now = datetime(2026, 9, 29, 18, 35, tzinfo=TZ)
+    published, news = [], []
+    monkeypatch.setattr(post_mod.concepts, "make", lambda name, *a: {"headline": f"koncept {name}"})
+    monkeypatch.setattr(post_mod, "publish_post", lambda post, *a: published.append(post["headline"]))
+    monkeypatch.setattr(post_mod, "make_post", lambda *a, **k: news.append(1))
+    monkeypatch.setattr(post_mod, "performance_hint", lambda: "")
+    _run_main(monkeypatch, now, concept="vs")
+    assert published == ["koncept vs"] and not news
+
+
+def test_failed_concept_falls_back_to_news(monkeypatch):
+    now = datetime(2026, 9, 29, 18, 35, tzinfo=TZ)
+    sent, published = [], []
+
+    def boom(*a):
+        raise RuntimeError("Steam nedostupný")
+    monkeypatch.setattr(post_mod.concepts, "make", boom)
+    monkeypatch.setattr(post_mod, "notify", sent.append)
+    monkeypatch.setattr(post_mod, "performance_hint", lambda: "")
+    monkeypatch.setattr(post_mod, "collect", lambda *a: [{"link": "x"}])
+    monkeypatch.setattr(post_mod, "make_post", lambda *a, **k: {"headline": "správa"})
+    monkeypatch.setattr(post_mod, "publish_post", lambda post, *a: published.append(post["headline"]))
+    _run_main(monkeypatch, now, concept="deal")
+    assert published == ["správa"] and any("Koncept deal zlyhal" in m for m in sent)

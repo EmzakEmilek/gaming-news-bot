@@ -15,6 +15,7 @@ import shutil
 
 from datetime import datetime, timedelta
 
+from . import concepts
 from .collect import collect
 from .common import OUT_DIR, load_config, load_state, log, notify, now_local, now_utc, save_state
 from .editor import BudgetExceeded, make_post
@@ -29,10 +30,10 @@ def build_caption(post: dict, cfg: dict) -> str:
         if len(t) > 1 and t.lower() not in {x.lower() for x in tags}:
             tags.append(t)
     tags = tags[: min(cfg["posting"]["max_hashtags"], 30)]
-    credit = f"Zdroj: {', '.join(post['sources'])}"
+    credit = [f"Zdroj: {', '.join(post['sources'])}"] if post.get("sources") else []
     if post.get("photo_credit"):
-        credit += f" | Foto: {post['photo_credit']}"
-    caption = f"{post['caption'].strip()}\n\n{credit}\n\n{' '.join(tags)}"
+        credit.append(f"Foto: {post['photo_credit']}")
+    caption = "\n\n".join([post["caption"].strip()] + ([" | ".join(credit)] if credit else []) + [" ".join(tags)])
     return caption[:2200]
 
 
@@ -49,10 +50,15 @@ def _in_slot_window(now, cfg: dict) -> bool:
 
 def copy_text(post: dict, cfg: dict) -> str:
     """Celý text postu na kontrolu (titulka, snímky, výzva, caption)."""
-    lines = [f"[{post['category']}] {post['headline']}", ""]
-    lines += [f"{n}. {sl['title']}\n   {sl['body']}" for n, sl in enumerate(post["slides"], start=2)]
+    number = f"{post['number']} " if post.get("cover_style") == "number" else ""
+    lines = [f"[{post['category']}] {number}{post.get('hook', '')}", f"   {post['headline']}", ""]
+    lines += [f"{n}. {sl['title']}\n   {sl['body']}" for n, sl in enumerate(post.get("slides") or [], start=2)]
+    if post.get("recap"):
+        lines += ["V skratke: " + " | ".join(post["recap"])]
+    if (post.get("verdict") or {}).get("text"):
+        lines += [f"Názor EMZO ({post['verdict'].get('score', 0)}/5): {post['verdict']['text']}"]
     lines += [f"Výzva ({post['cta']['type']}): {post['cta']['title']}", "", "CAPTION:", build_caption(post, cfg),
-              "", f"Overenie: {post['verification']}", f"Odkazy: {', '.join(post['links'])}"]
+              "", f"Overenie: {post.get('verification', '')}", f"Odkazy: {', '.join(post.get('links') or [])}"]
     return "\n".join(lines)
 
 
@@ -81,11 +87,17 @@ def copy_only(count: int, recent: list[str], used_links: set[str], cfg: dict, ru
 
 
 def alt_texts(post: dict) -> list[str]:
-    """Alt text ku každej snímke = text, ktorý je na nej (pre nevidiacich a vyhľadávanie na Instagrame)."""
-    cover = f"{post['category']}: {post['headline']}"
-    if post.get("photo_credit"):
-        cover += f". Fotka: {post['photo_credit']}"
-    alts = [cover] + [f"{sl['title']}. {sl['body']}" for sl in post.get("slides") or []]
+    """Alt text ku každej snímke = text, ktorý je na nej (pre nevidiacich a vyhľadávanie na Instagrame).
+    Koncepty (VS, kvíz...) si alt texty pripravia samy v post["alts"]."""
+    if post.get("alts"):
+        alts = list(post["alts"])
+    else:
+        cover = f"{post['category']}: " + (f"{post['hook']}. " if post.get("hook") else "") + post["headline"]
+        if post.get("photo_credit"):
+            cover += f". Fotka: {post['photo_credit']}"
+        alts = [cover] + [f"{sl['title']}. {sl['body']}" for sl in post.get("slides") or []]
+        if post.get("recap"):
+            alts.append("V skratke: " + "; ".join(post["recap"]))
     if post.get("cta"):
         alts.append(post["cta"]["title"])
     return [a[:1000] for a in alts]
@@ -151,15 +163,40 @@ def _publish(post: dict, cfg: dict, now, today: str, slot: str, posted: list[dic
             notify(f"⚠️ Post je vonku, ale Story sa nepodarilo zverejniť: {e}")
 
     # stav hneď po publikovaní: ak by neskôr niečo zlyhalo, ďalší slot tú istú správu nezopakuje
+    photos = post.get("photos") or []
     posted.append({
         "date": today, "slot": slot, "at": now_utc().isoformat(), "story": post["story"], "headline": post["headline"],
         "links": post["links"], "sources": post["sources"], "format": post["format"], "category": post["category"], "rumor": post.get("rumor", False),
         "media_id": info["id"], "permalink": info.get("permalink"), "cost_usd": post["cost_usd"], "story_id": story_id,
+        # pre koncepty: týždenný prehľad a názor čerpajú z overených textov, kľúč bráni opakovaniu (kvíz, zľava...)
+        "concept": post.get("concept", "news"), "key": post.get("key"), "hook": post.get("hook"),
+        "facts": post.get("recap") or [], "photo_url": photos[0]["url"] if photos else None,
+        "photo_credit": post.get("photo_credit"),
     })
     save_state("posted", posted[-500:])
     share = "" if story_id else "\n📲 Zdieľaj do Story: otvor odkaz → ✈️ → Pridať do príbehu"
     notify(f"✅ {cfg['brand']['name']} postol: {post['headline']} (~${post['cost_usd']:.2f})"
            f"{' + Story' if story_id else ''}\n{info.get('permalink', '')}{share}")
+
+
+def make_concept(name: str, cfg: dict, posted: list[dict], now) -> dict | None:
+    """Post konceptu; pri chybe alebo keď dnes nevyjde, None (slot dostane bežnú správu)."""
+    try:
+        post = concepts.make(name, cfg, posted, now.date())
+    except Exception as e:  # noqa: BLE001 – koncept nesmie zhodiť slot
+        log.exception("Koncept %s zlyhal", name)
+        notify(f"⚠️ Koncept {name} zlyhal ({e}), namiesto neho ide bežná správa.")
+        return None
+    if post is None:
+        notify(f"ℹ️ Koncept {name} dnes nevyšiel (dôvod v logu), namiesto neho ide bežná správa.")
+    return post
+
+
+def concept_text(post: dict, cfg: dict) -> str:
+    """Texty konceptu na kontrolu (snímky bez obrázkov, caption)."""
+    frames = [{k: v for k, v in f.items() if k not in ("image_url", "crop")} for f in post["frames"]]
+    return "\n".join([f"[{post['category']}] {post['headline']}", json.dumps(frames, ensure_ascii=False, indent=1),
+                      f"Výzva ({post['cta']['type']}): {post['cta']['title']}", "", "CAPTION:", build_caption(post, cfg)])
 
 
 def slot_name(hour: int) -> str:
@@ -172,6 +209,7 @@ def main() -> None:
     ap.add_argument("--force", action="store_true", help="postni aj keď už v tomto slote bol post")
     ap.add_argument("--copy-only", action="store_true", help="len texty, bez grafiky a publikovania")
     ap.add_argument("--count", type=int, default=1, help="počet testovacích postov pri --copy-only")
+    ap.add_argument("--concept", choices=concepts.NAMES, help="koncept namiesto rozvrhu (test: --dry-run --concept quiz)")
     args = ap.parse_args()
     if args.copy_only:
         args.dry_run = True
@@ -216,6 +254,16 @@ def main() -> None:
 
     # fámy (štítok RUMOR) najviac posting.rumors_per_day denne, nech profil nestratí dôveryhodnosť
     rumors_left = cfg["posting"].get("rumors_per_day", 1) - sum(1 for p in posted if p["date"] == today and p.get("rumor"))
+
+    concept = args.concept or concepts.scheduled(cfg, now.date(), slot)
+    if concept:
+        post = make_concept(concept, cfg, posted, now)
+        if post and args.copy_only:
+            log.info("\n===== KONCEPT %s (cena ~$%.3f) =====\n%s", concept, run_cost(), concept_text(post, cfg))
+            return
+        if post:
+            publish_post(post, cfg, now, today, slot, posted, args.dry_run)
+            return
 
     if args.copy_only:
         copy_only(max(1, args.count), recent, used_links, cfg, rumors_left)

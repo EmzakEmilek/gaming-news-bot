@@ -1,0 +1,14 @@
+{# titulka správy: veľký hook (do 6 slov) + riadok s faktom; starší post bez hooku má len veľký nadpis #}
+  {% if image %}<div class="photo" style="background-image:url('{{ image }}')"></div>
+  {% else %}<div class="ghost">{{ ghost }}</div>{% endif %}
+  {{ topbar(date) }}
+  <div class="cover-body">
+    <div class="tag">{{ category }}</div>
+    {% if hook %}
+    <div class="hook" data-fit="{{ 470 if image else 600 }}">{{ hook }}</div>
+    <div class="fact" data-fit="170" data-min="30">{{ headline }}</div>
+    {% else %}
+    <div class="headline" data-fit="{{ 620 if image else 720 }}">{{ headline }}</div>
+    {% endif %}
+  </div>
+  <div class="bottom"><div>{% if photo_credit %}Foto: {{ photo_credit }}{% endif %}</div>{% if carousel %}<div class="swipe">SWIPNI →</div>{% else %}<div>{{ brand.handle }}</div>{% endif %}</div>

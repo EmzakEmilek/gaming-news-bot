@@ -1,0 +1,29 @@
+{# Toto alebo toto: dve polovice so šikmým predelom a odznak VS #}
+<style>
+  .half { position: absolute; top: 0; bottom: 0; width: 640px; background-size: cover; background-position: center; z-index: 1; }
+  .half.a { left: 0; clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%); }
+  .half.b { right: 0; clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%); }
+  .half::after { content: ""; position: absolute; inset: 0; }
+  .half.a::after { background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(255,195,0,.18) 45%, rgba(0,0,0,.85) 88%); }
+  .half.b::after { background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(227,23,10,.22) 45%, rgba(0,0,0,.85) 88%); }
+  .half.a.plain { background: linear-gradient(160deg, var(--accent), var(--accent2)); }
+  .half.b.plain { background: linear-gradient(200deg, var(--accent3), #5a0a05); }
+  .vs-q { position: absolute; top: 170px; left: 64px; right: 64px; text-align: center; z-index: 4; font-family: "Anton"; text-transform: uppercase;
+    font-size: 96px; line-height: 1.08; text-shadow: 0 6px 30px rgba(0,0,0,.7); }
+  .vs-badge { position: absolute; left: 50%; top: 640px; width: 230px; height: 230px; margin-left: -115px; border-radius: 50%; z-index: 4;
+    background: var(--accent); color: #0A0A0A; display: grid; place-items: center; font-family: "Anton"; font-size: 120px;
+    box-shadow: 0 0 0 14px #0A0A0A, 0 20px 80px rgba(0,0,0,.6); }
+  .opt { position: absolute; bottom: 140px; width: 440px; z-index: 4; }
+  .opt.a { left: 64px; } .opt.b { right: 64px; text-align: right; }
+  .opt .k { display: inline-grid; place-items: center; width: 76px; height: 76px; font-family: "Anton"; font-size: 52px; margin-bottom: 16px; }
+  .opt.a .k { background: var(--accent); color: #0A0A0A; } .opt.b .k { background: var(--accent3); color: #fff; }
+  .opt .nm { font-family: "Anton"; text-transform: uppercase; font-size: 84px; line-height: 1.08; text-shadow: 0 4px 24px rgba(0,0,0,.7); }
+</style>
+  <div class="half a{% if not a.image %} plain{% endif %}"{% if a.image %} style="background-image:url('{{ a.image }}')"{% endif %}></div>
+  <div class="half b{% if not b.image %} plain{% endif %}"{% if b.image %} style="background-image:url('{{ b.image }}')"{% endif %}></div>
+  {{ topbar(date) }}
+  <div class="vs-q" data-fit="230" data-min="56">{{ question }}</div>
+  <div class="vs-badge">VS</div>
+  <div class="opt a"><div class="k">1</div><div class="nm" data-fit="280" data-min="44">{{ a.name }}</div></div>
+  <div class="opt b"><div class="k">2</div><div class="nm" data-fit="280" data-min="44">{{ b.name }}</div></div>
+  <div class="bottom"><div>{{ credit }}</div><div class="swipe">SWIPNI →</div></div>

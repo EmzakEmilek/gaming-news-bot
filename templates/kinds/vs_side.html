@@ -1,0 +1,18 @@
+{# argumenty za jednu stranu #}
+<style>
+  .side-band { position: absolute; left: 0; right: 0; top: 0; height: 520px; background-size: cover; background-position: center;
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%); z-index: 1; }
+  .side-band.plain { background: linear-gradient(160deg, var(--side), transparent 80%); }
+  .sv { position: absolute; left: 88px; right: 88px; top: 380px; bottom: 160px; display: flex; flex-direction: column; justify-content: center; z-index: 3; }
+  .sv .k { display: inline-grid; place-items: center; width: 84px; height: 84px; font-family: "Anton"; font-size: 58px; background: var(--side); color: var(--side-fg); margin-bottom: 22px; }
+  .sv .s-title { font-size: 88px; margin-bottom: 40px; }
+  .sv .point .n { background: var(--side); color: var(--side-fg); }
+</style>
+  <div class="side-band{% if not image %} plain{% endif %}" style="--side: {{ 'var(--accent)' if side == 1 else 'var(--accent3)' }};{% if image %} background-image:url('{{ image }}'){% endif %}"></div>
+  {{ pager() }}
+  <div class="sv" data-box style="--side: {{ 'var(--accent)' if side == 1 else 'var(--accent3)' }}; --side-fg: {{ '#0A0A0A' if side == 1 else '#fff' }}">
+    <div><div class="k">{{ side }}</div></div>
+    <div class="s-title" data-fit="230">{{ title }}</div>
+    <div class="points">{% for p in points %}<div class="point"><div class="n">{{ loop.index }}</div><div>{{ p }}</div></div>{% endfor %}</div>
+  </div>
+  <div class="bottom"><div>{{ brand.handle }}</div><div class="swipe">→</div></div>

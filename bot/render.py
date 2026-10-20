@@ -112,6 +112,67 @@ def render_story(cover: Path, dest: Path) -> Path:
     return dest
 
 
+def _plural_weby(n: int) -> str:
+    return f"{n} web" if n == 1 else f"{n} weby" if n < 5 else f"{n} webov"
+
+
+def news_frames(post: dict, image: str | None, photo_credit: str | None, photos: list | None, out_dir: Path) -> list[dict]:
+    """Snímky správy: titulka (foto / obrie číslo / fáma), obsahové snímky, zhrnutie s názorom."""
+    carousel = post["format"] == "carousel"
+    cover = {"image": image, "category": post["category"], "headline": _typo(post["headline"]),
+             "hook": _typo(post.get("hook")), "photo_credit": photo_credit, "carousel": carousel,
+             "ghost": post["category"].split()[0]}
+    if post.get("rumor"):
+        n = len(post.get("sources") or [])
+        cover.update(kind="cover_rumor", sources_count=min(n, 5), sources_label=_plural_weby(n) if n else "")
+    elif post.get("cover_style") == "number" and post.get("number") and post.get("hook"):
+        cover.update(kind="cover_number", number=post["number"])
+    else:
+        cover["kind"] = "cover"
+    frames = [cover]
+    if not carousel:
+        return frames
+    for i, s in enumerate(post["slides"], start=2):
+        n = s.get("photo") or 0
+        use = photos and 2 <= n <= len(photos) and len(s["body"]) <= PHOTO_BODY_MAX
+        img = ph.save(photos[n - 1], out_dir / f"photo_{i}.jpg") if use else None
+        frames.append({"kind": "text", "title": _typo(s["title"]), "body": _typo(s["body"]), "image": img,
+                       "photo_credit": photos[n - 1]["source"] if img else None})
+    if post.get("recap"):
+        verdict = post.get("verdict") or {}
+        frames.append({"kind": "recap", "points": [_typo(p) for p in post["recap"]],
+                       "verdict": {"text": _typo(verdict.get("text")), "score": int(verdict.get("score") or 0)}})
+    return frames
+
+
+def _crop(img: Image.Image, crop: dict, aspect: float = 1.5) -> Image.Image:
+    """Výrez z obrázka: zoom 1 = celý (orezaný na pomer strán), väčší zoom = menší výrez okolo bodu cx, cy (0..1)."""
+    zoom = max(1.0, float(crop.get("zoom", 1)))
+    w = img.width / zoom
+    h = w / aspect
+    if h > img.height / zoom:
+        h = img.height / zoom
+        w = h * aspect
+    cx, cy = crop.get("cx", .5) * img.width, crop.get("cy", .5) * img.height
+    left = min(max(cx - w / 2, 0), img.width - w)
+    top = min(max(cy - h / 2, 0), img.height - h)
+    return img.crop((round(left), round(top), round(left + w), round(top + h)))
+
+
+def _frame_image(frame: dict, dest: Path) -> str | None:
+    """Stiahne obrázok snímky (image_url), prípadne z neho spraví výrez, a vráti file URI."""
+    url = frame.pop("image_url", None)
+    if not url:
+        return frame.get("image")
+    img = ph.fetch(url)
+    if img is None:
+        return None
+    if frame.get("crop"):
+        img = _crop(img, frame["crop"])
+    img.save(dest, "JPEG", quality=92)
+    return dest.resolve().as_uri()
+
+
 def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR), autoescape=select_autoescape(["html"]))
@@ -119,44 +180,41 @@ def render_post(post: dict, cfg: dict, out_dir: Path, date_label: str) -> list[P
     brand = cfg["brand"]
     base = TEMPLATES_DIR.resolve().as_uri() + "/"
 
-    photos = post.get("photos")
-    if photos is not None:  # vybrané fotky (starší odložený post má len image_candidates)
-        image = ph.save(photos[0], out_dir / "source.jpg") if photos else None
-        photo_credit = photos[0]["source"] if image else None
+    if post.get("frames"):  # koncept (VS, kvíz, retro...) si snímky pripravil sám, obrázky sa sťahujú tu
+        frames = [dict(f) for f in post["frames"]]
+        for n, f in enumerate(frames, start=1):
+            f["image"] = _frame_image(f, out_dir / f"img_{n}.jpg")
+            for side in ("a", "b"):  # VS: obrázok pre každú stranu
+                if isinstance(f.get(side), dict):
+                    f[side] = {**f[side], "image": _frame_image(dict(f[side]), out_dir / f"img_{n}{side}.jpg")}
     else:
-        image, photo_credit = _download_image(post.get("image_candidates", []), out_dir / "source.jpg")
-    post["photo_credit"] = photo_credit
-    carousel = post["format"] == "carousel"
-    slides_ctx = [{
-        "kind": "cover", "image": image, "category": post["category"], "headline": _typo(post["headline"]),
-        "photo_credit": photo_credit, "carousel": carousel, "ghost": post["category"].split()[0],
-        "fit_max_height": 620 if image else 720,
-    }]
-    if carousel:
-        body_slides = post["slides"]
-        total = len(body_slides) + 2
-        for i, s in enumerate(body_slides, start=2):
-            n = s.get("photo") or 0
-            use = photos and 2 <= n <= len(photos) and len(s["body"]) <= PHOTO_BODY_MAX
-            img = ph.save(photos[n - 1], out_dir / f"photo_{i}.jpg") if use else None
-            slides_ctx.append({"kind": "text", "title": _typo(s["title"]), "body": _typo(s["body"]),
-                               "index": i, "total": total, "fit_max_height": 230 if img else 300,
-                               "image": img, "photo_credit": photos[n - 1]["source"] if img else None})
+        photos = post.get("photos")
+        if photos is not None:  # vybrané fotky (starší odložený post má len image_candidates)
+            image = ph.save(photos[0], out_dir / "source.jpg") if photos else None
+            photo_credit = photos[0]["source"] if image else None
+        else:
+            image, photo_credit = _download_image(post.get("image_candidates", []), out_dir / "source.jpg")
+        post["photo_credit"] = photo_credit
+        frames = news_frames(post, image, photo_credit, photos, out_dir)
+    if post["format"] == "carousel":
         cta = post.get("cta") or {}
         cta_main, cta_hl = _split_cta(_typo(cta.get("title") or "Pošli to kamošovi"))
-        slides_ctx.append({"kind": "outro", "index": total, "total": total, "fit_max_height": 0,
-                           "cta_main": cta_main, "cta_hl": cta_hl,
-                           "cta_icon": _icon(CTA_ICONS.get(cta.get("type"), "send"))})
-    flow = _flow(len(slides_ctx), brand, post["headline"])
+        frames.append({"kind": "outro", "cta_main": cta_main, "cta_hl": cta_hl,
+                       "cta_icon": _icon(CTA_ICONS.get(cta.get("type"), "send"))})
+    total = len(frames)
+    for n, f in enumerate(frames, start=1):
+        f.setdefault("index", n)
+        f.setdefault("total", total)
+    flow = _flow(total, brand, post["headline"])
 
     files = []
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page(viewport={"width": W, "height": H}, device_scale_factor=1)
-        for n, ctx in enumerate(slides_ctx, start=1):
+        for n, ctx in enumerate(frames, start=1):
             html_path = out_dir / f"slide_{n}.html"
-            html = tpl.render(brand=brand, base=base, date=date_label, flow=flow, flow_w=len(slides_ctx) * W,
-                              flow_x=(n - 1) * W, **ctx)
+            html = tpl.render(brand=brand, base=base, date=date_label, flow=flow, flow_w=total * W,
+                              flow_x=(n - 1) * W, theme=post.get("concept", "news"), **ctx)
             html_path.write_text(html, encoding="utf-8")
             page.goto(html_path.resolve().as_uri())
             page.wait_for_selector("body[data-ready='1']", timeout=15000)

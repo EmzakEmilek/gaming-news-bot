@@ -1,0 +1,44 @@
+name: Concept preview (dočasné)
+
+# Dočasný test novej vetvy: dry-run každého konceptu aj správy naraz, nič nepublikuje ani neukladá stav.
+on:
+  push:
+    branches: [claude/quirky-heisenberg-vplpad]
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    strategy:
+      fail-fast: false
+      matrix:
+        concept: [news, radar, vs, deal, quiz, take, retro, digest]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Cache Playwright
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+      - run: python -m playwright install --with-deps chromium
+      - name: Dry run
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PAGES_BASE_URL: ${{ vars.PAGES_BASE_URL }}
+        run: |
+          if [ "${{ matrix.concept }}" = "news" ]; then python -m bot.post --dry-run; else python -m bot.post --dry-run --concept ${{ matrix.concept }}; fi
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: preview-${{ matrix.concept }}
+          path: out/
+          retention-days: 3
+          if-no-files-found: ignore
