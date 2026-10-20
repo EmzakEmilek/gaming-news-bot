@@ -75,10 +75,8 @@ FAKTY
     user = "Dáta:\n" + json.dumps(facts, ensure_ascii=False, default=str)
 
     def write(feedback, previous):
-        c = ask_json(cfg["model"]["writer"], system, user + rewrite_note(feedback, previous) + "\nNapíš post.",
-                     fmt=FMT, effort=_effort(cfg, "write"))
-        c["headline"] = f"Pred {years} rokmi vyšla hra {game['name']}"
-        return c
+        return ask_json(cfg["model"]["writer"], system, user + rewrite_note(feedback, previous) + "\nNapíš post.",
+                        fmt=FMT, effort=_effort(cfg, "write"))
 
     def validate(c):
         sl = c.get("slides") or []
@@ -87,7 +85,10 @@ FAKTY
                (["cta_title chýba alebo má viac ako 45 znakov"] if not c.get("cta_title") or len(c["cta_title"]) > 50
                 else [])
 
-    copy = produce_copy(write, cfg, validate=validate, facts=facts)
+    note = (f"Formát sa volá „Pred {years} rokmi“ a dátum postu aj vydania je na titulke, preto „pred {years} rokmi“"
+            " nie je chyba ani relatívny čas.")
+    copy = produce_copy(write, cfg, validate=validate, facts=facts, review_note=note, note=note)
+    copy["headline"] = f"Pred {years} rokmi vyšla hra {game['name']}"  # titulku skladá kód z dát
     image = None
     if game.get("steam"):
         app = src.steam_app(game["steam"]) or {}

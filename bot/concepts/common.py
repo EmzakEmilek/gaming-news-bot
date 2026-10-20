@@ -77,7 +77,7 @@ def first_image(urls: list[str | None]) -> str | None:
     return None
 
 
-def review(copy: dict, cfg: dict, rules: str) -> list[str]:
+def review(copy: dict, cfg: dict, rules: str, note: str = "") -> list[str]:
     """Čitateľská kontrola (bez zdrojov): drobné opravy urobí kód, vráti problémy na prepis."""
     shown = {k: v for k, v in copy.items() if k not in ("hashtags", "key") and not k.startswith("_") and v}
     system = f"""{_today()}
@@ -88,7 +88,8 @@ Si šéfredaktor slovenskej Instagram stránky o hrách. Čítaš hotový carous
   find = presný úsek z textu skopírovaný doslova, replace = opravené znenie (prázdne = vypustiť), bez nového faktu.
 "blocking" – len vážne veci: nezrozumiteľné alebo nelogické tvrdenie, rozpor medzi časťami, urážka, a tiež:
 {rules}
-"minor" – štýl, ktorý žiadne pravidlo neporušuje."""
+"minor" – štýl, ktorý žiadne pravidlo neporušuje.
+{note}"""
     verdict = ask_json(cfg["model"]["checker"], system, "Post:\n" + json.dumps(shown, ensure_ascii=False),
                        fmt=REVIEW_FMT, effort=_effort(cfg, "review"))
     missed = _apply_fixes(copy, verdict.get("fixes") or [])
@@ -114,7 +115,7 @@ ktorá posúva význam, nadpis, ktorý tvrdí viac ako zdroje. Označený názor
 
 
 def produce_copy(write, cfg: dict, validate=None, rules: str = "", facts=None, note: str = "",
-                 attempts: int = 3) -> dict:
+                 attempts: int = 3, review_note: str = "") -> dict:
     """write(feedback, previous) -> texty. Kontrola tvaru (kód), čitateľ a fakty; pri chybách prepis.
     Jazykové opravy, ktoré kód nevedel nahradiť, idú do prepisu len spolu so skutočným problémom."""
     feedback, copy = None, None
@@ -124,7 +125,7 @@ def produce_copy(write, cfg: dict, validate=None, rules: str = "", facts=None, n
         _autofix(copy)
         stage, issues = "tvar", (validate(copy) if validate else []) + caption_issues(copy)
         if not issues:
-            stage, issues = "čitateľ", review(copy, cfg, rules)
+            stage, issues = "čitateľ", review(copy, cfg, rules, review_note)
         if not issues and facts is not None:
             stage, issues = "fakty", factcheck(copy, facts, cfg, note)
         nits = copy.pop("_nits", [])
