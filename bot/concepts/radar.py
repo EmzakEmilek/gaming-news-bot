@@ -57,8 +57,7 @@ def _image(title: str) -> str | None:
 
 
 def make(cfg: dict, posted: list[dict], today: date) -> dict:
-    start = today - timedelta(days=today.weekday())  # pondelok tohto týždňa
-    end = start + timedelta(days=6)
+    start, end = today, today + timedelta(days=6)  # najbližších 7 dní (v pondelok = celý týždeň)
     items = [it for it in collect(cfg["feeds"], 96, set()) if LIST_TITLE.search(it["title"])][:14]
     if len(items) < 2:
         raise ConceptSkip("radar: žiadne prehľady vydaní vo feedoch")
@@ -69,7 +68,7 @@ def make(cfg: dict, posted: list[dict], today: date) -> dict:
             "title": a["title"], "text": a["text"][:5000]} for a in articles]
     check_budget(cfg)
     found = ask_json(cfg["model"]["writer"], f"""{_today()}
-Z článkov vyber hry, ktoré vychádzajú (vydanie, nie DLC ani update) od {start.isoformat()} do {end.isoformat()}.
+Z článkov vyber hry, ktoré vychádzajú (vydanie, nie DLC ani update) od {start.isoformat()} do {end.isoformat()} vrátane.
 {UNTRUSTED}
 - title: oficiálny názov hry. date: dátum vydania YYYY-MM-DD presne podľa článkov. platforms: platformy podľa článkov.
 - ids: VŠETKY id článkov, ktoré túto hru s týmto dátumom uvádzajú.

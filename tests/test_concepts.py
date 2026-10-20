@@ -70,6 +70,8 @@ def test_deal_pick_needs_known_game_and_real_discount():
             3: {"price_overview": {"currency": "EUR", "discount_percent": 20}, "recommendations": {"total": 900000}}}
     assert deal.pick(specials, apps, set())[0]["id"] == 2
     assert deal.pick(specials, apps, {"deal:2"}) is None
+    ending = [{"id": 2, "discount_expiration": int(datetime(2026, 10, 22, 17, tzinfo=timezone.utc).timestamp())}]
+    assert deal.pick(ending, apps, set(), date(2026, 10, 21)) is None  # zľava končí zajtra
 
 
 def test_radar_verified_needs_official_or_two_portals():

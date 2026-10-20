@@ -17,12 +17,16 @@ MIN_DISCOUNT = 30
 MIN_REVIEWS = 3000  # menej známe hry nechceme, počet recenzií na Steame je dobrá miera známosti
 
 
-def pick(specials: list[dict], apps: dict, used: set[str]) -> tuple[dict, dict] | None:
-    """Najväčší súčin zľavy a známosti (počet recenzií), hra už vyšla a 60 dní nebola zľavou týždňa."""
+def pick(specials: list[dict], apps: dict, used: set[str], today: date | None = None) -> tuple[dict, dict] | None:
+    """Najväčší súčin zľavy a známosti (počet recenzií), hra už vyšla, zľava platí ešte aspoň 2 dni
+    a hra 60 dní nebola zľavou týždňa."""
     best = None
     for it in specials:
         app = apps.get(it["id"])
         if not app or f"deal:{it['id']}" in used or (app.get("release_date") or {}).get("coming_soon"):
+            continue
+        until = src.until_date(it.get("discount_expiration"))
+        if today and until and (until - today).days < 2:
             continue
         price = app.get("price_overview") or {}
         reviews = (app.get("recommendations") or {}).get("total", 0)
@@ -38,7 +42,7 @@ def make(cfg: dict, posted: list[dict], today: date) -> dict:
     used = used_keys(posted, "deal", 60)
     specials = src.steam_specials()
     apps = {it["id"]: src.steam_app(it["id"]) for it in specials[:30]}
-    hit = pick(specials, apps, used)
+    hit = pick(specials, apps, used, today)
     if not hit:
         raise ConceptSkip("zľava: žiadna známa hra v zľave")
     item, app = hit

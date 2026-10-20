@@ -114,7 +114,7 @@ ktorá posúva význam, nadpis, ktorý tvrdí viac ako zdroje. Označený názor
 
 
 def produce_copy(write, cfg: dict, validate=None, rules: str = "", facts=None, note: str = "",
-                 attempts: int = 2) -> dict:
+                 attempts: int = 3) -> dict:
     """write(feedback, previous) -> texty. Kontrola tvaru (kód), čitateľ a fakty; pri chybách prepis.
     Jazykové opravy, ktoré kód nevedel nahradiť, idú do prepisu len spolu so skutočným problémom."""
     feedback, copy = None, None

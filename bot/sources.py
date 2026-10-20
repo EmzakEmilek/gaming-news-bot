@@ -23,7 +23,8 @@ GAMES_QUERY = """
 SELECT ?game ?gameLabel ?date ?sl ?steam ?enwiki WHERE {
   ?game wdt:P31 wd:Q7889; wikibase:sitelinks ?sl.
   FILTER(?sl >= %d)
-  ?game p:P577/psv:P577 ?tv. ?tv wikibase:timeValue ?date; wikibase:timePrecision 11.
+  ?game p:P577/psv:P577 ?tv. ?tv wikibase:timeValue ?date; wikibase:timePrecision ?prec.
+  FILTER(?prec = 11)  # presnosť je xsd:int, konštanta 11 v trojici by sa s ňou nezhodovala
   OPTIONAL { ?game wdt:P1733 ?steam }
   OPTIONAL { ?article schema:about ?game; schema:isPartOf <https://en.wikipedia.org/>; schema:name ?enwiki }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
