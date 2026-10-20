@@ -144,7 +144,7 @@ Claude API kľúč musí byť vytvorený vo workspace (Console → Workspaces �
 - **Nový zdroj:** pridaj riadok do `feeds` (`tier: official` len pre oficiálne blogy vydavateľov a platforiem). Weby jedného vydavateľa označ rovnakou `group`, pri overovaní sa potom rátajú ako jeden zdroj.
 - **Čo bot postol a prečo:** `state/posted.json` + log každého behu v záložke Actions.
 - **Koncepty:** `concepts.enabled: false` vypne všetky (večer potom ide správa), jednotlivý koncept vypneš vymazaním jeho dňa
-  v `concepts.schedule`. Test ktoréhokoľvek konceptu: *Actions → Post → Run workflow*, nechaj *dry_run* a vyber *concept*.
+  v `concepts.schedule`. Test ktoréhokoľvek konceptu: *Actions → Post → Run workflow*, nechaj *dry_run* a do *concept* napíš názov (`radar`, `vs`, `deal`, `quiz`, `take`, `retro`, `digest`).
 - **Strop na jeden beh:** `posting.max_cost_per_run` (predvolene $0.90), koncept má vlastný strop `concepts.max_cost`. Keď ho beh dosiahne, slot sa vynechá.
   Témy, ktoré neprešli kontrolami, si bot pamätá 48 h (`state/failed.json`) a znova za ne neplatí.
 - **Koľko to stojí:** `state/costs.json` (mesačný súčet za posty a komentáre, odhad podľa `api_prices` v `config.yaml`), cena každého postu je aj v `state/posted.json`. Presné čísla sú v Anthropic Console → Usage (workspace bota).

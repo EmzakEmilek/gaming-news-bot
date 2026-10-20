@@ -28,10 +28,9 @@ on:
         type: number
         default: 2
       concept:
-        description: "Koncept namiesto rozvrhu (prázdne = podľa dňa)"
-        type: choice
+        description: "Koncept namiesto rozvrhu: radar, vs, deal, quiz, take, retro, digest (prázdne = podľa dňa)"
+        type: string
         default: ""
-        options: ["", "radar", "vs", "deal", "quiz", "take", "retro", "digest"]
 
 permissions:
   contents: write
@@ -72,12 +71,13 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           PAGES_BASE_URL: ${{ vars.PAGES_BASE_URL }}
+          CONCEPT: ${{ inputs.concept }}  # cez premennú, nie priamo do skriptu
         run: |
           ARGS=""
           if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
           if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
           if [ "${{ inputs.copy_only }}" = "true" ]; then ARGS="$ARGS --copy-only --count ${{ inputs.count }}"; fi
-          if [ -n "${{ inputs.concept }}" ]; then ARGS="$ARGS --concept ${{ inputs.concept }}"; fi
+          if [ -n "$CONCEPT" ]; then ARGS="$ARGS --concept $CONCEPT"; fi
           python -m bot.post $ARGS
       - name: Save state
         if: always()
