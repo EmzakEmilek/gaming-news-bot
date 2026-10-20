@@ -40,12 +40,13 @@ def test_steam_find_needs_matching_name(monkeypatch):
 def test_retro_prefers_round_anniversary():
     today = date(2026, 10, 21)
     games = [{"qid": "A", "first": date(2007, 10, 20), "sitelinks": 90, "enwiki": "A"},   # 19 rokov
-             {"qid": "B", "first": date(2006, 10, 23), "sitelinks": 30, "enwiki": "B"},   # 20 rokov
-             {"qid": "C", "first": date(2006, 11, 30), "sitelinks": 99, "enwiki": "C"},   # mimo okna
+             {"qid": "B", "first": date(2006, 10, 16), "sitelinks": 30, "enwiki": "B"},   # 20 rokov
+             {"qid": "C", "first": date(2001, 10, 23), "sitelinks": 99, "enwiki": "C"},   # výročie až o 2 dni
              {"qid": "D", "first": date(2024, 10, 21), "sitelinks": 99, "enwiki": "D"}]   # príliš nové
     game, years = retro.pick(games, set(), today)
     assert game["qid"] == "B" and years == 20
     assert retro.pick(games, {"retro:B", "retro:A"}, today) is None
+    assert retro.anniversary({"first": date(2015, 12, 30)}, date(2026, 1, 2)) == 10  # výročie v minulom roku
 
 
 def test_quiz_clues_never_reveal_name():

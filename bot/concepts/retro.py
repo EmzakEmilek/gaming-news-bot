@@ -12,21 +12,23 @@ from .common import ConceptSkip, build_post, caption_rules, first_image, languag
 
 FMT = schema(slides={"type": "array", "items": schema(title=STR, body=STR)}, caption=STR, hashtags=STR_LIST,
              cta_title=STR)
-WINDOW_DAYS = 3  # výročie v okne ±3 dni od dnešného dňa
+WINDOW_DAYS = 6  # výročie, ktoré nastalo dnes alebo za posledných 6 dní (sobota pokryje celý týždeň)
 MIN_YEARS = 5
 
 
 def anniversary(game: dict, today: date) -> int | None:
-    """Koľko rokov od prvého vydania, ak výročie padne do okna okolo dneška, inak None."""
+    """Koľko rokov od prvého vydania, ak výročie nastalo dnes alebo za posledných WINDOW_DAYS dní, inak None.
+    Len minulé výročia: "pred 25 rokmi" musí platiť presne (budúce výročie by bolo o rok menej)."""
     first = game["first"]
-    years = today.year - first.year
-    try:
-        this_year = first.replace(year=today.year)
-    except ValueError:  # 29. február
-        this_year = date(today.year, 3, 1)
-    if years < MIN_YEARS or abs((this_year - today).days) > WINDOW_DAYS:
-        return None
-    return years
+    for year in (today.year, today.year - 1):  # začiatok januára: výročie mohlo byť koncom decembra
+        try:
+            day = first.replace(year=year)
+        except ValueError:  # 29. február
+            day = date(year, 3, 1)
+        years = year - first.year
+        if 0 <= (today - day).days <= WINDOW_DAYS and years >= MIN_YEARS:
+            return years
+    return None
 
 
 def pick(games: list[dict], used: set[str], today: date) -> tuple[dict, int] | None:
@@ -48,7 +50,8 @@ def make(cfg: dict, posted: list[dict], today: date) -> dict:
     if not wiki:
         raise ConceptSkip(f"retro: chýba článok o {game['name']}")
     details = src.game_details(game["qid"])
-    facts = {"hra": game["name"], "prvé vydanie": src.sk_date(game["first"]), "pred rokmi": years,
+    facts = {"dnes": src.sk_date(today), "hra": game["name"], "prvé vydanie": src.sk_date(game["first"]),
+             "pred rokmi": years,
              "štúdio": details.get("developer"), "séria": details.get("series"),
              "platformy (všetky vrátane neskorších portov)": details.get("platform"),
              "Wikipédia": wiki["extract"]}

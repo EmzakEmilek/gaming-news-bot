@@ -73,7 +73,8 @@ Z článkov vyber hry, ktoré vychádzajú (vydanie, nie DLC ani update) od {sta
 - title: oficiálny názov hry. date: dátum vydania YYYY-MM-DD presne podľa článkov. platforms: platformy podľa článkov.
 - ids: VŠETKY id článkov, ktoré túto hru s týmto dátumom uvádzajú.
 - notable: 1 až 10, ako veľmi to zaujíma bežného slovenského hráča (známa značka, veľké štúdio, hype).
-- blurb (max 110 znakov, po slovensky): čo je to za hru, len podľa článkov. Ak to články neuvádzajú, napíš žáner.
+- blurb (max 110 znakov): čo je to za hru, len podľa článkov, prirodzenou slovenčinou a v 2. osobe jednotného čísla
+  ("bojuješ", nie "bojujete"). Ak to články neuvádzajú, napíš žáner.
 Hry, pri ktorých si dátumom nie si istý, vynechaj.""", "Články:\n" + json.dumps(src, ensure_ascii=False),
                     fmt=EXTRACT_FMT, effort=_effort(cfg, "select"))
     log.info("Radar: z %d prehľadov (%s) vytiahnuté hry: %s", len(articles), ", ".join(a["source"] for a in articles),
