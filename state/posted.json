@@ -1348,5 +1348,31 @@
     ],
     "photo_url": "https://hrej.cz/cdn/media/images/lcmjk9hkl40w5rr64d4911046178851671555.jpg",
     "photo_credit": "Hrej.cz"
+  },
+  {
+    "date": "2026-10-21",
+    "slot": "vecer",
+    "at": "2026-10-21T16:33:23.299749+00:00",
+    "story": "Zľava týždňa: Cyberpunk 2077 je na Steame za 17,99 € so zľavou 70 %",
+    "headline": "Cyberpunk 2077 je na Steame za 17,99 € so zľavou 70 %",
+    "links": [
+      "https://store.steampowered.com/app/1091500/"
+    ],
+    "sources": [
+      "Steam"
+    ],
+    "format": "carousel",
+    "category": "ZĽAVA TÝŽDŇA",
+    "rumor": false,
+    "media_id": "18118637951008075",
+    "permalink": "https://www.instagram.com/p/Dew2IkgmuaM/",
+    "cost_usd": 0.0269,
+    "story_id": null,
+    "concept": "deal",
+    "key": "deal:1091500",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
