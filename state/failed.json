@@ -1,37 +1,35 @@
 [
   {
-    "story": "Shrek 2 dostane remaster: ukázala ho stránka v Microsoft Store a unikla cez Xbox Store, pripravuje ho údajne Aspyr.",
+    "story": "Podľa správ plánuje Microsoft ďalšiu generáciu Xboxu až na rok 2028 a môže stáť 1 200 až 1 800 dolárov; Project Helix handheld má vyjsť už v roku 2027 a Game Pass čaká prepracovanie.",
     "links": [
+      "https://www.eurogamer.net/microsoft-next-gen-xbox-helix-date-price",
+      "https://hrej.cz/article/novy-xbox-muze-stat-poradny-balik-udajne-interni-odhady-microsoftu-desi",
+      "https://gamesite.zoznam.sk/kto-si-toto-bude-moct-dovolit-nova-generacia-xbox-konzol-bude-pekelne-draha-no-dockame-sa-aj-handheldu/",
+      "https://zing.cz/article/cena-noveho-xboxu-se-muze-vysplhat-az-na-40-tisic-korun",
+      "https://gamepress.cz/novy-xbox-udajne-dorazi-az-v-roce-2028-microsoft-ma-mezitim-chystat-vlastni-handheld-pro-rok-2027/"
+    ],
+    "at": "2026-10-21T09:35:51.122425+00:00"
+  },
+  {
+    "story": "EA Sports oficiálne oznámilo návrat boxerskej série Fight Night po 15 rokoch.",
+    "links": [
+      "https://zing.cz/article/ea-po-15-letech-ozivuje-jednu-ze-svych-pozapomenutych-serii",
+      "https://indian-tv.cz/clanek/ea-sports-oznameni-fight-night-s01qgh",
+      "https://gamesite.zoznam.sk/ea-naznaky-navratu-serie-fight-night-az-94-studii-pouziva-ai-a-mortal-shell-2-dostane-novy-obsah-quest-log-89/",
+      "https://gamepress.cz/ea-sports-oznamuje-navrat-fight-night/",
+      "https://www.purexbox.com/news/2026/10/for-the-first-time-since-the-xbox-360-fight-night-is-making-a-comeback"
+    ],
+    "at": "2026-10-21T09:35:51.122425+00:00"
+  },
+  {
+    "story": "Shrek 2 Remastered bol oficiálne oznámený s trailerom parodujúcim GTA 6 a vyjde v novembri na PS5, Xbox, Switch 2, Switch aj PC.",
+    "links": [
+      "https://indian-tv.cz/clanek/je-to-oficialne-aspyr-media-hracum-nadeli-remaster-shreka-2-wm83n4",
       "https://www.nintendolife.com/news/2026/10/surprise-aspyr-is-remastering-a-shrek-game",
-      "https://www.gamespot.com/articles/shrek-2-remaster-leaks-looks-amazing-and-i-need-it-now/",
-      "https://www.purexbox.com/news/2026/10/stop-the-presses-shrek-2-is-officially-being-remastered-for-xbox-series-xs",
-      "https://www.pushsquare.com/news/2026/10/the-shrek-2-video-game-is-getting-a-remaster-leaks-via-xbox-store",
-      "https://kotaku.com/shrek-2-remaster-announcement-trailer-screenshots-2000746791"
+      "https://www.polygon.com/shrek-2-remastered-release-date-trailer-online-co-op/",
+      "https://www.pushsquare.com/news/2026/10/shrek-2-remastered-takes-ps5-to-a-nostalgic-era-of-gaming-this-november",
+      "https://www.ign.com/articles/shrek-2-remastered-reveal-trailer-parodies-gta-6-sets-november-release-date"
     ],
-    "at": "2026-10-17T09:33:43.056613+00:00"
-  },
-  {
-    "story": "Modern Warfare 4 dostáva na Steame najlepšie hodnotenie za posledných 10 rokov a kampaň zbiera pozitívne recenzie.",
-    "links": [
-      "https://gamepress.cz/modern-warfare-4-dostava-nejlepsi-hodnoceni-na-steamu-za-poslednich-10-let/",
-      "https://kotaku.com/modern-warfare-4-campaign-reviews-make-it-sound-like-its-surprisingly-good-2000746857"
-    ],
-    "at": "2026-10-17T16:34:32.055968+00:00"
-  },
-  {
-    "story": "Hráči kritizujú posledný trailer GTA 6 ako rozmazaný downgrade a GTA 6 používa údajne lacnú SDR na HDR konverziu.",
-    "links": [
-      "https://kotaku.com/fans-are-comparing-grand-theft-auto-6s-latest-trailer-to-its-first-and-complaining-that-its-a-blurry-downgrade-2000746855",
-      "https://gamepress.cz/gta-6-pouziva-levnou-konverzi-sdr-na-hdr/"
-    ],
-    "at": "2026-10-17T16:34:32.055968+00:00"
-  },
-  {
-    "story": "Cena PS6 môže podľa správ presiahnuť 1000 dolárov, keďže AI datacentrá zdražujú komponenty.",
-    "links": [
-      "https://gamepress.cz/cena-ps6-pravdepodobne-prekroci-1000-dolaru/",
-      "https://www.pushsquare.com/news/2026/10/ps6-price-tag-facing-usd1000plus-nightmare-as-ai-data-centres-send-component-costs-soaring"
-    ],
-    "at": "2026-10-18T09:32:37.003248+00:00"
+    "at": "2026-10-21T09:35:51.122425+00:00"
   }
 ]

@@ -1314,5 +1314,39 @@
     "permalink": "https://www.instagram.com/p/DeuRW_vFsaO/",
     "cost_usd": 0.1374,
     "story_id": null
+  },
+  {
+    "date": "2026-10-21",
+    "slot": "rano",
+    "at": "2026-10-21T09:37:39.456315+00:00",
+    "story": "GTA 5, Red Dead Redemption 2 a ďalšie hry Rockstaru odchádzajú z katalógu PS Plus Extra, dva dni pred vydaním GTA 6; v novembri odíde 11 hier.",
+    "headline": "GTA 5 a Red Dead Redemption 2 odchádzajú z PS Plus Extra a Premium",
+    "links": [
+      "https://www.ign.com/articles/gta-5-red-dead-redemption-2-and-more-are-being-removed-from-the-ps-plus-game-catalog",
+      "https://hrej.cz/article/gta-vi-vytlacuje-starsi-brasky-z-ps-dva-dny-pred-vydanim",
+      "https://www.pushsquare.com/news/2026/10/11-ps-plus-extra-game-removals-for-november-2026-confirmed"
+    ],
+    "sources": [
+      "Hrej.cz",
+      "IGN",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18413479819091808",
+    "permalink": "https://www.instagram.com/p/DewGjulkdLb/",
+    "cost_usd": 0.6241,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "GTA 5 mizne z PS Plus pred GTA 6",
+    "facts": [
+      "Z PS Plus Extra a Premium odchádza 11 hier",
+      "Odchod je 17. novembra, GTA 6 vychádza 19. novembra",
+      "Po odchode hry bez kúpy nespustíš"
+    ],
+    "photo_url": "https://hrej.cz/cdn/media/images/lcmjk9hkl40w5rr64d4911046178851671555.jpg",
+    "photo_credit": "Hrej.cz"
   }
 ]
