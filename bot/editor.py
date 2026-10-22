@@ -17,7 +17,6 @@ CAPTION_HOOK = 125  # Instagram vo feede ukáže len začiatok captionu, zvyšok
 HOOK_WORDS, HOOK_CHARS = 6, 42  # veľký text na titulke: v mriežke profilu sa číta len pár slov
 NUMBER_CHARS = 10   # obrie číslo na titulke ("230 000", "79,99 €")
 RECAP_CHARS = 70    # bod zhrnutia
-VERDICT_CHARS = 140
 ARTICLE_CHARS = 3500  # koľko znakov z každého článku ide modelu (písanie aj fact-check)
 CTA_ICONS = {"share": "send", "comment": "message-circle", "save": "bookmark"}  # ikonka na záverečnej snímke (templates/icons)
 NEWS_CTA = ["share", "comment"]  # správa nevyzýva na uloženie
@@ -54,7 +53,7 @@ POST_FMT = schema(
     category={"type": "string", "enum": CATEGORIES}, hook=STR, headline=STR,
     cover_style={"type": "string", "enum": ["photo", "number"]}, number=STR,
     slides={"type": "array", "items": schema(title=STR, body=STR)},
-    recap=STR_LIST, verdict=schema(score={"type": "integer"}, text=STR),
+    recap=STR_LIST,
     cta=schema(type={"type": "string", "enum": NEWS_CTA}, title=STR),
     caption=STR, hashtags=STR_LIST)
 POST_PHOTOS_FMT = {**POST_FMT, "properties": {**POST_FMT["properties"], "slides": {"type": "array", "items": schema(
@@ -233,7 +232,7 @@ FAKTY
 - Mená, čísla, dátumy, ceny a pojmy preber presne. Slovo, ktoré posunie význam, je faktická chyba.
 - Neistú informáciu vynechaj alebo ju raz jasne označ. Zistenie konkrétneho média, ktoré firma nepotvrdila,
   pripíš médiu ("podľa Bloombergu") a nepodávaj ho ako hotový fakt.
-- Súkromných ľudí neuvádzaj menom. Vlastný názor patrí len do verdict, inde kontroverziu ukáž cez fakty.
+- Súkromných ľudí neuvádzaj menom. Žiadne vlastné hodnotenia, kontroverziu ukáž cez fakty.
 
 ČITATEĽ
 Píšeš pre bežného slovenského hráča, ktorý o téme nič nevie a post si môže pozrieť aj o mesiac.
@@ -275,9 +274,6 @@ Titulka má dve vrstvy: veľký hook a pod ním menší riadok s faktom (headlin
   body (max 220 znakov): celé vety.
 - recap: presne 3 body zhrnutia (každý max {RECAP_CHARS} znakov), ktoré dávajú zmysel aj samé, bez nových faktov.
   Je to snímka, ktorú si ľudia odfotia alebo pošlú.
-- verdict: názor EMZO (na snímke je označený ako názor). text = jedna krátka veta (max {VERDICT_CHARS} znakov),
-  ako by ju povedal kamoš-hráč, bez nových faktov, nikoho neuráža. score = hype 1 až 5 pri hrách, updatoch
-  a oznámeniach; 0 pri biznise, prepúšťaní, zatváraní štúdií a smutných správach (tam bez hype a s pochopením).
 - caption (2 až 4 krátke odseky, max 900 znakov): zo snímok a bez rozporu s nimi. Prvá veta je konkrétny hook,
   posledný odsek krátka výzva (poslať kamošovi alebo názor do komentu). Prvá veta má najviac 125 znakov,
   Instagram vo feede ukáže len začiatok captionu. Bez zdrojov a hashtagov, doplní ich systém.
@@ -300,7 +296,7 @@ Zdrojové články:
     user = ""
     if feedback and previous:  # opravuj predošlú verziu, nepíš odznova (inak vznikajú nové chyby)
         shown = {k: previous.get(k) for k in ("category", "hook", "headline", "cover_style", "number", "slides", "recap",
-                                               "verdict", "cta", "caption", "hashtags")}
+                                               "cta", "caption", "hashtags")}
         if not with_photos:
             shown["slides"] = [{k: v for k, v in s.items() if k != "photo"} for s in previous.get("slides") or []]
         user += ("\nTvoja predošlá verzia:\n" + json.dumps(shown, ensure_ascii=False)
@@ -329,7 +325,7 @@ def _text_slides(post: dict) -> list[dict]:
 # ── 3. čitateľská kontrola (bez zdrojov, lacná) ─────────────
 def _shown(post: dict) -> dict:
     """Texty postu pre kontroly (bez fotiek a technických polí)."""
-    keys = ("hook", "number", "headline", "caption", "recap", "verdict")
+    keys = ("hook", "number", "headline", "caption", "recap")
     return {k: post.get(k) for k in keys if post.get(k)} | {"slides": _text_slides(post)}
 
 
@@ -353,7 +349,6 @@ ktorý o téme nič nevie. Zdroje nemáš, fakty kontroluje niekto iný.
   3. tvrdenie je nezrozumiteľné alebo nelogické.
 "minor" – len štýl a formulácie, ktoré žiadne pravidlo neporušujú (slabší hook, iná formulácia).
   Čo patrí do fixes alebo blocking, nikdy nedávaj do minor. Výzvu na konci neposudzuj.
-verdict je označený názor stránky, názor sám osebe nie je chyba.
 Nežiadaj nové fakty. Ak chýba kontext, navrhni preformulovať alebo vynechať. Každý problém opíš konkrétne."""
     user = f"""Post:
 {json.dumps(shown, ensure_ascii=False)}
@@ -390,11 +385,10 @@ DICT_TEXT_KEYS = ("title", "body", "label", "text")
 def _text_fields(post: dict) -> list[tuple]:
     """Všetky texty postu ako (kontajner, kľúč) – kontajner je dict alebo zoznam (body zhrnutia, argumenty)."""
     fields = [(post, k) for k in TEXT_KEYS if isinstance(post.get(k), str)]
-    for obj, k in ((post.get("cta"), "title"), (post.get("verdict"), "text")):
-        if isinstance(obj, dict) and isinstance(obj.get(k), str):
-            fields.append((obj, k))
+    if isinstance(post.get("cta"), dict) and isinstance(post["cta"].get("title"), str):
+        fields.append((post["cta"], "title"))
     for key, val in post.items():
-        if key in NOT_TEXT_LISTS or key in ("cta", "verdict"):
+        if key in NOT_TEXT_LISTS or key == "cta":
             continue
         items = val if isinstance(val, list) else [val] if isinstance(val, dict) else []
         for i, item in enumerate(items):
@@ -418,8 +412,7 @@ Si prísny fact-checker. Porovnávaš hotový Instagram post so zdrojmi, sloven�
 - nadpis alebo titulok snímky, ktorý tvrdí viac ako zdroje alebo vyvoláva nepravdivý dojem,
 - nepotvrdená správa podaná ako hotový fakt.
 Úderný hook alebo nadpis s kontrastom je v poriadku, ak je každá jeho časť pravdivá. Správa pripísaná médiu je v poriadku,
-ak ju zdroje uvádzajú. number musí presne sedieť so zdrojmi. verdict je označený názor stránky: posudzuj len,
-či neobsahuje fakt, ktorý v zdrojoch nie je.
+ak ju zdroje uvádzajú. number musí presne sedieť so zdrojmi.
 "minor": nepresnosť, ktorá nemení význam."""
     if rumor:
         system += ("\nTento post je fáma so štítkom RUMOR. Neoveruješ, či je fáma pravdivá, ale či ju post správne"
@@ -468,10 +461,6 @@ def _validate_shape(post: dict, cfg: dict) -> list[str]:
     recap = post.get("recap") or []
     if len(recap) != 3 or any(not r or len(r) > RECAP_CHARS + 10 for r in recap):
         issues.append(f"recap musí mať presne 3 body, každý najviac {RECAP_CHARS} znakov")
-    verdict = post["verdict"] = post.get("verdict") if isinstance(post.get("verdict"), dict) else {}
-    if not verdict.get("text") or len(verdict["text"]) > VERDICT_CHARS + 20:
-        issues.append(f"verdict.text chýba alebo má viac ako {VERDICT_CHARS} znakov")
-    verdict["score"] = min(max(int(verdict.get("score") or 0), 0), 5)
     slides = post.get("slides") or []
     content_max = cfg["posting"]["carousel_max_slides"] - 3  # + titulka, zhrnutie a záverečná snímka
     if not 2 <= len(slides) <= content_max:

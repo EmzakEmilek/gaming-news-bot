@@ -33,8 +33,8 @@ Ak žiadna správa neprejde overením, slot sa **vynechá** (a príde ti notifik
 
 **Ranný slot je vždy správa.** Titulka má veľký hook do 6 slov a pod ním riadok s faktom; keď je jadrom správy
 jedno číslo, titulka ukáže obrie číslo, fáma má výstražnú pásku a počet webov, ktoré o nej píšu. Prvá snímka
-povie, prečo ťa to zaujíma, predposledná zhrnie správu do 3 bodov (na odfotenie a poslanie) s označeným
-**názorom EMZO** a hype metrom. Pravidlá sú prevzaté zo skills `newsjack` (titulky), `ig-carousel`
+povie, prečo ťa to zaujíma, predposledná zhrnie správu do 3 bodov (na odfotenie a poslanie).
+Pravidlá sú prevzaté zo skills `newsjack` (titulky), `ig-carousel`
 a `carousel-frameworks` (stavba carouselu).
 
 **Večerný slot sa strieda podľa dňa** (`concepts.schedule` v `config.yaml`), každý koncept má vlastný vizuál:
@@ -43,7 +43,7 @@ a `carousel-frameworks` (stavba carouselu).
 |---|---|---|
 | Po | **Vychádza tento týždeň** | týždenné prehľady vydaní z feedov, každú hru potvrdí oficiálny zdroj alebo 2 portály |
 | Ut | **Toto alebo toto** (hlasovanie 1/2 v komentároch) | bez faktov, len dojmy; obrázky zo Steamu |
-| St | **Zľava týždňa** | Steam (ceny pre SK v €, platnosť zľavy), text z popisu v obchode |
+| St | **Zľava týždňa** (3 snímky: zľava, čo je to za hru, výzva) | Steam (ceny pre SK v €, platnosť zľavy), text z popisu v obchode |
 | Št | **Uhádneš hru?** (výrez zo screenshotu, 3 indície, odpoveď na konci) | Wikidata + Steam, bez Claude |
 | Pi | **Nepopulárny názor** k správe z týždňa (označený názor, férový obrat) | pôvodné články správy |
 | So | **Pred X rokmi** (výročie známej hry) | Wikidata + úvod článku na Wikipédii |
