@@ -72,8 +72,8 @@ FAKTY
 
 ŠTRUKTÚRA
 - headline (max 75 znakov): názov, nová cena a zľava ("Hades II je na Steame za 7,49 € so zľavou 75 %").
-- slides (2): 1. čo je to za hru (žáner, čo v nej robíš), 2. komu sa bude páčiť a do kedy platí zľava.
-  title (max 32 znakov) konkrétny, body (max 220 znakov) celé vety.
+- slides (presne 1): čo je to za hru (žáner, čo v nej robíš a komu sa bude páčiť). Cena a platnosť zľavy
+  sú na titulke, neopakuj ich. title (max 32 znakov) konkrétny, body (max 180 znakov) celé vety.
 - cta_title (max 45 znakov): výzva poslať to kamošovi, ktorý hru ešte nemá.
 - {caption_rules(cfg)}"""
     user = "Dáta:\n" + json.dumps(facts, ensure_ascii=False, default=str)
@@ -85,8 +85,8 @@ FAKTY
     def validate(c):
         sl = c.get("slides") or []
         issues = []
-        if len(sl) != 2 or any(len(s.get("title", "")) > 44 or len(s.get("body", "")) > 300 for s in sl):
-            issues.append("slides: presne 2 snímky, title max 32 a body max 220 znakov")
+        if len(sl) != 1 or any(len(s.get("title", "")) > 44 or len(s.get("body", "")) > 220 for s in sl):
+            issues.append("slides: presne 1 snímka, title max 32 a body max 180 znakov")
         if not c.get("headline") or len(c["headline"]) > 90:
             issues.append("headline chýba alebo má viac ako 75 znakov")
         if not c.get("cta_title") or len(c["cta_title"]) > 50:
@@ -100,7 +100,7 @@ FAKTY
                "price_new": src.euro(price.get("final")), "price_old": src.euro(price.get("initial")),
                "until": f"Steam · {until_label}", "category": "ZĽAVA TÝŽDŇA"}]
     shots = src.steam_screens(app)
-    for n, s in enumerate(copy["slides"]):
+    for n, s in enumerate(copy["slides"]):  # popis hry so screenshotom (dlhý text by sa pod fotku nezmestil)
         shot = shots[n + 1] if len(shots) > n + 1 and len(s["body"]) <= 180 else None
         frames.append({"kind": "text", "title": s["title"], "body": s["body"], "image_url": shot,
                        "photo_credit": "Steam" if shot else None})

@@ -55,8 +55,6 @@ def copy_text(post: dict, cfg: dict) -> str:
     lines += [f"{n}. {sl['title']}\n   {sl['body']}" for n, sl in enumerate(post.get("slides") or [], start=2)]
     if post.get("recap"):
         lines += ["V skratke: " + " | ".join(post["recap"])]
-    if (post.get("verdict") or {}).get("text"):
-        lines += [f"Názor EMZO ({post['verdict'].get('score', 0)}/5): {post['verdict']['text']}"]
     lines += [f"Výzva ({post['cta']['type']}): {post['cta']['title']}", "", "CAPTION:", build_caption(post, cfg),
               "", f"Overenie: {post.get('verification', '')}", f"Odkazy: {', '.join(post.get('links') or [])}"]
     return "\n".join(lines)

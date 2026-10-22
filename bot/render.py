@@ -117,7 +117,7 @@ def _plural_weby(n: int) -> str:
 
 
 def news_frames(post: dict, image: str | None, photo_credit: str | None, photos: list | None, out_dir: Path) -> list[dict]:
-    """Snímky správy: titulka (foto / obrie číslo / fáma), obsahové snímky, zhrnutie s názorom."""
+    """Snímky správy: titulka (foto / obrie číslo / fáma), obsahové snímky, zhrnutie."""
     carousel = post["format"] == "carousel"
     cover = {"image": image, "category": post["category"], "headline": _typo(post["headline"]),
              "hook": _typo(post.get("hook")), "photo_credit": photo_credit, "carousel": carousel,
@@ -139,9 +139,7 @@ def news_frames(post: dict, image: str | None, photo_credit: str | None, photos:
         frames.append({"kind": "text", "title": _typo(s["title"]), "body": _typo(s["body"]), "image": img,
                        "photo_credit": photos[n - 1]["source"] if img else None})
     if post.get("recap"):
-        verdict = post.get("verdict") or {}
-        frames.append({"kind": "recap", "points": [_typo(p) for p in post["recap"]],
-                       "verdict": {"text": _typo(verdict.get("text")), "score": int(verdict.get("score") or 0)}})
+        frames.append({"kind": "recap", "points": [_typo(p) for p in post["recap"]]})
     return frames
 
 
