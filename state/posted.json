@@ -1412,5 +1412,32 @@
     ],
     "photo_url": "https://images.nintendolife.com/58aa8fc3966d8/1280x720.jpg",
     "photo_credit": "Nintendo Life"
+  },
+  {
+    "date": "2026-10-22",
+    "slot": "vecer",
+    "at": "2026-10-22T16:37:42.034102+00:00",
+    "story": "Kvíz: RuneScape",
+    "headline": "Kvíz: uhádneš hru? (odpoveď: RuneScape)",
+    "links": [
+      "https://www.wikidata.org/wiki/Q187732"
+    ],
+    "sources": [
+      "Steam",
+      "Wikidata"
+    ],
+    "format": "carousel",
+    "category": "KVÍZ",
+    "rumor": false,
+    "media_id": "18120183124980106",
+    "permalink": "https://www.instagram.com/p/DezbazWEVXJ/",
+    "cost_usd": 0.0,
+    "story_id": null,
+    "concept": "quiz",
+    "key": "quiz:Q187732",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
