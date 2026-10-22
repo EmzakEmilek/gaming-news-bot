@@ -1374,5 +1374,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-10-22",
+    "slot": "rano",
+    "at": "2026-10-22T09:35:45.300257+00:00",
+    "story": "EA zatvára legendárne štúdio BioWare po viac ako 30 rokoch, nový Mass Effect 5 je zrušený a EA prepúšťa približne 400 ľudí; zrušený bol aj nevyhlásený projekt Sims a prepúšťa sa aj v tíme Skate.",
+    "headline": "EA zatvára štúdio BioWare po viac ako 30 rokoch",
+    "links": [
+      "https://www.rockpapershotgun.com/development-on-the-next-mass-effect-is-ending-ea-is-shutting-down-rpg-veteran-bioware-to-align-talent-and-investments-where-we-see-the-greatest-opportunities-for-players-and-long-term-growth",
+      "https://www.nintendolife.com/news/2026/10/ea-outlines-future-development-plans-as-it-prepares-to-cut-around-400-jobs",
+      "https://gamepress.cz/spolecnost-ea-propustila-priblizne-400-zamestnancu/",
+      "https://doupe.zive.cz/misto-snadneho-uspechu-ai-skandal-a-hra-stazena-zprodeje-remaster-strategie-total-war-shogun-2-dopadl-tragicky",
+      "https://www.idnes.cz/hry/novinky/bioware-konec.A261022_083457_bw-novinky_oz#utm_source=rss&utm_medium=feed&utm_campaign=bonusweb&utm_content=main"
+    ],
+    "sources": [
+      "Bonusweb",
+      "Doupě.cz",
+      "Gamepress.cz",
+      "Nintendo Life",
+      "Rock Paper Shotgun"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18140047216615686",
+    "permalink": "https://www.instagram.com/p/DeyrIkqm_Qw/",
+    "cost_usd": 0.2106,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "EA zatvára BioWare, ruší Mass Effect",
+    "facts": [
+      "EA zatvára BioWare po viac ako 30 rokoch",
+      "Nový Mass Effect je zrušený",
+      "V EA prepustia približne 400 ľudí"
+    ],
+    "photo_url": "https://images.nintendolife.com/58aa8fc3966d8/1280x720.jpg",
+    "photo_credit": "Nintendo Life"
   }
 ]
