@@ -1477,5 +1477,35 @@
     ],
     "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/10/Gamesitesk-MassEffect5.jpg",
     "photo_credit": "Gamesite.sk"
+  },
+  {
+    "date": "2026-10-23",
+    "slot": "vecer",
+    "at": "2026-10-23T16:44:40.225174+00:00",
+    "story": "Názor: GTA 5, Red Dead Redemption 2 a ďalšie hry Rockstaru odchádzajú z katalógu PS Plus Extra, dva dni pred vydaním GTA 6; v novembri odíde 11 hier.",
+    "headline": "Odchod GTA 5 a RDR2 z PS Plus je podľa mňa v poriadku",
+    "links": [
+      "https://www.ign.com/articles/gta-5-red-dead-redemption-2-and-more-are-being-removed-from-the-ps-plus-game-catalog",
+      "https://hrej.cz/article/gta-vi-vytlacuje-starsi-brasky-z-ps-dva-dny-pred-vydanim",
+      "https://www.pushsquare.com/news/2026/10/11-ps-plus-extra-game-removals-for-november-2026-confirmed"
+    ],
+    "sources": [
+      "Hrej.cz",
+      "IGN",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "NÁZOR",
+    "rumor": false,
+    "media_id": "18117040937049002",
+    "permalink": "https://www.instagram.com/p/De2BCXcmsUU/",
+    "cost_usd": 0.1271,
+    "story_id": null,
+    "concept": "take",
+    "key": "take:https://www.ign.com/articles/gta-5-red-dead-redemption-2-and-more-are-being-removed-from-the-ps-plus-game-catalog",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": null
   }
 ]
