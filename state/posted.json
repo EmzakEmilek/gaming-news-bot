@@ -1439,5 +1439,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-10-23",
+    "slot": "rano",
+    "at": "2026-10-23T09:44:51.537452+00:00",
+    "story": "Na internet unikol interný trailer 'Mass Effect: Universe' zo zrušeného Mass Effectu 5, po zatvorení BioWare; ukazuje návrat postáv ako Liara a potvrdilo sa, že je pravý.",
+    "headline": "Na Reddit unikol Mass Effect: Universe, trailer je pravý",
+    "links": [
+      "https://gamepress.cz/na-internet-unikl-trailer-ze-zruseneho-mass-effectu/",
+      "https://www.eurogamer.net/mass-effect-universe-trailer-leak-real",
+      "https://gamesite.zoznam.sk/o-toto-sme-prisli-uniknuty-trailer-na-novy-mass-effect-prinesie-slzy-na-tvare-fanusikov/",
+      "https://hrej.cz/article/unikl-trailer-zruseneho-mass-effectu-5-podivejte-se-o-co-jsme-prisli",
+      "https://www.nintendolife.com/news/2026/10/mass-effect-universe-trailer-leaked-online-as-bioware-shuts-down"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Gamepress.cz",
+      "Gamesite.sk",
+      "Hrej.cz",
+      "Nintendo Life"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18119524891786860",
+    "permalink": "https://www.instagram.com/p/De1Q-Bjm6ji/",
+    "cost_usd": 0.2098,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Interný trailer zrušeného Mass Effectu",
+    "facts": [
+      "Uniknutý trailer Mass Effect: Universe je pravý",
+      "Ukazuje nového hrdinu a návrat Liary",
+      "EA hru zrušila, keď zatvorila BioWare"
+    ],
+    "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/10/Gamesitesk-MassEffect5.jpg",
+    "photo_credit": "Gamesite.sk"
   }
 ]
