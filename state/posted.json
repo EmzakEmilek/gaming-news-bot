@@ -1507,5 +1507,37 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": null
+  },
+  {
+    "date": "2026-10-24",
+    "slot": "rano",
+    "at": "2026-10-24T09:35:39.363352+00:00",
+    "story": "Capcom a Square Enix čelili hackerským útokom a z Capcomu unikli dáta takmer 12 miliónov ID účtov.",
+    "headline": "Capcom potvrdil neoprávnený prístup k účtom Capcom ID",
+    "links": [
+      "https://kotaku.com/capcom-and-square-enix-suffer-online-attacks-as-hackers-access-player-data-2000749070",
+      "https://www.pushsquare.com/news/2026/10/nearly-12-million-capcom-id-accounts-affected-in-huge-data-breach"
+    ],
+    "sources": [
+      "Kotaku",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18076775678560161",
+    "permalink": "https://www.instagram.com/p/De30tqSG_3h/",
+    "cost_usd": 0.356,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "účtov Capcom ID s neoprávneným prístupom",
+    "facts": [
+      "Do účtov Capcom ID sa niekto dostal bez povolenia",
+      "196 účtov: heslo zmenené neoprávnene, Capcom ho resetoval",
+      "Karty v úniku nie sú"
+    ],
+    "photo_url": "https://kotaku.com/app/uploads/2025/01/52e8ab9fb11874365da88ad07c50f1ab.jpg",
+    "photo_credit": "Kotaku"
   }
 ]
