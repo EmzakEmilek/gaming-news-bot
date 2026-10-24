@@ -1539,5 +1539,33 @@
     ],
     "photo_url": "https://kotaku.com/app/uploads/2025/01/52e8ab9fb11874365da88ad07c50f1ab.jpg",
     "photo_credit": "Kotaku"
+  },
+  {
+    "date": "2026-10-24",
+    "slot": "vecer",
+    "at": "2026-10-24T16:33:40.365608+00:00",
+    "story": "Pred 25 rokmi vyšla hra Grand Theft Auto III",
+    "headline": "Pred 25 rokmi vyšla hra Grand Theft Auto III",
+    "links": [
+      "https://en.wikipedia.org/wiki/Grand_Theft_Auto_III"
+    ],
+    "sources": [
+      "Wikipédia",
+      "Wikidata",
+      "Steam"
+    ],
+    "format": "carousel",
+    "category": "RETRO",
+    "rumor": false,
+    "media_id": "17948084787356921",
+    "permalink": "https://www.instagram.com/p/De4kjWWoAZU/",
+    "cost_usd": 0.0248,
+    "story_id": null,
+    "concept": "retro",
+    "key": "retro:Q149106",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
