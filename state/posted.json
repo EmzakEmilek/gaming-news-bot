@@ -1567,5 +1567,37 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-10-25",
+    "slot": "rano",
+    "at": "2026-10-25T10:34:20.064140+00:00",
+    "story": "Šéf operácií Xboxu (COO) odchádza len tri mesiace po vytvorení svojej pozície, pričom išlo o jedného z manažérov povýšených pri \"resete\" značky.",
+    "headline": "Šéfka operácií Xboxu Helen Chiang odchádza z Microsoftu",
+    "links": [
+      "https://www.pcgamer.com/gaming-industry/top-xbox-exec-promoted-in-brand-reset-leaves-after-3-months-in-role/",
+      "https://kotaku.com/xboxs-chief-operating-officer-out-three-months-after-roles-creation-2000749324"
+    ],
+    "sources": [
+      "Kotaku",
+      "PC Gamer"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18104480237278289",
+    "permalink": "https://www.instagram.com/p/De6gPjvm9Y-/",
+    "cost_usd": 0.1513,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Helen Chiang odchádza z Xboxu",
+    "facts": [
+      "Helen Chiang odchádza z Xboxu, na pozícii COO bola od júla",
+      "Dôvod Xbox neuviedol, anonymný zdroj hovorí o porušení pravidiel",
+      "Nového šéfa operácií Xbox zatiaľ neoznámil"
+    ],
+    "photo_url": "https://cdn.mos.cms.futurecdn.net/nnXTHjAJbZ7bw4xzhZJCw-1918-80.jpg",
+    "photo_credit": "PC Gamer"
   }
 ]
