@@ -1599,5 +1599,43 @@
     ],
     "photo_url": "https://cdn.mos.cms.futurecdn.net/nnXTHjAJbZ7bw4xzhZJCw-1918-80.jpg",
     "photo_credit": "PC Gamer"
+  },
+  {
+    "date": "2026-10-25",
+    "slot": "vecer",
+    "at": "2026-10-25T17:34:40.047211+00:00",
+    "story": "Filmový Elden Ring od A24 má rozpočet takmer 200 miliónov dolárov, čo z neho robí najdrahší film štúdia; premiéra bude v marci 2028.",
+    "headline": "Film Elden Ring od A24 vraj stojí takmer 200 miliónov dolárov",
+    "links": [
+      "https://www.eurogamer.net/elden-ring-movie-a24-budget-200-million",
+      "https://kotaku.com/with-a-marvel-sized-budget-elden-ring-will-be-a24s-most-expensive-movie-to-date-2000749383",
+      "https://www.sector.sk/novinka/333651/film-elden-ring-od-a24-ma-rozpocet-tesne-pod-200-milionov-dolarov-premiera-bude-v-marci-2028.htm",
+      "https://www.polygon.com/elden-ring-movie-budget/",
+      "https://gamepress.cz/filmovy-elden-ring-bude-stat-temer-200-milionu-dolaru/"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Gamepress.cz",
+      "Kotaku",
+      "Polygon",
+      "Sector.sk"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18139459693641683",
+    "permalink": "https://www.instagram.com/p/De7QU_fCSGR/",
+    "cost_usd": 0.2514,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Elden Ring vraj najdrahší film A24",
+    "facts": [
+      "Rozpočet filmu je takmer 200 miliónov dolárov",
+      "Doterajší rekord A24 mal Marty Supreme s rozpočtom okolo 70 miliónov",
+      "Do kín príde 3. marca 2028"
+    ],
+    "photo_url": "https://img.sector.sk/files/novinky/0/2026/10-24-22-12-36//film-elden-ring-od-a24-ma-rozp-333651-7597162.jpg",
+    "photo_credit": "Sector.sk"
   }
 ]
