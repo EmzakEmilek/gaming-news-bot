@@ -1675,5 +1675,38 @@
     ],
     "photo_url": "https://www.videogameschronicle.com/files/2023/11/mass-effect-n7-day.jpg",
     "photo_credit": "VGC"
+  },
+  {
+    "date": "2026-10-26",
+    "slot": "vecer",
+    "at": "2026-10-26T17:34:13.161597+00:00",
+    "story": "Vychádza tento týždeň 26. októbra – 1. novembra",
+    "headline": "Vychádza tento týždeň: Phantom Blade Zero, SULFUR a ďalšie",
+    "links": [
+      "https://www.pushsquare.com/guides/these-46plus-ps5-and-ps-plus-games-are-coming-out-this-week-26th-1st-november",
+      "https://www.rockpapershotgun.com/this-week-in-pc-games-run-a-shady-cyberpunk-boutique-in-probably-stolen-autobattle-viking-towns-in-northgard-battlegrounds-and-trash-homophobic-robots-in-virtue-and-a-sledgehammer",
+      "https://www.gematsu.com/2026/10/this-weeks-japanese-game-releases-phantom-blade-zero-anomalith-more",
+      "https://www.pushsquare.com/news/2026/10/ps5s-release-schedule-is-insane-next-week-and-its-just-added-another-must-play",
+      "https://www.purexbox.com/news/2026/10/these-40plus-games-are-coming-to-xbox-next-week-october-26-31"
+    ],
+    "sources": [
+      "Gematsu",
+      "Pure Xbox",
+      "Push Square",
+      "Rock Paper Shotgun"
+    ],
+    "format": "carousel",
+    "category": "VYCHÁDZA",
+    "rumor": false,
+    "media_id": "18115605023032435",
+    "permalink": "https://www.instagram.com/p/De91EiFiSxR/",
+    "cost_usd": 0.2409,
+    "story_id": null,
+    "concept": "radar",
+    "key": "radar:2026-10-26",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": null
   }
 ]
