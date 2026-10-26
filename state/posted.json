@@ -1637,5 +1637,43 @@
     ],
     "photo_url": "https://img.sector.sk/files/novinky/0/2026/10-24-22-12-36//film-elden-ring-od-a24-ma-rozp-333651-7597162.jpg",
     "photo_credit": "Sector.sk"
+  },
+  {
+    "date": "2026-10-26",
+    "slot": "rano",
+    "at": "2026-10-26T10:45:55.933779+00:00",
+    "story": "Petícia 'Save Mass Effect' prekročila 200 000 podpisov, fanúšikovia chcú, aby séria po zatvorení BioWare pokračovala; podporili ju aj herci Commandera Sheparda.",
+    "headline": "Petícia Save Mass Effect po zatvorení BioWare: podporili ju herci Sheparda",
+    "links": [
+      "https://www.videogameschronicle.com/news/save-mass-effect-petition-cracks-200000-signatures-as-fans-plead-for-the-series-to-continue/",
+      "https://www.ign.com/articles/mass-effects-commander-shepard-actors-destiny-community-help-savemasseffect-petition-cross-200000-signatures",
+      "https://hrej.cz/article/fanousci-nechteji-nechat-mass-effect-zemrit-petice-uz-sbira-statisice-podpisu",
+      "https://www.eurogamer.net/save-mass-effect-petition",
+      "https://www.pcgamer.com/games/mass-effect/save-mass-effect-petition-hits-over-180-000-signatures-within-days-of-biowares-closure/"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Hrej.cz",
+      "IGN",
+      "PC Gamer",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18111537572103678",
+    "permalink": "https://www.instagram.com/p/De9GWJ_m5vI/",
+    "cost_usd": 0.203,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "200 000 podpisov za záchranu Mass Effectu",
+    "facts": [
+      "Fanúšikovia chcú, aby Mass Effect pokračoval",
+      "Ak nie u EA, tak v inom štúdiu cez licenciu",
+      "Petíciu podporili aj herci Sheparda Hale a Meer"
+    ],
+    "photo_url": "https://www.videogameschronicle.com/files/2023/11/mass-effect-n7-day.jpg",
+    "photo_credit": "VGC"
   }
 ]
