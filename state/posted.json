@@ -1708,5 +1708,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": null
+  },
+  {
+    "date": "2026-10-27",
+    "slot": "rano",
+    "at": "2026-10-27T10:34:12.201295+00:00",
+    "story": "Microsoft ponúka dobrovoľný odchod približne 60 000 zamestnancom, čo je zhruba štvrtina jeho pracovnej sily; týka sa aj Xboxu.",
+    "headline": "Microsoft ponúka odchod približne 60 000 ľuďom, týka sa aj tímov Xboxu",
+    "links": [
+      "https://www.videogameschronicle.com/news/microsoft-has-offered-a-quarter-of-its-entire-workforce-redundancy/",
+      "https://www.gamesindustry.biz/xbox-staff-among-up-to-60000-microsoft-employees-offered-voluntary-exit",
+      "https://www.sector.sk/novinka/333726/microsoft-ponuka-dobrovolny-odchod-az-60-tisic-zamestnancom.htm",
+      "https://gamepress.cz/microsoft-nabizi-odchodne-az-60-tisicum-zamestnancu-microsoft-nabizi-odchodne-az-60-tisicum-zamestnancu/",
+      "https://www.eurogamer.net/xbox-ai-microsoft-voluntary-exit-offer-60000"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Gamepress.cz",
+      "GamesIndustry.biz",
+      "Sector.sk",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18152956222543659",
+    "permalink": "https://www.instagram.com/p/De_py51oOlP/",
+    "cost_usd": 0.1998,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Dobrovoľný odchod v Microsofte aj Xboxe",
+    "facts": [
+      "Microsoft ponúka dobrovoľný odchod približne štvrtine firmy",
+      "Platí v USA, Kanade, Británii a Indii, aj pre tímy Xboxu",
+      "Rozhodnutie padne začiatkom decembra, odchod je k 31. decembru"
+    ],
+    "photo_url": "https://www.videogameschronicle.com/files/2022/10/microsoft_headquarters.jpg",
+    "photo_credit": "VGC"
   }
 ]
