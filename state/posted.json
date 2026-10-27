@@ -1746,5 +1746,27 @@
     ],
     "photo_url": "https://www.videogameschronicle.com/files/2022/10/microsoft_headquarters.jpg",
     "photo_credit": "VGC"
+  },
+  {
+    "date": "2026-10-27",
+    "slot": "vecer",
+    "at": "2026-10-27T17:33:56.075239+00:00",
+    "story": "Toto alebo toto: Cyberpunk 2077 alebo Mass Effect Legendary Edition?",
+    "headline": "Cyberpunk 2077 alebo Mass Effect Legendary Edition?",
+    "links": [],
+    "sources": [],
+    "format": "carousel",
+    "category": "TOTO ALEBO TOTO",
+    "rumor": false,
+    "media_id": "18091874363692677",
+    "permalink": "https://www.instagram.com/p/DfAZ1TDiSNK/",
+    "cost_usd": 0.0406,
+    "story_id": null,
+    "concept": "vs",
+    "key": "vs:cyberpunk2077-vs-mass-effect",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
