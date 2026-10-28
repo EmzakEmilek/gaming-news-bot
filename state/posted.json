@@ -1768,5 +1768,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-10-28",
+    "slot": "rano",
+    "at": "2026-10-28T10:33:44.960075+00:00",
+    "story": "GTA 6 bude na PS5 vyžadovať približne 210 GB miesta na disku, hráči si ho už môžu pripraviť na sťahovanie.",
+    "headline": "GTA 6 na PS5 bude podľa PlayStation Game Size veľké 210 GB",
+    "links": [
+      "https://www.eurogamer.net/gta-6-ps5-download-size",
+      "https://gamesite.zoznam.sk/zmazete-polovicu-svojich-hier-gta-6-bude-masivne-aku-cast-disku-si-odkroji-na-konzolach/",
+      "https://doupe.zive.cz/gta-6-zabere-na-disku-pres-200-gb-prvni-vlna-klicu-uz-mela-dorazit-vybranym-recenzentum",
+      "https://kotaku.com/gta-6s-expectedly-massive-file-size-has-been-revealed-2000750298",
+      "https://gamepress.cz/na-stazeni-gta-6-si-rezervujte-210-gb/"
+    ],
+    "sources": [
+      "Doupě.cz",
+      "Eurogamer",
+      "Gamepress.cz",
+      "Gamesite.sk",
+      "Kotaku"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18115201154521999",
+    "permalink": "https://www.instagram.com/p/DfCOj2_IJXS/",
+    "cost_usd": 0.171,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "GTA 6 na PS5: 210 GB",
+    "facts": [
+      "GTA 6 na PS5 má 210 GB",
+      "Veľkosť potvrdil Insider Gaming",
+      "Číslo sa do vydania ešte môže zmeniť"
+    ],
+    "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/10/Gamesitesk-GTA6-3-scaled.jpg",
+    "photo_credit": "Gamesite.sk"
   }
 ]
