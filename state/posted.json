@@ -1806,5 +1806,31 @@
     ],
     "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/10/Gamesitesk-GTA6-3-scaled.jpg",
     "photo_credit": "Gamesite.sk"
+  },
+  {
+    "date": "2026-10-28",
+    "slot": "vecer",
+    "at": "2026-10-28T17:32:58.368679+00:00",
+    "story": "Zľava týždňa: Sons Of The Forest je na Steame za 8,11 € so zľavou 72 %",
+    "headline": "Sons Of The Forest je na Steame za 8,11 € so zľavou 72 %",
+    "links": [
+      "https://store.steampowered.com/app/1326470/"
+    ],
+    "sources": [
+      "Steam"
+    ],
+    "format": "carousel",
+    "category": "ZĽAVA TÝŽDŇA",
+    "rumor": false,
+    "media_id": "17923852104448986",
+    "permalink": "https://www.instagram.com/p/DfC-iQQFgOw/",
+    "cost_usd": 0.0675,
+    "story_id": null,
+    "concept": "deal",
+    "key": "deal:1326470",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
