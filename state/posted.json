@@ -1870,5 +1870,32 @@
     ],
     "photo_url": "https://gamepress.cz/wp-content/uploads/2026/10/GTA-6-South-Park.webp",
     "photo_credit": "Gamepress.cz"
+  },
+  {
+    "date": "2026-10-29",
+    "slot": "vecer",
+    "at": "2026-10-29T17:33:08.368218+00:00",
+    "story": "Kvíz: Assassin's Creed",
+    "headline": "Kvíz: uhádneš hru? (odpoveď: Assassin's Creed)",
+    "links": [
+      "https://www.wikidata.org/wiki/Q200864"
+    ],
+    "sources": [
+      "Steam",
+      "Wikidata"
+    ],
+    "format": "carousel",
+    "category": "KVÍZ",
+    "rumor": false,
+    "media_id": "18143487397609177",
+    "permalink": "https://www.instagram.com/p/DfFjVM0moHn/",
+    "cost_usd": 0.0,
+    "story_id": null,
+    "concept": "quiz",
+    "key": "quiz:Q200864",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
