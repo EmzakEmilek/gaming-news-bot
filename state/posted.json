@@ -1832,5 +1832,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-10-29",
+    "slot": "rano",
+    "at": "2026-10-29T10:34:25.099474+00:00",
+    "story": "Rockstar zverejnil nové gameplay zábery a screenshoty z GTA 6, vrátane scény zo South Parku; mapa má byť takmer taká veľká ako posledné tri hry Rockstaru dokopy, NPC majú približne 600 000 animácií.",
+    "headline": "Záber z GTA 6 sa objavil v epizóde South Parku",
+    "links": [
+      "https://www.videogameschronicle.com/news/the-latest-episode-of-south-park-features-exclusive-gta-6-footage-where-a-man-is-hit-in-the-head-with-dog-poo/",
+      "https://www.eurogamer.net/dog-poo-anti-social-behaviour-and-jason-our-latest-look-at-gta-6-gameplay-comes-from-the-latest-episode-of-south-park",
+      "https://www.pushsquare.com/news/2026/10/new-gta-6-gameplay-screenshots-details-revealed-as-ps5-launch-nears",
+      "https://indian-tv.cz/clanek/south-park-ukazuje-preplnenou-plaz-a-vykaly-z-gta-6-ylfd29",
+      "https://gamepress.cz/south-park-odhalil-nove-gameplay-zabery-z-gta-6-a-studio-zaroven-zverejnilo-12-cerstvych-screenshotu/"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Gamepress.cz",
+      "Indian-TV",
+      "Push Square",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18062364599541484",
+    "permalink": "https://www.instagram.com/p/DfEzaP4nDzK/",
+    "cost_usd": 0.1974,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "GTA 6 v epizóde South Parku",
+    "facts": [
+      "V South Parku sa ukázal pravý gameplay z GTA 6",
+      "Jason tam praští muža vreckom s psím odpadom",
+      "GTA 6 vychádza 19. novembra 2026"
+    ],
+    "photo_url": "https://gamepress.cz/wp-content/uploads/2026/10/GTA-6-South-Park.webp",
+    "photo_credit": "Gamepress.cz"
   }
 ]
