@@ -1897,5 +1897,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-10-30",
+    "slot": "rano",
+    "at": "2026-10-30T10:34:22.033814+00:00",
+    "story": "Hráči sa dozvedeli údajný podtitul The Elder Scrolls VI: Sentinel, Bethesda/Xbox ho má oficiálne odhaliť už budúci mesiac.",
+    "headline": "Podľa The Verge má Bethesda v novembri odhaliť podtitul Elder Scrolls VI",
+    "links": [
+      "https://www.nintendolife.com/news/2026/10/bethesda-is-reportedly-ready-to-reveal-the-official-title-of-the-elder-scrolls-vi",
+      "https://www.polygon.com/the-elder-scrolls-6-sentinel-news-tes6-skyrim-anniversary-bethesda/",
+      "https://gamesite.zoznam.sk/velky-unik-pred-vyrocim-skyrimu-uz-vieme-ako-sa-novy-the-elder-scrolls-bude-volat-a-kedy-asi-bude-odhaleny/",
+      "https://zing.cz/article/the-elder-scrolls-6-ma-jiz-brzy-odhalit-svuj-podtitul",
+      "https://hrej.cz/article/brzy-se-zrejme-konecne-dozvime-podtitul-the-elder-scrolls-6"
+    ],
+    "sources": [
+      "Gamesite.sk",
+      "Hrej.cz",
+      "Nintendo Life",
+      "Polygon",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18076658345736014",
+    "permalink": "https://www.instagram.com/p/DfHYM0NEVku/",
+    "cost_usd": 0.1787,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Podtitul Elder Scrolls VI: Sentinel?",
+    "facts": [
+      "Podľa The Verge má šiesty diel podtitul Sentinel",
+      "Odhalenie má podľa The Verge prísť v novembri",
+      "Dej sa má odohrávať v Hammerfelle"
+    ],
+    "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2025/09/elder-scrolls-6.jpg",
+    "photo_credit": "Gamesite.sk"
   }
 ]
