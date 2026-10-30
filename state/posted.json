@@ -1935,5 +1935,43 @@
     ],
     "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2025/09/elder-scrolls-6.jpg",
     "photo_credit": "Gamesite.sk"
+  },
+  {
+    "date": "2026-10-30",
+    "slot": "vecer",
+    "at": "2026-10-30T17:35:04.987410+00:00",
+    "story": "Ubisoft potvrdil, že sa nechystajú ďalšie remaky Assassin's Creed; sústredí sa na nové hry Invictus a Hexe a ďalšie neoznámené projekty.",
+    "headline": "Ubisoft potvrdil, že momentálne nevyvíja žiadny ďalší remake Assassin's Creed",
+    "links": [
+      "https://games.tiscali.cz/novinky/ubisoft-chysta-dalsi-assassin-s-creed-ale-na-remaky-zapomente-zadny-dalsi-ted-nevznika-796105",
+      "https://gamesite.zoznam.sk/po-uspechu-remaku-black-flag-ziadny-dalsi-nevznika-ubisoft-sa-sustreduje-na-dvojicu-novych-assassins-creed-hier/",
+      "https://kotaku.com/no-new-assassins-creed-remakes-are-currently-in-the-works-which-seems-like-a-very-bad-idea-2000751550",
+      "https://doupe.zive.cz/co-ceka-assassins-creed-dalsi-remaky-se-nechystaji-velke-pokracovani-se-naplno-ukaze-pristi-rok",
+      "https://www.videogameschronicle.com/news/ubisoft-says-no-more-assassins-creed-remakes-are-planned-as-it-gives-updates-on-invictus-and-hexe/"
+    ],
+    "sources": [
+      "Doupě.cz",
+      "Games.cz",
+      "Gamesite.sk",
+      "Kotaku",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18101555900387379",
+    "permalink": "https://www.instagram.com/p/DfIIWU8Fvla/",
+    "cost_usd": 0.2893,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Žiadny ďalší AC remake zatiaľ nevzniká",
+    "facts": [
+      "Ubisoft teraz nevyvíja žiadny ďalší AC remake",
+      "Invictus sa po teste hráčov upravuje",
+      "Guesdon remaky definitívne nezatvára"
+    ],
+    "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/02/codename_hexe_4k_hd_assassins_creed_codename_hexe-3840x2160-1-scaled.jpg",
+    "photo_credit": "Gamesite.sk"
   }
 ]
