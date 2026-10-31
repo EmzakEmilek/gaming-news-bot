@@ -1973,5 +1973,39 @@
     ],
     "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/02/codename_hexe_4k_hd_assassins_creed_codename_hexe-3840x2160-1-scaled.jpg",
     "photo_credit": "Gamesite.sk"
+  },
+  {
+    "date": "2026-10-31",
+    "slot": "rano",
+    "at": "2026-10-31T10:34:05.587930+00:00",
+    "story": "Final Fantasy XIV: Evercold sa oneskorilo a vyjde 23. februára 2027, oznámili na FFXIV Fan Feste.",
+    "headline": "Final Fantasy XIV: Evercold vyjde 23. februára 2027, nie v januári",
+    "links": [
+      "https://www.gematsu.com/2026/10/final-fantasy-xiv-evercold-expansion-delayed-to-february-23-2027",
+      "https://www.nintendolife.com/news/2026/10/final-fantasy-xiv-onlines-sixth-expansion-evercold-launches-february-2027",
+      "https://www.ign.com/articles/final-fantasy-xiv-evercold-delayed-new-release-date-announced-at-ffxiv-fan-fest"
+    ],
+    "sources": [
+      "Gematsu",
+      "IGN",
+      "Nintendo Life"
+    ],
+    "format": "carousel",
+    "category": "DÁTUM VYDANIA",
+    "rumor": false,
+    "media_id": "18140605180729654",
+    "permalink": "https://www.instagram.com/p/DfJ89pBFavV/",
+    "cost_usd": 0.1669,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Final Fantasy XIV Evercold sa oneskorilo",
+    "facts": [
+      "Evercold vyjde 23. februára 2027, nie v januári",
+      "Early access začne 19. februára, predobjednávky 4. novembra",
+      "Nové joby Bastion a Zephyr, crossover s Evangelionom a FF VII"
+    ],
+    "photo_url": "https://www.gematsu.com/wp-content/uploads/2026/10/FFXIV_Slides_2026_10-30-26_107.jpg",
+    "photo_credit": "Gematsu"
   }
 ]
