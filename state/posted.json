@@ -2077,5 +2077,43 @@
     ],
     "photo_url": "https://www.gematsu.com/wp-content/uploads/2026/10/P1-Remake-Leak-Rumor_10-31-26.jpg",
     "photo_credit": "Gematsu"
+  },
+  {
+    "date": "2026-11-01",
+    "slot": "vecer",
+    "at": "2026-11-01T17:34:02.744737+00:00",
+    "story": "Týždeň v správach 26. októbra – 1. novembra",
+    "headline": "5 herných správ týždňa: GTA 6 a odchody v Microsofte",
+    "links": [],
+    "sources": [
+      "Doupě.cz",
+      "Eurogamer",
+      "Gamepress.cz",
+      "GamesIndustry.biz",
+      "Gamesite.sk",
+      "Gematsu",
+      "Hrej.cz",
+      "IGN",
+      "Indian-TV",
+      "Kotaku",
+      "Nintendo Life",
+      "PC Gamer",
+      "Push Square",
+      "Sector.sk",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "TÝŽDEŇ",
+    "rumor": false,
+    "media_id": "18028884335699210",
+    "permalink": "https://www.instagram.com/p/DfNRz3LmFKH/",
+    "cost_usd": 0.1171,
+    "story_id": null,
+    "concept": "digest",
+    "key": "digest:2026-11-01",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": null
   }
 ]
