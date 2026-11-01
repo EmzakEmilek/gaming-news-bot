@@ -2043,5 +2043,39 @@
     ],
     "photo_url": "https://zing.cz/cdn/media/images/qvhe2am1r6df7gn6ae5ca89c0f9e961812877.jpg",
     "photo_credit": "Zing.cz"
+  },
+  {
+    "date": "2026-11-01",
+    "slot": "rano",
+    "at": "2026-11-01T10:34:24.263327+00:00",
+    "story": "Remake Persona 1 sa údajne objavil v uniknutých záberoch z hrania; viaceré portály píšu o leaku, oficiálne potvrdenie zatiaľ chýba.",
+    "headline": "Video vraj z remaku Persona 1 sa objavilo na YouTube, nepotvrdené",
+    "links": [
+      "https://www.pushsquare.com/news/2026/11/rumour-alleged-persona-1-remake-gameplay-leaks-online",
+      "https://www.gematsu.com/2026/10/rumor-persona-remake-footage-appears-online",
+      "https://www.ign.com/articles/persona-1-remake-footage-seemingly-leaks-online"
+    ],
+    "sources": [
+      "Gematsu",
+      "IGN",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "RUMOR",
+    "rumor": true,
+    "media_id": "17960147781268819",
+    "permalink": "https://www.instagram.com/p/DfMhy0qG-Ca/",
+    "cost_usd": 0.1585,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Persona 1 remake? Video budí pochybnosti",
+    "facts": [
+      "Video má ukazovať remake Persona 1, nikto ho nepotvrdil",
+      "Za pravosťou: rovnaká animácia vyvolania ako v Persona 4 Revival",
+      "Proti: v súboji je Tatsuya z Persony 2, môže ísť o podvrh"
+    ],
+    "photo_url": "https://www.gematsu.com/wp-content/uploads/2026/10/P1-Remake-Leak-Rumor_10-31-26.jpg",
+    "photo_credit": "Gematsu"
   }
 ]
