@@ -2115,5 +2115,41 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": null
+  },
+  {
+    "date": "2026-11-02",
+    "slot": "rano",
+    "at": "2026-11-02T10:34:58.653722+00:00",
+    "story": "Bend Studio, tvorcovia Days Gone, má podľa správ pracovať na kooperatívnej akčnej hre s otvoreným svetom, ktorá bude odhalená aj vydaná už budúci rok.",
+    "headline": "Bend Studio má podľa MP1st odhaliť a vydať novú hru v roku 2027",
+    "links": [
+      "https://hrej.cz/article/tvurci-days-gone-udajne-chystaji-akcni-hru-s-moznosti-kooperace",
+      "https://gamesite.zoznam.sk/nova-hra-od-tvorcov-days-gone-bude-odhalena-aj-vydana-uz-buduci-rok-caka-nas-otvoreny-svet-a-kooperacia/",
+      "https://www.videogameschronicle.com/news/days-gone-developer-bend-studios-next-game-will-be-revealed-and-released-next-year-report-claims/",
+      "https://gamepress.cz/bend-studio-stojici-za-days-gone-ma-pracovat-na-kooperativni-hre-ktera-vyjde-v-pristim-roce/"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Gamesite.sk",
+      "Hrej.cz",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18080671550742785",
+    "permalink": "https://www.instagram.com/p/DfPGqLPFi6e/",
+    "cost_usd": 0.279,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Bend Studio vraj vydá hru 2027",
+    "facts": [
+      "Bend Studio vraj vydá novú hru v roku 2027, Sony to nepotvrdilo",
+      "Hra má mať kooperáciu a pohľad z tretej osoby",
+      "Nemá byť Days Gone 2 ani live-service hrou"
+    ],
+    "photo_url": "https://www.videogameschronicle.com/files/2019/04/meet-the-zombies-aka-freakers-e1556547696829.jpg",
+    "photo_credit": "VGC"
   }
 ]
