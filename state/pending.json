@@ -1,1 +1,107 @@
-null
+{
+  "date": "2026-11-02",
+  "slot": "vecer",
+  "at": "2026-11-02T17:37:15.224192+00:00",
+  "post": {
+    "category": "UPDATE",
+    "hook": "PS5 update 14.22 pred GTA 6",
+    "headline": "Sony vydalo PS5 update 26.07-14.22.00 s bezpečnostnými opravami",
+    "cover_style": "photo",
+    "number": "",
+    "slides": [
+      {
+        "title": "PS5 update 14.22 má 1,267 GB",
+        "body": "Update 26.07-14.22.00 vyšiel 2. novembra a má 1,267 GB. Poznámky uvádzajú len bezpečnostné opravy systémového softwaru.",
+        "photo": 2
+      },
+      {
+        "title": "Jailbreak pre firmvéry 7.00 až 13.60",
+        "body": "Jailbreak dovolí upraviť konzolu a môže otvoriť cestu k pirátstvu. Koncom septembra vyšiel jailbreak pre firmvér 7.00 až 13.60, vrátane PS5 Pro.",
+        "photo": 3
+      },
+      {
+        "title": "GTA 6 vraj vyžaduje firmvér 14.22",
+        "body": "Podľa PlayStation Game Size, webu, ktorý sleduje dáta v PS Store, pôjde GTA 6 spustiť len na PS5 s firmvérom 14.22.00.00. GTA 6 vyjde 19. novembra.",
+        "photo": 0
+      },
+      {
+        "title": "Čo zatiaľ nie je potvrdené",
+        "body": "Nie je potvrdené, že aktuálny jailbreak spustí GTA 6, ani že Sony vydáva updaty kvôli tejto hre. Niektoré nástroje dovoľujú len obmedzené zásahy.",
+        "photo": 4
+      }
+    ],
+    "recap": [
+      "Update 14.22 vyšiel 2. novembra s bezpečnostnými opravami",
+      "Hackeri hľadajú jailbreak aj pre novšie firmvéry",
+      "GTA 6 vyjde 19. novembra, vraj bude chcieť firmvér 14.22"
+    ],
+    "cta": {
+      "type": "comment",
+      "title": "Zastaví update 14.22 pirátov pri GTA 6?"
+    },
+    "caption": "PS5 dostal 2. novembra update 14.22 a GTA 6 vyjde 19. novembra.\n\nPoznámky k updatu uvádzajú bezpečnostné opravy. Nie je potvrdené, že ho Sony vydalo kvôli GTA 6. Podľa PlayStation Game Size bude hra vraj vyžadovať firmvér 14.22. Hackeri hľadajú jailbreak aj pre novšie firmvéry.\n\nVerzia 14.22 má údajne byť povinná pre GTA 6. Stačí to proti jailbreaku, alebo hackeri nájdu cestu aj tak? Napíš svoj tip do komentárov.",
+    "hashtags": [
+      "#GTA6",
+      "#PS5",
+      "#PlayStation",
+      "#hry",
+      "#hernenovinky"
+    ],
+    "format": "carousel",
+    "sources": [
+      "IGN",
+      "Indian-TV",
+      "Push Square"
+    ],
+    "links": [
+      "https://www.pushsquare.com/news/2026/11/sony-fighting-gta-6-ps5-piracy-with-new-firmware-demands",
+      "https://www.pushsquare.com/news/2026/11/new-ps5-firmware-update-available-now-as-sony-cracks-down-on-jailbreaks",
+      "https://www.ign.com/articles/sony-issues-yet-another-ps5-firmware-update-as-jailbreak-whac-a-mole-continues-ahead-of-gta-6-release",
+      "https://indian-tv.cz/clanek/sony-se-snazi-zabranit-prolomeni-ochrany-ps5-c9hjj8"
+    ],
+    "story": "Sony vydáva ďalšie firmvérové aktualizácie PS5 v boji proti jailbreaku a pirátstvu pred vydaním GTA 6.",
+    "verification": "3 nezávislé zdroje (IGN, Indian-TV, Push Square)",
+    "rumor": false,
+    "photos": [
+      {
+        "url": "https://images.pushsquare.com/48c52aff0b0e2/1280x720.jpg",
+        "alt": "",
+        "main": true,
+        "source": "Push Square",
+        "official": false,
+        "w": 1280,
+        "h": 720
+      },
+      {
+        "url": "https://images.pushsquare.com/9cbef94ee2a4b/1280x720.jpg",
+        "alt": "",
+        "main": true,
+        "source": "Push Square",
+        "official": false,
+        "w": 1280,
+        "h": 720
+      },
+      {
+        "url": "https://assets-prd.ignimgs.com/2025/02/26/ps5console-1740609475402.jpeg?width=1280&format=jpg&auto=webp&quality=80",
+        "alt": "",
+        "main": true,
+        "source": "IGN",
+        "official": false,
+        "w": 1280,
+        "h": 720
+      },
+      {
+        "url": "https://indian-tv.cz/uploads/og/6e2d6b886781451bad8cae2046a99c20/1699343708.jpeg",
+        "alt": "",
+        "main": true,
+        "source": "Indian-TV",
+        "official": false,
+        "w": 1200,
+        "h": 630
+      }
+    ],
+    "concept": "news",
+    "cost_usd": 0.775,
+    "photo_credit": "Push Square"
+  }
+}
