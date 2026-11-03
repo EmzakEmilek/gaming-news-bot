@@ -2151,5 +2151,41 @@
     ],
     "photo_url": "https://www.videogameschronicle.com/files/2019/04/meet-the-zombies-aka-freakers-e1556547696829.jpg",
     "photo_credit": "VGC"
+  },
+  {
+    "date": "2026-11-03",
+    "slot": "rano",
+    "at": "2026-11-03T10:34:17.675897+00:00",
+    "story": "Séria Borderlands prekročila 100 miliónov predaných kópií a Gearbox pripravuje ďalší obsah pre Borderlands 4.",
+    "headline": "Séria Borderlands od Gearboxu predala viac ako 100 miliónov kópií",
+    "links": [
+      "https://games.tiscali.cz/aktualita/borderlands-slavi-historicky-milnik-celkove-prodeje-prekrocily-100-milionu-kopii-798721",
+      "https://www.eurogamer.net/borderlands-100-million-copies-gearbox",
+      "https://gamesite.zoznam.sk/gearbox-oslavuje-100-milionov-pri-borderlands-thief-remastered-v-decembri-a-oslavy-vyrocia-arc-raiders-quest-log-96/",
+      "https://www.ign.com/articles/gearbox-calls-on-fans-to-help-shape-the-next-borderlands-teases-exciting-overall-direction-for-the-future-of-the-franchise"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Games.cz",
+      "Gamesite.sk",
+      "IGN"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18032735846856531",
+    "permalink": "https://www.instagram.com/p/DfRrY9rEcTv/",
+    "cost_usd": 0.2217,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Borderlands má 100 miliónov kópií",
+    "facts": [
+      "Borderlands predal viac ako 100 miliónov kópií",
+      "Pre Borderlands 4 vyjde ďalší obsah na budúci rok",
+      "Gearbox sa pýta hráčov, kam sériu posunúť"
+    ],
+    "photo_url": "https://assets-prd.ignimgs.com/2025/10/10/bl-1760094487387.jpg?width=1280&format=jpg&auto=webp&quality=80",
+    "photo_credit": "IGN"
   }
 ]

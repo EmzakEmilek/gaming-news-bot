@@ -1,16 +1,5 @@
 [
   {
-    "story": "Nintendo cez nečakaný Direct na Pikmin Day (1. novembra) priniesol novinky a animované krátke filmy vrátane nového projektu Hello! Pikmin.",
-    "links": [
-      "https://www.gamespot.com/articles/nintendo-declares-november-1-is-pikmin-day-with-a-direct-featuring-game-news-and-animated-shorts/",
-      "https://kotaku.com/shigeru-miyamoto-declares-november-1st-pikmin-day-in-surprise-nintendo-direct-2000751948",
-      "https://www.ign.com/articles/nintendo-reveals-surprise-pikmin-day-direct",
-      "https://www.polygon.com/nintendo-hello-pikmin-direct-day-shigeru-miyamoto-switch-2/",
-      "https://www.nintendolife.com/news/2026/10/nintendo-drops-surprise-pikmin-day-direct"
-    ],
-    "at": "2026-10-31T17:34:09.659357+00:00"
-  },
-  {
     "story": "Phantom Blade Zero predalo za 72 hodín od vydania viac ako 4 milióny kópií a je zatiaľ najväčším štartom roka na Steame.",
     "links": [
       "https://gamepress.cz/phantom-blade-zero-se-prodalo-4-miliony-kopii-za-72-hodin/",
@@ -52,5 +41,13 @@
       "https://www.pushsquare.com/news/2026/11/yakuza-creators-gang-of-dragon-ps5-game-and-new-studio-officially-dead"
     ],
     "at": "2026-11-02T17:36:21.466300+00:00"
+  },
+  {
+    "story": "Remedy hlási rast tržieb o 226 % po vydaní Control Resonant, ktorý je najrýchlejšie predávanou hrou štúdia.",
+    "links": [
+      "https://www.eurogamer.net/control-resonant-remedy-revenue-leaps",
+      "https://www.gamesindustry.biz/remedy-q3-revenue-triples-to-396m-following-launch-of-control-resonant"
+    ],
+    "at": "2026-11-03T10:32:57.361601+00:00"
   }
 ]
