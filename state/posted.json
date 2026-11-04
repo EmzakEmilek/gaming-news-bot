@@ -2247,5 +2247,31 @@
     ],
     "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/11/Gamesitesk-MarvelsBlade.jpg",
     "photo_credit": "Gamesite.sk"
+  },
+  {
+    "date": "2026-11-04",
+    "slot": "vecer",
+    "at": "2026-11-04T17:36:28.682084+00:00",
+    "story": "Zľava týždňa: R.E.P.O. je na Steame za 6,16 € so zľavou 35 %",
+    "headline": "R.E.P.O. je na Steame za 6,16 € so zľavou 35 %",
+    "links": [
+      "https://store.steampowered.com/app/3241660/"
+    ],
+    "sources": [
+      "Steam"
+    ],
+    "format": "carousel",
+    "category": "ZĽAVA TÝŽDŇA",
+    "rumor": false,
+    "media_id": "18116838611582834",
+    "permalink": "https://www.instagram.com/p/DfVAfDRGsgq/",
+    "cost_usd": 0.0267,
+    "story_id": null,
+    "concept": "deal",
+    "key": "deal:3241660",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
