@@ -2209,5 +2209,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-04",
+    "slot": "rano",
+    "at": "2026-11-04T10:34:48.618146+00:00",
+    "story": "Ubisoft sa uchádza o kúpu štúdia Arkane Lyon (Dishonored, Marvel's Blade) od Xboxu; podľa správ majú záujem aj ďalšie dve firmy.",
+    "headline": "Ubisoft sa podľa Bloombergu uchádza o kúpu štúdia Arkane Lyon od Xboxu",
+    "links": [
+      "https://gamesite.zoznam.sk/tvorcovia-dishonored-a-blade-asi-preziju-xbox-skrty-o-studio-arkane-lyon-sa-uchadza-aj-ubisoft/",
+      "https://www.eurogamer.net/arkane-studios-ubisoft-interested-buyers",
+      "https://www.gamesindustry.biz/ubisoft-reportedly-seeking-to-acquire-arkane-lyon-from-xbox",
+      "https://hrej.cz/article/zajem-o-koupi-studia-arkane-lyon-ma-ubisoft-a-dalsi-dve-spolecnosti",
+      "https://indian-tv.cz/clanek/ubisoft-chce-koupit-tvurce-dishonored-288xml"
+    ],
+    "sources": [
+      "Eurogamer",
+      "GamesIndustry.biz",
+      "Gamesite.sk",
+      "Hrej.cz",
+      "Indian-TV"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18018909209968382",
+    "permalink": "https://www.instagram.com/p/DfUQOlRm99x/",
+    "cost_usd": 0.2381,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Ubisoft vraj chce Arkane od Xboxu",
+    "facts": [
+      "Podľa Bloombergu chce Ubisoft kúpiť Arkane Lyon od Xboxu",
+      "Záujem majú aj najmenej dve ďalšie firmy",
+      "Marvel's Blade má vyjsť o rok či dva"
+    ],
+    "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/11/Gamesitesk-MarvelsBlade.jpg",
+    "photo_credit": "Gamesite.sk"
   }
 ]
