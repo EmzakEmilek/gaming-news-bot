@@ -2311,5 +2311,32 @@
     ],
     "photo_url": "https://cdn.mos.cms.futurecdn.net/9T4FzWUTqHonQG2a65VZak-1789-80.jpg",
     "photo_credit": "PC Gamer"
+  },
+  {
+    "date": "2026-11-05",
+    "slot": "vecer",
+    "at": "2026-11-05T17:32:32.281734+00:00",
+    "story": "Kvíz: Call of Duty 4: Modern Warfare",
+    "headline": "Kvíz: uhádneš hru? (odpoveď: Call of Duty 4: Modern Warfare)",
+    "links": [
+      "https://www.wikidata.org/wiki/Q76255"
+    ],
+    "sources": [
+      "Steam",
+      "Wikidata"
+    ],
+    "format": "carousel",
+    "category": "KVÍZ",
+    "rumor": false,
+    "media_id": "17894605641447927",
+    "permalink": "https://www.instagram.com/p/DfXk2LNiad4/",
+    "cost_usd": 0.0,
+    "story_id": null,
+    "concept": "quiz",
+    "key": "quiz:Q76255",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
