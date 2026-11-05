@@ -2273,5 +2273,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-05",
+    "slot": "rano",
+    "at": "2026-11-05T10:34:57.715036+00:00",
+    "story": "Odbory z Arkane Lyon obviňujú Microsoft zo sabotovania vývoja Marvel's Blade: 19 mesiacov zákaz prijímania ľudí, štúdio je podľa nich ziskové, no nie dosť pre Xbox.",
+    "headline": "Odbory z Arkane Lyon obviňujú Microsoft zo sabotovania hry Marvel's Blade",
+    "links": [
+      "https://indian-tv.cz/clanek/microsoft-podle-vyvojaru-sabotuje-marvels-blade-apct2x",
+      "https://kotaku.com/xbox-accused-of-sabotaging-arkane-we-want-to-finish-blade-and-release-it-to-the-players-2000753412",
+      "https://www.pcgamer.com/gaming-industry/french-game-union-accuses-microsoft-of-sabotaging-blade-and-then-using-the-fallout-to-justify-closing-arkane/",
+      "https://www.eurogamer.net/arkane-union-xbox-more-expensive-marvels-blade",
+      "https://www.gamesindustry.biz/arkane-union-accuses-microsoft-of-sabotaging-marvels-blade-with-19-month-hiring-freeze"
+    ],
+    "sources": [
+      "Eurogamer",
+      "GamesIndustry.biz",
+      "Indian-TV",
+      "Kotaku",
+      "PC Gamer"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18415022053091704",
+    "permalink": "https://www.instagram.com/p/DfW1CVzFl-E/",
+    "cost_usd": 0.3262,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Odbory: Microsoft sabotuje vlastnú hru",
+    "facts": [
+      "Odbory obviňujú Microsoft zo sabotovania Marvel's Blade",
+      "Microsoft 19 mesiacov neprijímal nových zamestnancov",
+      "Termín na nájdenie kupca je 13. decembra"
+    ],
+    "photo_url": "https://cdn.mos.cms.futurecdn.net/9T4FzWUTqHonQG2a65VZak-1789-80.jpg",
+    "photo_credit": "PC Gamer"
   }
 ]
