@@ -2338,5 +2338,42 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-06",
+    "slot": "rano",
+    "at": "2026-11-06T10:35:45.111435+00:00",
+    "story": "EA prináša na Steam a GOG 25 klasík vrátane Ultimy, Wing Commandera, Theme Hospital a Road Rash, sedem z nich ako remastre.",
+    "headline": "EA vydala na Steame a GOG 25 klasík, sedem z nich ako remastre",
+    "links": [
+      "https://gamesite.zoznam.sk/krok-pre-pamatnikov-ea-si-zasluzi-jedno-bezvyznamne-plus-za-navrat-25-kultovych-klasik-na-steam-a-gog/",
+      "https://www.ign.com/articles/ea-brings-every-ultima-and-wing-commander-game-to-steam-and-gog-with-quality-of-life-updates",
+      "https://www.ign.com/articles/gog-announces-road-rash-touch-up-new-publishing-arm",
+      "https://hrej.cz/article/road-rash-wing-commander-remastery",
+      "https://www.pcgamer.com/games/eas-releasing-a-truckload-of-classic-games-on-steam-and-7-of-them-are-remasters/"
+    ],
+    "sources": [
+      "Gamesite.sk",
+      "Hrej.cz",
+      "IGN",
+      "PC Gamer"
+    ],
+    "format": "carousel",
+    "category": "RELEASE",
+    "rumor": false,
+    "media_id": "18131478952793140",
+    "permalink": "https://www.instagram.com/p/DfZZ7Lom6Wz/",
+    "cost_usd": 0.3641,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "25 klasík od EA, sedem remastrov",
+    "facts": [
+      "EA vydala 25 klasík na Steame, GOG a v EA App",
+      "Sedem hier je remastrov, z pások sa obnovilo 1 500 scén",
+      "Zľava 50 % platí do 19. novembra"
+    ],
+    "photo_url": "https://cdn.mos.cms.futurecdn.net/CXVER5uoyDmDA9NqhfxMtZ-1920-80.jpg",
+    "photo_credit": "PC Gamer"
   }
 ]

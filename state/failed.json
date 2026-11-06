@@ -1,13 +1,5 @@
 [
   {
-    "story": "Remedy hlási rast tržieb o 226 % po vydaní Control Resonant, ktorý je najrýchlejšie predávanou hrou štúdia.",
-    "links": [
-      "https://www.eurogamer.net/control-resonant-remedy-revenue-leaps",
-      "https://www.gamesindustry.biz/remedy-q3-revenue-triples-to-396m-following-launch-of-control-resonant"
-    ],
-    "at": "2026-11-03T10:32:57.361601+00:00"
-  },
-  {
     "story": "God of War Laufey bol oficiálne odložený z februára na 20. mája 2027, oznámilo Sony Santa Monica.",
     "links": [
       "https://gamesite.zoznam.sk/jedna-z-najocakavanejsich-hier-buduceho-roka-sa-dockala-odkladu-god-of-war-laufey-nedorazi-vo-februari/",
@@ -17,5 +9,16 @@
       "https://indian-tv.cz/clanek/god-of-war-laufey-odlozeno-tksjog"
     ],
     "at": "2026-11-05T10:33:38.031628+00:00"
+  },
+  {
+    "story": "Saudská Arábia (PIF) a Silver Lake, ktoré stoja za odkúpením EA, údajne rokujú o kúpe Unity za 21,5 miliardy dolárov, píše Reuters.",
+    "links": [
+      "https://www.rockpapershotgun.com/after-taking-over-ea-saudi-arabia-and-their-private-equity-cronies-have-reportedly-held-talks-about-buying-unity",
+      "https://kotaku.com/unity-buyout-saudi-arabia-pif-ea-silver-lake-engine-controversy-2000754368",
+      "https://www.eurogamer.net/unity-game-engine-saudi-arabia-silver-lake",
+      "https://www.videogameschronicle.com/news/saudi-arabias-pif-and-investment-firm-silver-lake-have-reportedly-been-in-talks-to-buy-unity/",
+      "https://www.gamesindustry.biz/unity-reportedly-in-acquisition-talks-with-silver-lake-and-public-investment-fund-two-firms-involved-in-eas-55bn-buyout"
+    ],
+    "at": "2026-11-06T10:33:33.186442+00:00"
   }
 ]
