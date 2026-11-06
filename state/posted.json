@@ -2375,5 +2375,43 @@
     ],
     "photo_url": "https://cdn.mos.cms.futurecdn.net/CXVER5uoyDmDA9NqhfxMtZ-1920-80.jpg",
     "photo_credit": "PC Gamer"
+  },
+  {
+    "date": "2026-11-06",
+    "slot": "vecer",
+    "at": "2026-11-06T17:36:51.595597+00:00",
+    "story": "Sony zrušilo mobilnú multiplayerovú hru Ratchet & Clank: Ranger Rumble len 12 mesiacov po oznámení, ešte pred plným vydaním.",
+    "headline": "Ratchet & Clank: Ranger Rumble zmizne z obchodov 21. novembra 2026",
+    "links": [
+      "https://kotaku.com/playstation-mobile-game-shuts-down-just-12-months-after-it-was-revealed-2000754657",
+      "https://indian-tv.cz/clanek/sony-rusi-dalsi-multiplayerovou-hru-konci-ratchet-and-clank-vw55t9",
+      "https://www.polygon.com/ratchet-and-clank-ranger-rumble-canceled-delisted/",
+      "https://www.gamespot.com/articles/ratchet-clank-game-shutting-down-before-ever-fully-launching/",
+      "https://www.gematsu.com/2026/11/ratchet-clank-ranger-rumble-canceled"
+    ],
+    "sources": [
+      "GameSpot",
+      "Gematsu",
+      "Indian-TV",
+      "Kotaku",
+      "Polygon"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "17999379576029584",
+    "permalink": "https://www.instagram.com/p/DfaKHkBlg4R/",
+    "cost_usd": 0.3135,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Sony ruší mobilnú hru Ranger Rumble",
+    "facts": [
+      "Sony ruší mobilnú hru Ranger Rumble",
+      "Kto hru má nainštalovanú, môže hrať do 1. mája 2027",
+      "Dôvod zrušenia Sony neuviedlo"
+    ],
+    "photo_url": "https://kotaku.com/app/uploads/2025/11/ratchclankmobile.jpg",
+    "photo_credit": "Kotaku"
   }
 ]
