@@ -2413,5 +2413,43 @@
     ],
     "photo_url": "https://kotaku.com/app/uploads/2025/11/ratchclankmobile.jpg",
     "photo_credit": "Kotaku"
+  },
+  {
+    "date": "2026-11-07",
+    "slot": "rano",
+    "at": "2026-11-07T10:35:44.515537+00:00",
+    "story": "World of Warcraft: Forever odštartovalo a prvý hráč dosiahol level 60 za tri dni; hra potrebovala vraj 251 000 GB RAM a hráčov hnevá nerf skúseností v dungeonoch.",
+    "headline": "World of Warcraft: Forever má prvého hráča na leveli 60",
+    "links": [
+      "https://www.ign.com/articles/world-of-warcraft-forever-world-first-level-60-character-hits-cap-three-days-after-launch",
+      "https://hrej.cz/article/wow-forever-servery-251-tisic-gb-ram",
+      "https://www.pcgamer.com/games/world-of-warcraft/wow-forever-takes-250-000-gb-of-memory-to-run-and-i-cant-even-joke-about-sam-altman-being-jealous-because-thats-almost-nothing-compared-to-the-monolithic-demands-of-ai/",
+      "https://zing.cz/article/wow-forever-bezel-pri-startu-na-251-tb-operacni-pameti",
+      "https://kotaku.com/wow-forevers-dungeon-exp-nerf-is-shaping-up-to-be-a-disaster-for-dungeon-lovers-2000754647"
+    ],
+    "sources": [
+      "Hrej.cz",
+      "IGN",
+      "Kotaku",
+      "PC Gamer",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "RELEASE",
+    "rumor": false,
+    "media_id": "17970082479199190",
+    "permalink": "https://www.instagram.com/p/Dfb-t9IFTRe/",
+    "cost_usd": 0.4318,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Level 60 vo WoW: Forever dosiahol prvý tím",
+    "facts": [
+      "Tím streamera JokerD dosiahol level 60 ako prvý",
+      "Raidy sa otvoria až 9. decembra",
+      "Mnohí hráči radšej questujú, lebo dungeony dávajú menej skúseností"
+    ],
+    "photo_url": "https://cdn.mos.cms.futurecdn.net/BTbLNfxrcctnP9Wk6NyQ2Z-1920-80.png",
+    "photo_credit": "PC Gamer"
   }
 ]
