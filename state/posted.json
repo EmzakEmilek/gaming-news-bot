@@ -2451,5 +2451,32 @@
     ],
     "photo_url": "https://cdn.mos.cms.futurecdn.net/BTbLNfxrcctnP9Wk6NyQ2Z-1920-80.png",
     "photo_credit": "PC Gamer"
+  },
+  {
+    "date": "2026-11-07",
+    "slot": "vecer",
+    "at": "2026-11-07T17:33:40.988875+00:00",
+    "story": "Pred 20 rokmi vyšla hra Call of Duty 3",
+    "headline": "Pred 20 rokmi vyšla hra Call of Duty 3",
+    "links": [
+      "https://en.wikipedia.org/wiki/Call_of_Duty_3"
+    ],
+    "sources": [
+      "Wikipédia",
+      "Wikidata"
+    ],
+    "format": "carousel",
+    "category": "RETRO",
+    "rumor": false,
+    "media_id": "18037201208888117",
+    "permalink": "https://www.instagram.com/p/DfcujXvFI5Z/",
+    "cost_usd": 0.03,
+    "story_id": null,
+    "concept": "retro",
+    "key": "retro:Q308961",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": null
   }
 ]
