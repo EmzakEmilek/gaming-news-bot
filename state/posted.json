@@ -2510,5 +2510,41 @@
     ],
     "photo_url": "https://hrej.cz/cdn/media/images/f1u4o3477g66ii86af0394ae47e3198756258.jpg",
     "photo_credit": "Hrej.cz"
+  },
+  {
+    "date": "2026-11-08",
+    "slot": "vecer",
+    "at": "2026-11-08T17:33:09.968518+00:00",
+    "story": "Týždeň v správach 2. – 8. novembra",
+    "headline": "5 herných správ týždňa: Arkane Lyon a koniec Ranger Rumble",
+    "links": [],
+    "sources": [
+      "Eurogamer",
+      "GameSpot",
+      "Gamepress.cz",
+      "GamesIndustry.biz",
+      "Gamesite.sk",
+      "Gematsu",
+      "Hrej.cz",
+      "IGN",
+      "Indian-TV",
+      "Kotaku",
+      "PC Gamer",
+      "Polygon",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "TÝŽDEŇ",
+    "rumor": false,
+    "media_id": "18139965583728460",
+    "permalink": "https://www.instagram.com/p/DffTSOCkUI_/",
+    "cost_usd": 0.0832,
+    "story_id": null,
+    "concept": "digest",
+    "key": "digest:2026-11-08",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": null
   }
 ]
