@@ -2478,5 +2478,37 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": null
+  },
+  {
+    "date": "2026-11-08",
+    "slot": "rano",
+    "at": "2026-11-08T10:34:11.059068+00:00",
+    "story": "Assassin's Creed sa údajne presúva do starovekého Ríma, mobilný spin-off má zamieriť do Jeruzalema; píše o tom viac portálov, oficiálne potvrdenie chýba.",
+    "headline": "Xj0nathan: Ubisoft vraj chystá hru v Ríme a mobilnú v Jeruzaleme",
+    "links": [
+      "https://www.eurogamer.net/assassins-creed-mars-ancient-rome-pocket-mobile-jerusalem-rumour",
+      "https://hrej.cz/article/assassins-creed-mars-staroveky-rim"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Hrej.cz"
+    ],
+    "format": "carousel",
+    "category": "RUMOR",
+    "rumor": true,
+    "media_id": "18111476309224056",
+    "permalink": "https://www.instagram.com/p/DfejVVZkZjm/",
+    "cost_usd": 0.1881,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Assassin's Creed vraj chystá dve hry",
+    "facts": [
+      "Podľa Xj0nathana vznikajú dve nové Assassin's Creed hry",
+      "Mars sa má odohrávať v starovekom Ríme, Pocket v Jeruzaleme",
+      "Insider Gaming počul tie isté názvy, ale neoveril ich"
+    ],
+    "photo_url": "https://hrej.cz/cdn/media/images/f1u4o3477g66ii86af0394ae47e3198756258.jpg",
+    "photo_credit": "Hrej.cz"
   }
 ]
