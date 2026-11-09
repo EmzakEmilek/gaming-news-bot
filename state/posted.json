@@ -2546,5 +2546,37 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": null
+  },
+  {
+    "date": "2026-11-09",
+    "slot": "rano",
+    "at": "2026-11-09T10:34:03.481987+00:00",
+    "story": "Assassin's Creed Hexe sa údajne odkladá na rok 2028 a vývoj má mať problémy; správy sa šíria viacerými portálmi, oficiálne potvrdenie chýba.",
+    "headline": "Insider tvrdí, že Ubisoft posunul Assassin's Creed Hexe na rok 2028",
+    "links": [
+      "https://gamepress.cz/assassins-creed-hexe-se-odklada-na-rok-2028/",
+      "https://indian-tv.cz/clanek/assassins-creed-hexe-ma-mit-problemy-pri-vyvoji-m9uwvy"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Indian-TV"
+    ],
+    "format": "carousel",
+    "category": "RUMOR",
+    "rumor": true,
+    "media_id": "18362106583222614",
+    "permalink": "https://www.instagram.com/p/DfhIHWrG_d8/",
+    "cost_usd": 0.1446,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Hexe vraj vyjde až v roku 2028",
+    "facts": [
+      "Podľa insidera Hexe mešká z roku 2027 na rok 2028",
+      "Ubisoft odklad oficiálne nepotvrdil",
+      "Tím opustili kreatívny aj herný riaditeľ"
+    ],
+    "photo_url": "https://gamepress.cz/wp-content/uploads/2026/04/assassins-creed-codename-hexe-scaled-1-1200x675.webp",
+    "photo_credit": "Gamepress.cz"
   }
 ]
