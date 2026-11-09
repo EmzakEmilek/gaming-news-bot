@@ -2578,5 +2578,39 @@
     ],
     "photo_url": "https://gamepress.cz/wp-content/uploads/2026/04/assassins-creed-codename-hexe-scaled-1-1200x675.webp",
     "photo_credit": "Gamepress.cz"
+  },
+  {
+    "date": "2026-11-09",
+    "slot": "vecer",
+    "at": "2026-11-09T17:33:59.764624+00:00",
+    "story": "Vychádza tento týždeň 9. – 15. novembra",
+    "headline": "Vychádza tento týždeň: Football Manager 27, Shrek 2 a ďalšie",
+    "links": [
+      "https://www.rockpapershotgun.com/this-week-in-pc-games-solve-the-disappearance-of-700-people-build-a-night-market-for-spirits-and-play-chess-on-a-board-that-disobeys-physics",
+      "https://www.pushsquare.com/guides/these-13plus-ps5-games-are-coming-out-this-week-9th-15th-november",
+      "https://www.gematsu.com/2026/11/this-weeks-japanese-game-releases-prinny-party-going-overboard-pikmin-4-nintendo-switch-2-edition-dandori-academy-more",
+      "https://www.purexbox.com/news/2026/11/these-30plus-games-are-coming-to-xbox-next-week-november-9-13",
+      "https://news.xbox.com/en-us/2026/11/06/next-week-on-xbox-new-games-for-november-9-to-13/"
+    ],
+    "sources": [
+      "Gematsu",
+      "Pure Xbox",
+      "Push Square",
+      "Rock Paper Shotgun",
+      "Xbox Wire"
+    ],
+    "format": "carousel",
+    "category": "VYCHÁDZA",
+    "rumor": false,
+    "media_id": "18170927794472246",
+    "permalink": "https://www.instagram.com/p/Dfh4LPpFdbj/",
+    "cost_usd": 0.2381,
+    "story_id": null,
+    "concept": "radar",
+    "key": "radar:2026-11-09",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": null
   }
 ]
