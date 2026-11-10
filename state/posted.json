@@ -2612,5 +2612,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": null
+  },
+  {
+    "date": "2026-11-10",
+    "slot": "rano",
+    "at": "2026-11-10T10:35:47.201645+00:00",
+    "story": "Take-Two: predobjednávky GTA 6 prekonávajú očakávania firmy, hra mala spôsobiť slabší predaj NBA 2K27 a firma čaká až 3,5 mld. dolárov v období vydania.",
+    "headline": "Take-Two: predobjednávky GTA 6 sú nad plánom, čísla nezverejnila",
+    "links": [
+      "https://www.videogameschronicle.com/news/gta-6-pre-orders-are-far-above-initial-expectations-but-nba-2k27-was-below-our-forecast-take-two-says/",
+      "https://hrej.cz/article/cisla-z-predobjednavek-gta-6-ohromily-take-two",
+      "https://gamepress.cz/predprodeje-gta-6-prekonaly-ocekavani-take-two/",
+      "https://zing.cz/article/predobjednavky-gta-6-vyrazne-predcily-nase-ocekavani-prozradil-sef-take-two",
+      "https://www.sector.sk/novinka/334255/gta-vi-uz-podla-take-two-ovplyvnuje-predaje-ostatnych-hier-doplatilo-na-to-aj-ich-nba-2k27.htm"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Hrej.cz",
+      "Sector.sk",
+      "VGC",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18029868332699266",
+    "permalink": "https://www.instagram.com/p/DfjtGtHFRuO/",
+    "cost_usd": 0.2233,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "GTA 6: predobjednávky nad plánom Take-Two",
+    "facts": [
+      "Predobjednávky GTA 6 sú nad plánom Take-Two",
+      "NBA 2K27 zaostalo za plánom aj so 4 miliónmi kusov",
+      "Sensor Tower odhaduje 7,71 milióna predobjednávok"
+    ],
+    "photo_url": "https://img.sector.sk/files/novinky/0/2026/11-10-6-53-94//gta-vi-uz-podla-take-two-ovply-334255-5453760.jpg",
+    "photo_credit": "Sector.sk"
   }
 ]
