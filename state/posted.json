@@ -2672,5 +2672,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-11",
+    "slot": "rano",
+    "at": "2026-11-11T10:34:03.316923+00:00",
+    "story": "Rockstar potvrdil, že GTA 6 pobeží na všetkých konzolách len v 30 FPS; PS5 Pro dostane vylepšený ray tracing a PSSR, no 60 FPS sa nečaká.",
+    "headline": "Rockstar potvrdil 30 FPS pre GTA 6 na všetkých konzolách, PS5 Pro dostane PSSR",
+    "links": [
+      "https://games.tiscali.cz/novinky/rockstar-potvrzuje-ze-gta-vi-pobezi-na-konzolich-ve-30-fps-vyuzije-vyssiho-vykonu-ps5-pro-804080",
+      "https://gamepress.cz/gta-6-pobezi-ve-30-fps-ale-zahrajete-si-i-na-xbox-one/",
+      "https://www.rockpapershotgun.com/in-a-reveal-that-might-worry-eventual-pc-players-glancing-at-their-gpus-gta-6-will-target-30fps-on-all-consoles",
+      "https://www.pcgamer.com/games/grand-theft-auto/i-feel-better-than-ever-waiting-for-gta-6-on-pc-now-rockstar-confirms-its-targeting-30-fps-on-playstation-and-xbox/",
+      "https://www.eurogamer.net/gta-6-30-fps-platforms-absolute-limit"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Gamepress.cz",
+      "Games.cz",
+      "PC Gamer",
+      "Rock Paper Shotgun"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "17989734263882855",
+    "permalink": "https://www.instagram.com/p/DfmRtLfIF9k/",
+    "cost_usd": 0.2102,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "GTA 6 pobeží na 30 FPS",
+    "facts": [
+      "GTA 6 cieli na 30 FPS na všetkých konzolách",
+      "PS5 Pro: PSSR, ray tracing tieňov, kratšie nahrávanie",
+      "Na Xbox One bude hra dostupná len cez Xbox Cloud Gaming"
+    ],
+    "photo_url": "https://cdn.mos.cms.futurecdn.net/yTKHqSdfMgjayUTSfEEiKF-2560-80.jpg",
+    "photo_credit": "PC Gamer"
   }
 ]
