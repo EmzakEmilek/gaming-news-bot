@@ -2710,5 +2710,31 @@
     ],
     "photo_url": "https://cdn.mos.cms.futurecdn.net/yTKHqSdfMgjayUTSfEEiKF-2560-80.jpg",
     "photo_credit": "PC Gamer"
+  },
+  {
+    "date": "2026-11-11",
+    "slot": "vecer",
+    "at": "2026-11-11T17:32:49.449516+00:00",
+    "story": "Zľava týždňa: Euro Truck Simulator 2 je na Steame za 4,99 € so zľavou 75 %",
+    "headline": "Euro Truck Simulator 2 je na Steame za 4,99 € so zľavou 75 %",
+    "links": [
+      "https://store.steampowered.com/app/227300/"
+    ],
+    "sources": [
+      "Steam"
+    ],
+    "format": "carousel",
+    "category": "ZĽAVA TÝŽDŇA",
+    "rumor": false,
+    "media_id": "18120311894321969",
+    "permalink": "https://www.instagram.com/p/DfnBoZjiVVV/",
+    "cost_usd": 0.0504,
+    "story_id": null,
+    "concept": "deal",
+    "key": "deal:227300",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
