@@ -2736,5 +2736,37 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-12",
+    "slot": "rano",
+    "at": "2026-11-12T10:35:49.869735+00:00",
+    "story": "Xbox rozširuje bezplatnú úroveň cloudového hrania pre ďalších hráčov, streamovanie zadarmo.",
+    "headline": "Microsoft spustil bezplatný Xbox Cloud Gaming s reklamami pred reláciou",
+    "links": [
+      "https://gamesite.zoznam.sk/xbox-streamovanie-uz-mozete-vyuzivat-zdarma-ma-to-vsak-jednu-podmienku/",
+      "https://www.purexbox.com/news/2026/11/xbox-brings-its-free-tier-of-cloud-gaming-to-loads-more-players-today"
+    ],
+    "sources": [
+      "Gamesite.sk",
+      "Pure Xbox"
+    ],
+    "format": "carousel",
+    "category": "ZDARMA",
+    "rumor": false,
+    "media_id": "18120115745007166",
+    "permalink": "https://www.instagram.com/p/Dfo2tJOmz0y/",
+    "cost_usd": 0.4243,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Xbox Cloud Gaming už zadarmo, s reklamou",
+    "facts": [
+      "Zadarmo od 11. novembra, s reklamou pred hrou",
+      "Jedna bezplatná relácia trvá 30 minút",
+      "Extra hodiny v Game Passe od 3,49 €"
+    ],
+    "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/11/Gamesitesk-XboxStreamovanie-scaled.jpg",
+    "photo_credit": "Gamesite.sk"
   }
 ]
