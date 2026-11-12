@@ -2768,5 +2768,32 @@
     ],
     "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/11/Gamesitesk-XboxStreamovanie-scaled.jpg",
     "photo_credit": "Gamesite.sk"
+  },
+  {
+    "date": "2026-11-12",
+    "slot": "vecer",
+    "at": "2026-11-12T17:33:17.241260+00:00",
+    "story": "Kvíz: Undertale",
+    "headline": "Kvíz: uhádneš hru? (odpoveď: Undertale)",
+    "links": [
+      "https://www.wikidata.org/wiki/Q21039924"
+    ],
+    "sources": [
+      "Steam",
+      "Wikidata"
+    ],
+    "format": "carousel",
+    "category": "KVÍZ",
+    "rumor": false,
+    "media_id": "17866034097696803",
+    "permalink": "https://www.instagram.com/p/Dfpmek-miCS/",
+    "cost_usd": 0.0,
+    "story_id": null,
+    "concept": "quiz",
+    "key": "quiz:Q21039924",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
