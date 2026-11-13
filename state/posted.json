@@ -2833,5 +2833,37 @@
     ],
     "photo_url": "https://kotaku.com/app/uploads/2026/07/Livestream_16x9_Go-Live_Clean_Waypoint.jpg",
     "photo_credit": "Kotaku"
+  },
+  {
+    "date": "2026-11-13",
+    "slot": "vecer",
+    "at": "2026-11-13T17:34:13.881729+00:00",
+    "story": "Názor: Rockstar potvrdil, že GTA 6 pobeží na všetkých konzolách len v 30 FPS; PS5 Pro dostane vylepšený ray tracing a PSSR, no 60 FPS sa nečaká.",
+    "headline": "30 FPS v GTA 6 je v poriadku, hustý svet je dôležitejší než plynulosť",
+    "links": [
+      "https://games.tiscali.cz/novinky/rockstar-potvrzuje-ze-gta-vi-pobezi-na-konzolich-ve-30-fps-vyuzije-vyssiho-vykonu-ps5-pro-804080",
+      "https://gamepress.cz/gta-6-pobezi-ve-30-fps-ale-zahrajete-si-i-na-xbox-one/",
+      "https://www.rockpapershotgun.com/in-a-reveal-that-might-worry-eventual-pc-players-glancing-at-their-gpus-gta-6-will-target-30fps-on-all-consoles"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Gamepress.cz",
+      "Games.cz",
+      "PC Gamer",
+      "Rock Paper Shotgun"
+    ],
+    "format": "carousel",
+    "category": "NÁZOR",
+    "rumor": false,
+    "media_id": "18077884010745700",
+    "permalink": "https://www.instagram.com/p/DfsLYX_mlB8/",
+    "cost_usd": 0.0998,
+    "story_id": null,
+    "concept": "take",
+    "key": "take:https://games.tiscali.cz/novinky/rockstar-potvrzuje-ze-gta-vi-pobezi-na-konzolich-ve-30-fps-vyuzije-vyssiho-vykonu-ps5-pro-804080",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": null
   }
 ]
