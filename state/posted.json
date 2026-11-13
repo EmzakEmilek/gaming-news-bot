@@ -2795,5 +2795,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-13",
+    "slot": "rano",
+    "at": "2026-11-13T10:36:01.565979+00:00",
+    "story": "Halo: Campaign Evolved dostane túto zimu zadarmo updaty s módom Firefight pre štyroch hráčov, aj na PS5.",
+    "headline": "Halo: Campaign Evolved dostane zadarmo update s módom Firefight",
+    "links": [
+      "https://www.eurogamer.net/halo-campaign-evovled-firefight-mode",
+      "https://www.videogameschronicle.com/news/halo-campaign-evolved-is-getting-firefight-in-a-free-update/",
+      "https://kotaku.com/halo-campaign-evolveds-next-big-update-will-add-a-free-horde-mode-2000756326",
+      "https://www.pushsquare.com/news/2026/11/xbox-wants-you-to-revisit-halo-campaign-evolved-on-ps5-as-free-co-op-mode-update-is-announced",
+      "https://www.ign.com/articles/halo-campaign-evolved-to-get-firefight-as-a-free-update"
+    ],
+    "sources": [
+      "Eurogamer",
+      "IGN",
+      "Kotaku",
+      "Push Square",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "UPDATE",
+    "rumor": false,
+    "media_id": "18497186146107025",
+    "permalink": "https://www.instagram.com/p/DfrbhaOIGwP/",
+    "cost_usd": 0.4832,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Halo: Campaign Evolved dostane Firefight",
+    "facts": [
+      "Firefight pre 4 hráčov, zadarmo, túto zimu",
+      "Detaily prezradia na Halo Feste 12. a 13. decembra",
+      "Remake vyšiel v júli bez deathmatchu"
+    ],
+    "photo_url": "https://kotaku.com/app/uploads/2026/07/Livestream_16x9_Go-Live_Clean_Waypoint.jpg",
+    "photo_credit": "Kotaku"
   }
 ]
