@@ -2865,5 +2865,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": null
+  },
+  {
+    "date": "2026-11-14",
+    "slot": "rano",
+    "at": "2026-11-14T10:36:06.857603+00:00",
+    "story": "God of War: Sons of Sparta naozaj vyjde na PS4 už 16. novembra s dvoma novými režimami a bezplatným updatom.",
+    "headline": "2D God of War: Sons of Sparta vyjde na PS4 aj s dvoma novými režimami",
+    "links": [
+      "https://indian-tv.cz/clanek/god-of-war-sons-of-sparta-opravdu-vyjde-na-ps4-2u7k9n",
+      "https://www.videogameschronicle.com/news/playstations-god-of-war-spin-off-is-coming-to-ps4-and-getting-new-modes/",
+      "https://www.ign.com/articles/god-of-war-sons-of-sparta-coming-to-ps4-next-week-with-new-content",
+      "https://www.pushsquare.com/news/2026/11/god-of-war-sons-of-sparta-really-will-be-ported-backwards-to-ps4",
+      "https://www.gematsu.com/2026/11/god-of-war-sons-of-sparta-coming-to-ps4-on-november-16-alongside-free-content-update"
+    ],
+    "sources": [
+      "Gematsu",
+      "IGN",
+      "Indian-TV",
+      "Push Square",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "UPDATE",
+    "rumor": false,
+    "media_id": "18150646030559594",
+    "permalink": "https://www.instagram.com/p/DfuAUqXEVVI/",
+    "cost_usd": 0.4744,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "2D God of War na PS4",
+    "facts": [
+      "PS4 verzia a bezplatný update vychádzajú spolu",
+      "Hermes Mode je speedrun, Erebus Mode jeden zásah",
+      "Hermes Mode odomkneš po prvom dohraní hry alebo kódom v hlavnej ponuke"
+    ],
+    "photo_url": "https://www.videogameschronicle.com/files/2026/02/god-of-war-sons-of-sparta.jpg",
+    "photo_credit": "VGC"
   }
 ]
