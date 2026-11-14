@@ -2903,5 +2903,33 @@
     ],
     "photo_url": "https://www.videogameschronicle.com/files/2026/02/god-of-war-sons-of-sparta.jpg",
     "photo_credit": "VGC"
+  },
+  {
+    "date": "2026-11-14",
+    "slot": "vecer",
+    "at": "2026-11-14T17:33:04.971859+00:00",
+    "story": "Pred 15 rokmi vyšla hra Call of Duty: Modern Warfare 3",
+    "headline": "Pred 15 rokmi vyšla hra Call of Duty: Modern Warfare 3",
+    "links": [
+      "https://en.wikipedia.org/wiki/Call_of_Duty%3A_Modern_Warfare_3"
+    ],
+    "sources": [
+      "Wikipédia",
+      "Wikidata",
+      "Steam"
+    ],
+    "format": "carousel",
+    "category": "RETRO",
+    "rumor": false,
+    "media_id": "17997436320025973",
+    "permalink": "https://www.instagram.com/p/DfuwC1Ilg9t/",
+    "cost_usd": 0.0226,
+    "story_id": null,
+    "concept": "retro",
+    "key": "retro:Q486233",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
