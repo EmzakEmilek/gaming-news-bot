@@ -2963,5 +2963,37 @@
     ],
     "photo_url": "https://gamepress.cz/wp-content/uploads/2026/11/Rainbow-Six-Vegas.webp",
     "photo_credit": "Gamepress.cz"
+  },
+  {
+    "date": "2026-11-15",
+    "slot": "vecer",
+    "at": "2026-11-15T17:34:14.605158+00:00",
+    "story": "Riot ukázal New Dawn, veľkú prerábku vzhľadu League of Legends; zásadné zmeny prídu v roku 2027 a odhalil ich debutový trailer.",
+    "headline": "Riot ukázal New Dawn, veľkú prerábku League of Legends v roku 2027",
+    "links": [
+      "https://hrej.cz/article/league-of-legends-new-dawn-prvni-ukazka",
+      "https://www.ign.com/articles/league-of-legends-new-dawn-unveiled-with-debut-trailer-riot-announces-major-overhaul-coming-in-2027"
+    ],
+    "sources": [
+      "Hrej.cz",
+      "IGN"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "17936608083420542",
+    "permalink": "https://www.instagram.com/p/DfxU-UJGL3o/",
+    "cost_usd": 0.2252,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Nový vzhľad League of Legends v teaseri",
+    "facts": [
+      "New Dawn je veľká prerábka League of Legends",
+      "Mení mapu, šampiónov a klienta. O hrateľnosti zatiaľ píše len IGN",
+      "Prvý teaser ukázal Riot 14. novembra na finále Worlds"
+    ],
+    "photo_url": "https://assets-prd.ignimgs.com/2026/11/14/still003-1794673734402.png?width=1280&format=jpg&auto=webp&quality=80",
+    "photo_credit": "IGN"
   }
 ]
