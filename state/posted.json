@@ -2931,5 +2931,37 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-15",
+    "slot": "rano",
+    "at": "2026-11-15T10:33:32.224402+00:00",
+    "story": "Ubisoft údajne pripravuje Rainbow Six: Vegas 3; o leaku píše viac portálov, oficiálne potvrdenie chýba.",
+    "headline": "Ubisoft Montreal vraj vyvíja Rainbow Six: Vegas 3",
+    "links": [
+      "https://indian-tv.cz/clanek/ubisoft-ma-pripravovat-rainbow-six-vegas-3-sj3911",
+      "https://gamepress.cz/rainbow-six-vegas-se-vraci-ubisoft-ma-pracovat-na-dlouho-ocekavanem-tretim-dilu/"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Indian-TV"
+    ],
+    "format": "carousel",
+    "category": "RUMOR",
+    "rumor": true,
+    "media_id": "18093112805302872",
+    "permalink": "https://www.instagram.com/p/Dfwk07ioRRw/",
+    "cost_usd": 0.144,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Ubisoft vraj chystá nové Vegas",
+    "facts": [
+      "Insider Tom Henderson tvrdí, že vzniká Rainbow Six: Vegas 3",
+      "Projekt Spades je vraj v rannej fáze vývoja",
+      "Vraj ide skôr o Vegas 3 než o remake"
+    ],
+    "photo_url": "https://gamepress.cz/wp-content/uploads/2026/11/Rainbow-Six-Vegas.webp",
+    "photo_credit": "Gamepress.cz"
   }
 ]
