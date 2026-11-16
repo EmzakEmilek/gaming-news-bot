@@ -3033,5 +3033,40 @@
     ],
     "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/03/Project-Helix-Hero-Image-JPG-00a716d468c6162c93bc.jpg",
     "photo_credit": "Gamesite.sk"
+  },
+  {
+    "date": "2026-11-16",
+    "slot": "vecer",
+    "at": "2026-11-16T17:36:52.715705+00:00",
+    "story": "Marvel's Wolverine na PS5 prvýkrát zlacnel v Black Friday výpredaji PlayStation Store; zľavy sú aj na ďalšie hry a príslušenstvo.",
+    "headline": "Marvel's Wolverine zlacnel v Black Friday výpredaji PS Store",
+    "links": [
+      "https://www.pushsquare.com/news/2026/11/wolverine-ps5-slashes-its-price-for-the-first-time-in-black-friday-sales",
+      "https://www.ign.com/articles/wolverine-black-friday-deal-uk",
+      "https://www.ign.com/articles/marvels-wolverine-ps5-black-friday-deal",
+      "https://www.pushsquare.com/news/2026/11/playstation-black-friday-sale-is-live-now-up-to-usd100-off-ps5-accessories-psvr2",
+      "https://www.pushsquare.com/features/80plus-ps5-ps4-games-to-buy-in-ps-stores-updated-black-friday-sale"
+    ],
+    "sources": [
+      "IGN",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18049688153834632",
+    "permalink": "https://www.instagram.com/p/Dfz6EhtifIh/",
+    "cost_usd": 0.5448,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Wolverine na PS5 za 49,69 $",
+    "facts": [
+      "Wolverine na PS5 stojí v PS Store 49,69 $ namiesto 69,99 $",
+      "Zľava platí do 30. novembra, ide o americkú cenu",
+      "PSVR2 a DualSense sú na PlayStation Direct tiež lacnejšie"
+    ],
+    "photo_url": "https://images.pushsquare.com/ddbdb40073375/1280x720.jpg",
+    "photo_credit": "Push Square"
   }
 ]
