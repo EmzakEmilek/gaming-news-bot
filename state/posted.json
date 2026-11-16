@@ -2995,5 +2995,43 @@
     ],
     "photo_url": "https://assets-prd.ignimgs.com/2026/11/14/still003-1794673734402.png?width=1280&format=jpg&auto=webp&quality=80",
     "photo_credit": "IGN"
+  },
+  {
+    "date": "2026-11-16",
+    "slot": "rano",
+    "at": "2026-11-16T10:33:34.934352+00:00",
+    "story": "Xbox odhalil nové detaily o konzole Project Helix: ide o konzolu, ktorá si poradí aj s PC hrami, nie o PC, a počíta aj s podporou starších hier.",
+    "headline": "Xbox o Project Helix: nová konzola má spustiť PC hry aj staršie hry z Xboxu",
+    "links": [
+      "https://www.videogameschronicle.com/news/xbox-says-project-helix-is-a-console-that-can-play-pc-games-not-a-pc-that-can-play-console-games/",
+      "https://hrej.cz/article/stare-hry-jsou-pro-microsoft-dulezite-novy-xbox-s-nimi-pocita-od-zacatku",
+      "https://gamesite.zoznam.sk/konzola-na-prvom-mieste-podpora-pc-hier-ako-bonus-novy-xbox-project-helix-spusti-pc-hry-no-nebude-to-pocitac/",
+      "https://gamepress.cz/xbox-project-helix-odhaluje-dalsi-detaily-microsoft-chysta-revoluci-v-konzolich-ai-renderovani-i-zachranu-herni-historie/",
+      "https://www.purexbox.com/news/2026/11/the-ultimate-gaming-machine-xbox-reveals-tons-of-new-project-helix-information"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Gamesite.sk",
+      "Hrej.cz",
+      "Pure Xbox",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "HARDVÉR",
+    "rumor": false,
+    "media_id": "18415177255093187",
+    "permalink": "https://www.instagram.com/p/DfzJn-ileuH/",
+    "cost_usd": 0.1587,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Xbox: Helix spustí aj tvoje PC hry",
+    "facts": [
+      "Helix je konzola, ktorá spustí aj hry z PC",
+      "Prenesie sa knižnica aj postup zo štyroch generácií Xboxu",
+      "Disková mechanika zatiaľ nie je potvrdená"
+    ],
+    "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/03/Project-Helix-Hero-Image-JPG-00a716d468c6162c93bc.jpg",
+    "photo_credit": "Gamesite.sk"
   }
 ]
