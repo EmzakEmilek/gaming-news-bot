@@ -3068,5 +3068,39 @@
     ],
     "photo_url": "https://images.pushsquare.com/ddbdb40073375/1280x720.jpg",
     "photo_credit": "Push Square"
+  },
+  {
+    "date": "2026-11-17",
+    "slot": "rano",
+    "at": "2026-11-17T10:35:24.047483+00:00",
+    "story": "Square Enix dáva Final Fantasy XIV na 30 dní zadarmo pre oveľa viac vracajúcich sa hráčov pred Evercold.",
+    "headline": "Square Enix dáva 30 dní FFXIV zadarmo hráčom, ktorí sa dlho nevracali",
+    "links": [
+      "https://kotaku.com/square-enix-is-making-final-fantasy-14-free-for-30-days-for-a-ton-more-people-2000757498",
+      "https://hrej.cz/article/final-fantasy-xiv-30-dni-zdarma-navrat",
+      "https://www.pcgamer.com/games/final-fantasy/final-fantasy-14-really-wants-evercold-to-be-the-expansion-everyone-comes-back-to-so-much-so-its-giving-you-30-days-free-gametime-if-youve-been-gone-long-enough/"
+    ],
+    "sources": [
+      "Hrej.cz",
+      "Kotaku",
+      "PC Gamer"
+    ],
+    "format": "carousel",
+    "category": "ZDARMA",
+    "rumor": false,
+    "media_id": "17927097954216207",
+    "permalink": "https://www.instagram.com/p/Df1uoIPm41i/",
+    "cost_usd": 0.283,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "30 dní FFXIV zadarmo pre navrátilcov",
+    "facts": [
+      "30 dní FFXIV zadarmo po pauze 150 dní a viac",
+      "Ponuku aktivuj do 14. januára 2027",
+      "Preskok príbehu stojí 10 dolárov (americká cena)"
+    ],
+    "photo_url": "https://cdn.mos.cms.futurecdn.net/byi8pPpAtL5YpqFdqnHY23-2051-80.jpg",
+    "photo_credit": "PC Gamer"
   }
 ]
