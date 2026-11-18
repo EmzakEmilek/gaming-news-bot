@@ -3124,5 +3124,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-18",
+    "slot": "rano",
+    "at": "2026-11-18T10:34:52.793216+00:00",
+    "story": "The Game Awards 2026 odhalili nominácie: GTA 6 vedie s ôsmimi nomináciami ešte pred vydaním, o hru roka bojuje aj Resident Evil Requiem; Sony prvýkrát po 11 rokoch nemá nominovanú hru roka.",
+    "headline": "GTA 6 má osem nominácií na The Game Awards 2026, hra ešte nevyšla",
+    "links": [
+      "https://www.gamesindustry.biz/gta-6-leads-the-game-awards-2026-with-eight-nominations",
+      "https://hrej.cz/article/gta-6-ovladla-the-game-awards-ziskala-nejvic-nominaci-ze-vsech-her",
+      "https://gamesite.zoznam.sk/je-to-konecne-tu-a-hraci-maju-o-com-diskutovat-pozrite-sa-na-kompletny-zoznam-nominacii-na-prestizne-ceny-the-game-awards-2026/",
+      "https://indian-tv.cz/clanek/proc-je-gta-vi-v-nominacich-na-the-game-awards-2026-o3e3xn",
+      "https://zing.cz/article/gta-6"
+    ],
+    "sources": [
+      "GamesIndustry.biz",
+      "Gamesite.sk",
+      "Hrej.cz",
+      "Indian-TV",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18454408798124898",
+    "permalink": "https://www.instagram.com/p/Df4TXQZG3Pd/",
+    "cost_usd": 0.2932,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "GTA 6 vedie nominácie Game Awards",
+    "facts": [
+      "GTA 6 vedie s ôsmimi nomináciami vrátane hry roka",
+      "Control Resonant a Resident Evil Requiem majú po šesť nominácií",
+      "Ceny sa udelia 10. decembra v Los Angeles"
+    ],
+    "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/11/Gamesitesk-TheGameAwards2026.jpeg",
+    "photo_credit": "Gamesite.sk"
   }
 ]
