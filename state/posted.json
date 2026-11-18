@@ -3162,5 +3162,31 @@
     ],
     "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/11/Gamesitesk-TheGameAwards2026.jpeg",
     "photo_credit": "Gamesite.sk"
+  },
+  {
+    "date": "2026-11-18",
+    "slot": "vecer",
+    "at": "2026-11-18T17:35:20.148515+00:00",
+    "story": "Zľava týždňa: Black Ops III Zombies Chronicles Edition za 14,99 € so zľavou 75 %",
+    "headline": "Black Ops III Zombies Chronicles Edition za 14,99 € so zľavou 75 %",
+    "links": [
+      "https://store.steampowered.com/app/311210/"
+    ],
+    "sources": [
+      "Steam"
+    ],
+    "format": "carousel",
+    "category": "ZĽAVA TÝŽDŇA",
+    "rumor": false,
+    "media_id": "18105813194354496",
+    "permalink": "https://www.instagram.com/p/Df5DfCHHP1H/",
+    "cost_usd": 0.0435,
+    "story_id": null,
+    "concept": "deal",
+    "key": "deal:311210",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
