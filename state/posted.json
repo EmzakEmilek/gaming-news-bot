@@ -3225,5 +3225,32 @@
     ],
     "photo_url": "https://www.videogameschronicle.com/files/2026/11/gta-grand-theft-auto-6-pic26.jpg",
     "photo_credit": "VGC"
+  },
+  {
+    "date": "2026-11-19",
+    "slot": "vecer",
+    "at": "2026-11-19T17:36:23.937600+00:00",
+    "story": "Kvíz: Call of Duty: Modern Warfare 2",
+    "headline": "Kvíz: uhádneš hru? (odpoveď: Call of Duty: Modern Warfare 2)",
+    "links": [
+      "https://www.wikidata.org/wiki/Q486351"
+    ],
+    "sources": [
+      "Steam",
+      "Wikidata"
+    ],
+    "format": "carousel",
+    "category": "KVÍZ",
+    "rumor": false,
+    "media_id": "18099997553445737",
+    "permalink": "https://www.instagram.com/p/Df7oZc_mtU8/",
+    "cost_usd": 0.0,
+    "story_id": null,
+    "concept": "quiz",
+    "key": "quiz:Q486351",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
