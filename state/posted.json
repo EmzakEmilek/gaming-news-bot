@@ -3188,5 +3188,42 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-19",
+    "slot": "rano",
+    "at": "2026-11-19T10:44:56.584705+00:00",
+    "story": "Xbox Series S verzia GTA 6 podľa testov občas klesá pod 20 FPS, no zrejme ako prvá používa AMD FSR 4.1; základné PS5 má mierne poklesy snímok.",
+    "headline": "Digital Foundry testovalo GTA 6 na Xbox Series S a základnom PS5",
+    "links": [
+      "https://www.videogameschronicle.com/news/the-xbox-series-s-version-of-gta-6-is-seemingly-the-first-to-use-amds-fsr-4-1-upscaling/",
+      "https://zing.cz/article/gta-6-prekvapilo-vykonem-na-slabem-xboxu-series-s",
+      "https://kotaku.com/grand-theft-auto-6-gta6-performance-framerate-ps5-xbox-series-x-s-2000758096",
+      "https://www.pushsquare.com/news/2026/11/gta-6-base-ps5-performance-suffers-minor-and-sustained-frame-rate-drops-but-its-unwavering-on-ps5-pro",
+      "https://zing.cz/article/gta-6-na-zakladni-ps5-nedokaze-vzdy-udrzet-30-fps"
+    ],
+    "sources": [
+      "Kotaku",
+      "Push Square",
+      "VGC",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "HARDVÉR",
+    "rumor": false,
+    "media_id": "18132484324769414",
+    "permalink": "https://www.instagram.com/p/Df65T5bG9xt/",
+    "cost_usd": 0.3526,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Series S: v prestrelke pod 20 FPS",
+    "facts": [
+      "Series S klesá na 18 až 19 FPS pri výbušnej prestrelke",
+      "Series S: 720p škálované na 1080p cez AMD FSR",
+      "Základné PS5 občas klesne pod 30 FPS"
+    ],
+    "photo_url": "https://www.videogameschronicle.com/files/2026/11/gta-grand-theft-auto-6-pic26.jpg",
+    "photo_credit": "VGC"
   }
 ]
