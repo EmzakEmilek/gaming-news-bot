@@ -3252,5 +3252,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-20",
+    "slot": "rano",
+    "at": "2026-11-20T10:35:34.114278+00:00",
+    "story": "Ubisoft prepúšťa ďalších 166 ľudí v štúdiách v Montreale a Quebec City, hoci tvrdí, že Assassin's Creed Black Flag Resynced prekonal očakávania.",
+    "headline": "Ubisoft prepúšťa 166 ľudí v štúdiách v Montreale a Quebec City",
+    "links": [
+      "https://gamesite.zoznam.sk/ubisoft-prepusta-166-ludi-v-kanade-a-gta-6-uz-udajne-prekonalo-20-milionov-predanych-kopii-quest-log-107/",
+      "https://zing.cz/article/ubisoft-celi-dalsimu-propousteni-dopadlo-na-dva-predni-tymy",
+      "https://www.nintendolife.com/news/2026/11/ubisoft-is-laying-off-staff-from-two-of-its-biggest-studios",
+      "https://www.pcgamer.com/gaming-industry/ubisoft-says-assassins-creed-black-flag-resynced-outperformed-expectations-lays-off-166-more-people-anyway/",
+      "https://www.eurogamer.net/ubisoft-layoffs-166-assassins-creed-far-cry-montreal-quebec"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Gamesite.sk",
+      "Nintendo Life",
+      "PC Gamer",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18131121772647017",
+    "permalink": "https://www.instagram.com/p/Df9dCHGGz0I/",
+    "cost_usd": 0.3785,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "166 prepustených, hoci Black Flag uspel",
+    "facts": [
+      "Ide o necelé 4 % zamestnancov Ubisoftu v Kanade",
+      "Prepúšťanie je súčasťou reštartu firmy z januára",
+      "Ubisoft hovorí o úprave tímov podľa aktuálnych potrieb"
+    ],
+    "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/07/Gamesitesk-AssassinsCreedBlackFlagResynced-scaled.jpg",
+    "photo_credit": "Gamesite.sk"
   }
 ]
