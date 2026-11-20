@@ -3290,5 +3290,43 @@
     ],
     "photo_url": "https://gamesite.zoznam.sk/wp-content/uploads/2026/07/Gamesitesk-AssassinsCreedBlackFlagResynced-scaled.jpg",
     "photo_credit": "Gamesite.sk"
+  },
+  {
+    "date": "2026-11-20",
+    "slot": "vecer",
+    "at": "2026-11-20T17:35:03.687541+00:00",
+    "story": "Ubisoft založil Motherbrain, nové štúdio zamerané na generatívnu AI pre hernú inováciu (napr. chytré NPC s pamäťou), a to uprostred vlny prepúšťania.",
+    "headline": "Ubisoft založil Motherbrain, štúdio pre generatívnu AI v hrách",
+    "links": [
+      "https://www.rockpapershotgun.com/amid-a-year-of-layoffs-ubisoft-yank-the-cover-off-motherbrain-their-new-studio-focused-on-ai-for-gameplay-innovation",
+      "https://www.gamesindustry.biz/ubisoft-launches-motherbrain-a-new-subsidiary-focused-on-ai-driven-gameplay-innovation",
+      "https://games.tiscali.cz/novinky/ubisoft-zalozil-vlastni-studio-pro-generativni-ai-motherbrain-chysta-chytra-npc-s-pameti-810716",
+      "https://indian-tv.cz/clanek/ubisoft-zalozil-studio-motherbrain-zamerene-na-ai-v59byr",
+      "https://www.ign.com/articles/ubisoft-creates-generative-ai-game-studio-called-motherbrain"
+    ],
+    "sources": [
+      "Games.cz",
+      "GamesIndustry.biz",
+      "IGN",
+      "Indian-TV",
+      "Rock Paper Shotgun"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18076686866761802",
+    "permalink": "https://www.instagram.com/p/Df-NB7gmyTZ/",
+    "cost_usd": 0.3259,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "166 prepustených a nové AI štúdio",
+    "facts": [
+      "Ubisoft založil štúdio Motherbrain pre generatívnu AI",
+      "Pracuje na chytrých NPC s pamäťou a AI game masteroch",
+      "Oznámenie prišlo spolu s prepustením 166 ľudí"
+    ],
+    "photo_url": "https://assets-prd.ignimgs.com/2026/11/19/ubisoft-ai-studio-1795123909618.jpg?width=1280&format=jpg&auto=webp&quality=80",
+    "photo_credit": "IGN"
   }
 ]
