@@ -3328,5 +3328,39 @@
     ],
     "photo_url": "https://assets-prd.ignimgs.com/2026/11/19/ubisoft-ai-studio-1795123909618.jpg?width=1280&format=jpg&auto=webp&quality=80",
     "photo_credit": "IGN"
+  },
+  {
+    "date": "2026-11-21",
+    "slot": "rano",
+    "at": "2026-11-21T10:34:02.568207+00:00",
+    "story": "Hráči zasypali GTA 6 negatívnymi hodnoteniami (review bombing) na Metacritic, kým kritici hru chvália.",
+    "headline": "GTA 6 na Metacritic: kritici 99 zo 100, používatelia približne 5,1 z 10",
+    "links": [
+      "https://gamepress.cz/gta-6-celi-review-bombingu-hraci-to-vidi-jinak-nez-recenzenti/",
+      "https://www.pushsquare.com/news/2026/11/overrated-game-gta-6-ps5-review-bombing-has-started-after-record-breaking-release",
+      "https://kotaku.com/grand-theft-auto-6-gta6-review-bomb-woke-misinformation-campaign-2000759045"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Kotaku",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "OZNÁMENIE",
+    "rumor": false,
+    "media_id": "18012660794777766",
+    "permalink": "https://www.instagram.com/p/DgABpxpoAQM/",
+    "cost_usd": 0.1835,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Metacritic: kritici chvália, hráči nie",
+    "facts": [
+      "Kritici a používatelia sa na Metacritic výrazne rozchádzajú",
+      "Časť používateľských hodnotení sú nuly bez argumentov",
+      "Na PS Store hodnotia len kupujúci, priemer je 4,84"
+    ],
+    "photo_url": "https://gamepress.cz/wp-content/uploads/2026/11/GTA-6-13.webp",
+    "photo_credit": "Gamepress.cz"
   }
 ]
