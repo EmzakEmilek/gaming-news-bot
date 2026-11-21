@@ -3362,5 +3362,32 @@
     ],
     "photo_url": "https://gamepress.cz/wp-content/uploads/2026/11/GTA-6-13.webp",
     "photo_credit": "Gamepress.cz"
+  },
+  {
+    "date": "2026-11-21",
+    "slot": "vecer",
+    "at": "2026-11-21T17:33:34.738561+00:00",
+    "story": "Pred 20 rokmi vyšla hra Wii Sports",
+    "headline": "Pred 20 rokmi vyšla hra Wii Sports",
+    "links": [
+      "https://en.wikipedia.org/wiki/Wii_Sports"
+    ],
+    "sources": [
+      "Wikipédia",
+      "Wikidata"
+    ],
+    "format": "carousel",
+    "category": "RETRO",
+    "rumor": false,
+    "media_id": "18008796665793895",
+    "permalink": "https://www.instagram.com/p/DgAxqf5m-P-/",
+    "cost_usd": 0.0538,
+    "story_id": null,
+    "concept": "retro",
+    "key": "retro:Q71936",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": null
   }
 ]
