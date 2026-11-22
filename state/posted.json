@@ -3389,5 +3389,37 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": null
+  },
+  {
+    "date": "2026-11-22",
+    "slot": "rano",
+    "at": "2026-11-22T10:33:52.910173+00:00",
+    "story": "GTA 6 spôsobilo na niektorých PS5 pády hry s chybou CE-108255-1; hráči hlásia problémy a existujú možné riešenia.",
+    "headline": "GTA 6 padá na niektorých PS5 s chybou CE-108255-1, Rockstar sa zatiaľ nevyjadril",
+    "links": [
+      "https://www.ign.com/articles/gta-6-players-report-crashes-on-ps5-with-error-ce-108255-1",
+      "https://www.eurogamer.net/gta-6-ps5-crashing-ce-108255-1-error-fix"
+    ],
+    "sources": [
+      "Eurogamer",
+      "IGN"
+    ],
+    "format": "carousel",
+    "category": "UPDATE",
+    "rumor": false,
+    "media_id": "17970289670983747",
+    "permalink": "https://www.instagram.com/p/DgCmbNtm_tr/",
+    "cost_usd": 0.1249,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "GTA 6 padá na niektorých PS5",
+    "facts": [
+      "Niektoré PS5 hlásia pády GTA 6 s chybou CE-108255-1",
+      "Rockstar zatiaľ nepotvrdil pády ani patch",
+      "Pomôcť môže update, obnova licencií či reinštalácia"
+    ],
+    "photo_url": "https://assets-prd.ignimgs.com/2026/08/27/exclusivelookbr-gtfm-1787873244868.png?width=1280&format=jpg&auto=webp&quality=80",
+    "photo_credit": "IGN"
   }
 ]
