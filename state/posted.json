@@ -3421,5 +3421,41 @@
     ],
     "photo_url": "https://assets-prd.ignimgs.com/2026/08/27/exclusivelookbr-gtfm-1787873244868.png?width=1280&format=jpg&auto=webp&quality=80",
     "photo_credit": "IGN"
+  },
+  {
+    "date": "2026-11-22",
+    "slot": "vecer",
+    "at": "2026-11-22T17:35:00.509442+00:00",
+    "story": "Hráči zasypali Binding of Isaac negatívnymi hodnoteniami kvôli AI hudbe v móde parodujúcom GTA 6; vývojár hudbu po odhalení z Repentance+ odstránil.",
+    "headline": "Nicalis odstránil hudbu z AI z hry The Binding of Isaac: Repentance+ po kritike hráčov",
+    "links": [
+      "https://www.eurogamer.net/binding-of-isaac-repentance-plus-ai-music-removed",
+      "https://kotaku.com/binding-of-isaac-update-review-bombed-over-ai-generated-music-in-gta-6-mode-woke-up-to-a-sht-show-obviously-i-had-no-idea-2000759213",
+      "https://www.ign.com/articles/the-binding-of-isaac-dev-removes-undisclosed-ai-generated-music-from-repentance-following-creator-response-review-bombing",
+      "https://www.polygon.com/gta-6-parody-binding-of-isaac-ai-use/"
+    ],
+    "sources": [
+      "Eurogamer",
+      "IGN",
+      "Kotaku",
+      "Polygon"
+    ],
+    "format": "carousel",
+    "category": "UPDATE",
+    "rumor": false,
+    "media_id": "17967268647209373",
+    "permalink": "https://www.instagram.com/p/DgDWnzWCbhp/",
+    "cost_usd": 0.2987,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Nicalis odstránil AI hudbu z Isaaca",
+    "facts": [
+      "Denný run inšpirovaný GTA 6 mal hudbu z AI nástroja Suno",
+      "Hráči reagovali negatívnymi hodnoteniami na Steame",
+      "Nicalis hudbu odstránil, no nevysvetlil, ako sa tam dostala"
+    ],
+    "photo_url": "https://static0.polygonimages.com/wordpress/wp-content/uploads/2026/11/binding-of-isaac-repentance-cropped-1.jpg?w=1600&h=900&fit=crop",
+    "photo_credit": "Polygon"
   }
 ]
