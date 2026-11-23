@@ -3457,5 +3457,37 @@
     ],
     "photo_url": "https://static0.polygonimages.com/wordpress/wp-content/uploads/2026/11/binding-of-isaac-repentance-cropped-1.jpg?w=1600&h=900&fit=crop",
     "photo_credit": "Polygon"
+  },
+  {
+    "date": "2026-11-23",
+    "slot": "rano",
+    "at": "2026-11-23T10:36:31.508210+00:00",
+    "story": "Fanúšikovia vďaka modderom pridali multiplayer do The Last of Us Part II, bezplatný mód inšpirovaný legendárnym režimom Factions.",
+    "headline": "The Last of Us Part II Remastered na PC dostal fanúšikovský multiplayer Twelve Weeks",
+    "links": [
+      "https://hrej.cz/article/modifikace-odemyka-multiplayer-v-the-last-of-us-part-2",
+      "https://gamepress.cz/the-last-of-us-part-ii-dostava-multiplayer-diky-modderum-fanousci-vydali-bezplatny-rezim-inspirovany-legendarnim-factions/"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Hrej.cz"
+    ],
+    "format": "carousel",
+    "category": "ZDARMA",
+    "rumor": false,
+    "media_id": "18102303911653038",
+    "permalink": "https://www.instagram.com/p/DgFLhpXmwAA/",
+    "cost_usd": 0.1807,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Last of Us II dostalo multiplayer",
+    "facts": [
+      "Fanúšikovský multiplayer zadarmo",
+      "Zápasy 4 na 4, dva režimy, 12 máp",
+      "Vyžaduje The Last of Us Part II Remastered na Steame"
+    ],
+    "photo_url": "https://gamepress.cz/wp-content/uploads/2026/11/The-Last-of-Us-Part-II-Remastered-Multiplayer.webp",
+    "photo_credit": "Gamepress.cz"
   }
 ]
