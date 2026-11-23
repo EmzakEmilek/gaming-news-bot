@@ -3489,5 +3489,43 @@
     ],
     "photo_url": "https://gamepress.cz/wp-content/uploads/2026/11/The-Last-of-Us-Part-II-Remastered-Multiplayer.webp",
     "photo_credit": "Gamepress.cz"
+  },
+  {
+    "date": "2026-11-23",
+    "slot": "vecer",
+    "at": "2026-11-23T17:35:49.030413+00:00",
+    "story": "GTA 6 dostalo prvý patch (01.002.002): opravuje 7 chýb vrátane automatického ukladania, pádov a progresie na PS5 aj Xbox Series X/S.",
+    "headline": "Rockstar vydal 23. novembra patch 01.002.002 pre PS5 a Xbox Series X/S",
+    "links": [
+      "https://kotaku.com/gta-6s-first-post-launch-update-fixes-7-bugs-2000759480",
+      "https://www.polygon.com/gta-6-first-patch-ps5-xbox-autosave-update-new-changes/",
+      "https://doupe.zive.cz/gta-6-patch-notes-padani-hry-automaticke-ukladani",
+      "https://www.eurogamer.net/gta-6-xbox-playstation-patch-autosave-vignette",
+      "https://www.pushsquare.com/news/2026/11/first-gta-6-ps5-patch-live-now-get-all-the-details-here"
+    ],
+    "sources": [
+      "Doupě.cz",
+      "Eurogamer",
+      "Kotaku",
+      "Polygon",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "UPDATE",
+    "rumor": false,
+    "media_id": "17919641718552951",
+    "permalink": "https://www.instagram.com/p/DgF7gv8FfrM/",
+    "cost_usd": 0.365,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Chyba autosavu stála streamera v GTA 6 12 hodín",
+    "facts": [
+      "Patch 01.002.002 opravuje v GTA 6 sedem chýb",
+      "Pády, autosave, počasie, volania, Wanted Level, činka, tašky",
+      "Vyšiel 23. novembra na PS5 aj Xbox Series X/S"
+    ],
+    "photo_url": "https://images.pushsquare.com/14a4f224ce77e/1280x720.jpg",
+    "photo_credit": "Push Square"
   }
 ]
