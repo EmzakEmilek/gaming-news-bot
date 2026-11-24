@@ -3527,5 +3527,43 @@
     ],
     "photo_url": "https://images.pushsquare.com/14a4f224ce77e/1280x720.jpg",
     "photo_credit": "Push Square"
+  },
+  {
+    "date": "2026-11-24",
+    "slot": "rano",
+    "at": "2026-11-24T10:35:14.123575+00:00",
+    "story": "Modder CyberLeek zverejnil spustiteľný súbor k uniknutému Xbox buildu GTA 6, takže sa hra už rozbieha na PC a hrozí neoficiálny port.",
+    "headline": "Leaker CyberLeek tvrdí, že zverejnil súbor k uniknutému Xbox buildu GTA 6",
+    "links": [
+      "https://www.eurogamer.net/gta-6-cyberleek-leaked-xbox-build-ported-pc",
+      "https://indian-tv.cz/clanek/gta-6-se-podarilo-spustit-na-pc-moderi-f60ai9",
+      "https://hrej.cz/article/gta-6-unik-exe-xbox-pc",
+      "https://www.gamesindustry.biz/gta-6-leaker-reportedly-releases-file-needed-to-run-leaked-xbox-build",
+      "https://www.pcgamer.com/games/grand-theft-auto/cyberleek-releases-executable-for-gta-6-xbox-build-leaked-last-week-the-torch-passes-to-the-open-source-recomp-and-emulation-projects/"
+    ],
+    "sources": [
+      "Eurogamer",
+      "GamesIndustry.biz",
+      "Hrej.cz",
+      "Indian-TV",
+      "PC Gamer"
+    ],
+    "format": "carousel",
+    "category": "RUMOR",
+    "rumor": true,
+    "media_id": "18081688076567454",
+    "permalink": "https://www.instagram.com/p/DgHwMUBG-MA/",
+    "cost_usd": 0.32,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "GTA 6: súbor vraj vonku",
+    "facts": [
+      "CyberLeek tvrdí, že zverejnil súbor .exe k Xbox buildu GTA 6",
+      "Moderi hru na PC spustili len po úvodné nastavenia",
+      "Rockstar PC verziu GTA 6 zatiaľ neoznámil"
+    ],
+    "photo_url": "https://cdn.mos.cms.futurecdn.net/dwxifSrgRWzUwvmTbTdSRV-2530-80.jpg",
+    "photo_credit": "PC Gamer"
   }
 ]
