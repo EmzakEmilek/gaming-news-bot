@@ -3625,5 +3625,31 @@
     ],
     "photo_url": "https://gamepress.cz/wp-content/uploads/2024/12/Zaklinac-4.jpg",
     "photo_credit": "Gamepress.cz"
+  },
+  {
+    "date": "2026-11-25",
+    "slot": "vecer",
+    "at": "2026-11-25T17:33:27.017043+00:00",
+    "story": "Zľava týždňa: Red Dead Redemption 2 je na Steame za 14,99 € so zľavou 75 %",
+    "headline": "Red Dead Redemption 2 je na Steame za 14,99 € so zľavou 75 %",
+    "links": [
+      "https://store.steampowered.com/app/1174180/"
+    ],
+    "sources": [
+      "Steam"
+    ],
+    "format": "carousel",
+    "category": "ZĽAVA TÝŽDŇA",
+    "rumor": false,
+    "media_id": "18001720581046337",
+    "permalink": "https://www.instagram.com/p/DgLE2VBGlhm/",
+    "cost_usd": 0.0481,
+    "story_id": null,
+    "concept": "deal",
+    "key": "deal:1174180",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
