@@ -3587,5 +3587,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-25",
+    "slot": "rano",
+    "at": "2026-11-25T10:35:00.509389+00:00",
+    "story": "Sony a CD Projekt Red uzavreli marketingové partnerstvo: PlayStation podporí Zaklínača 4 podobne ako GTA 6.",
+    "headline": "CD Projekt Red uzavrel s PlayStationom marketingové partnerstvo",
+    "links": [
+      "https://gamepress.cz/sony-a-cd-projekt-red-spojuji-sily-zaklinac-4-ziskava-oficialni-marketingovou-podporu-playstationu/",
+      "https://zing.cz/article/cd-projekt-uzavrel-partnerstvi-s-playstationem-tykat-se-bude-i-zaklinace-4",
+      "https://www.pushsquare.com/news/2026/11/sony-will-support-the-witcher-4s-marketing-much-like-gta-6",
+      "https://www.ign.com/articles/playstation-secures-marketing-agreement-for-the-witcher-4",
+      "https://indian-tv.cz/clanek/po-gta-6-vsadila-sony-na-zaklinace-4-3d2xz8"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "IGN",
+      "Indian-TV",
+      "Push Square",
+      "Zing.cz"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18097649102682457",
+    "permalink": "https://www.instagram.com/p/DgKU8ddm6uz/",
+    "cost_usd": 0.2384,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Zaklínač 4 má marketingovú podporu od Sony",
+    "facts": [
+      "CDPR a Sony podpísali marketingové partnerstvo",
+      "Týka sa Zaklínača 4 aj hier v PlayStation Plus",
+      "Podrobnosti zatiaľ nie sú známe, hra vyjde v roku 2028"
+    ],
+    "photo_url": "https://gamepress.cz/wp-content/uploads/2024/12/Zaklinac-4.jpg",
+    "photo_credit": "Gamepress.cz"
   }
 ]
