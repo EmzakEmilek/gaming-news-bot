@@ -3689,5 +3689,32 @@
     ],
     "photo_url": "https://www.videogameschronicle.com/files/2026/11/Tony-Hawks-Pro-Skater-34.jpg",
     "photo_credit": "VGC"
+  },
+  {
+    "date": "2026-11-26",
+    "slot": "vecer",
+    "at": "2026-11-26T17:33:38.199586+00:00",
+    "story": "Kvíz: Half-Life 2",
+    "headline": "Kvíz: uhádneš hru? (odpoveď: Half-Life 2)",
+    "links": [
+      "https://www.wikidata.org/wiki/Q193581"
+    ],
+    "sources": [
+      "Steam",
+      "Wikidata"
+    ],
+    "format": "carousel",
+    "category": "KVÍZ",
+    "rumor": false,
+    "media_id": "18130061614916111",
+    "permalink": "https://www.instagram.com/p/DgNpk7_iXHE/",
+    "cost_usd": 0.0,
+    "story_id": null,
+    "concept": "quiz",
+    "key": "quiz:Q193581",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": "Steam"
   }
 ]
