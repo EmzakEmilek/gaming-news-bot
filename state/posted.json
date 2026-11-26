@@ -3651,5 +3651,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-26",
+    "slot": "rano",
+    "at": "2026-11-26T10:36:23.517030+00:00",
+    "story": "PlayStation Plus v decembri 2026 ponúkne Tony Hawk's Pro Skater 3+4, Dragon Ball Xenoverse 2 a Amnesia: The Bunker; Sony mesačnú ponuku oficiálne potvrdilo.",
+    "headline": "PlayStation Plus v decembri: Tony Hawk's Pro Skater 3+4 a ďalšie dve hry",
+    "links": [
+      "https://www.videogameschronicle.com/news/playstation-plus-games-for-december-include-tony-hawks-pro-skater-34/",
+      "https://www.ign.com/articles/sony-confirms-playstation-plus-monthly-games-for-december-2026",
+      "https://www.eurogamer.net/playstation-plus-monthly-games-december-2026",
+      "https://www.pushsquare.com/news/2026/11/ps-plus-essential-games-for-december-2026-announced",
+      "https://www.gematsu.com/2026/11/playstation-plus-monthly-games-lineup-for-december-2026-announced"
+    ],
+    "sources": [
+      "Eurogamer",
+      "Gematsu",
+      "IGN",
+      "Push Square",
+      "VGC"
+    ],
+    "format": "carousel",
+    "category": "ZDARMA",
+    "rumor": false,
+    "media_id": "17922979971466053",
+    "permalink": "https://www.instagram.com/p/DgM55VUkbvE/",
+    "cost_usd": 0.1893,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "PS Plus: skate, anime aj horor",
+    "facts": [
+      "PS Plus: pridané hry zostanú, kým máš predplatné",
+      "Tony Hawk's Pro Skater 3+4 dostalo od IGN 8/10",
+      "Amnesia: The Bunker je v ponuke len na PS4"
+    ],
+    "photo_url": "https://www.videogameschronicle.com/files/2026/11/Tony-Hawks-Pro-Skater-34.jpg",
+    "photo_credit": "VGC"
   }
 ]
