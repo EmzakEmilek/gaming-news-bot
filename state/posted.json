@@ -3754,5 +3754,35 @@
     ],
     "photo_url": "https://cdn.mos.cms.futurecdn.net/8bWzD2svqkkDRbjEc2FpZc-1920-80.jpg",
     "photo_credit": "PC Gamer"
+  },
+  {
+    "date": "2026-11-27",
+    "slot": "vecer",
+    "at": "2026-11-27T17:33:55.741804+00:00",
+    "story": "Názor: Hráči zasypali GTA 6 negatívnymi hodnoteniami (review bombing) na Metacritic, kým kritici hru chvália.",
+    "headline": "Metacritic by mal pri veľkých vydaniach skryť používateľské skóre",
+    "links": [
+      "https://gamepress.cz/gta-6-celi-review-bombingu-hraci-to-vidi-jinak-nez-recenzenti/",
+      "https://www.pushsquare.com/news/2026/11/overrated-game-gta-6-ps5-review-bombing-has-started-after-record-breaking-release",
+      "https://kotaku.com/grand-theft-auto-6-gta6-review-bomb-woke-misinformation-campaign-2000759045"
+    ],
+    "sources": [
+      "Gamepress.cz",
+      "Kotaku",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "NÁZOR",
+    "rumor": false,
+    "media_id": "18139352767737952",
+    "permalink": "https://www.instagram.com/p/DgQOeXdCdeS/",
+    "cost_usd": 0.1454,
+    "story_id": null,
+    "concept": "take",
+    "key": "take:https://gamepress.cz/gta-6-celi-review-bombingu-hraci-to-vidi-jinak-nez-recenzenti/",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": null
   }
 ]
