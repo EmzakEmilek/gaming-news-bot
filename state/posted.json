@@ -3716,5 +3716,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": "Steam"
+  },
+  {
+    "date": "2026-11-27",
+    "slot": "rano",
+    "at": "2026-11-27T10:34:42.660926+00:00",
+    "story": "Rockstar zamestnanci v hlasovaní o odboroch drvivou väčšinou (75 %) odmietli uznanie odborov; organizátori hovoria, že budú bojovať ďalej.",
+    "headline": "Zamestnanci Rockstaru, štúdia za GTA 6, odmietli uznanie odborov",
+    "links": [
+      "https://www.rockpapershotgun.com/this-isnt-a-sign-to-retreat-rockstars-historic-union-vote-has-failed-with-75-voting-against-but-the-organisers-are-going-to-keep-fighting",
+      "https://www.pcgamer.com/gaming-industry/rockstar-workers-vote-overwhelmingly-against-union-recognition/",
+      "https://www.eurogamer.net/rockstar-games-employees-vote-against-union-recognition",
+      "https://www.ign.com/articles/rockstar-games-issues-statement-as-union-vote-fails",
+      "https://kotaku.com/rockstar-games-union-vote-fails-as-75-percent-of-devs-vote-no-2001000621"
+    ],
+    "sources": [
+      "Eurogamer",
+      "IGN",
+      "Kotaku",
+      "PC Gamer",
+      "Rock Paper Shotgun"
+    ],
+    "format": "carousel",
+    "category": "BIZNIS",
+    "rumor": false,
+    "media_id": "18616782526064729",
+    "permalink": "https://www.instagram.com/p/DgPegDjm7d0/",
+    "cost_usd": 0.2381,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "zamestnancov Rockstaru hlasovalo proti odborom",
+    "facts": [
+      "Za uznanie odborov hlasovalo 24,7 % zúčastnených, proti 75,3 %",
+      "Odbory IWGB existujú ďalej, no Rockstar ich nemusí uznať",
+      "Spor o prepustených členov odborového Discordu čaká na rozsudok"
+    ],
+    "photo_url": "https://cdn.mos.cms.futurecdn.net/8bWzD2svqkkDRbjEc2FpZc-1920-80.jpg",
+    "photo_credit": "PC Gamer"
   }
 ]
