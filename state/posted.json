@@ -3784,5 +3784,43 @@
     "facts": [],
     "photo_url": null,
     "photo_credit": null
+  },
+  {
+    "date": "2026-11-28",
+    "slot": "rano",
+    "at": "2026-11-28T10:33:25.066802+00:00",
+    "story": "Hollow Knight: Silksong dostane bezplatné rozšírenie Sea of Sorrow už 11. decembra; prináša rybárčenie a nové oblasti a Team Cherry ukázal aj launch trailer a ďalšie indie hry.",
+    "headline": "Hollow Knight: Silksong dostane bezplatné DLC Sea of Sorrow 11. decembra",
+    "links": [
+      "https://www.gamespot.com/videos/hollow-knight-silksong-sea-of-sorrow-official-launch-trailer/",
+      "https://www.purexbox.com/news/2026/11/hollow-knight-silksongs-sea-of-sorrow-dlc-is-coming-to-xbox-next-month-and-its-free",
+      "https://doupe.zive.cz/hollow-knight-silksong-dlc-sea-of-sorrow-datum-vydani",
+      "https://www.pcgamer.com/games/action/silksong-is-getting-a-free-expansion-its-first-content-update-since-launch-in-2-weeks/",
+      "https://www.pushsquare.com/news/2026/11/hollow-knight-silksongs-sea-of-sorrow-dlc-launches-next-month-and-its-free"
+    ],
+    "sources": [
+      "Doupě.cz",
+      "GameSpot",
+      "PC Gamer",
+      "Pure Xbox",
+      "Push Square"
+    ],
+    "format": "carousel",
+    "category": "DLC",
+    "rumor": false,
+    "media_id": "18098643434176309",
+    "permalink": "https://www.instagram.com/p/DgSDJFgIGZQ/",
+    "cost_usd": 0.0895,
+    "story_id": null,
+    "concept": "news",
+    "key": null,
+    "hook": "Silksong dostane veľké rozšírenie zadarmo",
+    "facts": [
+      "Sea of Sorrow vyjde 11. decembra 2026",
+      "Rozšírenie je zadarmo pre všetkých hráčov Silksongu",
+      "Prináša nové oblasti, bossov a hudbu od Christophera Larkina"
+    ],
+    "photo_url": "https://images.purexbox.com/ea8bb357807bc/1280x720.jpg",
+    "photo_credit": "Pure Xbox"
   }
 ]
