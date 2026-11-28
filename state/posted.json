@@ -3822,5 +3822,32 @@
     ],
     "photo_url": "https://images.purexbox.com/ea8bb357807bc/1280x720.jpg",
     "photo_credit": "Pure Xbox"
+  },
+  {
+    "date": "2026-11-28",
+    "slot": "vecer",
+    "at": "2026-11-28T17:33:56.594991+00:00",
+    "story": "Pred 30 rokmi vyšla hra Tekken 3",
+    "headline": "Pred 30 rokmi vyšla hra Tekken 3",
+    "links": [
+      "https://en.wikipedia.org/wiki/Tekken_3"
+    ],
+    "sources": [
+      "Wikipédia",
+      "Wikidata"
+    ],
+    "format": "carousel",
+    "category": "RETRO",
+    "rumor": false,
+    "media_id": "18155308831520128",
+    "permalink": "https://www.instagram.com/p/DgSzRRqFktM/",
+    "cost_usd": 0.0612,
+    "story_id": null,
+    "concept": "retro",
+    "key": "retro:Q1062106",
+    "hook": null,
+    "facts": [],
+    "photo_url": null,
+    "photo_credit": null
   }
 ]
